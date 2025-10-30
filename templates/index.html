@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block hero %}
+  <div class="grid lg:grid-cols-2 gap-6 items-center">
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Biến video thành chuỗi ảnh và mô tả tự động</h1>
+      <p class="mt-2 text-slate-600 dark:text-slate-300">Tách 1 ảnh mỗi giây và mô tả nội dung chính. Sử dụng mô hình local (Hugging Face).</p>
+      <div class="mt-4 flex flex-col sm:flex-row gap-3">
+        <a href="#upload" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">Bắt đầu</a>
+        <a href="https://huggingface.co/models" target="_blank" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-200 dark:bg-slate-700 px-5 py-3 text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600">Model gợi ý</a>
+      </div>
+    </div>
+    <div class="hidden lg:block">
+      <div class="card p-6">
+        <div class="text-sm text-slate-500">Mẹo</div>
+        <ul class="mt-2 space-y-2 text-sm text-slate-700 dark:text-slate-200">
+          <li>• Video ngắn xử lý nhanh và ít tốn tài nguyên hơn.</li>
+          <li>• BLIP base chạy được CPU. GPU sẽ nhanh hơn đáng kể nếu có.</li>
+          <li>• OpenAI cho chất lượng cao hơn nhưng cần API key.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <section id="upload" class="grid lg:grid-cols-2 gap-8">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold mb-1">Tải video và thiết lập</h2>
+      <p class="text-sm text-slate-500 mb-4">Kéo thả hoặc chọn tệp. Sau đó điều chỉnh tham số nếu cần.</p>
+
+      <form method="post" enctype="multipart/form-data" action="{{ url_for('upload') }}" class="space-y-5" id="uploadForm">
+        <div id="dropzone" class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-6 text-center hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition">
+          <input type="file" id="video" name="video" accept="video/*" required class="hidden" />
+          <p class="text-sm text-slate-500">Kéo thả video vào đây, hoặc</p>
+          <button type="button" class="btn-secondary mt-2" id="browseBtn">Chọn tệp</button>
+          <div id="fileInfo" class="mt-3 text-xs text-slate-500"></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="language" class="label">Ngôn ngữ mô tả</label>
+            <select id="language" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+              <option value="vi" selected>Tiếng Việt (vi)</option>
+              <option value="en">English (en)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="hf_model" class="label">HF model</label>
+          <input type="text" id="hf_model" name="hf_model" value="Salesforce/blip-image-captioning-base" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+          <p class="text-xs text-slate-500 mt-1">BLIP base chạy CPU; có thể thay bằng BLIP2 để chất lượng cao hơn.</p>
+        </div>
+
+        <label class="inline-flex items-center gap-2">
+          <input type="checkbox" name="translate" checked class="checkbox" />
+          <span class="text-sm">Dịch sang ngôn ngữ đích (khi dùng Local)</span>
+        </label>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M3 3a1 1 0 000 2h1v10a2 2 0 002 2h8a2 2 0 002-2V5h1a1 1 0 100-2H3zm5 4a1 1 0 012 0v6a1 1 0 11-2 0V7z" /></svg>
+            Tải lên và xử lý
+          </button>
+          <button type="reset" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-200 dark:bg-slate-700 px-6 py-3 text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600" id="resetBtn">Xóa lựa chọn</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card p-6">
+      <h3 class="text-lg font-semibold mb-2">Gợi ý</h3>
+      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+        <li>• Video ngắn (vài chục giây) sẽ xử lý nhanh.</li>
+        <li>• GPU NVIDIA với PyTorch CUDA giúp mô tả nhanh hơn.</li>
+        <li>• Ảnh và dữ liệu lưu tại <code>web_outputs/&lt;job_id&gt;/</code>.</li>
+      </ul>
+      <div class="mt-4 p-4 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-200 text-sm">
+        Mẹo: Giữ BLIP base nếu máy yếu; nâng cấp model khi cần chất lượng cao hơn.
+      </div>
+    </div>
+  </section>
+
+  {% if uploads and uploads|length > 0 %}
+  <section class="mt-8 grid lg:grid-cols-2 gap-8">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold mb-1">Chọn lại video đã tải</h2>
+      <p class="text-sm text-slate-500 mb-4">Xử lý một video đã có trong công cụ mà không cần tải lại.</p>
+      <form method="post" action="{{ url_for('use_uploaded') }}" class="space-y-5">
+        <div>
+          <label for="existing" class="label">Video đã tải</label>
+          <select id="existing" name="existing" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+            {% for v in uploads %}
+              <option value="{{ v.name }}">{{ v.name }} ({{ (v.size/1024/1024)|round(2) }} MB)</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="language2" class="label">Ngôn ngữ mô tả</label>
+            <select id="language2" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+              <option value="vi" selected>Tiếng Việt (vi)</option>
+              <option value="en">English (en)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="hf_model2" class="label">HF model</label>
+          <input type="text" id="hf_model2" name="hf_model" value="Salesforce/blip-image-captioning-base" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+        </div>
+
+        <label class="inline-flex items-center gap-2">
+          <input type="checkbox" name="translate" checked class="checkbox" />
+          <span class="text-sm">Dịch sang ngôn ngữ đích (khi dùng Local)</span>
+        </label>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+            Xử lý video đã có
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+  {% endif %}
+
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const input = document.getElementById('video');
+    const browseBtn = document.getElementById('browseBtn');
+    const fileInfo = document.getElementById('fileInfo');
+    const resetBtn = document.getElementById('resetBtn');
+
+    const setFileInfo = (file) => {
+      fileInfo.textContent = file ? `${file.name} • ${(file.size/1024/1024).toFixed(2)} MB` : '';
+    };
+
+    browseBtn.addEventListener('click', () => input.click());
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('bg-slate-50'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('bg-slate-50'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('bg-slate-50');
+      const files = e.dataTransfer.files;
+      if (files && files.length > 0) {
+        input.files = files;
+        setFileInfo(files[0]);
+      }
+    });
+    input.addEventListener('change', () => setFileInfo(input.files[0]));
+    resetBtn.addEventListener('click', () => { input.value = ''; setFileInfo(null); });
+  </script>
+{% endblock %}

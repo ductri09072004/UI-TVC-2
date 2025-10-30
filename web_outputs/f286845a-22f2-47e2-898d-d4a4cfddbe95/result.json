@@ -1,0 +1,226 @@
+{
+  "job_id": "f286845a-22f2-47e2-898d-d4a4cfddbe95",
+  "out_dir": "E:\\Study\\KD-TVC\\web_outputs\\f286845a-22f2-47e2-898d-d4a4cfddbe95",
+  "frames": [
+    {
+      "second": 0,
+      "image_rel": "frames/frame_0000.png",
+      "caption": "một chiếc ô tô màu trắng chạy dọc con đường cạnh biển",
+      "moderation": {
+        "labels": [
+          "weapons",
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.6939917206764221,
+        "evidence": [
+          "weapons:0.69",
+          "violence:0.68",
+          "self-harm:0.63"
+        ],
+        "categories": [
+          "restricted-weapons",
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-weapons",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 1,
+      "image_rel": "frames/frame_0001.png",
+      "caption": "một người đàn ông lái một chiếc ô tô có tay lái",
+      "moderation": {
+        "labels": [
+          "violence",
+          "weapons",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.7995988130569458,
+        "evidence": [
+          "violence:0.80",
+          "weapons:0.79",
+          "self-harm:0.56"
+        ],
+        "categories": [
+          "restricted-violence",
+          "restricted-weapons",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 2,
+      "image_rel": "frames/frame_0002.png",
+      "caption": "một người đàn ông lái xe trên đường",
+      "moderation": {
+        "labels": [
+          "violence",
+          "alcohol",
+          "nudity",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.8311430811882019,
+        "evidence": [
+          "violence:0.83",
+          "alcohol:0.64",
+          "nudity:0.58"
+        ],
+        "categories": [
+          "restricted-violence",
+          "restricted-alcohol",
+          "sensitive-nudity",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 3,
+      "image_rel": "frames/frame_0003.png",
+      "caption": "một chiếc ô tô màu trắng chạy trên con đường gần biển",
+      "moderation": {
+        "labels": [
+          "weapons",
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.8029420971870422,
+        "evidence": [
+          "weapons:0.80",
+          "violence:0.77",
+          "self-harm:0.65"
+        ],
+        "categories": [
+          "restricted-weapons",
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-weapons",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 4,
+      "image_rel": "frames/frame_0004.png",
+      "caption": "chiếc SUV Tesla chạy dọc bãi biển",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.7552762031555176,
+        "evidence": [
+          "violence:0.76",
+          "self-harm:0.68",
+          "minors:0.30"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 5,
+      "image_rel": "frames/frame_0005.png",
+      "caption": "báo đốm i - tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ tốc độ",
+      "moderation": {
+        "labels": [
+          "weapons"
+        ],
+        "severity": "warn",
+        "confidence": 0.952530026435852,
+        "evidence": [
+          "weapons:0.95",
+          "self-harm:0.37",
+          "drugs:0.21"
+        ],
+        "categories": [
+          "restricted-weapons"
+        ],
+        "primary_category": "restricted-weapons",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 6,
+      "image_rel": "frames/frame_0006.png",
+      "caption": "báo đốm i - người lái xe dọc đại dương",
+      "moderation": {
+        "labels": [
+          "violence",
+          "drugs",
+          "weapons",
+          "alcohol",
+          "self-harm",
+          "nudity",
+          "hate"
+        ],
+        "severity": "block",
+        "confidence": 0.989541232585907,
+        "evidence": [
+          "violence:0.99",
+          "drugs:0.97",
+          "weapons:0.95"
+        ],
+        "categories": [
+          "restricted-violence",
+          "restricted-drugs",
+          "restricted-weapons",
+          "restricted-alcohol",
+          "unsafe-self-harm",
+          "sensitive-nudity",
+          "unsafe-hate"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "block"
+      }
+    },
+    {
+      "second": 7,
+      "image_rel": "frames/frame_0007.png",
+      "caption": "báo đốm i - người lái xe dọc đại dương",
+      "moderation": {
+        "labels": [
+          "violence",
+          "drugs",
+          "weapons",
+          "alcohol",
+          "self-harm",
+          "nudity",
+          "hate"
+        ],
+        "severity": "block",
+        "confidence": 0.989541232585907,
+        "evidence": [
+          "violence:0.99",
+          "drugs:0.97",
+          "weapons:0.95"
+        ],
+        "categories": [
+          "restricted-violence",
+          "restricted-drugs",
+          "restricted-weapons",
+          "restricted-alcohol",
+          "unsafe-self-harm",
+          "sensitive-nudity",
+          "unsafe-hate"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "block"
+      }
+    }
+  ]
+}

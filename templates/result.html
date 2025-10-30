@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if error %}
+    <div class="card p-6 border-red-200 dark:border-red-800">
+      <h4 class="text-xl font-semibold text-red-600 mb-2">Lỗi xử lý</h4>
+      <p class="text-slate-700 dark:text-slate-200">{{ error }}</p>
+      <div class="mt-4">
+        <a href="{{ url_for('index') }}" class="btn-secondary">← Về trang tải lên</a>
+      </div>
+    </div>
+  {% else %}
+    <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <div class="text-sm text-slate-500">Mã phiên</div>
+        <div class="text-xl font-semibold tracking-tight">{{ job_id }}</div>
+        <div class="text-xs text-slate-500 mt-1">Tổng ảnh: {{ frames|length }}</div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="{{ url_for('index') }}" class="btn-secondary">← Tải video khác</a>
+        <a href="/web_outputs/{{ job_id }}/result.json" class="btn-primary" download>Tải JSON</a>
+      </div>
+    </div>
+
+    {# Detect if captions are missing (first frame no caption) #}
+    {% set has_caption = frames and frames[0].get('caption') %}
+    {% if not has_caption %}
+      <div class="card p-6 mb-6">
+        <h4 class="text-lg font-semibold mb-2">Tạo mô tả cho các ảnh</h4>
+        <p class="text-sm text-slate-500 mb-4">Hiện tại mới trích xuất ảnh. Bạn có thể tạo mô tả (caption) ngay bây giờ.</p>
+        <form method="post" action="{{ url_for('caption_job', job_id=job_id) }}" class="grid sm:grid-cols-2 gap-4 items-end">
+          <div>
+            <label class="label" for="language">Ngôn ngữ</label>
+            <select id="language" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+              <option value="vi" selected>Tiếng Việt (vi)</option>
+              <option value="en">English (en)</option>
+            </select>
+          </div>
+          <div>
+            <label class="label" for="hf_model">HF model</label>
+            <input type="text" id="hf_model" name="hf_model" value="Salesforce/blip-image-captioning-base" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+          </div>
+          <label class="inline-flex items-center gap-2">
+            <input type="checkbox" name="translate" checked class="checkbox" />
+            <span class="text-sm">Dịch sang ngôn ngữ đích (khi dùng Local)</span>
+          </label>
+          <div class="flex gap-3">
+            <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500" type="submit">Tạo mô tả ngay</button>
+          </div>
+        </form>
+      </div>
+    {% endif %}
+
+    {% if frames|length == 0 %}
+      <div class="card p-6">
+        <p>Không có khung hình nào được trích xuất.</p>
+      </div>
+    {% else %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+        {% for f in frames %}
+          <div class="card overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="aspect-video bg-slate-100 dark:bg-slate-800">
+              <img class="w-full h-full object-cover" src="{{ url_for('serve_frame', job_id=job_id, filename=f.image_rel.split('/')[-1]) }}" alt="frame" loading="lazy">
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2 gap-2">
+                <span class="inline-flex items-center rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-200 px-2 py-1 text-xs font-medium">Giây {{ f.second }}</span>
+                {% if f.moderation %}
+                  {% set v = f.moderation.verdict %}
+                  {% if v == 'block' %}
+                    <span class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-1 text-xs font-semibold">BLOCK</span>
+                  {% elif v == 'restricted' %}
+                    <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-700 px-2 py-1 text-xs font-semibold">RESTRICTED</span>
+                  {% else %}
+                    <span class="inline-flex items-center rounded-full bg-emerald-100 text-emerald-700 px-2 py-1 text-xs font-semibold">ALLOW</span>
+                  {% endif %}
+                {% endif %}
+              </div>
+              <p class="text-sm text-slate-700 dark:text-slate-200">{{ f.caption }}</p>
+              {% if f.moderation and (f.moderation.categories or f.moderation.labels) %}
+                <div class="mt-2 flex flex-wrap gap-2">
+                  {% if f.moderation.categories %}
+                    {% for cat in f.moderation.categories %}
+                      <span class="inline-flex items-center rounded bg-slate-200 dark:bg-slate-700 px-2 py-0.5 text-[11px] uppercase tracking-wide">{{ cat }}</span>
+                    {% endfor %}
+                  {% else %}
+                    {% for label in f.moderation.labels %}
+                      <span class="inline-flex items-center rounded bg-slate-200 dark:bg-slate-700 px-2 py-0.5 text-[11px] uppercase tracking-wide">{{ label }}</span>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endif %}
+{% endblock %}

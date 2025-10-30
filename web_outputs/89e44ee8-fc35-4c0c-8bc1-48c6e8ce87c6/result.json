@@ -1,0 +1,198 @@
+{
+  "job_id": "89e44ee8-fc35-4c0c-8bc1-48c6e8ce87c6",
+  "out_dir": "E:\\Study\\KD-TVC\\web_outputs\\89e44ee8-fc35-4c0c-8bc1-48c6e8ce87c6",
+  "frames": [
+    {
+      "second": 0,
+      "image_rel": "frames/frame_0000.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.5489152669906616,
+        "evidence": [
+          "violence:0.55",
+          "self-harm:0.54",
+          "minors:0.35"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 1,
+      "image_rel": "frames/frame_0001.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.5489152669906616,
+        "evidence": [
+          "violence:0.55",
+          "self-harm:0.54",
+          "minors:0.35"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 2,
+      "image_rel": "frames/frame_0002.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.5489152669906616,
+        "evidence": [
+          "violence:0.55",
+          "self-harm:0.54",
+          "minors:0.35"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 3,
+      "image_rel": "frames/frame_0003.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.5489152669906616,
+        "evidence": [
+          "violence:0.55",
+          "self-harm:0.54",
+          "minors:0.35"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 4,
+      "image_rel": "frames/frame_0004.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.5489152669906616,
+        "evidence": [
+          "violence:0.55",
+          "self-harm:0.54",
+          "minors:0.35"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 5,
+      "image_rel": "frames/frame_0005.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.5489152669906616,
+        "evidence": [
+          "violence:0.55",
+          "self-harm:0.54",
+          "minors:0.35"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 6,
+      "image_rel": "frames/frame_0006.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.5489152669906616,
+        "evidence": [
+          "violence:0.55",
+          "self-harm:0.54",
+          "minors:0.35"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 7,
+      "image_rel": "frames/frame_0007.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.5489152669906616,
+        "evidence": [
+          "violence:0.55",
+          "self-harm:0.54",
+          "minors:0.35"
+        ],
+        "categories": [
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "job_id": "30d7488b-ef19-46fc-b004-20f0b8d860ba",
+  "out_dir": "E:\\Study\\KD-TVC\\web_outputs\\30d7488b-ef19-46fc-b004-20f0b8d860ba",
+  "frames": [
+    {
+      "second": 0,
+      "image_rel": "frames/frame_0000.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [],
+        "severity": "allow",
+        "confidence": 0.5595307350158691,
+        "evidence": [
+          "hate:0.56",
+          "drugs:0.50",
+          "alcohol:0.45"
+        ],
+        "categories": [],
+        "primary_category": "unsafe-hate",
+        "verdict": "allow"
+      }
+    },
+    {
+      "second": 1,
+      "image_rel": "frames/frame_0001.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [],
+        "severity": "allow",
+        "confidence": 0.5595307350158691,
+        "evidence": [
+          "hate:0.56",
+          "drugs:0.50",
+          "alcohol:0.45"
+        ],
+        "categories": [],
+        "primary_category": "unsafe-hate",
+        "verdict": "allow"
+      }
+    },
+    {
+      "second": 2,
+      "image_rel": "frames/frame_0002.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [],
+        "severity": "allow",
+        "confidence": 0.5595307350158691,
+        "evidence": [
+          "hate:0.56",
+          "drugs:0.50",
+          "alcohol:0.45"
+        ],
+        "categories": [],
+        "primary_category": "unsafe-hate",
+        "verdict": "allow"
+      }
+    },
+    {
+      "second": 3,
+      "image_rel": "frames/frame_0003.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [],
+        "severity": "allow",
+        "confidence": 0.5595307350158691,
+        "evidence": [
+          "hate:0.56",
+          "drugs:0.50",
+          "alcohol:0.45"
+        ],
+        "categories": [],
+        "primary_category": "unsafe-hate",
+        "verdict": "allow"
+      }
+    },
+    {
+      "second": 4,
+      "image_rel": "frames/frame_0004.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [],
+        "severity": "allow",
+        "confidence": 0.5595307350158691,
+        "evidence": [
+          "hate:0.56",
+          "drugs:0.50",
+          "alcohol:0.45"
+        ],
+        "categories": [],
+        "primary_category": "unsafe-hate",
+        "verdict": "allow"
+      }
+    },
+    {
+      "second": 5,
+      "image_rel": "frames/frame_0005.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [],
+        "severity": "allow",
+        "confidence": 0.5595307350158691,
+        "evidence": [
+          "hate:0.56",
+          "drugs:0.50",
+          "alcohol:0.45"
+        ],
+        "categories": [],
+        "primary_category": "unsafe-hate",
+        "verdict": "allow"
+      }
+    },
+    {
+      "second": 6,
+      "image_rel": "frames/frame_0006.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [],
+        "severity": "allow",
+        "confidence": 0.5595307350158691,
+        "evidence": [
+          "hate:0.56",
+          "drugs:0.50",
+          "alcohol:0.45"
+        ],
+        "categories": [],
+        "primary_category": "unsafe-hate",
+        "verdict": "allow"
+      }
+    },
+    {
+      "second": 7,
+      "image_rel": "frames/frame_0007.png",
+      "caption": "a woman in a white dress standing on a bridge",
+      "moderation": {
+        "labels": [],
+        "severity": "allow",
+        "confidence": 0.5595307350158691,
+        "evidence": [
+          "hate:0.56",
+          "drugs:0.50",
+          "alcohol:0.45"
+        ],
+        "categories": [],
+        "primary_category": "unsafe-hate",
+        "verdict": "allow"
+      }
+    }
+  ]
+}

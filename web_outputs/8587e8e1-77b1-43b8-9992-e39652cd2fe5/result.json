@@ -1,0 +1,192 @@
+{
+  "job_id": "8587e8e1-77b1-43b8-9992-e39652cd2fe5",
+  "out_dir": "E:\\Study\\KD-TVC\\web_outputs\\8587e8e1-77b1-43b8-9992-e39652cd2fe5",
+  "frames": [
+    {
+      "second": 0,
+      "image_rel": "frames/frame_0000.png",
+      "caption": "a glass of beer being poured over a plate of food",
+      "moderation": {
+        "labels": [
+          "alcohol",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.9967460036277771,
+        "evidence": [
+          "alcohol:1.00",
+          "self-harm:0.53",
+          "violence:0.49"
+        ],
+        "categories": [
+          "restricted-alcohol",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-alcohol",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 1,
+      "image_rel": "frames/frame_0001.png",
+      "caption": "a glass of beer being poured into a glass",
+      "moderation": {
+        "labels": [
+          "alcohol"
+        ],
+        "severity": "warn",
+        "confidence": 0.9958981275558472,
+        "evidence": [
+          "alcohol:1.00",
+          "minors:0.45",
+          "self-harm:0.42"
+        ],
+        "categories": [
+          "restricted-alcohol"
+        ],
+        "primary_category": "restricted-alcohol",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 2,
+      "image_rel": "frames/frame_0002.png",
+      "caption": "a group of people sitting around a table with beer",
+      "moderation": {
+        "labels": [
+          "alcohol"
+        ],
+        "severity": "warn",
+        "confidence": 0.9946046471595764,
+        "evidence": [
+          "alcohol:0.99",
+          "self-harm:0.34",
+          "minors:0.11"
+        ],
+        "categories": [
+          "restricted-alcohol"
+        ],
+        "primary_category": "restricted-alcohol",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 3,
+      "image_rel": "frames/frame_0003.png",
+      "caption": "a group of people toasting with beer",
+      "moderation": {
+        "labels": [
+          "alcohol"
+        ],
+        "severity": "warn",
+        "confidence": 0.9946463704109192,
+        "evidence": [
+          "alcohol:0.99",
+          "self-harm:0.37",
+          "minors:0.19"
+        ],
+        "categories": [
+          "restricted-alcohol"
+        ],
+        "primary_category": "restricted-alcohol",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 4,
+      "image_rel": "frames/frame_0004.png",
+      "caption": "three people toasting beer while standing on a rooftop",
+      "moderation": {
+        "labels": [
+          "alcohol",
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.9943526387214661,
+        "evidence": [
+          "alcohol:0.99",
+          "violence:0.70",
+          "self-harm:0.59"
+        ],
+        "categories": [
+          "restricted-alcohol",
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-alcohol",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 5,
+      "image_rel": "frames/frame_0005.png",
+      "caption": "two people toasting beer glasses in front of a citysca",
+      "moderation": {
+        "labels": [
+          "alcohol",
+          "violence",
+          "self-harm"
+        ],
+        "severity": "warn",
+        "confidence": 0.989751398563385,
+        "evidence": [
+          "alcohol:0.99",
+          "violence:0.83",
+          "self-harm:0.56"
+        ],
+        "categories": [
+          "restricted-alcohol",
+          "restricted-violence",
+          "unsafe-self-harm"
+        ],
+        "primary_category": "restricted-alcohol",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 6,
+      "image_rel": "frames/frame_0006.png",
+      "caption": "a bottle of beer with a city skyline in the background",
+      "moderation": {
+        "labels": [
+          "alcohol"
+        ],
+        "severity": "warn",
+        "confidence": 0.996271014213562,
+        "evidence": [
+          "alcohol:1.00",
+          "self-harm:0.37",
+          "minors:0.28"
+        ],
+        "categories": [
+          "restricted-alcohol"
+        ],
+        "primary_category": "restricted-alcohol",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 7,
+      "image_rel": "frames/frame_0007.png",
+      "caption": "a bottle of beer on a table with the city in the background",
+      "moderation": {
+        "labels": [
+          "alcohol"
+        ],
+        "severity": "warn",
+        "confidence": 0.9953724145889282,
+        "evidence": [
+          "alcohol:1.00",
+          "self-harm:0.35",
+          "minors:0.29"
+        ],
+        "categories": [
+          "restricted-alcohol"
+        ],
+        "primary_category": "restricted-alcohol",
+        "verdict": "restricted"
+      }
+    }
+  ]
+}

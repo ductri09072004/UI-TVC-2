@@ -1,0 +1,212 @@
+{
+  "job_id": "cc1b9ef6-ba60-43d6-8956-cc03ecdd74f1",
+  "out_dir": "E:\\Study\\KD-TVC\\web_outputs\\cc1b9ef6-ba60-43d6-8956-cc03ecdd74f1",
+  "frames": [
+    {
+      "second": 0,
+      "image_rel": "frames/frame_0000.png",
+      "caption": "a white car driving down a road next to the ocean",
+      "moderation": {
+        "labels": [
+          "hate",
+          "violence"
+        ],
+        "severity": "warn",
+        "confidence": 0.8071568012237549,
+        "evidence": [
+          "hate:0.81",
+          "violence:0.79",
+          "weapons:0.64"
+        ],
+        "categories": [
+          "unsafe-hate",
+          "restricted-violence"
+        ],
+        "primary_category": "unsafe-hate",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 1,
+      "image_rel": "frames/frame_0001.png",
+      "caption": "a man driving a car with a steering",
+      "moderation": {
+        "labels": [
+          "violence",
+          "weapons",
+          "hate",
+          "alcohol"
+        ],
+        "severity": "warn",
+        "confidence": 0.8983659744262695,
+        "evidence": [
+          "violence:0.90",
+          "weapons:0.88",
+          "hate:0.77"
+        ],
+        "categories": [
+          "restricted-violence",
+          "restricted-weapons",
+          "unsafe-hate",
+          "restricted-alcohol"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 2,
+      "image_rel": "frames/frame_0002.png",
+      "caption": "a man driving a car on the road",
+      "moderation": {
+        "labels": [
+          "violence",
+          "weapons",
+          "hate",
+          "alcohol",
+          "drugs"
+        ],
+        "severity": "block",
+        "confidence": 0.9364886283874512,
+        "evidence": [
+          "violence:0.94",
+          "weapons:0.90",
+          "hate:0.81"
+        ],
+        "categories": [
+          "restricted-violence",
+          "restricted-weapons",
+          "unsafe-hate",
+          "restricted-alcohol",
+          "restricted-drugs"
+        ],
+        "primary_category": "restricted-violence",
+        "verdict": "block"
+      }
+    },
+    {
+      "second": 3,
+      "image_rel": "frames/frame_0003.png",
+      "caption": "a white car driving down a road near the ocean",
+      "moderation": {
+        "labels": [
+          "hate",
+          "violence"
+        ],
+        "severity": "warn",
+        "confidence": 0.830112636089325,
+        "evidence": [
+          "hate:0.83",
+          "violence:0.82",
+          "weapons:0.67"
+        ],
+        "categories": [
+          "unsafe-hate",
+          "restricted-violence"
+        ],
+        "primary_category": "unsafe-hate",
+        "verdict": "restricted"
+      }
+    },
+    {
+      "second": 4,
+      "image_rel": "frames/frame_0004.png",
+      "caption": "the tesla suv driving along the beach",
+      "moderation": {
+        "labels": [
+          "weapons",
+          "violence",
+          "hate",
+          "drugs"
+        ],
+        "severity": "block",
+        "confidence": 0.9382160902023315,
+        "evidence": [
+          "weapons:0.94",
+          "violence:0.82",
+          "hate:0.77"
+        ],
+        "categories": [
+          "restricted-weapons",
+          "restricted-violence",
+          "unsafe-hate",
+          "restricted-drugs"
+        ],
+        "primary_category": "restricted-weapons",
+        "verdict": "block"
+      }
+    },
+    {
+      "second": 5,
+      "image_rel": "frames/frame_0005.png",
+      "caption": "jaguar i - pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace pace",
+      "moderation": {
+        "labels": [
+          "weapons",
+          "violence"
+        ],
+        "severity": "block",
+        "confidence": 0.9915379881858826,
+        "evidence": [
+          "weapons:0.99",
+          "violence:0.88",
+          "minors:0.68"
+        ],
+        "categories": [
+          "restricted-weapons",
+          "restricted-violence"
+        ],
+        "primary_category": "restricted-weapons",
+        "verdict": "block"
+      }
+    },
+    {
+      "second": 6,
+      "image_rel": "frames/frame_0006.png",
+      "caption": "the jaguar i - pacer driving along the ocean",
+      "moderation": {
+        "labels": [
+          "weapons",
+          "violence"
+        ],
+        "severity": "block",
+        "confidence": 0.9947186708450317,
+        "evidence": [
+          "weapons:0.99",
+          "violence:0.88",
+          "hate:0.61"
+        ],
+        "categories": [
+          "restricted-weapons",
+          "restricted-violence"
+        ],
+        "primary_category": "restricted-weapons",
+        "verdict": "block"
+      }
+    },
+    {
+      "second": 7,
+      "image_rel": "frames/frame_0007.png",
+      "caption": "the jaguar i - pacer driving along the ocean",
+      "moderation": {
+        "labels": [
+          "weapons",
+          "violence"
+        ],
+        "severity": "block",
+        "confidence": 0.9947186708450317,
+        "evidence": [
+          "weapons:0.99",
+          "violence:0.88",
+          "hate:0.61"
+        ],
+        "categories": [
+          "restricted-weapons",
+          "restricted-violence"
+        ],
+        "primary_category": "restricted-weapons",
+        "verdict": "block"
+      }
+    }
+  ]
+}
