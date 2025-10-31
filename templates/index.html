@@ -125,6 +125,30 @@
   </section>
   {% endif %}
 
+  {% if jobs and jobs|length > 0 %}
+  <section class="mt-8">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold mb-1">Mở lại kết quả đã render</h2>
+      <p class="text-sm text-slate-500 mb-4">Chọn một phiên đã xử lý để xem lại ảnh và mô tả, gán nhãn nếu cần.</p>
+      <form method="get" action="" onsubmit="event.preventDefault(); const id=document.getElementById('job_id').value; if(id){ window.location.href = '/result/' + id; }">
+        <div class="grid sm:grid-cols-2 gap-4 items-end">
+          <div>
+            <label for="job_id" class="label">Phiên đã xử lý</label>
+            <select id="job_id" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+              {% for j in jobs %}
+                <option value="{{ j.job_id }}">{{ j.job_id }} ({{ j.count }} ảnh)</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Mở kết quả</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  {% endif %}
+
   <script>
     const dropzone = document.getElementById('dropzone');
     const input = document.getElementById('video');

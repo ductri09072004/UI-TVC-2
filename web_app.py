@@ -116,6 +116,7 @@ def caption_existing(job_id: str, language: str, hf_model: str, translate: bool)
 def index():
     # List existing uploaded videos
     uploads = []
+    jobs = []
     try:
         if os.path.isdir(UPLOAD_DIR):
             for name in os.listdir(UPLOAD_DIR):
@@ -133,10 +134,31 @@ def index():
                     continue
         # Sort by most recent
         uploads.sort(key=lambda x: x["mtime"], reverse=True)
+        # List existing processed jobs (web_outputs/<job_id>/result.json)
+        if os.path.isdir(OUTPUT_DIR):
+            for job_id in os.listdir(OUTPUT_DIR):
+                job_dir = os.path.join(OUTPUT_DIR, job_id)
+                meta = os.path.join(job_dir, "result.json")
+                if not os.path.isfile(meta):
+                    continue
+                try:
+                    stat = os.stat(meta)
+                    with open(meta, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    frames = data.get("frames", [])
+                    jobs.append({
+                        "job_id": job_id,
+                        "count": len(frames),
+                        "mtime": stat.st_mtime,
+                    })
+                except Exception:
+                    continue
+            jobs.sort(key=lambda x: x["mtime"], reverse=True)
     except Exception:
         uploads = []
+        jobs = []
 
-    return render_template("index.html", uploads=uploads)
+    return render_template("index.html", uploads=uploads, jobs=jobs)
 
 
 @app.route("/upload", methods=["POST"])
