@@ -10,10 +10,9 @@ from app import (
     ensure_dir,
     extract_frames_1fps,
     caption_image_local,
-    caption_image_openai,
     translate_text,
     CaptionResult,
-    moderate_caption,
+    classify_text,
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -101,13 +100,10 @@ def caption_existing(job_id: str, language: str, hf_model: str, translate: bool)
             final = cap_en
             if translate and language and language.lower() not in {"en", "english"}:
                 final = translate_text(cap_en, language)
-        # moderation
-        mod = moderate_caption(final)
         updated_frames.append({
             "second": item["second"],
             "image_rel": item["image_rel"],
             "caption": final,
-            "moderation": mod,
         })
 
     data["frames"] = sorted(updated_frames, key=lambda x: x["second"])
@@ -223,6 +219,44 @@ def caption_job(job_id: str):
         out_dir = os.path.join(OUTPUT_DIR, job_id)
         return render_template("result.html", error=str(e), job_id=job_id, frames=[], out_dir=out_dir)
     return redirect(url_for("result", job_id=job_id))
+
+
+@app.route("/label/<job_id>", methods=["POST"])
+def label_job(job_id: str):
+    # Label existing captions in result.json without re-captioning
+    out_dir = os.path.join(OUTPUT_DIR, job_id)
+    meta_path = os.path.join(out_dir, "result.json")
+    if not os.path.exists(meta_path):
+        abort(404)
+    # classifier directory (reuse default from app.py CLI default)
+    clf_dir = request.form.get(
+        "clf_dir",
+        os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "TVC-AI", "output_moderation")),
+    )
+    try:
+        with open(meta_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        frames = data.get("frames", [])
+        updated = []
+        for item in frames:
+            cap = item.get("caption", "")
+            if cap:
+                try:
+                    pred = classify_text(cap, clf_dir)
+                except Exception as e:
+                    pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
+            else:
+                pred = {"label_id": None, "score": 0.0, "probs": []}
+            new_item = dict(item)
+            new_item["label_id"] = pred.get("label_id")
+            new_item["label_score"] = pred.get("score")
+            updated.append(new_item)
+        data["frames"] = updated
+        with open(meta_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        return redirect(url_for("result", job_id=job_id))
+    except Exception as e:
+        return render_template("result.html", error=str(e), job_id=job_id, frames=[], out_dir=out_dir)
 
 
 @app.route("/outputs/<job_id>/frames/<path:filename>")

@@ -24,7 +24,7 @@ console = Console()
 
 # Cache for local HF captioning pipelines to avoid reloading per frame
 _CAPTION_PIPELINE_CACHE: Dict[str, object] = {}
-_ZS_CLASSIFIER_CACHE: Optional[object] = None
+_TEXT_CLASSIFIER_CACHE: Optional[Dict[str, object]] = None
 
 
 @dataclass
@@ -103,7 +103,20 @@ def _get_local_captioner(model_name: str):
         return _CAPTION_PIPELINE_CACHE[use_model]
 
     device = 0 if has_cuda else -1
-    captioner = pipeline("image-to-text", model=use_model, device=device)
+    # Try safetensors first; if unavailable, fallback to default loader
+    try:
+        captioner = pipeline(
+            "image-to-text",
+            model=use_model,
+            device=device,
+            model_kwargs={"use_safetensors": True},
+        )
+    except Exception:
+        captioner = pipeline(
+            "image-to-text",
+            model=use_model,
+            device=device,
+        )
     _CAPTION_PIPELINE_CACHE[use_model] = captioner
     return captioner
 
@@ -120,219 +133,43 @@ def caption_image_local(image_path: str, model_name: str) -> str:
     return ""
 
 
-# ------------------------ Zero-shot moderation (local, free) ------------------------
-def _get_zero_shot_classifier():
-    global _ZS_CLASSIFIER_CACHE
-    if _ZS_CLASSIFIER_CACHE is not None:
-        return _ZS_CLASSIFIER_CACHE
-    from transformers import pipeline
+# ------------------------ Text classifier (HF) ------------------------
+
+def _get_text_classifier(model_dir: str):
+    global _TEXT_CLASSIFIER_CACHE
+    if _TEXT_CLASSIFIER_CACHE and _TEXT_CLASSIFIER_CACHE.get("dir") == model_dir:
+        return _TEXT_CLASSIFIER_CACHE["tokenizer"], _TEXT_CLASSIFIER_CACHE["model"], _TEXT_CLASSIFIER_CACHE["device"]
     try:
+        from transformers import AutoTokenizer, AutoModelForSequenceClassification
         import torch
         has_cuda = torch.cuda.is_available()
-    except Exception:
-        has_cuda = False
-    model_id = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
-    device = 0 if has_cuda else -1
-    _ZS_CLASSIFIER_CACHE = pipeline("zero-shot-classification", model=model_id, device=device)
-    return _ZS_CLASSIFIER_CACHE
-
-
-_MOD_LABELS = [
-    "alcohol",
-    "nudity",
-    "violence",
-    "hate",
-    "drugs",
-    "weapons",
-    "self-harm",
-    "minors",
-]
-
-_LABEL_TO_CATEGORY = {
-    "alcohol": "restricted-alcohol",
-    "nudity": "sensitive-nudity",
-    "violence": "restricted-violence",
-    "hate": "unsafe-hate",
-    "drugs": "restricted-drugs",
-    "weapons": "restricted-weapons",
-    "self-harm": "unsafe-self-harm",
-    "minors": "protected-minors",
-}
-
-# Sentence labels and thresholds (tunable)
-_LABEL_SPECS = {
-    "alcohol": {"sentence": "involves alcohol.", "warn": 0.70, "block": 0.95},
-    "nudity": {"sentence": "contains nudity.", "warn": 0.78, "block": 0.92},
-    "violence": {"sentence": "depicts violence.", "warn": 0.80, "block": 0.95},
-    "hate": {"sentence": "contains hate speech.", "warn": 0.80, "block": 0.95},
-    "drugs": {"sentence": "involves illegal drugs.", "warn": 0.75, "block": 0.92},
-    "weapons": {"sentence": "involves weapons.", "warn": 0.80, "block": 0.95},
-    "self-harm": {"sentence": "promotes or depicts self-harm.", "warn": 0.80, "block": 0.95},
-    "minors": {"sentence": "involves minors.", "warn": 0.75, "block": 0.92},
-}
-
-_SAFE_SENTENCE = "is safe and contains no sensitive content."
-
-# Lightweight keyword support to reduce false positives (EN + VI common terms)
-_KEYWORDS = {
-    "alcohol": ["beer", "wine", "alcohol", "bia", "rượu"],
-    "violence": ["fight", "blood", "gunshot", "đánh nhau", "bạo lực"],
-    "weapons": ["gun", "knife", "rifle", "dao", "súng"],
-    "self-harm": ["suicide", "self-harm", "tự sát", "tự hại"],
-    "drugs": ["cocaine", "heroin", "meth", "ma túy", "thuốc phiện"],
-    "nudity": ["nude", "naked", "khoả thân", "khỏa thân"],
-}
-
-def _normalize_text(text: str) -> str:
-    if not text:
-        return ""
-    text = unicodedata.normalize("NFKD", text)
-    text = "".join(ch for ch in text if not unicodedata.combining(ch))
-    return text.lower()
-
-
-def moderate_caption(caption: str) -> Dict:
-    if not caption:
-        return {
-            "labels": [],
-            "severity": "allow",
-            "confidence": 0.0,
-            "evidence": [],
-            "categories": [],
-            "primary_category": None,
-            "verdict": "allow",
-        }
-    clf = _get_zero_shot_classifier()
-    # Build sentence-style labels and use hypothesis template
-    candidate_sentences = [_LABEL_SPECS[k]["sentence"] for k in _MOD_LABELS]
-    out = clf(
-        caption,
-        candidate_labels=candidate_sentences,
-        multi_label=True,
-        hypothesis_template="This text {}",
-    )
-    # Map back to base labels
-    label_by_sentence = {v["sentence"]: k for k, v in _LABEL_SPECS.items()}
-    preds = []
-    for sent, score in zip(out["labels"], out["scores"]):
-        base = label_by_sentence.get(sent, sent)
-        preds.append((base, float(score)))
-    # sort by score desc
-    preds.sort(key=lambda x: x[1], reverse=True)
-    # Thresholding per label
-    violations = []
-    for l, s in preds:
-        th = _LABEL_SPECS.get(l, {}).get("warn", 0.70)
-        if s >= th:
-            violations.append((l, s))
-
-    # Map labels to higher-level categories
-    categories = [_LABEL_TO_CATEGORY.get(l, l) for l, _ in violations]
-    primary_label, primary_score = (preds[0] if preds else (None, 0.0))
-    primary_category = _LABEL_TO_CATEGORY.get(primary_label, None) if primary_label else None
-
-    # Keyword check to reduce FP for generic scenes
-    txt_norm = _normalize_text(caption)
-    matched_keywords = set()
-    for l, words in _KEYWORDS.items():
-        for w in words:
-            if w in txt_norm:
-                matched_keywords.add(l)
-                break
-
-    # Compute severity with stricter thresholds
-    def over_block(l, s):
-        return s >= _LABEL_SPECS.get(l, {}).get("block", 0.9)
-
-    def over_warn(l, s):
-        return s >= _LABEL_SPECS.get(l, {}).get("warn", 0.7)
-
-    # For hate/violence/weapons/self-harm, require keyword evidence unless score is extremely high
-    filtered = []
-    for l, s in violations:
-        if l in {"hate", "violence", "weapons", "self-harm"}:
-            if s >= 0.92 or l in matched_keywords:
-                filtered.append((l, s))
-            else:
-                # drop weak, non-evidenced hits
-                continue
-        else:
-            filtered.append((l, s))
-
-    violations = filtered
-
-    has_block = any(over_block(l, s) for l, s in violations)
-    if has_block:
-        severity = "block"
-        verdict = "block"
-    elif violations:
-        only_soft = all(l in {"violence", "weapons", "self-harm"} and s < _LABEL_SPECS[l]["block"] for l, s in violations)
-        # If only soft labels and no keywords, downgrade to allow
-        if only_soft and not any(l in matched_keywords for l, _ in violations):
-            severity = "allow"
-            verdict = "allow"
-        else:
-            severity = "warn"
-            verdict = "restricted"
-    else:
-        severity = "allow"
-        verdict = "allow"
-
-    return {
-        "labels": [l for l, _ in violations],
-        "severity": severity,
-        "confidence": float(primary_score or 0.0),
-        "evidence": [f"{l}:{s:.2f}" for l, s in preds[:3]],
-        "categories": categories,
-        "primary_category": primary_category,
-        "verdict": verdict,
-    }
-
-
-# ------------------------ OpenAI vision captioning ------------------------
-
-def _encode_image_to_base64(image_path: str) -> str:
-    with open(image_path, "rb") as f:
-        b64 = base64.b64encode(f.read()).decode("utf-8")
-    return f"data:image/png;base64,{b64}"
-
-
-def caption_image_openai(image_path: str, model: str, language: str) -> str:
-    """Caption using OpenAI image understanding (e.g., gpt-4o-mini)."""
-    try:
-        from openai import OpenAI
+        device = torch.device("cuda" if has_cuda else "cpu")
+        tokenizer = AutoTokenizer.from_pretrained(model_dir)
+        model = AutoModelForSequenceClassification.from_pretrained(model_dir)
+        model.to(device)
+        model.eval()
+        _TEXT_CLASSIFIER_CACHE = {"dir": model_dir, "tokenizer": tokenizer, "model": model, "device": device}
+        return tokenizer, model, device
     except Exception as e:
-        raise RuntimeError("openai package not installed. Install from requirements.txt") from e
+        raise RuntimeError(f"Cannot load classifier from: {model_dir}. {e}")
 
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise RuntimeError("OPENAI_API_KEY is not set in environment")
 
-    client = OpenAI(api_key=api_key)
-    b64 = _encode_image_to_base64(image_path)
-
-    # Ask for a concise one-sentence caption in target language
-    prompt = (
-        f"Mô tả ngắn gọn một câu cho hình ảnh này bằng tiếng {('Việt' if language.lower().startswith('vi') else language)}. "
-        "Tập trung vào nội dung chính."
-    )
-
-    response = client.chat.completions.create(
-        model=model or "gpt-4o-mini",
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": prompt},
-                    {"type": "image_url", "image_url": {"url": b64}},
-                ],
-            }
-        ],
-        temperature=0.2,
-    )
-
-    text = response.choices[0].message.content.strip()
-    return text
+def classify_text(text: str, model_dir: str) -> Dict[str, object]:
+    if not text:
+        return {"label_id": None, "score": 0.0, "probs": []}
+    tokenizer, model, device = _get_text_classifier(model_dir)
+    import torch
+    with torch.no_grad():
+        enc = tokenizer(text, return_tensors="pt", truncation=True, max_length=256)
+        enc = {k: v.to(device) for k, v in enc.items()}
+        outputs = model(**enc)
+        logits = outputs.logits.detach().cpu().numpy()[0]
+    # softmax
+    ex = np.exp(logits - np.max(logits))
+    probs = (ex / ex.sum()).tolist()
+    label_id = int(np.argmax(probs))
+    score = float(probs[label_id])
+    return {"label_id": label_id, "score": score, "probs": probs}
 
 
 # ------------------------ Optional translation ------------------------
@@ -359,14 +196,13 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.command()
 @click.option("--input", "input_video", required=False, type=click.Path(exists=True, dir_okay=False), help="Path to input video")
 @click.option("--out_dir", default="output", type=click.Path(dir_okay=True, file_okay=False), help="Directory to write frames and captions")
-@click.option("--backend", type=click.Choice(["local", "openai"], case_sensitive=False), default="local", help="Captioning backend")
 @click.option("--hf_model", default="Salesforce/blip-image-captioning-base", help="Hugging Face model id for local backend")
-@click.option("--openai_model", default="gpt-4o-mini", help="OpenAI model for vision captioning")
+@click.option("--clf_dir", default=os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "TVC-AI", "output_moderation")), help="Directory of trained text classifier to label captions")
 @click.option("--language", default="vi", help="Preferred caption language (e.g., vi, en)")
 @click.option("--translate", is_flag=True, default=True, help="Translate captions to the target language if backend returns other language")
 @click.option("--overwrite", is_flag=True, default=False, help="Overwrite existing frame files")
 @click.option("--serve/--no-serve", "serve_web", default=True, help="Also start the web UI server (default: on)")
-def main(input_video: str, out_dir: str, backend: str, hf_model: str, openai_model: str, language: str, translate: bool, overwrite: bool, serve_web: bool) -> None:
+def main(input_video: str, out_dir: str, hf_model: str, language: str, translate: bool, overwrite: bool, serve_web: bool, clf_dir: str) -> None:
     console.rule("Video to Step Images + Captions (1 fps)")
 
     web_proc = None
@@ -374,7 +210,6 @@ def main(input_video: str, out_dir: str, backend: str, hf_model: str, openai_mod
         try:
             web_proc = subprocess.Popen([sys.executable, os.path.join(os.path.dirname(__file__), "web_app.py")])
             console.print("[cyan]Web UI đang chạy tại[/cyan] http://localhost:5000")
-            # Chờ một chút cho web server khởi động
             time.sleep(1.0)
         except Exception as e:
             console.print(f"[yellow]Không thể khởi động web UI:[/yellow] {e}")
@@ -384,89 +219,65 @@ def main(input_video: str, out_dir: str, backend: str, hf_model: str, openai_mod
     if input_video:
         frames_dir = os.path.join(out_dir, "frames")
         ensure_dir(out_dir)
-
         if overwrite and os.path.isdir(frames_dir):
-            # Remove existing frames to ensure a clean run
             for name in os.listdir(frames_dir):
                 try:
                     os.remove(os.path.join(frames_dir, name))
                 except Exception:
                     pass
-
         ensure_dir(frames_dir)
-
         # 1) Extract frames at 1 fps
         frame_paths = extract_frames_1fps(input_video, frames_dir)
         console.print(f"[green]Extracted {len(frame_paths)} frame(s) into {frames_dir}[/green]")
-
-        # 2) Caption each frame
+        # 2) Caption each frame (Local HF only)
         results: List[CaptionResult] = []
-
+        labels: List[Dict[str, object]] = []
         for image_path in track(frame_paths, description="Captioning frames"):
-            # Determine second from filename pattern
             base = os.path.basename(image_path)
             try:
                 sec = int(os.path.splitext(base)[0].split("_")[-1])
             except Exception:
                 sec = len(results)
-
-            if backend.lower() == "local":
-                caption_en = caption_image_local(image_path, hf_model)
-                final_caption = caption_en
-                if translate and language and language.lower() not in {"en", "english"}:
-                    final_caption = translate_text(caption_en, language)
-            else:
-                # Directly ask OpenAI for caption in target language
-                final_caption = caption_image_openai(image_path, openai_model, language)
-
-            # moderation
-            mod = moderate_caption(final_caption)
-
+            caption_en = caption_image_local(image_path, hf_model)
+            final_caption = caption_en
+            if translate and language and language.lower() not in {"en", "english"}:
+                final_caption = translate_text(caption_en, language)
             results.append(CaptionResult(second=sec, image_path=image_path, caption=final_caption))
-
-        # 3) Write outputs: CSV, JSONL, Markdown
+            try:
+                pred = classify_text(final_caption, clf_dir)
+            except Exception as e:
+                pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
+            labels.append(pred)
+        # Xuất kết quả ra CSV, Markdown
+        import pandas as pd
         df = pd.DataFrame([
-            {"second": r.second, "image_path": os.path.relpath(r.image_path, out_dir), "caption": r.caption}
-            for r in results
+            {
+                "second": r.second,
+                "image_path": os.path.relpath(r.image_path, out_dir),
+                "caption": r.caption,
+                "label_id": (labels[i].get("label_id") if i < len(labels) else None),
+                "label_score": (labels[i].get("score") if i < len(labels) else None),
+            }
+            for i, r in enumerate(results)
         ]).sort_values("second")
-
         csv_path = os.path.join(out_dir, "captions.csv")
-        jsonl_path = os.path.join(out_dir, "captions.jsonl")
         md_path = os.path.join(out_dir, "captions.md")
-
         df.to_csv(csv_path, index=False, encoding="utf-8")
-
-        with open(jsonl_path, "w", encoding="utf-8") as fjson:
-            # Rebuild with moderation info by recomputing per row or mapping
-            sec_to_caption = {r.second: r.caption for r in results}
-            for _, row in df.iterrows():
-                sec = int(row.second)
-                cap = sec_to_caption.get(sec, row.caption)
-                mod = moderate_caption(cap)
-                fjson.write(json.dumps({
-                    "second": sec,
-                    "image_path": row.image_path,
-                    "caption": cap,
-                    "moderation": mod,
-                }, ensure_ascii=False) + "\n")
-
         with open(md_path, "w", encoding="utf-8") as fmd:
             fmd.write(f"# Mô tả từng bước (1 giây/ảnh)\n\n")
             for _, row in df.iterrows():
                 fmd.write(f"## Giây {int(row.second)}\n\n")
-                fmd.write(f"![frame](./{row.image_path.replace('\\\\', '/')})\n\n")
-                fmd.write(f"- Mô tả: {row.caption}\n\n")
-
-        console.print(f"[bold green]Done[/bold green]. Results written to: \n- {csv_path}\n- {jsonl_path}\n- {md_path}")
-
-        # Nếu web server đang chạy, tiếp tục giữ tiến trình mở để dùng song song
+                path_md = row.image_path.replace("\\", "/")
+                fmd.write(f"![frame](./{path_md})\n\n")
+                fmd.write(f"- Mô tả: {row.caption}\n")
+                fmd.write(f"- Nhãn: {row.label_id} (score: {row.label_score})\n\n")
+        console.print(f"[bold green]Done[/bold green]. Results written to: \n- {csv_path}\n- {md_path}")
         if web_proc is not None:
             try:
                 web_proc.wait()
             except KeyboardInterrupt:
                 pass
     else:
-        # Không có input_video -> chỉ chạy web và chờ
         if web_proc is not None:
             try:
                 web_proc.wait()
@@ -474,7 +285,6 @@ def main(input_video: str, out_dir: str, backend: str, hf_model: str, openai_mod
                 pass
         else:
             console.print("[yellow]Không có --input và không khởi động được web. Thoát.[/yellow]")
-
 
 if __name__ == "__main__":
     try:

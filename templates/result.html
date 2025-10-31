@@ -18,6 +18,12 @@
       <div class="flex items-center gap-2">
         <a href="{{ url_for('index') }}" class="btn-secondary">← Tải video khác</a>
         <a href="/web_outputs/{{ job_id }}/result.json" class="btn-primary" download>Tải JSON</a>
+        {% if frames and frames[0].get('caption') %}
+        <form method="post" action="{{ url_for('label_job', job_id=job_id) }}">
+          <input type="hidden" name="clf_dir" value="{{ ("../TVC-AI/output_moderation") }}" />
+          <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500" type="submit">Gán nhãn caption</button>
+        </form>
+        {% endif %}
       </div>
     </div>
 
@@ -76,6 +82,14 @@
                 {% endif %}
               </div>
               <p class="text-sm text-slate-700 dark:text-slate-200">{{ f.caption }}</p>
+              {% if f.get('label_id') is not none %}
+                <div class="mt-2 flex items-center gap-2">
+                  <span class="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200 px-2 py-1 text-xs font-medium">Nhãn: {{ f.get('label_id') }}</span>
+                  {% if f.get('label_score') is not none %}
+                    <span class="text-xs text-slate-500">score: {{ '%.2f'|format(f.get('label_score')) }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
               {% if f.moderation and (f.moderation.categories or f.moderation.labels) %}
                 <div class="mt-2 flex flex-wrap gap-2">
                   {% if f.moderation.categories %}
