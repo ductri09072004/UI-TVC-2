@@ -7,6 +7,7 @@
       <div class="mt-4 flex flex-col sm:flex-row gap-3">
         <a href="#upload" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">Bắt đầu</a>
         <a href="https://huggingface.co/models" target="_blank" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-200 dark:bg-slate-700 px-5 py-3 text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600">Model gợi ý</a>
+        <a href="{{ url_for('audio_index') }}" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-base font-semibold text-white shadow hover:bg-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Chỉ tách tiếng</a>
       </div>
     </div>
     <div class="hidden lg:block">
@@ -46,11 +47,7 @@
           </div>
         </div>
 
-        <div>
-          <label for="hf_model" class="label">HF model</label>
-          <input type="text" id="hf_model" name="hf_model" value="Salesforce/blip-image-captioning-base" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
-          <p class="text-xs text-slate-500 mt-1">BLIP base chạy CPU; có thể thay bằng BLIP2 để chất lượng cao hơn.</p>
-        </div>
+        
 
         <label class="inline-flex items-center gap-2">
           <input type="checkbox" name="translate" checked class="checkbox" />
@@ -105,10 +102,7 @@
           </div>
         </div>
 
-        <div>
-          <label for="hf_model2" class="label">HF model</label>
-          <input type="text" id="hf_model2" name="hf_model" value="Salesforce/blip-image-captioning-base" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
-        </div>
+        
 
         <label class="inline-flex items-center gap-2">
           <input type="checkbox" name="translate" checked class="checkbox" />

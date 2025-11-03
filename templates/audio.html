@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Tách tiếng từ video → văn bản</h1>
+    <p class="text-sm text-slate-500 mt-1">Chọn video đã tải sẵn hoặc tải video mới để chỉ xử lý âm thanh.</p>
+  </div>
+
+  <div class="grid lg:grid-cols-2 gap-8">
+    <div class="card p-6">
+      <h2 class="text-lg font-semibold mb-3">Tải video mới</h2>
+      <form method="post" action="{{ url_for('audio_process') }}" enctype="multipart/form-data" class="space-y-4">
+        <input type="hidden" name="source" value="upload" />
+        <div>
+          <label class="label" for="video">Chọn video</label>
+          <input type="file" id="video" name="video" accept="video/*" required class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3" />
+        </div>
+        <div>
+          <label class="label" for="language">Ngôn ngữ (gợi ý cho ASR)</label>
+          <select id="language" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3">
+            <option value="vi" selected>Tiếng Việt (vi)</option>
+            <option value="en">English (en)</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn-primary" type="submit">Tách tiếng ngay</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card p-6">
+      <h2 class="text-lg font-semibold mb-3">Dùng video đã tải</h2>
+      <form method="post" action="{{ url_for('audio_process') }}" class="space-y-4">
+        <input type="hidden" name="source" value="uploaded" />
+        <div>
+          <label class="label" for="existing">Video đã có</label>
+          <select id="existing" name="existing" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3">
+            {% for v in uploads %}
+              <option value="{{ v.name }}">{{ v.name }} ({{ (v.size/1024/1024)|round(2) }} MB)</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="label" for="language2">Ngôn ngữ (gợi ý cho ASR)</label>
+          <select id="language2" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3">
+            <option value="vi" selected>Tiếng Việt (vi)</option>
+            <option value="en">English (en)</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn-primary" type="submit">Tách tiếng</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+

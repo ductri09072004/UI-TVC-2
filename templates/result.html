@@ -27,6 +27,77 @@
       </div>
     </div>
 
+    {# Summary block (after labeling) #}
+    {% if summary %}
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-sm text-slate-500">Khung hình đạt chuẩn</div>
+          <div class="text-2xl font-semibold text-emerald-600">{{ summary.num_compliant }}<span class="text-base text-slate-400"> ({{ '%.2f'|format(summary.percent_compliant) }}%)</span></div>
+        </div>
+        <div class="card p-4">
+          <div class="text-sm text-slate-500">Khung hình vi phạm</div>
+          <div class="text-2xl font-semibold text-red-600">{{ summary.num_violations }}<span class="text-base text-slate-400"> ({{ '%.2f'|format(summary.percent_violations) }}%)</span></div>
+        </div>
+        <div class="card p-4">
+          <div class="text-sm text-slate-500">Tổng khung hình</div>
+          <div class="text-2xl font-semibold">{{ summary.total_frames }}</div>
+          {% if summary.num_unknown and summary.num_unknown > 0 %}
+            <div class="text-xs text-slate-500 mt-1">Không xác định: {{ summary.num_unknown }}</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {# Audio summary (if available) #}
+    {% if audio_summary %}
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-sm text-slate-500">Đoạn thoại đạt chuẩn</div>
+          <div class="text-2xl font-semibold text-emerald-600">{{ audio_summary.num_compliant }}<span class="text-base text-slate-400"> ({{ '%.2f'|format(audio_summary.percent_compliant) }}%)</span></div>
+        </div>
+        <div class="card p-4">
+          <div class="text-sm text-slate-500">Đoạn thoại vi phạm</div>
+          <div class="text-2xl font-semibold text-red-600">{{ audio_summary.num_violations }}<span class="text-base text-slate-400"> ({{ '%.2f'|format(audio_summary.percent_violations) }}%)</span></div>
+        </div>
+        <div class="card p-4">
+          <div class="text-sm text-slate-500">Tổng đoạn thoại</div>
+          <div class="text-2xl font-semibold">{{ audio_summary.total_segments }}</div>
+          {% if audio_summary.num_unknown and audio_summary.num_unknown > 0 %}
+            <div class="text-xs text-slate-500 mt-1">Không xác định: {{ audio_summary.num_unknown }}</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if audio_segments %}
+      {# Old segment-based view kept for backward compatibility #}
+    {% endif %}
+
+    {% if audio_sentences %}
+      <div class="card p-6 mb-6">
+        <h4 class="text-lg font-semibold mb-3">Transcript âm thanh (theo câu)</h4>
+        <div class="space-y-2">
+          {% for s in audio_sentences %}
+            <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-slate-500">Câu {{ s.index }}</span>
+                {% if s.label_id is not none %}
+                  {% if s.label_id == 1 %}
+                    <span class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">VI PHẠM</span>
+                  {% elif s.label_id == 0 %}
+                    <span class="inline-flex items-center rounded-full bg-emerald-100 text-emerald-700 px-2 py-0.5 text-xs font-semibold">ĐẠT CHUẨN</span>
+                  {% else %}
+                    <span class="inline-flex items-center rounded-full bg-slate-200 text-slate-700 px-2 py-0.5 text-xs font-semibold">KHÔNG RÕ</span>
+                  {% endif %}
+                {% endif %}
+              </div>
+              <div class="text-sm text-slate-700 dark:text-slate-200">{{ s.text }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
     {# Detect if captions are missing (first frame no caption) #}
     {% set has_caption = frames and frames[0].get('caption') %}
     {% if not has_caption %}
@@ -41,10 +112,7 @@
               <option value="en">English (en)</option>
             </select>
           </div>
-          <div>
-            <label class="label" for="hf_model">HF model</label>
-            <input type="text" id="hf_model" name="hf_model" value="Salesforce/blip-image-captioning-base" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
-          </div>
+          
           <label class="inline-flex items-center gap-2">
             <input type="checkbox" name="translate" checked class="checkbox" />
             <span class="text-sm">Dịch sang ngôn ngữ đích (khi dùng Local)</span>
