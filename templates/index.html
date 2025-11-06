@@ -41,8 +41,8 @@
           <div>
             <label for="language" class="label">Ngôn ngữ mô tả</label>
             <select id="language" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <option value="vi" selected>Tiếng Việt (vi)</option>
-              <option value="en">English (en)</option>
+              <option value="vi">Tiếng Việt (vi)</option>
+              <option value="en" selected>English (en)</option>
             </select>
           </div>
         </div>
@@ -50,7 +50,7 @@
         
 
         <label class="inline-flex items-center gap-2">
-          <input type="checkbox" name="translate" checked class="checkbox" />
+          <input type="checkbox" name="translate" class="checkbox" />
           <span class="text-sm">Dịch sang ngôn ngữ đích (khi dùng Local)</span>
         </label>
 
@@ -96,8 +96,8 @@
           <div>
             <label for="language2" class="label">Ngôn ngữ mô tả</label>
             <select id="language2" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <option value="vi" selected>Tiếng Việt (vi)</option>
-              <option value="en">English (en)</option>
+              <option value="vi">Tiếng Việt (vi)</option>
+              <option value="en" selected>English (en)</option>
             </select>
           </div>
         </div>
@@ -105,7 +105,7 @@
         
 
         <label class="inline-flex items-center gap-2">
-          <input type="checkbox" name="translate" checked class="checkbox" />
+          <input type="checkbox" name="translate" class="checkbox" />
           <span class="text-sm">Dịch sang ngôn ngữ đích (khi dùng Local)</span>
         </label>
 
@@ -143,7 +143,75 @@
   </section>
   {% endif %}
 
+  <section id="classify-section" class="mt-8">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold mb-1">Gán nhãn mô tả</h2>
+      <p class="text-sm text-slate-500 mb-4">Nhập mô tả để phân loại vi phạm/non-vi phạm bằng model output_moderation.</p>
+      <form method="post" action="{{ url_for('classify_description') }}" class="space-y-5" id="classifyForm">
+        <div>
+          <label for="description" class="label">Mô tả</label>
+          <textarea 
+            id="description" 
+            name="description" 
+            rows="4" 
+            required
+            placeholder="Nhập mô tả cần gán nhãn, ví dụ: người đàn ông vẽ tranh"
+            class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          ></textarea>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-amber-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-amber-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+            </svg>
+            Gán nhãn
+          </button>
+          <button type="reset" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-200 dark:bg-slate-700 px-6 py-3 text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600">Xóa</button>
+        </div>
+      </form>
+      
+      {% if classification_result %}
+      <div class="mt-5 p-4 rounded-lg {% if classification_result.label_id == 1 %}bg-red-50 dark:bg-red-900/30{% else %}bg-green-50 dark:bg-green-900/30{% endif %}">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-semibold text-sm">Kết quả:</span>
+          <span class="text-sm font-bold {% if classification_result.label_id == 1 %}text-red-700 dark:text-red-300{% else %}text-green-700 dark:text-green-300{% endif %}">
+            {% if classification_result.label_id == 1 %}
+              ⚠️ Vi phạm
+            {% elif classification_result.label_id == 0 %}
+              ✅ Non-vi phạm
+            {% else %}
+              ❓ Không xác định
+            {% endif %}
+          </span>
+        </div>
+        <div class="text-sm text-slate-600 dark:text-slate-300">
+          <div>Độ tin cậy: <strong>{{ "%.1f"|format(classification_result.score * 100) }}%</strong></div>
+          {% if classification_result.description %}
+          <div class="mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+            <strong>Mô tả:</strong> {{ classification_result.description }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
   <script>
+    // Scroll đến form gán nhãn nếu có kết quả
+    {% if classification_result %}
+    window.addEventListener('DOMContentLoaded', function() {
+      const classifySection = document.getElementById('classify-section');
+      if (classifySection) {
+        setTimeout(function() {
+          classifySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    });
+    {% endif %}
+    
     const dropzone = document.getElementById('dropzone');
     const input = document.getElementById('video');
     const browseBtn = document.getElementById('browseBtn');

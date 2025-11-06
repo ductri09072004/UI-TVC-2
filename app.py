@@ -4,6 +4,7 @@ import io
 import base64
 import json
 import math
+import re
 import unicodedata
 import subprocess
 import time
@@ -32,8 +33,26 @@ except ImportError:
 
 console = Console()
 
-# Cache for local HF captioning pipelines to avoid reloading per frame
-_CAPTION_PIPELINE_CACHE: Dict[str, object] = {}
+# Import image captioning module
+from image_captioning import caption_image_local
+
+# Import CLIP moderation module (optional, will fail gracefully if not installed)
+try:
+    from clip_moderation import pre_filter_image, verify_caption_quality, classify_image_zeroshot
+    CLIP_AVAILABLE = True
+except ImportError:
+    CLIP_AVAILABLE = False
+    pre_filter_image = None
+    verify_caption_quality = None
+    classify_image_zeroshot = None
+finally:
+    try:
+        if CLIP_AVAILABLE:
+            console.print("[green]CLIP moderation: enabled[/green]")
+        else:
+            console.print("[yellow]CLIP moderation: not available (skipping CLIP steps)[/yellow]")
+    except Exception:
+        pass
 _TEXT_CLASSIFIER_CACHE: Optional[Dict[str, object]] = None
 _WHISPER_CACHE: Optional[Dict[str, object]] = None
 _FASTER_WHISPER_CACHE: Optional[Dict[str, object]] = None
@@ -373,247 +392,7 @@ def extract_text_from_image(image_path: str, languages: List[str] = ["vi", "en"]
 
 
 # ------------------------ Local HF captioning ------------------------
-
-def _get_local_captioner(model_name: str):
-    """Create or fetch a cached HF pipeline for image captioning."""
-    from transformers import pipeline
-    try:
-        import torch  # prefer GPU if available
-        has_cuda = torch.cuda.is_available()
-    except Exception:
-        has_cuda = False
-
-    default_model = "Salesforce/instructblip-flan-t5-xl"
-    use_model = model_name or default_model
-
-    if use_model in _CAPTION_PIPELINE_CACHE:
-        return _CAPTION_PIPELINE_CACHE[use_model]
-
-    device = 0 if has_cuda else -1
-    # Try safetensors first; if unavailable, fallback to default loader
-    try:
-        captioner = pipeline(
-            "image-to-text",
-            model=use_model,
-            device=device,
-            model_kwargs={"use_safetensors": True},
-        )
-    except Exception:
-        captioner = pipeline(
-            "image-to-text",
-            model=use_model,
-            device=device,
-        )
-    _CAPTION_PIPELINE_CACHE[use_model] = captioner
-    return captioner
-
-
-def _remove_repetition(text: str, max_repeat: int = 2) -> str:
-    """Remove excessive repetition in text (e.g., 'mang mang mang' -> 'mang').
-    
-    Args:
-        text: Input text that may contain repetition
-        max_repeat: Maximum number of times a word can repeat consecutively
-    
-    Returns:
-        Cleaned text with repetition removed
-    """
-    if not text:
-        return text
-    import re
-    # Split into words while preserving punctuation
-    words = text.split()
-    if len(words) <= 1:
-        return text
-    
-    # Step 1: Remove consecutive duplicate words
-    cleaned = []
-    prev_word_normalized = None
-    repeat_count = 0
-    
-    for word in words:
-        # Normalize word for comparison (lowercase, remove punctuation)
-        word_normalized = re.sub(r'[^\w]', '', word.lower())
-        if word_normalized and word_normalized == prev_word_normalized:
-            repeat_count += 1
-            if repeat_count < max_repeat:
-                cleaned.append(word)
-        else:
-            prev_word_normalized = word_normalized if word_normalized else None
-            repeat_count = 0
-            cleaned.append(word)
-    
-    result = " ".join(cleaned)
-    
-    # Step 2: Remove patterns like "word word word" (3+ consecutive) using regex
-    # Pattern matches word boundary followed by same word 2+ more times
-    pattern = r'\b(\w+)(?:\s+\1){2,}\b'
-    result = re.sub(pattern, r'\1', result)
-    
-    # Step 3: Remove repeated phrases (e.g., "mang & vincent mang & vincent")
-    # Split and check for 2-3 word phrase repetition
-    phrases = result.split()
-    if len(phrases) >= 6:
-        # Check for 2-word phrase repetition
-        i = 0
-        while i < len(phrases) - 4:
-            phrase2 = " ".join(phrases[i:i+2]).lower()
-            # Count how many times this phrase appears in the next 10 words
-            count = 0
-            for j in range(i, min(i + 10, len(phrases) - 1)):
-                check_phrase = " ".join(phrases[j:j+2]).lower()
-                if check_phrase == phrase2:
-                    count += 1
-            if count >= 3:
-                # Found excessive repetition, remove duplicates
-                new_phrases = phrases[:i+2]
-                j = i + 2
-                while j < len(phrases) - 1:
-                    check_phrase = " ".join(phrases[j:j+2]).lower()
-                    if check_phrase != phrase2:
-                        new_phrases.append(phrases[j])
-                        j += 1
-                    else:
-                        j += 2  # Skip the duplicate phrase
-                if j < len(phrases):
-                    new_phrases.extend(phrases[j:])
-                result = " ".join(new_phrases)
-                phrases = result.split()
-                break
-            i += 1
-    
-    return result.strip()
-
-
-def caption_image_local(image_path: str, model_name: str, use_object_detection: bool = True, use_ocr: bool = True) -> str:
-    """Caption an image using a local Hugging Face pipeline model (cached).
-    Optionally integrates object detection (YOLO) and OCR (EasyOCR) for richer descriptions.
-    Returns caption in SVO format (Subject Verb Object), e.g., 'người đàn ông vẽ tranh'.
-    """
-    # 1. Generate base caption using image-to-text model
-    captioner = _get_local_captioner(model_name)
-    # Instruction prompt to steer model to SVO format (Vietnamese)
-    prompt = os.environ.get(
-        "CAPTION_PROMPT_VI",
-        "Hãy mô tả nội dung bức ảnh theo dạng chủ ngữ - động từ - tân ngữ (SVO), ví dụ: 'người đàn ông vẽ tranh'. Chỉ mô tả ngắn gọn theo định dạng SVO.",
-    )
-    # Decoding params
-    num_beams = int(os.environ.get("CAPTION_NUM_BEAMS", "10"))
-    temperature = float(os.environ.get("CAPTION_TEMPERATURE", "0.3"))
-    max_new_tokens = int(os.environ.get("CAPTION_MAX_TOKENS", "100"))
-    repetition_penalty = float(os.environ.get("CAPTION_REPETITION_PENALTY", "1.2"))
-    no_repeat_ngram_size = int(os.environ.get("CAPTION_NO_REPEAT_NGRAM", "3"))
-    
-    try:
-        # Try to pass all parameters including anti-repetition
-        result = captioner(
-            image_path,
-            prompt=prompt,
-            num_beams=num_beams,
-            temperature=temperature,
-            max_new_tokens=max_new_tokens,
-            repetition_penalty=repetition_penalty,
-            no_repeat_ngram_size=no_repeat_ngram_size,
-        )
-    except TypeError:
-        # Fallback: try without repetition_penalty and no_repeat_ngram_size
-        try:
-            result = captioner(
-                image_path,
-                prompt=prompt,
-                num_beams=num_beams,
-                temperature=temperature,
-                max_new_tokens=max_new_tokens,
-                repetition_penalty=repetition_penalty,
-            )
-        except TypeError:
-            # Final fallback: minimal params
-            result = captioner(image_path, max_new_tokens=max_new_tokens)
-    # result like: [{"generated_text": "..."}]
-    base_caption = ""
-    if isinstance(result, list) and result:
-        item = result[0]
-        base_caption = item.get("generated_text", "").strip()
-        # Post-process to remove any remaining repetition
-        base_caption = _remove_repetition(base_caption, max_repeat=2)
-    
-    # 2. Enhance with Object Detection (optional)
-    detected_objects = []
-    if use_object_detection:
-        try:
-            yolo_model = os.environ.get("YOLO_MODEL", "yolov8n.pt")
-            conf_threshold = float(os.environ.get("YOLO_CONF_THRESHOLD", "0.25"))
-            detected_objects = detect_objects(image_path, model_name=yolo_model, conf_threshold=conf_threshold)
-        except Exception as e:
-            console.print(f"[yellow]Object detection skipped: {e}[/yellow]")
-    
-    # 3. Enhance with OCR (optional)
-    ocr_texts = []
-    if use_ocr:
-        try:
-            ocr_languages = os.environ.get("OCR_LANGUAGES", "vi,en").split(",")
-            ocr_texts = extract_text_from_image(image_path, languages=ocr_languages)
-        except Exception as e:
-            console.print(f"[yellow]OCR skipped: {e}[/yellow]")
-    
-    # 4. Combine information into enhanced description
-    enhancement_parts = []
-    
-    # Add significant objects (high confidence or important classes)
-    if detected_objects:
-        important_classes = {"person", "bottle", "wine glass", "cup", "cigarette", "cell phone", "laptop", 
-                           "car", "motorcycle", "sofa", "chair", "bed", "tv", "remote"}
-        significant_objects = []
-        for obj in detected_objects:
-            if obj["confidence"] > 0.5 or obj["class"].lower() in important_classes:
-                significant_objects.append(obj["class"])
-        if significant_objects:
-            # Remove duplicates while preserving order
-            seen = set()
-            unique_objects = []
-            for obj in significant_objects:
-                if obj.lower() not in seen:
-                    seen.add(obj.lower())
-                    unique_objects.append(obj)
-            if unique_objects:
-                enhancement_parts.append(f"vật thể: {', '.join(unique_objects[:5])}")  # Limit to 5 objects
-    
-    # Add OCR text (if any)
-    if ocr_texts:
-        ocr_combined = []
-        for ocr_item in ocr_texts:
-            if ocr_item["confidence"] > 0.5:  # Only high confidence text
-                ocr_combined.append(ocr_item["text"])
-        if ocr_combined:
-            ocr_str = " ".join(ocr_combined[:3])  # Limit to 3 text elements
-            enhancement_parts.append(f"văn bản: {ocr_str}")
-    
-    # 5. Build final enhanced caption
-    if enhancement_parts:
-        enhanced_context = " | ".join(enhancement_parts)
-        # Combine base caption with enhancements
-        if base_caption:
-            enhanced_caption = f"{base_caption} ({enhanced_context})"
-        else:
-            enhanced_caption = enhanced_context
-    else:
-        enhanced_caption = base_caption
-    
-    # 6. Convert to SVO format using extract_svo if available
-    if extract_svo and enhanced_caption:
-        try:
-            s, v, o = extract_svo(enhanced_caption)
-            # Format as "subject verb object"
-            if s or v or o:
-                parts = [p for p in [s, v, o] if p and p.strip()]
-                if parts:
-                    svo_text = " ".join(parts)
-                    return svo_text
-        except Exception:
-            # If SVO extraction fails, return enhanced caption
-            pass
-    
-    return enhanced_caption if enhanced_caption else ""
+# Logic captioning đã được chuyển sang image_captioning.py
 
 
 # ------------------------ Text classifier (HF) ------------------------
@@ -731,18 +510,18 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.command()
 @click.option("--input", "input_video", required=False, type=click.Path(exists=True, dir_okay=False), help="Path to input video")
 @click.option("--out_dir", default="output", type=click.Path(dir_okay=True, file_okay=False), help="Directory to write frames and captions")
-@click.option("--hf_model", default="Salesforce/blip2-flan-t5-xl", help="Hugging Face model id for local backend")
-@click.option("--clf_dir", default=r"C:\Users\Kris\TVC-AI\output_moderation_mota", help="Directory of trained text classifier to label captions")
-@click.option("--language", default="vi", help="Preferred caption language (e.g., vi, en)")
-@click.option("--translate", is_flag=True, default=True, help="Translate captions to the target language if backend returns other language")
+@click.option("--hf_model", default="Salesforce/blip-image-captioning-base", help="Hugging Face model id for local backend")
+@click.option("--clf_dir", default=r"C:\Users\Kris\TVC-AI\output_moderation", help="Directory of trained text classifier to label captions")
+@click.option("--language", default="en", help="Preferred caption language (e.g., vi, en)")
+@click.option("--translate", is_flag=True, default=False, help="Translate captions to the target language if backend returns other language")
 @click.option("--overwrite", is_flag=True, default=False, help="Overwrite existing frame files")
 @click.option("--serve/--no-serve", "serve_web", default=True, help="Also start the web UI server (default: on)")
 @click.option("--audio/--no-audio", "process_audio", default=True, help="Also transcribe audio to text and label")
 @click.option("--asr_model", default="base", help="Whisper ASR model size (tiny, base, small, medium, large)")
-@click.option("--detect-objects/--no-detect-objects", "use_object_detection", default=True, help="Use YOLO object detection to enhance captions (default: on)")
-@click.option("--use-ocr/--no-use-ocr", "use_ocr", default=True, help="Use OCR to extract text from images (default: on)")
+@click.option("--detect-objects/--no-detect-objects", "use_object_detection", default=False, help="Use YOLO object detection to enhance captions (default: off)")
 @click.option("--yolo-model", default="yolov8n.pt", help="YOLO model name (yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt)")
-def main(input_video: str, out_dir: str, hf_model: str, language: str, translate: bool, overwrite: bool, serve_web: bool, clf_dir: str, process_audio: bool, asr_model: str, use_object_detection: bool, use_ocr: bool, yolo_model: str) -> None:
+@click.option("--auto-caption/--no-auto-caption", "auto_caption", default=False, help="Automatically generate captions in CLI mode (default: off)")
+def main(input_video: str, out_dir: str, hf_model: str, language: str, translate: bool, overwrite: bool, serve_web: bool, clf_dir: str, process_audio: bool, asr_model: str, use_object_detection: bool, yolo_model: str, auto_caption: bool) -> None:
     console.rule("Video to Step Images + Captions (1 fps)")
 
     web_proc = None
@@ -772,28 +551,141 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
         # 1) Extract frames at 1 fps
         frame_paths = extract_frames_1fps(input_video, frames_dir)
         console.print(f"[green]Extracted {len(frame_paths)} frame(s) into {frames_dir}[/green]")
-        # 2) Caption each frame (Local HF + Object Detection + OCR)
+        # 2) Caption each frame (Local HF + Object Detection + OCR) - optional
         results: List[CaptionResult] = []
         labels: List[Dict[str, object]] = []
-        # Set YOLO model in environment for caption_image_local to use
-        if use_object_detection:
-            os.environ["YOLO_MODEL"] = yolo_model
-        for image_path in track(frame_paths, description="Captioning frames (with object detection & OCR)"):
-            base = os.path.basename(image_path)
-            try:
-                sec = int(os.path.splitext(base)[0].split("_")[-1])
-            except Exception:
-                sec = len(results)
-            caption_en = caption_image_local(image_path, hf_model, use_object_detection=use_object_detection, use_ocr=use_ocr)
-            final_caption = caption_en
-            if translate and language and language.lower() not in {"en", "english"}:
-                final_caption = translate_text(caption_en, language)
-            results.append(CaptionResult(second=sec, image_path=image_path, caption=final_caption))
-            try:
-                pred = classify_text(final_caption, clf_dir)
-            except Exception as e:
-                pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
-            labels.append(pred)
+        if auto_caption:
+            # Set YOLO model in environment for caption_image_local to use
+            if use_object_detection:
+                os.environ["YOLO_MODEL"] = yolo_model
+            for image_path in track(frame_paths, description="Captioning frames (with object detection)"):
+                base = os.path.basename(image_path)
+                try:
+                    sec = int(os.path.splitext(base)[0].split("_")[-1])
+                except Exception:
+                    sec = len(results)
+                
+                # Step 1: CLIP pre-filter (nhanh, zero-shot)
+                clip_result = None
+                if CLIP_AVAILABLE and pre_filter_image:
+                    try:
+                        clip_result = pre_filter_image(
+                            image_path,
+                            violation_threshold=float(os.environ.get("CLIP_VIOLATION_THRESHOLD", "0.3")),
+                            skip_threshold=float(os.environ.get("CLIP_SKIP_THRESHOLD", "0.7"))
+                        )
+                        # Log CLIP prefilter scores
+                        try:
+                            console.print(
+                                f"[blue]Frame {sec}s: CLIP prefilter → violation={clip_result.get('violation_score', 0):.2f}, "
+                                f"healthy={clip_result.get('healthy_score', 0):.2f}[/blue]"
+                            )
+                        except Exception:
+                            pass
+                        
+                        # Nếu vi phạm rõ ràng, skip BLIP + BERT
+                        if clip_result.get("skip_processing", False):
+                            console.print(f"[yellow]Frame {sec}s: CLIP detected clear violation, skipping captioning[/yellow]")
+                            # Mark as violation
+                            pred = {
+                                "label_id": 1,  # Assuming 1 = violation
+                                "score": clip_result.get("violation_score", 0.0),
+                                "probs": [],
+                                "method": "clip_prefilter",
+                                "clip_result": clip_result
+                            }
+                            labels.append(pred)
+                            # Add placeholder caption
+                            results.append(CaptionResult(second=sec, image_path=image_path, caption="[CLIP: Vi phạm rõ ràng]"))
+                            continue
+                    except Exception as e:
+                        console.print(f"[yellow]CLIP pre-filter failed: {e}, continuing with normal flow[/yellow]")
+                
+                # Step 2: BLIP caption (chỉ khi không skip)
+                caption_en = caption_image_local(
+                    image_path, 
+                    hf_model, 
+                    use_object_detection=use_object_detection,
+                    detect_objects_func=detect_objects,
+                    console=console
+                )
+                final_caption = caption_en
+                if translate and language and language.lower() not in {"en", "english"}:
+                    final_caption = translate_text(caption_en, language)
+                
+                # Step 3: CLIP verify caption quality
+                caption_verified = True
+                if CLIP_AVAILABLE and verify_caption_quality and final_caption:
+                    try:
+                        verify_result = verify_caption_quality(
+                            image_path,
+                            final_caption,
+                            threshold=float(os.environ.get("CLIP_VERIFY_THRESHOLD", "0.7"))
+                        )
+                        caption_verified = verify_result.get("is_valid", True)
+                        # Log CLIP verify similarity
+                        try:
+                            error_msg = verify_result.get('error', '')
+                            error_str = f", error={error_msg}" if error_msg else ""
+                            console.print(
+                                f"[blue]Frame {sec}s: CLIP verify → similarity={verify_result.get('similarity', 0):.2f}, "
+                                f"valid={caption_verified}{error_str}[/blue]"
+                            )
+                        except Exception:
+                            pass
+                        if not caption_verified:
+                            console.print(f"[yellow]Frame {sec}s: Caption quality low (similarity: {verify_result.get('similarity', 0):.2f})[/yellow]")
+                    except Exception as e:
+                        console.print(f"[yellow]CLIP verify failed: {e}[/yellow]")
+                
+                results.append(CaptionResult(second=sec, image_path=image_path, caption=final_caption))
+                
+                # Step 4: BERT classify (chỉ khi caption verified hoặc không có CLIP)
+                if caption_verified or not CLIP_AVAILABLE:
+                    try:
+                        pred = classify_text(final_caption, clf_dir)
+                        # Add CLIP info if available
+                        if clip_result:
+                            pred["clip_prefilter"] = clip_result
+                        # Optional: CLIP zero-shot frame labels via env CLIP_FRAME_LABELS (pipe-separated)
+                        clip_frame_labels = os.environ.get("CLIP_FRAME_LABELS", "").strip()
+                        # Fallback to frame_labels.FRAME_LABELS_VI if env not set
+                        if not clip_frame_labels:
+                            try:
+                                from frame_labels import FRAME_LABELS_VI, labels_to_pipe  # type: ignore
+                                clip_frame_labels = labels_to_pipe(FRAME_LABELS_VI)
+                            except Exception:
+                                clip_frame_labels = ""
+                        if CLIP_AVAILABLE and classify_image_zeroshot and clip_frame_labels:
+                            labels_list = [s.strip() for s in clip_frame_labels.split("|") if s.strip()]
+                            if labels_list:
+                                try:
+                                    cls_res = classify_image_zeroshot(image_path, labels_list)
+                                    pred["clip_label"] = cls_res.get("top_label")
+                                    pred["clip_label_score"] = cls_res.get("top_score")
+                                except Exception:
+                                    pass
+                    except Exception as e:
+                        pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
+                else:
+                    # Caption quality low, mark as unknown
+                    pred = {
+                        "label_id": None,
+                        "score": 0.0,
+                        "probs": [],
+                        "method": "clip_verify_failed",
+                        "note": "Caption quality too low"
+                    }
+                labels.append(pred)
+        else:
+            # If not auto-captioning, just prepare results with empty captions for export/markdown later
+            for image_path in frame_paths:
+                base = os.path.basename(image_path)
+                try:
+                    sec = int(os.path.splitext(base)[0].split("_")[-1])
+                except Exception:
+                    sec = len(results)
+                results.append(CaptionResult(second=sec, image_path=image_path, caption=""))
         # Compute SVO per caption for display/export
         svos: List[Tuple[str, str, str]] = []
         for r in results:
@@ -821,13 +713,15 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
                 "svo_format": (labels[i].get("svo_text", r.caption) if i < len(labels) else r.caption),
                 "label_id": (labels[i].get("label_id") if i < len(labels) else None),
                 "label_score": (labels[i].get("score") if i < len(labels) else None),
+                "clip_label": (labels[i].get("clip_label") if i < len(labels) else None),
+                "clip_label_score": (labels[i].get("clip_label_score") if i < len(labels) else None),
             }
             for i, r in enumerate(results)
         ]).sort_values("second")
         # Summary: assume label_id 0 = compliant, 1 = violating; others/None = unknown
         total_frames = len(df)
-        num_violate = int((df["label_id"] == 1).sum()) if total_frames > 0 else 0
-        num_ok = int((df["label_id"] == 0).sum()) if total_frames > 0 else 0
+        num_violate = int((df["label_id"] == 1).sum()) if total_frames > 0 and "label_id" in df.columns else 0
+        num_ok = int((df["label_id"] == 0).sum()) if total_frames > 0 and "label_id" in df.columns else 0
         num_unknown = total_frames - num_violate - num_ok
         pct_violate = (num_violate / total_frames * 100.0) if total_frames > 0 else 0.0
         pct_ok = (num_ok / total_frames * 100.0) if total_frames > 0 else 0.0

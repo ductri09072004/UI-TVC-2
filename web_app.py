@@ -11,13 +11,26 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from app import (
     ensure_dir,
     extract_frames_1fps,
-    caption_image_local,
     translate_text,
     CaptionResult,
     classify_text,
     extract_audio_wav,
     transcribe_audio_whisper,
+    detect_objects,
+    console,
 )
+# Import captioning from dedicated module
+from image_captioning import caption_image_local
+
+# Import CLIP moderation (optional)
+try:
+    from clip_moderation import pre_filter_image, verify_caption_quality, classify_image_zeroshot
+    CLIP_AVAILABLE = True
+except ImportError:
+    CLIP_AVAILABLE = False
+    pre_filter_image = None
+    verify_caption_quality = None
+    classify_image_zeroshot = None
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
@@ -306,7 +319,7 @@ def process_audio_only(job_id: str, video_path: str, language: str) -> Dict:
 
 
 
-def caption_existing(job_id: str, language: str, hf_model: str, translate: bool) -> Dict:
+def caption_existing(job_id: str, language: str, hf_model: str, translate: bool, use_object_detection: bool = True) -> Dict:
     out_dir = os.path.join(OUTPUT_DIR, job_id)
     frames_dir = os.path.join(out_dir, "frames")
     meta_path = os.path.join(out_dir, "result.json")
@@ -322,20 +335,298 @@ def caption_existing(job_id: str, language: str, hf_model: str, translate: bool)
         if not os.path.exists(image_path):
             continue
         if True:  # local backend only
-            cap_en = caption_image_local(image_path, hf_model)
-            final = cap_en
-            if translate and language and language.lower() not in {"en", "english"}:
-                final = translate_text(cap_en, language)
-        updated_frames.append({
+            # CLIP pre-filter (optional)
+            clip_result = None
+            if CLIP_AVAILABLE and pre_filter_image:
+                try:
+                    clip_result = pre_filter_image(
+                        image_path,
+                        violation_threshold=float(os.environ.get("CLIP_VIOLATION_THRESHOLD", "0.3")),
+                        skip_threshold=float(os.environ.get("CLIP_SKIP_THRESHOLD", "0.7"))
+                    )
+                    try:
+                        console.print(
+                            f"[blue]CLIP prefilter: sec={item['second']}, violation={clip_result.get('violation_score', 0):.2f}, "
+                            f"healthy={clip_result.get('healthy_score', 0):.2f}[/blue]"
+                        )
+                    except Exception:
+                        pass
+                    if clip_result.get("skip_processing", False):
+                        # Skip captioning for clear violations
+                        final = "[CLIP: Vi phạm rõ ràng]"
+                        updated_item = {
+                            "second": item["second"],
+                            "image_rel": item["image_rel"],
+                            "caption": final,
+                            "label_id": 1,  # Violation
+                            "label_score": clip_result.get("violation_score", 0.0),
+                            "clip_prefilter": clip_result
+                        }
+                        updated_frames.append(updated_item)
+                        continue
+                except Exception:
+                    pass  # Continue with normal flow if CLIP fails
+            
+            try:
+                cap_en = caption_image_local(
+                    image_path, 
+                    hf_model, 
+                    use_object_detection=use_object_detection,
+                    detect_objects_func=detect_objects,
+                    console=console
+                )
+                final = cap_en if cap_en else ""
+                
+                # CLIP verify caption quality
+                if CLIP_AVAILABLE and verify_caption_quality and final:
+                    try:
+                        verify_result = verify_caption_quality(
+                            image_path,
+                            final,
+                            threshold=float(os.environ.get("CLIP_VERIFY_THRESHOLD", "0.7"))
+                        )
+                        try:
+                            error_msg = verify_result.get('error', '')
+                            error_str = f", error={error_msg}" if error_msg else ""
+                            console.print(
+                                f"[blue]CLIP verify: sec={item['second']}, similarity={verify_result.get('similarity', 0):.2f}, "
+                                f"valid={verify_result.get('is_valid', True)}{error_str}[/blue]"
+                            )
+                        except Exception:
+                            pass
+                        if not verify_result.get("is_valid", True):
+                            # Caption quality low, might want to flag
+                            pass  # Continue anyway
+                    except Exception:
+                        pass
+                
+                if translate and language and language.lower() not in {"en", "english"} and final:
+                    try:
+                        final = translate_text(cap_en, language)
+                    except Exception:
+                        final = cap_en
+            except RuntimeError as e:
+                # Nếu là lỗi model không load được, raise để dừng lại
+                raise
+            except Exception as e:
+                # Lỗi khác, giữ caption cũ
+                import traceback
+                print(f"Error in caption_existing for frame {item.get('second', 'unknown')}: {e}")
+                print(traceback.format_exc())
+                final = item.get("caption", "")  # Giữ caption cũ
+        updated_item = {
             "second": item["second"],
             "image_rel": item["image_rel"],
             "caption": final,
-        })
+        }
+        # CLIP zero-shot frame label (env or fallback to frame_labels.FRAME_LABELS_VI)
+        clip_frame_labels = os.environ.get("CLIP_FRAME_LABELS", "").strip()
+        if not clip_frame_labels:
+            try:
+                from frame_labels import FRAME_LABELS_VI, labels_to_pipe  # type: ignore
+                clip_frame_labels = labels_to_pipe(FRAME_LABELS_VI)
+            except Exception:
+                clip_frame_labels = ""
+        if CLIP_AVAILABLE and classify_image_zeroshot and clip_frame_labels:
+            labels_list = [s.strip() for s in clip_frame_labels.split("|") if s.strip()]
+            if labels_list:
+                try:
+                    cls_res = classify_image_zeroshot(image_path, labels_list)
+                    updated_item["clip_label"] = cls_res.get("top_label")
+                    updated_item["clip_label_score"] = cls_res.get("top_score")
+                except Exception:
+                    pass
+        # Giữ lại các thông tin khác nếu có (như label_id, label_score)
+        if "label_id" in item:
+            updated_item["label_id"] = item["label_id"]
+        if "label_score" in item:
+            updated_item["label_score"] = item["label_score"]
+        updated_frames.append(updated_item)
 
     data["frames"] = sorted(updated_frames, key=lambda x: x["second"])
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     return data
+
+
+def regenerate_captions(job_id: str, language: str, hf_model: str, translate: bool, use_object_detection: bool = True) -> Dict:
+    """Tạo lại mô tả cho tất cả các frame trong job đã có mô tả cũ.
+    Tương tự caption_existing nhưng có thể dùng object detection.
+    Khi tạo lại mô tả, xóa label cũ vì mô tả mới có thể khác.
+    """
+    out_dir = os.path.join(OUTPUT_DIR, job_id)
+    frames_dir = os.path.join(out_dir, "frames")
+    meta_path = os.path.join(out_dir, "result.json")
+    if not os.path.exists(meta_path):
+        raise RuntimeError("result.json not found for this job")
+    with open(meta_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # Caption all frames listed in result.json
+    updated_frames = []
+    for item in data.get("frames", []):
+        image_path = os.path.join(out_dir, item["image_rel"]).replace("/", os.sep)
+        if not os.path.exists(image_path):
+            # Giữ lại frame cũ nếu không tìm thấy ảnh
+            updated_frames.append(item)
+            continue
+        try:
+            # CLIP pre-filter (optional)
+            clip_result = None
+            if CLIP_AVAILABLE and pre_filter_image:
+                try:
+                    clip_result = pre_filter_image(
+                        image_path,
+                        violation_threshold=float(os.environ.get("CLIP_VIOLATION_THRESHOLD", "0.3")),
+                        skip_threshold=float(os.environ.get("CLIP_SKIP_THRESHOLD", "0.7"))
+                    )
+                    if clip_result.get("skip_processing", False):
+                        # Skip captioning for clear violations
+                        final = "[CLIP: Vi phạm rõ ràng]"
+                        updated_item = {
+                            "second": item["second"],
+                            "image_rel": item["image_rel"],
+                            "caption": final,
+                            "label_id": 1,
+                            "label_score": clip_result.get("violation_score", 0.0),
+                            "clip_prefilter": clip_result
+                        }
+                        updated_frames.append(updated_item)
+                        continue
+                except Exception:
+                    pass
+            
+            # local backend only
+            cap_en = caption_image_local(image_path, hf_model, use_object_detection=use_object_detection)
+            final = cap_en if cap_en else ""
+            
+            # CLIP verify caption quality
+            if CLIP_AVAILABLE and verify_caption_quality and final:
+                try:
+                    verify_result = verify_caption_quality(
+                        image_path,
+                        final,
+                        threshold=float(os.environ.get("CLIP_VERIFY_THRESHOLD", "0.7"))
+                    )
+                    if not verify_result.get("is_valid", True):
+                        # Caption quality low
+                        pass
+                except Exception:
+                    pass
+            
+            if translate and language and language.lower() not in {"en", "english"} and final:
+                try:
+                    final = translate_text(cap_en, language)
+                except Exception as e:
+                    # Nếu dịch lỗi, giữ nguyên caption gốc
+                    final = cap_en
+        except RuntimeError as e:
+            # RuntimeError thường là lỗi nghiêm trọng (OOM, model không load được)
+            # Dừng lại và báo lỗi rõ ràng
+            import traceback
+            error_msg = f"Lỗi nghiêm trọng khi tạo mô tả: {e}"
+            print(error_msg)
+            print(traceback.format_exc())
+            # Nếu là lỗi OOM, giữ caption cũ và log lỗi
+            if "out of memory" in str(e).lower() or "oom" in str(e).lower() or "quá lớn" in str(e).lower():
+                final = item.get("caption", "")  # Giữ caption cũ
+                print(f"Model quá lớn, giữ caption cũ cho frame {item.get('second', 'unknown')}")
+            else:
+                # Các lỗi khác, raise để dừng lại
+                raise
+        except Exception as e:
+            # Nếu caption lỗi, giữ lại caption cũ hoặc để trống
+            import traceback
+            print(f"Error captioning frame {item.get('second', 'unknown')}: {e}")
+            print(traceback.format_exc())
+            final = item.get("caption", "")  # Giữ caption cũ nếu có
+        # Tạo lại mô tả, không giữ label cũ vì mô tả mới có thể khác
+        updated_item = {
+            "second": item["second"],
+            "image_rel": item["image_rel"],
+            "caption": final,
+        }
+        updated_frames.append(updated_item)
+
+    data["frames"] = sorted(updated_frames, key=lambda x: x["second"])
+    # Xóa summary cũ nếu có vì label đã thay đổi
+    if "summary" in data:
+        del data["summary"]
+    with open(meta_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    return data
+
+
+@app.route("/classify", methods=["POST"])
+def classify_description():
+    """Xử lý form gán nhãn mô tả."""
+    description = request.form.get("description", "").strip()
+    
+    if not description:
+        return redirect(url_for("index"))
+    
+    classification_result = None
+    try:
+        # Sử dụng model output_moderation để phân loại
+        pred = classify_text(description, DEFAULT_CLF_DIR)
+        classification_result = {
+            "description": description,
+            "label_id": pred.get("label_id"),
+            "score": pred.get("score", 0.0),
+            "probs": pred.get("probs", {})
+        }
+    except Exception as e:
+        classification_result = {
+            "description": description,
+            "label_id": None,
+            "score": 0.0,
+            "error": str(e)
+        }
+    
+    # Lấy danh sách uploads và jobs như trong index()
+    uploads = []
+    jobs = []
+    try:
+        if os.path.isdir(UPLOAD_DIR):
+            for name in os.listdir(UPLOAD_DIR):
+                if not name.lower().endswith((".mp4", ".mov", ".mkv", ".webm")):
+                    continue
+                full = os.path.join(UPLOAD_DIR, name)
+                try:
+                    stat = os.stat(full)
+                    uploads.append({
+                        "name": name,
+                        "size": stat.st_size,
+                        "mtime": stat.st_mtime,
+                    })
+                except Exception:
+                    continue
+        uploads.sort(key=lambda x: x["mtime"], reverse=True)
+        if os.path.isdir(OUTPUT_DIR):
+            for job_id in os.listdir(OUTPUT_DIR):
+                job_dir = os.path.join(OUTPUT_DIR, job_id)
+                meta = os.path.join(job_dir, "result.json")
+                if not os.path.isfile(meta):
+                    continue
+                try:
+                    stat = os.stat(meta)
+                    with open(meta, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    jobs.append({
+                        "job_id": job_id,
+                        "count": len(data.get("frames", [])),
+                        "mtime": stat.st_mtime,
+                    })
+                except Exception:
+                    continue
+        jobs.sort(key=lambda x: x["mtime"], reverse=True)
+    except Exception:
+        pass
+    
+    # Lưu kết quả vào session và redirect với anchor để scroll đến form
+    import json as json_module
+    result_json = json_module.dumps(classification_result)
+    return redirect(url_for("index", classification_result=result_json) + "#classify-section")
 
 
 @app.route("/")
@@ -384,7 +675,19 @@ def index():
         uploads = []
         jobs = []
 
-    return render_template("index.html", uploads=uploads, jobs=jobs)
+    # Kiểm tra xem có classification_result trong session không (từ POST redirect)
+    classification_result = None
+    if request.args.get("classification_result"):
+        try:
+            import json as json_module
+            classification_result = json_module.loads(request.args.get("classification_result"))
+        except Exception:
+            pass
+    
+    return render_template("index.html", 
+                         uploads=uploads, 
+                         jobs=jobs,
+                         classification_result=classification_result)
 @app.route("/audio")
 def audio_index():
     uploads = []
@@ -596,6 +899,17 @@ def result(job_id: str):
     audio = data.get("audio")
     audio_summary = audio.get("sentence_summary") if isinstance(audio, dict) else None
     audio_sentences = audio.get("sentences") if isinstance(audio, dict) else None
+    
+    # Check regenerate status
+    regenerate_status = None
+    status_path = os.path.join(out_dir, "regenerate_status.json")
+    if os.path.exists(status_path):
+        try:
+            with open(status_path, "r", encoding="utf-8") as sf:
+                regenerate_status = json.load(sf)
+        except Exception:
+            pass
+    
     return render_template(
         "result.html",
         error=None,
@@ -605,6 +919,7 @@ def result(job_id: str):
         summary=summary,
         audio_summary=audio_summary,
         audio_sentences=audio_sentences,
+        regenerate_status=regenerate_status,
     )
 
 
@@ -613,11 +928,60 @@ def caption_job(job_id: str):
     language = request.form.get("language", "vi")
     hf_model = request.form.get("hf_model", "Salesforce/blip-image-captioning-base")
     translate = request.form.get("translate", "on") == "on"
+    use_object_detection = request.form.get("use_object_detection", "on") == "on"
     try:
-        caption_existing(job_id, language, hf_model, translate)
+        caption_existing(job_id, language, hf_model, translate, use_object_detection=use_object_detection)
     except Exception as e:
         out_dir = os.path.join(OUTPUT_DIR, job_id)
         return render_template("result.html", error=str(e), job_id=job_id, frames=[], out_dir=out_dir)
+    return redirect(url_for("result", job_id=job_id))
+
+
+@app.route("/api/regenerate-status/<job_id>")
+def regenerate_status_api(job_id: str):
+    """API endpoint để check regenerate status."""
+    out_dir = os.path.join(OUTPUT_DIR, job_id)
+    status_path = os.path.join(out_dir, "regenerate_status.json")
+    if os.path.exists(status_path):
+        try:
+            with open(status_path, "r", encoding="utf-8") as sf:
+                status = json.load(sf)
+                return json.dumps(status), 200, {"Content-Type": "application/json"}
+        except Exception:
+            pass
+    return json.dumps({"state": "none"}), 200, {"Content-Type": "application/json"}
+
+
+@app.route("/regenerate/<job_id>", methods=["POST"])
+def regenerate_job(job_id: str):
+    """Tạo lại mô tả cho các frame đã có mô tả cũ. Chạy trong background thread."""
+    language = request.form.get("language", "vi")
+    hf_model = request.form.get("hf_model", "Salesforce/blip-image-captioning-base")
+    translate = request.form.get("translate", "on") == "on"
+    use_object_detection = request.form.get("use_object_detection", "on") == "on"
+    
+    # Chạy trong background thread để không block UI và tránh timeout
+    def _run_regenerate():
+        out_dir = os.path.join(OUTPUT_DIR, job_id)
+        status_path = os.path.join(out_dir, "regenerate_status.json")
+        try:
+            with open(status_path, "w", encoding="utf-8") as sf:
+                json.dump({"state": "processing", "message": "Đang tạo lại mô tả..."}, sf)
+            regenerate_captions(job_id, language, hf_model, translate, use_object_detection)
+            with open(status_path, "w", encoding="utf-8") as sf:
+                json.dump({"state": "done"}, sf)
+        except Exception as e:
+            import traceback
+            err_msg = f"{e}\n{traceback.format_exc()}"
+            print(f"Error in regenerate_captions: {err_msg}")
+            try:
+                with open(status_path, "w", encoding="utf-8") as sf:
+                    json.dump({"state": "error", "message": str(e)}, sf)
+            except Exception:
+                pass
+    
+    threading.Thread(target=_run_regenerate, daemon=True).start()
+    # Redirect ngay, người dùng sẽ thấy kết quả sau khi xong (có thể refresh trang)
     return redirect(url_for("result", job_id=job_id))
 
 

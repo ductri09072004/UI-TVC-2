@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ```
 
 Ghi chú:
-- Mặc định dùng mô hình local Hugging Face `Salesforce/blip-image-captioning-base` (chạy được CPU).
+- Mặc định dùng mô hình local Hugging Face `Salesforce/blip-image-captioning-base` (chạy được CPU, ~1GB).
 - Có thể dùng OpenAI (GPT-4o-mini) để mô tả chính xác hơn (cần biến môi trường `OPENAI_API_KEY`).
 - Có tùy chọn dịch sang tiếng Việt (dùng `deep-translator`; cần Internet).
 
@@ -27,7 +27,7 @@ Ghi chú:
 python app.py --input path/to/video.mp4 --out_dir output --backend local --language vi
 
 # Chỉ thay đổi mô hình HF (tùy chọn)
-python app.py --input path/to/video.mp4 --backend local --hf_model Salesforce/blip-image-captioning-large
+python app.py --input path/to/video.mp4 --backend local --hf_model Salesforce/blip-image-captioning-base
 
 # Dùng OpenAI để mô tả trực tiếp bằng tiếng Việt
 $env:OPENAI_API_KEY="YOUR_KEY"  # PowerShell
