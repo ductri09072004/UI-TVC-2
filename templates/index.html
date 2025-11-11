@@ -1,240 +1,269 @@
 {% extends "base.html" %}
-{% block hero %}
-  <div class="grid lg:grid-cols-2 gap-6 items-center">
-    <div>
-      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Biến video thành chuỗi ảnh và mô tả tự động</h1>
-      <p class="mt-2 text-slate-600 dark:text-slate-300">Tách 1 ảnh mỗi giây và mô tả nội dung chính. Sử dụng mô hình local (Hugging Face).</p>
-      <div class="mt-4 flex flex-col sm:flex-row gap-3">
-        <a href="#upload" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">Bắt đầu</a>
-        <a href="https://huggingface.co/models" target="_blank" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-200 dark:bg-slate-700 px-5 py-3 text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600">Model gợi ý</a>
-        <a href="{{ url_for('audio_index') }}" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-base font-semibold text-white shadow hover:bg-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Chỉ tách tiếng</a>
-      </div>
-    </div>
-    <div class="hidden lg:block">
-      <div class="card p-6">
-        <div class="text-sm text-slate-500">Mẹo</div>
-        <ul class="mt-2 space-y-2 text-sm text-slate-700 dark:text-slate-200">
-          <li>• Video ngắn xử lý nhanh và ít tốn tài nguyên hơn.</li>
-          <li>• BLIP base chạy được CPU. GPU sẽ nhanh hơn đáng kể nếu có.</li>
-          <li>• OpenAI cho chất lượng cao hơn nhưng cần API key.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-{% endblock %}
-
 {% block content %}
-  <section id="upload" class="grid lg:grid-cols-2 gap-8">
-    <div class="card p-6">
-      <h2 class="text-xl font-semibold mb-1">Tải video và thiết lập</h2>
-      <p class="text-sm text-slate-500 mb-4">Kéo thả hoặc chọn tệp. Sau đó điều chỉnh tham số nếu cần.</p>
-
-      <form method="post" enctype="multipart/form-data" action="{{ url_for('upload') }}" class="space-y-5" id="uploadForm">
-        <div id="dropzone" class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-6 text-center hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition">
-          <input type="file" id="video" name="video" accept="video/*" required class="hidden" />
-          <p class="text-sm text-slate-500">Kéo thả video vào đây, hoặc</p>
-          <button type="button" class="btn-secondary mt-2" id="browseBtn">Chọn tệp</button>
-          <div id="fileInfo" class="mt-3 text-xs text-slate-500"></div>
-        </div>
-
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label for="language" class="label">Ngôn ngữ mô tả</label>
-            <select id="language" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <option value="vi">Tiếng Việt (vi)</option>
-              <option value="en" selected>English (en)</option>
-            </select>
-          </div>
-        </div>
-
-        
-
-        <label class="inline-flex items-center gap-2">
-          <input type="checkbox" name="translate" class="checkbox" />
-          <span class="text-sm">Dịch sang ngôn ngữ đích (khi dùng Local)</span>
-        </label>
-
-        <div class="flex flex-col sm:flex-row gap-3">
-          <button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M3 3a1 1 0 000 2h1v10a2 2 0 002 2h8a2 2 0 002-2V5h1a1 1 0 100-2H3zm5 4a1 1 0 012 0v6a1 1 0 11-2 0V7z" /></svg>
-            Tải lên và xử lý
-          </button>
-          <button type="reset" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-200 dark:bg-slate-700 px-6 py-3 text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600" id="resetBtn">Xóa lựa chọn</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="card p-6">
-      <h3 class="text-lg font-semibold mb-2">Gợi ý</h3>
-      <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-        <li>• Video ngắn (vài chục giây) sẽ xử lý nhanh.</li>
-        <li>• GPU NVIDIA với PyTorch CUDA giúp mô tả nhanh hơn.</li>
-        <li>• Ảnh và dữ liệu lưu tại <code>web_outputs/&lt;job_id&gt;/</code>.</li>
-      </ul>
-      <div class="mt-4 p-4 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-200 text-sm">
-        Mẹo: Giữ BLIP base nếu máy yếu; nâng cấp model khi cần chất lượng cao hơn.
-      </div>
-    </div>
-  </section>
-
-  {% if uploads and uploads|length > 0 %}
-  <section class="mt-8 grid lg:grid-cols-2 gap-8">
-    <div class="card p-6">
-      <h2 class="text-xl font-semibold mb-1">Chọn lại video đã tải</h2>
-      <p class="text-sm text-slate-500 mb-4">Xử lý một video đã có trong công cụ mà không cần tải lại.</p>
-      <form method="post" action="{{ url_for('use_uploaded') }}" class="space-y-5">
+<div class="mx-auto max-w-[1800px] px-6 py-6 grid lg:grid-cols-[1fr,2fr] gap-6">
+  <!-- Left Panel: Input and Configuration -->
+  <div class="space-y-6">
+    <!-- Video Upload Area -->
+    <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-slate-700/50 p-6">
+      <form method="post" enctype="multipart/form-data" action="{{ url_for('upload') }}" id="uploadForm" class="space-y-4">
+        <!-- Video URL Input -->
         <div>
-          <label for="existing" class="label">Video đã tải</label>
-          <select id="existing" name="existing" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-            {% for v in uploads %}
-              <option value="{{ v.name }}">{{ v.name }} ({{ (v.size/1024/1024)|round(2) }} MB)</option>
-            {% endfor %}
+          <label class="text-sm font-semibold text-slate-300 mb-2 block">Hoặc nhập URL video</label>
+          <input type="url" id="video_url" name="video_url" placeholder="https://example.com/video.mp4" 
+                 class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <p class="text-xs text-slate-400 mt-1">Hỗ trợ: http, https</p>
+        </div>
+        
+        <div class="text-center text-slate-400 text-sm">HOẶC</div>
+        
+        <div id="dropzone" class="border-2 border-dashed border-slate-600 rounded-xl p-12 text-center hover:border-purple-500/50 transition cursor-pointer">
+          <input type="file" id="video" name="video" accept="video/*" class="hidden" />
+          <svg class="w-12 h-12 mx-auto mb-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          <p class="text-slate-300 mb-3">Kéo thả video vào đây hoặc</p>
+          <button type="button" id="browseBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition">
+            Chọn file
+          </button>
+          <p class="text-xs text-slate-400 mt-4">Hỗ trợ: MP4, MKV - tối đa 2 giờ . < 4GB</p>
+          <div id="fileInfo" class="mt-3 text-xs text-slate-400"></div>
+        </div>
+
+        <!-- Language Selection -->
+        <div>
+          <label class="text-sm font-semibold text-slate-300 mb-3 block">LANGUAGE</label>
+          <select name="language" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <option value="auto">Auto detect</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="en">English</option>
           </select>
         </div>
 
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label for="language2" class="label">Ngôn ngữ mô tả</label>
-            <select id="language2" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <option value="vi">Tiếng Việt (vi)</option>
-              <option value="en" selected>English (en)</option>
-            </select>
-          </div>
-        </div>
-
-        
-
-        <label class="inline-flex items-center gap-2">
-          <input type="checkbox" name="translate" class="checkbox" />
-          <span class="text-sm">Dịch sang ngôn ngữ đích (khi dùng Local)</span>
-        </label>
-
-        <div class="flex flex-col sm:flex-row gap-3">
-          <button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
-            Xử lý video đã có
-          </button>
-        </div>
-      </form>
-    </div>
-  </section>
-  {% endif %}
-
-  {% if jobs and jobs|length > 0 %}
-  <section class="mt-8">
-    <div class="card p-6">
-      <h2 class="text-xl font-semibold mb-1">Mở lại kết quả đã render</h2>
-      <p class="text-sm text-slate-500 mb-4">Chọn một phiên đã xử lý để xem lại ảnh và mô tả, gán nhãn nếu cần.</p>
-      <form method="get" action="" onsubmit="event.preventDefault(); const id=document.getElementById('job_id').value; if(id){ window.location.href = '/result/' + id; }">
-        <div class="grid sm:grid-cols-2 gap-4 items-end">
-          <div>
-            <label for="job_id" class="label">Phiên đã xử lý</label>
-            <select id="job_id" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              {% for j in jobs %}
-                <option value="{{ j.job_id }}">{{ j.job_id }} ({{ j.count }} ảnh)</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div>
-            <button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Mở kết quả</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </section>
-  {% endif %}
-
-  <section id="classify-section" class="mt-8">
-    <div class="card p-6">
-      <h2 class="text-xl font-semibold mb-1">Gán nhãn mô tả</h2>
-      <p class="text-sm text-slate-500 mb-4">Nhập mô tả để phân loại vi phạm/non-vi phạm bằng model output_moderation.</p>
-      <form method="post" action="{{ url_for('classify_description') }}" class="space-y-5" id="classifyForm">
+        <!-- What to Extract -->
         <div>
-          <label for="description" class="label">Mô tả</label>
-          <textarea 
-            id="description" 
-            name="description" 
-            rows="4" 
-            required
-            placeholder="Nhập mô tả cần gán nhãn, ví dụ: người đàn ông vẽ tranh"
-            class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-          ></textarea>
-        </div>
-        
-        <div class="flex flex-col sm:flex-row gap-3">
-          <button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-amber-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-amber-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
-            </svg>
-            Gán nhãn
-          </button>
-          <button type="reset" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-200 dark:bg-slate-700 px-6 py-3 text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600">Xóa</button>
-        </div>
-      </form>
-      
-      {% if classification_result %}
-      <div class="mt-5 p-4 rounded-lg {% if classification_result.label_id == 1 %}bg-red-50 dark:bg-red-900/30{% else %}bg-green-50 dark:bg-green-900/30{% endif %}">
-        <div class="flex items-center justify-between mb-2">
-          <span class="font-semibold text-sm">Kết quả:</span>
-          <span class="text-sm font-bold {% if classification_result.label_id == 1 %}text-red-700 dark:text-red-300{% else %}text-green-700 dark:text-green-300{% endif %}">
-            {% if classification_result.label_id == 1 %}
-              ⚠️ Vi phạm
-            {% elif classification_result.label_id == 0 %}
-              ✅ Non-vi phạm
-            {% else %}
-              ❓ Không xác định
-            {% endif %}
-          </span>
-        </div>
-        <div class="text-sm text-slate-600 dark:text-slate-300">
-          <div>Độ tin cậy: <strong>{{ "%.1f"|format(classification_result.score * 100) }}%</strong></div>
-          {% if classification_result.description %}
-          <div class="mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-            <strong>Mô tả:</strong> {{ classification_result.description }}
+          <label class="text-sm font-semibold text-slate-300 mb-3 block">WHAT TO EXTRACT</label>
+          <div class="space-y-3">
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="extract_speech" checked class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
+              <span class="text-slate-200">Speech transcription</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="extract_scene" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
+              <span class="text-slate-200">Scene description</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="extract_ocr" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
+              <span class="text-slate-200">On-screen text (OCR)</span>
+            </label>
           </div>
-          {% endif %}
         </div>
-      </div>
+
+        <!-- Processing Pipeline -->
+        <div>
+          <label class="text-sm font-semibold text-slate-300 mb-3 block">PROCESSING PIPELINE</label>
+          <div class="space-y-3" id="pipeline">
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600" id="pipeline-scene"></div>
+              <span class="text-slate-300 text-sm">Scene detection</span>
+              <span class="ml-auto text-xs text-slate-500" id="pipeline-scene-status">Pending</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600" id="pipeline-audio"></div>
+              <span class="text-slate-300 text-sm">Audio transcription</span>
+              <span class="ml-auto text-xs text-slate-500" id="pipeline-audio-status">Pending</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600" id="pipeline-visual"></div>
+              <span class="text-slate-300 text-sm">Visual captioning</span>
+              <span class="ml-auto text-xs text-slate-500" id="pipeline-visual-status">Pending</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600" id="pipeline-script"></div>
+              <span class="text-slate-300 text-sm">Script synthesis</span>
+              <span class="ml-auto text-xs text-slate-500" id="pipeline-script-status">Pending</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">Demo: ETA giả lập ~ vài giây. Thực tế phụ thuộc độ dài video.</p>
+        </div>
+
+        <!-- Start Transcription Button -->
+        <button type="submit" id="startBtn" class="w-full bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-white font-semibold px-6 py-4 rounded-lg transition">
+          Start transcription
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right Panel: Previous Results or Transcript Output -->
+  <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-slate-700/50 p-6">
+    <!-- Navigation Tabs -->
+    <div class="flex gap-1 border-b border-slate-700 mb-4">
+      <button class="px-4 py-2 text-sm font-medium text-white border-b-2 border-purple-500 pb-2" data-tab="results" onclick="switchTab('results')">
+        Previous Results
+      </button>
+      <button class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white" data-tab="script" onclick="switchTab('script')">
+        Script
+      </button>
+      <button class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white" data-tab="segments" onclick="switchTab('segments')">
+        Segments
+      </button>
+      <button class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white" data-tab="speakers" onclick="switchTab('speakers')">
+        Speakers
+      </button>
+      <button class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white" data-tab="metadata" onclick="switchTab('metadata')">
+        Metadata
+      </button>
+    </div>
+
+    <!-- Previous Results Tab Content -->
+    <div id="tab-results" class="tab-content">
+      {% if jobs and jobs|length > 0 %}
+        <div class="space-y-3 max-h-[calc(100vh-300px)] overflow-y-auto">
+          {% for job in jobs %}
+            <div class="bg-slate-700/30 rounded-lg p-4 border border-slate-600/50 hover:bg-slate-700/50 transition cursor-pointer" onclick="window.location.href='{{ url_for('result', job_id=job.job_id) }}'">
+              <div class="flex items-center justify-between">
+                <div class="flex-1">
+                  <div class="text-sm font-semibold text-white mb-1">{{ job.job_id[:8] }}...</div>
+                  <div class="text-xs text-slate-400">{{ job.count }} frames</div>
+                </div>
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-center text-slate-400 py-12">
+          <p class="text-sm">Chưa có kết quả nào. Hãy tải video và bắt đầu transcription.</p>
+        </div>
       {% endif %}
     </div>
-  </section>
 
-  <script>
-    // Scroll đến form gán nhãn nếu có kết quả
-    {% if classification_result %}
-    window.addEventListener('DOMContentLoaded', function() {
-      const classifySection = document.getElementById('classify-section');
-      if (classifySection) {
-        setTimeout(function() {
-          classifySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-      }
-    });
-    {% endif %}
+    <!-- Script Tab Content -->
+    <div id="tab-script" class="tab-content hidden">
+      <!-- Search Bar -->
+      <div class="mb-4">
+        <input type="text" id="searchTranscript" placeholder="Tìm trong transcript..." class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
+      </div>
+      <!-- Transcript Content -->
+      <div id="transcriptContent" class="space-y-3 max-h-[calc(100vh-300px)] overflow-y-auto">
+        <div class="text-center text-slate-400 py-12">
+          <p class="text-sm">Chưa có transcript. Hãy tải video và bắt đầu transcription.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segments Tab Content -->
+    <div id="tab-segments" class="tab-content hidden">
+      <div class="text-center text-slate-400 py-12">
+        <p class="text-sm">Chưa có segments.</p>
+      </div>
+    </div>
+
+    <!-- Speakers Tab Content -->
+    <div id="tab-speakers" class="tab-content hidden">
+      <div class="text-center text-slate-400 py-12">
+        <p class="text-sm">Chức năng đang phát triển.</p>
+      </div>
+    </div>
+
+    <!-- Metadata Tab Content -->
+    <div id="tab-metadata" class="tab-content hidden">
+      <div class="text-center text-slate-400 py-12">
+        <p class="text-sm">Chưa có metadata.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // File upload handling
+  const dropzone = document.getElementById('dropzone');
+  const input = document.getElementById('video');
+  const browseBtn = document.getElementById('browseBtn');
+  const fileInfo = document.getElementById('fileInfo');
+  const startBtn = document.getElementById('startBtn');
+
+  const setFileInfo = (file) => {
+    if (file) {
+      fileInfo.textContent = `${file.name} • ${(file.size/1024/1024).toFixed(2)} MB`;
+      startBtn.disabled = false;
+      startBtn.classList.remove('disabled:bg-slate-800', 'disabled:text-slate-500');
+    } else {
+      fileInfo.textContent = '';
+      startBtn.disabled = true;
+    }
+  };
+
+  browseBtn.addEventListener('click', () => input.click());
+  
+  dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropzone.classList.add('border-purple-500');
+  });
+  
+  dropzone.addEventListener('dragleave', () => {
+    dropzone.classList.remove('border-purple-500');
+  });
+  
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('border-purple-500');
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      input.files = files;
+      setFileInfo(files[0]);
+    }
+  });
+  
+  input.addEventListener('change', () => setFileInfo(input.files[0]));
+
+  // Form validation: require either URL or file
+  const uploadForm = document.getElementById('uploadForm');
+  const videoUrlInput = document.getElementById('video_url');
+  
+  uploadForm.addEventListener('submit', (e) => {
+    const hasUrl = videoUrlInput.value.trim() !== '';
+    const hasFile = input.files && input.files.length > 0;
     
-    const dropzone = document.getElementById('dropzone');
-    const input = document.getElementById('video');
-    const browseBtn = document.getElementById('browseBtn');
-    const fileInfo = document.getElementById('fileInfo');
-    const resetBtn = document.getElementById('resetBtn');
-
-    const setFileInfo = (file) => {
-      fileInfo.textContent = file ? `${file.name} • ${(file.size/1024/1024).toFixed(2)} MB` : '';
-    };
-
-    browseBtn.addEventListener('click', () => input.click());
-    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('bg-slate-50'); });
-    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('bg-slate-50'));
-    dropzone.addEventListener('drop', (e) => {
+    if (!hasUrl && !hasFile) {
       e.preventDefault();
-      dropzone.classList.remove('bg-slate-50');
-      const files = e.dataTransfer.files;
-      if (files && files.length > 0) {
-        input.files = files;
-        setFileInfo(files[0]);
-      }
+      alert('Vui lòng nhập URL video hoặc chọn file video để upload.');
+      return false;
+    }
+    
+    // Disable the other input if one is provided
+    if (hasUrl) {
+      input.removeAttribute('required');
+    } else {
+      input.setAttribute('required', 'required');
+    }
+  });
+
+  // Tab switching
+  function switchTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(content => {
+      content.classList.add('hidden');
     });
-    input.addEventListener('change', () => setFileInfo(input.files[0]));
-    resetBtn.addEventListener('click', () => { input.value = ''; setFileInfo(null); });
-  </script>
+    
+    // Show selected tab content
+    const selectedContent = document.getElementById('tab-' + tabName);
+    if (selectedContent) {
+      selectedContent.classList.remove('hidden');
+    }
+    
+    // Update tab buttons
+    document.querySelectorAll('[data-tab]').forEach(btn => {
+      btn.classList.remove('text-white', 'border-purple-500', 'border-b-2');
+      btn.classList.add('text-slate-400');
+    });
+    const activeBtn = document.querySelector(`[data-tab="${tabName}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('text-white', 'border-purple-500', 'border-b-2');
+      activeBtn.classList.remove('text-slate-400');
+    }
+  }
+</script>
 {% endblock %}

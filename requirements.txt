@@ -10,7 +10,9 @@ pandas>=2.2.2
 deep-translator>=1.11.4
 openai>=1.42.0
 Flask>=3.0.0
-accelerate>=0.26.0  # Khuyến nghị: Giúp tối ưu bộ nhớ khi load model lớn (BLIP2, InstructBLIP)
-# CLIP for moderation (optional, install with: pip install git+https://github.com/openai/CLIP.git)
-# ftfy>=6.1.1  # Required by CLIP
-# regex>=2022.1.18  # Required by CLIP
+accelerate>=0.26.0
+requests>=2.31.0
+# OCR libraries (ưu tiên PaddleOCR cho tiếng Việt, EasyOCR làm fallback)
+paddlepaddle>=2.5.0  # Required for PaddleOCR
+paddleocr>=2.7.0     # Better accuracy for Vietnamese text
+easyocr>=1.7.0        # Fallback OCR option  

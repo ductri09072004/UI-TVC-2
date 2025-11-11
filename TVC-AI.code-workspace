@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "."
+		},
+		{
+			"path": "../blip-image-LLM"
 		}
 	],
 	"settings": {}

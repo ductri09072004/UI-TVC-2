@@ -1,307 +1,393 @@
 {% extends "base.html" %}
 {% block content %}
-  {% if error %}
-    <div class="card p-6 border-red-200 dark:border-red-800">
-      <h4 class="text-xl font-semibold text-red-600 mb-2">Lỗi xử lý</h4>
-      <p class="text-slate-700 dark:text-slate-200">{{ error }}</p>
-      <div class="mt-4">
-        <a href="{{ url_for('index') }}" class="btn-secondary">← Về trang tải lên</a>
-      </div>
-    </div>
-  {% else %}
-    {% if regenerate_status and regenerate_status.state == 'processing' %}
-    <div class="card p-4 mb-6 border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20">
-      <div class="flex items-center gap-3">
-        <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
-        <div>
-          <div class="font-semibold text-blue-700 dark:text-blue-300">Đang tạo lại mô tả...</div>
-          <div class="text-sm text-blue-600 dark:text-blue-400">{{ regenerate_status.message or 'Vui lòng đợi, đang xử lý các frame...' }}</div>
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+  <div class="mx-auto max-w-[1800px] px-6 py-6 grid lg:grid-cols-[1fr,2fr] gap-6">
+    <!-- Left Panel: Job Info and Controls -->
+    <div class="space-y-6">
+      {% if error %}
+        <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-red-700/50 p-6">
+          <h4 class="text-xl font-semibold text-red-400 mb-2">Lỗi xử lý</h4>
+          <p class="text-slate-300">{{ error }}</p>
+          <div class="mt-4">
+            <a href="{{ url_for('index') }}" class="btn-secondary">← Về trang tải lên</a>
+          </div>
         </div>
-      </div>
-      <div class="mt-2 text-xs text-blue-600 dark:text-blue-400">Trang sẽ tự động cập nhật khi hoàn tất. Bạn có thể refresh trang để kiểm tra.</div>
-    </div>
-    {% elif regenerate_status and regenerate_status.state == 'error' %}
-    <div class="card p-4 mb-6 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
-      <div class="font-semibold text-red-700 dark:text-red-300">Lỗi khi tạo lại mô tả</div>
-      <div class="text-sm text-red-600 dark:text-red-400 mt-1">{{ regenerate_status.message or 'Có lỗi xảy ra' }}</div>
-    </div>
-    {% endif %}
-    
-    <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-      <div>
-        <div class="text-sm text-slate-500">Mã phiên</div>
-        <div class="text-xl font-semibold tracking-tight">{{ job_id }}</div>
-        <div class="text-xs text-slate-500 mt-1">Tổng ảnh: {{ frames|length }}</div>
-      </div>
-      <div class="flex items-center gap-2 flex-wrap">
-        <a href="{{ url_for('index') }}" class="btn-secondary">← Tải video khác</a>
-        <a href="/web_outputs/{{ job_id }}/result.json" class="btn-primary" download>Tải JSON</a>
-        {% if frames and frames[0].get('caption') %}
-        <form method="post" action="{{ url_for('label_job', job_id=job_id) }}" class="inline">
-          <input type="hidden" name="clf_dir" value="{{ ("../TVC-AI/output_moderation") }}" />
-          <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500" type="submit">Gán nhãn caption</button>
-        </form>
-        <button onclick="document.getElementById('regenerateModal').classList.remove('hidden')" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" type="button">🔄 Tạo lại mô tả</button>
+      {% else %}
+        <!-- Job Info -->
+        <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-slate-700/50 p-6">
+          <div class="text-sm text-slate-400 mb-1">Mã phiên</div>
+          <div class="text-xl font-semibold text-white mb-4">{{ job_id }}</div>
+          <div class="text-sm text-slate-400">Tổng ảnh: {{ frames|length }}</div>
+        </div>
+
+        <!-- Summary Stats -->
+        {% if summary %}
+        <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-slate-700/50 p-6">
+          <div class="text-sm font-semibold text-slate-300 mb-4">THỐNG KÊ</div>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-400">Đạt chuẩn</span>
+              <span class="text-lg font-semibold text-emerald-400">{{ summary.num_compliant }} ({{ '%.1f'|format(summary.percent_compliant) }}%)</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-400">Vi phạm</span>
+              <span class="text-lg font-semibold text-red-400">{{ summary.num_violations }} ({{ '%.1f'|format(summary.percent_violations) }}%)</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-400">Tổng</span>
+              <span class="text-lg font-semibold text-white">{{ summary.total_frames }}</span>
+            </div>
+            {% if summary.num_unknown and summary.num_unknown > 0 %}
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-400">Không xác định</span>
+              <span class="text-sm text-slate-500">{{ summary.num_unknown }}</span>
+            </div>
+            {% endif %}
+          </div>
+        </div>
         {% endif %}
-      </div>
-    </div>
 
-    {# Summary block (after labeling) #}
-    {% if summary %}
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div class="card p-4">
-          <div class="text-sm text-slate-500">Khung hình đạt chuẩn</div>
-          <div class="text-2xl font-semibold text-emerald-600">{{ summary.num_compliant }}<span class="text-base text-slate-400"> ({{ '%.2f'|format(summary.percent_compliant) }}%)</span></div>
-        </div>
-        <div class="card p-4">
-          <div class="text-sm text-slate-500">Khung hình vi phạm</div>
-          <div class="text-2xl font-semibold text-red-600">{{ summary.num_violations }}<span class="text-base text-slate-400"> ({{ '%.2f'|format(summary.percent_violations) }}%)</span></div>
-        </div>
-        <div class="card p-4">
-          <div class="text-sm text-slate-500">Tổng khung hình</div>
-          <div class="text-2xl font-semibold">{{ summary.total_frames }}</div>
-          {% if summary.num_unknown and summary.num_unknown > 0 %}
-            <div class="text-xs text-slate-500 mt-1">Không xác định: {{ summary.num_unknown }}</div>
-          {% endif %}
-        </div>
-      </div>
-    {% endif %}
-
-    {# Audio summary (if available) #}
-    {% if audio_summary %}
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div class="card p-4">
-          <div class="text-sm text-slate-500">Đoạn thoại đạt chuẩn</div>
-          <div class="text-2xl font-semibold text-emerald-600">{{ audio_summary.num_compliant }}<span class="text-base text-slate-400"> ({{ '%.2f'|format(audio_summary.percent_compliant) }}%)</span></div>
-        </div>
-        <div class="card p-4">
-          <div class="text-sm text-slate-500">Đoạn thoại vi phạm</div>
-          <div class="text-2xl font-semibold text-red-600">{{ audio_summary.num_violations }}<span class="text-base text-slate-400"> ({{ '%.2f'|format(audio_summary.percent_violations) }}%)</span></div>
-        </div>
-        <div class="card p-4">
-          <div class="text-sm text-slate-500">Tổng đoạn thoại</div>
-          <div class="text-2xl font-semibold">{{ audio_summary.total_segments }}</div>
-          {% if audio_summary.num_unknown and audio_summary.num_unknown > 0 %}
-            <div class="text-xs text-slate-500 mt-1">Không xác định: {{ audio_summary.num_unknown }}</div>
-          {% endif %}
-        </div>
-      </div>
-    {% endif %}
-
-    {% if audio_segments %}
-      {# Old segment-based view kept for backward compatibility #}
-    {% endif %}
-
-    {% if audio_sentences %}
-      <div class="card p-6 mb-6">
-        <h4 class="text-lg font-semibold mb-3">Transcript âm thanh (theo câu)</h4>
-        <div class="space-y-2">
-          {% for s in audio_sentences %}
-            <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3">
-              <div class="flex items-center justify-between mb-1">
-                <span class="text-xs text-slate-500">Câu {{ s.index }}</span>
-                {% if s.label_id is not none %}
-                  {% if s.label_id == 1 %}
-                    <span class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">VI PHẠM</span>
-                  {% elif s.label_id == 0 %}
-                    <span class="inline-flex items-center rounded-full bg-emerald-100 text-emerald-700 px-2 py-0.5 text-xs font-semibold">ĐẠT CHUẨN</span>
-                  {% else %}
-                    <span class="inline-flex items-center rounded-full bg-slate-200 text-slate-700 px-2 py-0.5 text-xs font-semibold">KHÔNG RÕ</span>
-                  {% endif %}
-                {% endif %}
-              </div>
-              <div class="text-sm text-slate-700 dark:text-slate-200">{{ s.text }}</div>
+        <!-- Audio Summary -->
+        {% if audio_summary %}
+        <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-slate-700/50 p-6">
+          <div class="text-sm font-semibold text-slate-300 mb-4">ÂM THANH</div>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-400">Đạt chuẩn</span>
+              <span class="text-lg font-semibold text-emerald-400">{{ audio_summary.num_compliant }} ({{ '%.1f'|format(audio_summary.percent_compliant) }}%)</span>
             </div>
-          {% endfor %}
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-400">Vi phạm</span>
+              <span class="text-lg font-semibold text-red-400">{{ audio_summary.num_violations }} ({{ '%.1f'|format(audio_summary.percent_violations) }}%)</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-400">Tổng câu</span>
+              <span class="text-lg font-semibold text-white">{{ audio_summary.total_segments }}</span>
+            </div>
+          </div>
         </div>
-      </div>
-    {% endif %}
+        {% endif %}
 
-    {# Detect if captions are missing (first frame no caption) #}
-    {% set has_caption = frames and frames[0].get('caption') %}
-    {% if not has_caption %}
-      <div class="card p-6 mb-6">
-        <h4 class="text-lg font-semibold mb-2">Tạo mô tả cho các ảnh</h4>
-        <p class="text-sm text-slate-500 mb-4">Hiện tại mới trích xuất ảnh. Bạn có thể tạo mô tả (caption) ngay bây giờ.</p>
-        <form method="post" action="{{ url_for('caption_job', job_id=job_id) }}" class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="label" for="hf_model">Model tạo mô tả</label>
-            <select id="hf_model" name="hf_model" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <option value="Salesforce/blip-image-captioning-base" selected>BLIP Base (Nhanh, ~1GB)</option>
+        <!-- Actions -->
+        <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-slate-700/50 p-6 space-y-3">
+          <a href="{{ url_for('index') }}" class="w-full btn-secondary text-center block">← Tải video khác</a>
+          <a href="/web_outputs/{{ job_id }}/result.json" class="w-full btn-primary text-center block" download>📥 Tải JSON</a>
+          {% if frames and frames[0].get('caption') %}
+          <form method="post" action="{{ url_for('label_job', job_id=job_id) }}" class="space-y-3">
+            <select name="clf_dir" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+              {% for model in available_models %}
+                <option value="{{ model.path }}" {% if loop.first %}selected{% endif %}>{{ model.display_name }}</option>
+              {% endfor %}
             </select>
-          </div>
-          
-          <div>
-            <label class="label" for="language">Ngôn ngữ</label>
-            <select id="language" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <option value="vi">Tiếng Việt (vi)</option>
-              <option value="en" selected>English (en)</option>
-            </select>
-          </div>
-          
-          <label class="inline-flex items-center gap-2">
-            <input type="checkbox" name="translate" class="checkbox" />
-            <span class="text-sm">Dịch sang ngôn ngữ đích</span>
-          </label>
-          
-          <label class="inline-flex items-center gap-2">
-            <input type="checkbox" name="use_object_detection" class="checkbox" />
-            <span class="text-sm">Sử dụng YOLO phát hiện đối tượng</span>
-          </label>
-          
-          <div class="flex gap-3 sm:col-span-2">
-            <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500" type="submit">Tạo mô tả ngay</button>
-          </div>
-        </form>
-      </div>
-    {% endif %}
-
-    {% if frames|length == 0 %}
-      <div class="card p-6">
-        <p>Không có khung hình nào được trích xuất.</p>
-      </div>
-    {% else %}
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
-        {% for f in frames %}
-          <div class="card overflow-hidden hover:shadow-lg transition-shadow" id="frame-{{ f.second }}">
-            <div class="aspect-video bg-slate-100 dark:bg-slate-800">
-              <img class="w-full h-full object-cover" src="{{ url_for('serve_frame', job_id=job_id, filename=f.image_rel.split('/')[-1]) }}" alt="frame" loading="lazy">
-            </div>
-            <div class="p-4">
-              <div class="flex items-center justify-between mb-2 gap-2">
-                <span class="inline-flex items-center rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-200 px-2 py-1 text-xs font-medium">Giây {{ f.second }}</span>
-                {% if f.moderation %}
-                  {% set v = f.moderation.verdict %}
-                  {% if v == 'block' %}
-                    <span class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-1 text-xs font-semibold">BLOCK</span>
-                  {% elif v == 'restricted' %}
-                    <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-700 px-2 py-1 text-xs font-semibold">RESTRICTED</span>
-                  {% else %}
-                    <span class="inline-flex items-center rounded-full bg-emerald-100 text-emerald-700 px-2 py-1 text-xs font-semibold">ALLOW</span>
-                  {% endif %}
-                {% endif %}
-              </div>
-              <p class="text-sm text-slate-700 dark:text-slate-200">{{ f.caption }}</p>
-              {% if f.get('clip_label') %}
-                <div class="mt-2 flex items-center gap-2">
-                  <span class="inline-flex items-center rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-200 px-2 py-1 text-xs font-medium">CLIP: {{ f.get('clip_label') }}</span>
-                  {% if f.get('clip_label_score') is not none %}
-                    <span class="text-xs text-slate-500">score: {{ '%.2f'|format(f.get('clip_label_score')) }}</span>
-                  {% endif %}
-                </div>
-              {% endif %}
-              {% if f.get('label_id') is not none %}
-                <div class="mt-2 flex items-center gap-2">
-                  <span class="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200 px-2 py-1 text-xs font-medium">Nhãn: {{ f.get('label_id') }}</span>
-                  {% if f.get('label_score') is not none %}
-                    <span class="text-xs text-slate-500">score: {{ '%.2f'|format(f.get('label_score')) }}</span>
-                  {% endif %}
-                </div>
-              {% endif %}
-              {% if f.moderation and (f.moderation.categories or f.moderation.labels) %}
-                <div class="mt-2 flex flex-wrap gap-2">
-                  {% if f.moderation.categories %}
-                    {% for cat in f.moderation.categories %}
-                      <span class="inline-flex items-center rounded bg-slate-200 dark:bg-slate-700 px-2 py-0.5 text-[11px] uppercase tracking-wide">{{ cat }}</span>
-                    {% endfor %}
-                  {% else %}
-                    {% for label in f.moderation.labels %}
-                      <span class="inline-flex items-center rounded bg-slate-200 dark:bg-slate-700 px-2 py-0.5 text-[11px] uppercase tracking-wide">{{ label }}</span>
-                    {% endfor %}
-                  {% endif %}
-                </div>
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    {# Modal cho form tạo lại mô tả #}
-    {% if frames and frames[0].get('caption') %}
-    <div id="regenerateModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div class="card p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-xl font-semibold">Tạo lại mô tả</h3>
-          <button onclick="document.getElementById('regenerateModal').classList.add('hidden')" class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+            <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg transition" type="submit">Gán nhãn caption</button>
+          </form>
+          <button onclick="document.getElementById('regenerateModal').classList.remove('hidden')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition">
+            🔄 Tạo lại mô tả
           </button>
+          {% endif %}
         </div>
-        <p class="text-sm text-slate-500 mb-4">Tạo lại mô tả cho tất cả các frame. Mô tả cũ sẽ bị thay thế.</p>
-        <form method="post" action="{{ url_for('regenerate_job', job_id=job_id) }}" class="grid sm:grid-cols-2 gap-4" onsubmit="document.getElementById('regenerateModal').classList.add('hidden')">
-          <div>
-            <label class="label" for="regenerate_hf_model">Model tạo mô tả</label>
-            <select id="regenerate_hf_model" name="hf_model" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <option value="Salesforce/blip-image-captioning-base" selected>BLIP Base (Nhanh, ~1GB)</option>
-            </select>
+
+        <!-- Create Caption Form (if no captions) -->
+        {% set has_caption = frames and frames[0].get('caption') %}
+        {% if not has_caption %}
+        <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-slate-700/50 p-6">
+          <h4 class="text-lg font-semibold text-white mb-2">Tạo mô tả</h4>
+          <p class="text-sm text-slate-400 mb-4">Hiện tại mới trích xuất ảnh. Bạn có thể tạo mô tả ngay bây giờ.</p>
+          <form method="post" action="{{ url_for('caption_job', job_id=job_id) }}" class="space-y-3">
+            <div>
+              <label class="label">Model tạo mô tả</label>
+              <select name="hf_model" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="Salesforce/blip-image-captioning-base" selected>BLIP Base</option>
+              </select>
+            </div>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" name="use_object_detection" class="checkbox" />
+              <span class="text-sm text-slate-300">Sử dụng YOLO phát hiện đối tượng</span>
+            </label>
+            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition" type="submit">Tạo mô tả ngay</button>
+          </form>
+        </div>
+        {% endif %}
+
+        <!-- Regenerate Status -->
+        {% if regenerate_status and regenerate_status.state == 'processing' %}
+        <div class="bg-blue-900/30 border border-blue-700/50 rounded-xl p-4">
+          <div class="flex items-center gap-3">
+            <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-400"></div>
+            <div>
+              <div class="font-semibold text-blue-300">Đang tạo lại mô tả...</div>
+              <div class="text-sm text-blue-400">{{ regenerate_status.message or 'Vui lòng đợi...' }}</div>
+            </div>
           </div>
-          
-          <div>
-            <label class="label" for="regenerate_language">Ngôn ngữ</label>
-            <select id="regenerate_language" name="language" class="block w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <option value="vi">Tiếng Việt (vi)</option>
-              <option value="en" selected>English (en)</option>
-            </select>
+        </div>
+        {% elif regenerate_status and regenerate_status.state == 'error' %}
+        <div class="bg-red-900/30 border border-red-700/50 rounded-xl p-4">
+          <div class="font-semibold text-red-300">Lỗi khi tạo lại mô tả</div>
+          <div class="text-sm text-red-400 mt-1">{{ regenerate_status.message or 'Có lỗi xảy ra' }}</div>
+        </div>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <!-- Right Panel: Transcript Output -->
+    <div class="bg-slate-800/60 backdrop-blur rounded-xl border border-slate-700/50 p-6">
+      <!-- Navigation Tabs -->
+      <div class="flex gap-1 border-b border-slate-700 mb-4">
+        <button class="px-4 py-2 text-sm font-medium text-white border-b-2 border-purple-500 pb-2" data-tab="script" onclick="switchTab('script')">
+          Script
+        </button>
+        <button class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white" data-tab="segments" onclick="switchTab('segments')">
+          Segments
+        </button>
+        <button class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white" data-tab="speakers" onclick="switchTab('speakers')">
+          Speakers
+        </button>
+        <button class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white" data-tab="metadata" onclick="switchTab('metadata')">
+          Metadata
+        </button>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="mb-4">
+        <input type="text" id="searchTranscript" placeholder="Tìm trong transcript..." class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
+      </div>
+
+      <!-- Transcript Content -->
+      <div id="transcriptContent" class="space-y-3 max-h-[calc(100vh-300px)] overflow-y-auto">
+        <!-- Script Tab Content -->
+        <div id="tab-script" class="tab-content">
+          {% if frames|length == 0 %}
+            <div class="text-center text-slate-400 py-12">
+              <p class="text-sm">Không có khung hình nào được trích xuất.</p>
+            </div>
+          {% else %}
+            {% for f in frames %}
+              {# Chỉ hiển thị frame đầu tiên của mỗi nhóm 3 frames (0, 3, 6, 9, ...) #}
+              {% if f.second % 3 == 0 %}
+                {% set group_start = f.second %}
+                {% set group_end = f.second + 2 %}
+                <div class="bg-slate-700/30 rounded-lg p-4 border border-slate-600/50 mb-3 relative">
+                  {% if f.get('caption_original') and f.caption_original != f.caption %}
+                  <button class="toggle-caption-btn absolute top-2 right-2 text-purple-400 hover:text-purple-300 transition-colors" data-second="{{ f.second }}" id="toggle-btn-{{ f.second }}" title="Xem mô tả gốc">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                  </button>
+                  {% endif %}
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-xs font-mono text-purple-400">[{{ '%02d:%02d'|format(group_start//60, group_start%60) }}s-{{ '%02d:%02d'|format(group_end//60, group_end%60) }}s]</span>
+                    {% if f.get('label_id') is not none %}
+                      {% if f.label_id == 1 %}
+                        <span class="text-xs font-semibold text-red-400">[VI PHẠM]</span>
+                      {% elif f.label_id == 0 %}
+                        <span class="text-xs font-semibold text-emerald-400">[ĐẠT CHUẨN]</span>
+                      {% else %}
+                        <span class="text-xs font-semibold text-slate-400">[KHÔNG RÕ]</span>
+                      {% endif %}
+                    {% else %}
+                      <span class="text-xs font-semibold text-slate-400">[MÔ TẢ CẢNH]</span>
+                    {% endif %}
+                  </div>
+                  <div>
+                      <p class="text-sm text-slate-200" id="caption-{{ f.second }}">{{ f.caption }}</p>
+                      {% if f.get('caption_original') and f.caption_original != f.caption %}
+                      <p class="text-sm text-slate-400 italic hidden" id="caption-original-{{ f.second }}">{{ f.caption_original }}</p>
+                      {% endif %}
+                      {% if f.get('label_score') is not none %}
+                      <div class="mt-2 text-xs text-slate-500">Score: {{ '%.2f'|format(f.get('label_score')) }}</div>
+                      {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <!-- Segments Tab Content -->
+        <div id="tab-segments" class="tab-content hidden">
+          {% if audio_sentences %}
+            {% for s in audio_sentences %}
+              <div class="bg-slate-700/30 rounded-lg p-4 border border-slate-600/50 mb-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-mono text-purple-400">Câu {{ s.index }}</span>
+                  {% if s.label_id is not none %}
+                    {% if s.label_id == 1 %}
+                      <span class="text-xs font-semibold text-red-400 px-2 py-1 rounded bg-red-900/30">VI PHẠM</span>
+                    {% elif s.label_id == 0 %}
+                      <span class="text-xs font-semibold text-emerald-400 px-2 py-1 rounded bg-emerald-900/30">ĐẠT CHUẨN</span>
+                    {% else %}
+                      <span class="text-xs font-semibold text-slate-400 px-2 py-1 rounded bg-slate-700/50">KHÔNG RÕ</span>
+                    {% endif %}
+                  {% endif %}
+                </div>
+                <p class="text-sm text-slate-200">{{ s.text }}</p>
+                {% if s.get('label_score') is not none %}
+                <div class="mt-2 text-xs text-slate-500">Score: {{ '%.2f'|format(s.get('label_score')) }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="text-center text-slate-400 py-12">
+              <p class="text-sm">Chưa có transcript âm thanh.</p>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Speakers Tab Content -->
+        <div id="tab-speakers" class="tab-content hidden">
+          <div class="text-center text-slate-400 py-12">
+            <p class="text-sm">Chức năng đang phát triển.</p>
           </div>
-          
-          <label class="inline-flex items-center gap-2">
-            <input type="checkbox" name="translate" class="checkbox" />
-            <span class="text-sm">Dịch sang ngôn ngữ đích</span>
-          </label>
-          
-          <label class="inline-flex items-center gap-2">
-            <input type="checkbox" name="use_object_detection" class="checkbox" />
-            <span class="text-sm">Sử dụng YOLO phát hiện đối tượng</span>
-          </label>
-          
-          <div class="flex gap-3 sm:col-span-2">
-            <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" type="submit">Xác nhận tạo lại</button>
-            <button onclick="document.getElementById('regenerateModal').classList.add('hidden')" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-200 dark:bg-slate-700 px-6 py-3 text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600">Hủy</button>
+        </div>
+
+        <!-- Metadata Tab Content -->
+        <div id="tab-metadata" class="tab-content hidden">
+          <div class="space-y-4">
+            <div class="bg-slate-700/30 rounded-lg p-4 border border-slate-600/50">
+              <div class="text-sm font-semibold text-slate-300 mb-2">Job Information</div>
+              <div class="text-xs text-slate-400 space-y-1">
+                <div>Job ID: <span class="text-slate-300">{{ job_id }}</span></div>
+                <div>Total Frames: <span class="text-slate-300">{{ frames|length }}</span></div>
+                {% if summary %}
+                <div>Compliant: <span class="text-emerald-400">{{ summary.num_compliant }}</span></div>
+                <div>Violations: <span class="text-red-400">{{ summary.num_violations }}</span></div>
+                {% endif %}
+              </div>
+            </div>
+            <a href="/web_outputs/{{ job_id }}/result.json" class="block w-full btn-primary text-center" download>📥 Download JSON</a>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-    {% endif %}
-  {% endif %}
+  </div>
 
-  <script>
-    // Auto-check regenerate status nếu đang processing
-    {% if regenerate_status and regenerate_status.state == 'processing' %}
-    let checkInterval = null;
-    let checkCount = 0;
-    const MAX_CHECKS = 300; // Tối đa 5 phút (300 * 1 giây)
-    
-    function checkRegenerateStatus() {
-      checkCount++;
-      if (checkCount > MAX_CHECKS) {
-        clearInterval(checkInterval);
-        console.log('Đã vượt quá thời gian chờ, dừng kiểm tra');
-        return;
-      }
-      
+  <!-- Modal cho form tạo lại mô tả -->
+  {% if frames and frames[0].get('caption') %}
+  <div id="regenerateModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 rounded-xl border border-slate-700 p-6 max-w-2xl w-full">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold text-white">Tạo lại mô tả</h3>
+        <button onclick="document.getElementById('regenerateModal').classList.add('hidden')" class="text-slate-400 hover:text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <p class="text-sm text-slate-400 mb-4">Tạo lại mô tả cho tất cả các frame. Mô tả cũ sẽ bị thay thế.</p>
+      <form method="post" action="{{ url_for('regenerate_job', job_id=job_id) }}" class="space-y-4" onsubmit="document.getElementById('regenerateModal').classList.add('hidden')">
+        <div>
+          <label class="label">Model tạo mô tả</label>
+          <select name="hf_model" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <option value="Salesforce/blip-image-captioning-base" selected>BLIP Base</option>
+          </select>
+        </div>
+        <label class="flex items-center gap-2">
+          <input type="checkbox" name="use_object_detection" class="checkbox" />
+          <span class="text-sm text-slate-300">Sử dụng YOLO phát hiện đối tượng</span>
+        </label>
+        <div class="flex gap-3">
+          <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition" type="submit">Xác nhận tạo lại</button>
+          <button onclick="document.getElementById('regenerateModal').classList.add('hidden')" type="button" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-lg transition">Hủy</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+{% if regenerate_status and regenerate_status.state == 'processing' %}
+<script>
+  // Auto-check regenerate status
+  (function() {
+    var checkInterval = setInterval(function() {
       fetch('{{ url_for("regenerate_status_api", job_id=job_id) }}')
-      .then(response => response.json())
-      .then(status => {
-        if (status.state === 'done' || status.state === 'error' || status.state === 'none') {
-          // Đã xong hoặc lỗi, dừng check và reload trang
-          clearInterval(checkInterval);
-          window.location.reload();
-        }
-        // Nếu vẫn processing, tiếp tục check
-      })
-      .catch(error => {
-        console.error('Error checking status:', error);
-        // Nếu lỗi quá nhiều lần, dừng kiểm tra
-        if (checkCount > 10) {
-          clearInterval(checkInterval);
-        }
-      });
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(status) {
+          if (status.state === 'done' || status.state === 'error' || status.state === 'none') {
+            clearInterval(checkInterval);
+            window.location.reload();
+          }
+        })
+        .catch(function(error) {
+          console.error('Error checking status:', error);
+        });
+    }, 2000);
+  })();
+</script>
+{% endif %}
+
+<script>
+  // Tab switching
+  function switchTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(content => {
+      content.classList.add('hidden');
+    });
+    
+    // Show selected tab content
+    const selectedContent = document.getElementById('tab-' + tabName);
+    if (selectedContent) {
+      selectedContent.classList.remove('hidden');
     }
     
-    // Bắt đầu check mỗi 2 giây
-    checkInterval = setInterval(checkRegenerateStatus, 2000);
-    {% endif %}
-  </script>
+    // Update tab buttons
+    document.querySelectorAll('[data-tab]').forEach(btn => {
+      btn.classList.remove('text-white', 'border-purple-500', 'border-b-2');
+      btn.classList.add('text-slate-400');
+    });
+    const activeBtn = document.querySelector(`[data-tab="${tabName}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('text-white', 'border-purple-500', 'border-b-2');
+      activeBtn.classList.remove('text-slate-400');
+    }
+  }
+
+  // Toggle giữa caption gốc và caption đã dịch
+  function toggleCaption(second) {
+    const captionEl = document.getElementById('caption-' + second);
+    const captionOriginalEl = document.getElementById('caption-original-' + second);
+    const toggleBtn = document.getElementById('toggle-btn-' + second);
+    
+    if (captionEl && captionOriginalEl && toggleBtn) {
+      if (captionEl.classList.contains('hidden')) {
+        captionEl.classList.remove('hidden');
+        captionOriginalEl.classList.add('hidden');
+        toggleBtn.setAttribute('title', 'Xem mô tả gốc');
+        toggleBtn.classList.remove('text-purple-300');
+        toggleBtn.classList.add('text-purple-400');
+      } else {
+        captionEl.classList.add('hidden');
+        captionOriginalEl.classList.remove('hidden');
+        toggleBtn.setAttribute('title', 'Xem mô tả tiếng Việt');
+        toggleBtn.classList.remove('text-purple-400');
+        toggleBtn.classList.add('text-purple-300');
+      }
+    }
+  }
+
+  // Attach event listeners to toggle buttons
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.toggle-caption-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const second = this.getAttribute('data-second');
+        if (second) {
+          toggleCaption(parseInt(second));
+        }
+      });
+    });
+  });
+
+  // Search functionality
+  document.getElementById('searchTranscript')?.addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const transcriptItems = document.querySelectorAll('#transcriptContent .tab-content:not(.hidden) > div');
+    transcriptItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(searchTerm) ? 'block' : 'none';
+    });
+  });
+
+</script>
 {% endblock %}

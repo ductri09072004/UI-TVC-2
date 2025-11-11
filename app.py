@@ -8,6 +8,8 @@ import re
 import unicodedata
 import subprocess
 import time
+import tempfile
+import urllib.parse
 from dataclasses import dataclass
 from typing import List, Optional, Dict, Tuple
 
@@ -34,25 +36,8 @@ except ImportError:
 console = Console()
 
 # Import image captioning module
-from image_captioning import caption_image_local
+from image_captioning import caption_image_local, synthesize_captions
 
-# Import CLIP moderation module (optional, will fail gracefully if not installed)
-try:
-    from clip_moderation import pre_filter_image, verify_caption_quality, classify_image_zeroshot
-    CLIP_AVAILABLE = True
-except ImportError:
-    CLIP_AVAILABLE = False
-    pre_filter_image = None
-    verify_caption_quality = None
-    classify_image_zeroshot = None
-finally:
-    try:
-        if CLIP_AVAILABLE:
-            console.print("[green]CLIP moderation: enabled[/green]")
-        else:
-            console.print("[yellow]CLIP moderation: not available (skipping CLIP steps)[/yellow]")
-    except Exception:
-        pass
 _TEXT_CLASSIFIER_CACHE: Optional[Dict[str, object]] = None
 _WHISPER_CACHE: Optional[Dict[str, object]] = None
 _FASTER_WHISPER_CACHE: Optional[Dict[str, object]] = None
@@ -74,10 +59,96 @@ class CaptionResult:
     second: int
     image_path: str
     caption: str
+    caption_original: Optional[str] = None  # Caption gốc trước khi dịch
 
 
 def ensure_dir(path: str) -> None:
     os.makedirs(path, exist_ok=True)
+
+
+def is_url(path_or_url: str) -> bool:
+    """Kiểm tra xem input có phải là URL không."""
+    if not path_or_url:
+        return False
+    parsed = urllib.parse.urlparse(path_or_url)
+    return parsed.scheme in ('http', 'https', 'ftp')
+
+
+def download_video_from_url(url: str, output_path: Optional[str] = None) -> str:
+    """Tải video từ URL về file tạm.
+    
+    Args:
+        url: URL của video
+        output_path: Đường dẫn file output (optional, nếu không có sẽ tạo file tạm)
+    
+    Returns:
+        Đường dẫn đến file video đã tải về
+    """
+    try:
+        import requests
+    except ImportError:
+        raise RuntimeError(
+            "Thư viện 'requests' chưa được cài đặt. Vui lòng cài đặt bằng: pip install requests"
+        )
+    
+    console.print(f"[cyan]Đang tải video từ URL: {url}[/cyan]")
+    
+    # Tạo file tạm nếu không có output_path
+    if not output_path:
+        # Lấy extension từ URL nếu có
+        parsed = urllib.parse.urlparse(url)
+        ext = os.path.splitext(parsed.path)[1] or '.mp4'
+        temp_fd, output_path = tempfile.mkstemp(suffix=ext, prefix='video_')
+        os.close(temp_fd)
+    
+    try:
+        # Download với progress bar
+        response = requests.get(url, stream=True, timeout=30)
+        response.raise_for_status()
+        
+        total_size = int(response.headers.get('content-length', 0))
+        downloaded = 0
+        
+        with open(output_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+                    downloaded += len(chunk)
+                    if total_size > 0:
+                        percent = (downloaded / total_size) * 100
+                        console.print(f"\r[cyan]Đã tải: {downloaded}/{total_size} bytes ({percent:.1f}%)[/cyan]", end="")
+        
+        console.print(f"\n[green]✓ Đã tải video thành công: {output_path}[/green]")
+        return output_path
+    except Exception as e:
+        # Xóa file tạm nếu download thất bại
+        if os.path.exists(output_path) and output_path.startswith(tempfile.gettempdir()):
+            try:
+                os.unlink(output_path)
+            except Exception:
+                pass
+        raise RuntimeError(f"Không thể tải video từ URL: {url}. Lỗi: {e}")
+
+
+def resolve_video_input(input_path_or_url: str, cleanup_temp: bool = True) -> Tuple[str, bool]:
+    """Xử lý input có thể là file path hoặc URL.
+    
+    Args:
+        input_path_or_url: Đường dẫn file hoặc URL
+        cleanup_temp: Có xóa file tạm sau khi xử lý không (chỉ áp dụng cho URL)
+    
+    Returns:
+        Tuple (video_path, is_temp_file) - đường dẫn video và có phải file tạm không
+    """
+    if is_url(input_path_or_url):
+        # Tải video từ URL
+        temp_path = download_video_from_url(input_path_or_url)
+        return temp_path, True
+    else:
+        # Kiểm tra file có tồn tại không
+        if not os.path.exists(input_path_or_url):
+            raise FileNotFoundError(f"Video file không tồn tại: {input_path_or_url}")
+        return input_path_or_url, False
 
 
 def seconds_floor(duration_seconds: float) -> int:
@@ -125,6 +196,44 @@ def extract_frames_1fps(video_path: str, output_dir: str) -> List[str]:
 
     cap.release()
     return saved_paths
+
+
+def extract_frames_to_memory(video_path: str) -> List[Tuple[int, Image.Image]]:
+    """Extract one frame per second from the video into memory (PIL Images).
+    
+    Returns the list of (second, PIL Image) tuples ordered by second (0,1,2,...).
+    Images are not saved to disk.
+    """
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        raise RuntimeError(f"Cannot open video: {video_path}")
+
+    fps = cap.get(cv2.CAP_PROP_FPS) or 0.0
+    frame_count = cap.get(cv2.CAP_PROP_FRAME_COUNT) or 0.0
+    duration = frame_count / fps if fps > 0 else 0.0
+    total_seconds = seconds_floor(duration)
+
+    frames: List[Tuple[int, Image.Image]] = []
+
+    for sec in track(range(total_seconds), description="Extracting frames to memory (1 fps)"):
+        # Position by milliseconds to pick a representative frame at each whole second
+        cap.set(cv2.CAP_PROP_POS_MSEC, sec * 1000)
+        success, frame = cap.read()
+        if not success or frame is None:
+            # Fallback: try to set by frame index if ms seek failed
+            if fps > 0:
+                cap.set(cv2.CAP_PROP_POS_FRAMES, int(sec * fps))
+                success, frame = cap.read()
+        if not success or frame is None:
+            console.print(f"[yellow]Warning: could not read frame at {sec}s[/yellow]")
+            continue
+        # Convert BGR to RGB and create PIL Image (keep in memory)
+        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        img = Image.fromarray(rgb)
+        frames.append((sec, img))
+
+    cap.release()
+    return frames
 
 
 # ------------------------ Audio (FFmpeg + Whisper) ------------------------
@@ -399,20 +508,56 @@ def extract_text_from_image(image_path: str, languages: List[str] = ["vi", "en"]
 
 def _get_text_classifier(model_dir: str):
     global _TEXT_CLASSIFIER_CACHE
+    
+    # Validate model directory exists
+    if not os.path.isdir(model_dir):
+        # Clear cache if path is invalid
+        if _TEXT_CLASSIFIER_CACHE:
+            _TEXT_CLASSIFIER_CACHE = None
+        raise RuntimeError(
+            f"Classifier model directory does not exist: {model_dir}\n"
+            f"Please check the path and ensure it points to a valid model directory."
+        )
+    
+    # Check for required model files
+    config_file = os.path.join(model_dir, "config.json")
+    if not os.path.exists(config_file):
+        # Clear cache if model files are missing
+        if _TEXT_CLASSIFIER_CACHE:
+            _TEXT_CLASSIFIER_CACHE = None
+        raise RuntimeError(
+            f"Classifier model directory is invalid: {model_dir}\n"
+            f"Missing required file: config.json\n"
+            f"Please ensure the directory contains a valid Hugging Face model."
+        )
+    
+    # Check cache - only use if path matches exactly
     if _TEXT_CLASSIFIER_CACHE and _TEXT_CLASSIFIER_CACHE.get("dir") == model_dir:
-        return _TEXT_CLASSIFIER_CACHE["tokenizer"], _TEXT_CLASSIFIER_CACHE["model"], _TEXT_CLASSIFIER_CACHE["device"]
+        # Verify cached model directory still exists
+        cached_dir = _TEXT_CLASSIFIER_CACHE.get("dir")
+        if cached_dir and os.path.isdir(cached_dir) and os.path.exists(os.path.join(cached_dir, "config.json")):
+            return _TEXT_CLASSIFIER_CACHE["tokenizer"], _TEXT_CLASSIFIER_CACHE["model"], _TEXT_CLASSIFIER_CACHE["device"]
+        else:
+            # Cache is stale, clear it
+            _TEXT_CLASSIFIER_CACHE = None
+    
+    # Load model
     try:
         from transformers import AutoTokenizer, AutoModelForSequenceClassification
         import torch
         has_cuda = torch.cuda.is_available()
         device = torch.device("cuda" if has_cuda else "cpu")
+        console.print(f"[cyan]Loading classifier from: {model_dir}[/cyan]")
         tokenizer = AutoTokenizer.from_pretrained(model_dir)
         model = AutoModelForSequenceClassification.from_pretrained(model_dir)
         model.to(device)
         model.eval()
         _TEXT_CLASSIFIER_CACHE = {"dir": model_dir, "tokenizer": tokenizer, "model": model, "device": device}
+        console.print(f"[green]✓ Classifier loaded successfully[/green]")
         return tokenizer, model, device
     except Exception as e:
+        # Clear cache on error
+        _TEXT_CLASSIFIER_CACHE = None
         raise RuntimeError(f"Cannot load classifier from: {model_dir}. {e}")
 
 
@@ -508,10 +653,11 @@ def translate_text(text: str, target_lang: str) -> str:
 # ------------------------ CLI ------------------------
 
 @click.command()
-@click.option("--input", "input_video", required=False, type=click.Path(exists=True, dir_okay=False), help="Path to input video")
+@click.option("--input", "input_video", required=False, type=str, help="Path to input video file or URL (http/https)")
 @click.option("--out_dir", default="output", type=click.Path(dir_okay=True, file_okay=False), help="Directory to write frames and captions")
-@click.option("--hf_model", default="Salesforce/blip-image-captioning-base", help="Hugging Face model id for local backend")
-@click.option("--clf_dir", default=r"C:\Users\Kris\TVC-AI\output_moderation", help="Directory of trained text classifier to label captions")
+@click.option("--hf_model", default=None, help="Path to fine-tuned LoRA adapter (optional). If not provided, uses hardcoded path in image_captioning.py")
+@click.option("--clf_dir", default=r"C:\Users\Kris\TVC-AI\output_moderation", help="Directory of trained text classifier to label captions. Use --list-models to see available models.")
+@click.option("--list-models", is_flag=True, default=False, help="List all available classifier models and exit")
 @click.option("--language", default="en", help="Preferred caption language (e.g., vi, en)")
 @click.option("--translate", is_flag=True, default=False, help="Translate captions to the target language if backend returns other language")
 @click.option("--overwrite", is_flag=True, default=False, help="Overwrite existing frame files")
@@ -521,8 +667,47 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.option("--detect-objects/--no-detect-objects", "use_object_detection", default=False, help="Use YOLO object detection to enhance captions (default: off)")
 @click.option("--yolo-model", default="yolov8n.pt", help="YOLO model name (yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt)")
 @click.option("--auto-caption/--no-auto-caption", "auto_caption", default=False, help="Automatically generate captions in CLI mode (default: off)")
-def main(input_video: str, out_dir: str, hf_model: str, language: str, translate: bool, overwrite: bool, serve_web: bool, clf_dir: str, process_audio: bool, asr_model: str, use_object_detection: bool, yolo_model: str, auto_caption: bool) -> None:
+def main(input_video: str, out_dir: str, hf_model: str, language: str, translate: bool, overwrite: bool, serve_web: bool, clf_dir: str, process_audio: bool, asr_model: str, use_object_detection: bool, yolo_model: str, auto_caption: bool, list_models: bool) -> None:
+    # Handle --list-models flag
+    if list_models:
+        tvc_ai_dir = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "TVC-AI"))
+        console.print(f"[cyan]Available classifier models in {tvc_ai_dir}:[/cyan]")
+        models_found = False
+        if os.path.isdir(tvc_ai_dir):
+            for item in sorted(os.listdir(tvc_ai_dir)):
+                if item.startswith("output_moderation"):
+                    model_dir = os.path.join(tvc_ai_dir, item)
+                    config_file = os.path.join(model_dir, "config.json")
+                    if os.path.isdir(model_dir) and os.path.exists(config_file):
+                        models_found = True
+                        console.print(f"  [green]✓[/green] {item}")
+                        console.print(f"    Path: {model_dir}")
+        if not models_found:
+            console.print(f"[yellow]No classifier models found in {tvc_ai_dir}[/yellow]")
+        sys.exit(0)
+    
     console.rule("Video to Step Images + Captions (1 fps)")
+
+    # Always validate classifier directory (even if not used immediately)
+    # This prevents silent failures when wrong path is provided
+    if not os.path.isdir(clf_dir):
+        console.print(f"[red]Error: Classifier directory does not exist: {clf_dir}[/red]")
+        console.print(f"[yellow]Please check the --clf_dir path and ensure it points to a valid model directory.[/yellow]")
+        sys.exit(1)
+    config_file = os.path.join(clf_dir, "config.json")
+    if not os.path.exists(config_file):
+        console.print(f"[red]Error: Invalid classifier directory: {clf_dir}[/red]")
+        console.print(f"[yellow]Missing required file: config.json[/yellow]")
+        console.print(f"[yellow]Please ensure the directory contains a valid Hugging Face model.[/yellow]")
+        sys.exit(1)
+    
+    # Clear cache if path changed from previous run
+    global _TEXT_CLASSIFIER_CACHE
+    if _TEXT_CLASSIFIER_CACHE and _TEXT_CLASSIFIER_CACHE.get("dir") != clf_dir:
+        _TEXT_CLASSIFIER_CACHE = None
+        console.print(f"[yellow]Classifier path changed, clearing cache[/yellow]")
+    
+    console.print(f"[green]Using classifier from: {clf_dir}[/green]")
 
     web_proc = None
     if serve_web:
@@ -536,9 +721,25 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
 
     # Nếu có video đầu vào thì chạy xử lý CLI, ngược lại chỉ chạy web và giữ tiến trình
     if not input_video and serve_web:
-        console.print("[cyan]Chạy ở chế độ Web UI. Để xử lý video, vui lòng chỉ định --input <video_path>[/cyan]")
+        console.print("[cyan]Chạy ở chế độ Web UI. Để xử lý video, vui lòng chỉ định --input <video_path_or_url>[/cyan]")
         console.print("[yellow]Ví dụ: python app.py --input video.mp4[/yellow]")
+        console.print("[yellow]Hoặc: python app.py --input https://example.com/video.mp4[/yellow]")
+    
+    video_path = None
+    is_temp_file = False
+    temp_video_path = None
+    
     if input_video:
+        try:
+            # Xử lý input có thể là URL hoặc file path
+            video_path, is_temp_file = resolve_video_input(input_video)
+            temp_video_path = video_path if is_temp_file else None
+        except Exception as e:
+            console.print(f"[red]Lỗi khi xử lý video input: {e}[/red]")
+            if web_proc:
+                web_proc.terminate()
+            sys.exit(1)
+        
         frames_dir = os.path.join(out_dir, "frames")
         ensure_dir(out_dir)
         if overwrite and os.path.isdir(frames_dir):
@@ -549,7 +750,7 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
                     pass
         ensure_dir(frames_dir)
         # 1) Extract frames at 1 fps
-        frame_paths = extract_frames_1fps(input_video, frames_dir)
+        frame_paths = extract_frames_1fps(video_path, frames_dir)
         console.print(f"[green]Extracted {len(frame_paths)} frame(s) into {frames_dir}[/green]")
         # 2) Caption each frame (Local HF + Object Detection + OCR) - optional
         results: List[CaptionResult] = []
@@ -558,125 +759,66 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
             # Set YOLO model in environment for caption_image_local to use
             if use_object_detection:
                 os.environ["YOLO_MODEL"] = yolo_model
-            for image_path in track(frame_paths, description="Captioning frames (with object detection)"):
-                base = os.path.basename(image_path)
-                try:
-                    sec = int(os.path.splitext(base)[0].split("_")[-1])
-                except Exception:
-                    sec = len(results)
+            
+            # Nhóm frames thành nhóm 3 và tổng hợp caption
+            frame_groups = []
+            for i in range(0, len(frame_paths), 3):
+                group = frame_paths[i:i+3]
+                frame_groups.append(group)
+            
+            for group_idx, group in track(enumerate(frame_groups), description="Captioning frame groups (3 frames per group)"):
+                # Tạo caption cho từng frame trong nhóm
+                group_captions_en = []
+                group_seconds = []
+                group_image_paths = []
                 
-                # Step 1: CLIP pre-filter (nhanh, zero-shot)
-                clip_result = None
-                if CLIP_AVAILABLE and pre_filter_image:
+                for image_path in group:
+                    base = os.path.basename(image_path)
                     try:
-                        clip_result = pre_filter_image(
-                            image_path,
-                            violation_threshold=float(os.environ.get("CLIP_VIOLATION_THRESHOLD", "0.3")),
-                            skip_threshold=float(os.environ.get("CLIP_SKIP_THRESHOLD", "0.7"))
-                        )
-                        # Log CLIP prefilter scores
-                        try:
-                            console.print(
-                                f"[blue]Frame {sec}s: CLIP prefilter → violation={clip_result.get('violation_score', 0):.2f}, "
-                                f"healthy={clip_result.get('healthy_score', 0):.2f}[/blue]"
-                            )
-                        except Exception:
-                            pass
-                        
-                        # Nếu vi phạm rõ ràng, skip BLIP + BERT
-                        if clip_result.get("skip_processing", False):
-                            console.print(f"[yellow]Frame {sec}s: CLIP detected clear violation, skipping captioning[/yellow]")
-                            # Mark as violation
-                            pred = {
-                                "label_id": 1,  # Assuming 1 = violation
-                                "score": clip_result.get("violation_score", 0.0),
-                                "probs": [],
-                                "method": "clip_prefilter",
-                                "clip_result": clip_result
-                            }
-                            labels.append(pred)
-                            # Add placeholder caption
-                            results.append(CaptionResult(second=sec, image_path=image_path, caption="[CLIP: Vi phạm rõ ràng]"))
-                            continue
-                    except Exception as e:
-                        console.print(f"[yellow]CLIP pre-filter failed: {e}, continuing with normal flow[/yellow]")
+                        sec = int(os.path.splitext(base)[0].split("_")[-1])
+                    except Exception:
+                        sec = len(results)
+                    
+                    # Step 1: BLIP caption cho từng frame
+                    caption_en = caption_image_local(
+                        image_path, 
+                        hf_model, 
+                        use_object_detection=use_object_detection,
+                        detect_objects_func=detect_objects,
+                        console=console
+                    )
+                    
+                    group_captions_en.append(caption_en if caption_en else "")
+                    group_seconds.append(sec)
+                    group_image_paths.append(image_path)
                 
-                # Step 2: BLIP caption (chỉ khi không skip)
-                caption_en = caption_image_local(
-                    image_path, 
-                    hf_model, 
-                    use_object_detection=use_object_detection,
-                    detect_objects_func=detect_objects,
-                    console=console
-                )
-                final_caption = caption_en
-                if translate and language and language.lower() not in {"en", "english"}:
-                    final_caption = translate_text(caption_en, language)
+                # Tổng hợp 3 captions thành 1 caption
+                synthesized_caption_en = synthesize_captions(group_captions_en, console=console) if group_captions_en else ""
                 
-                # Step 3: CLIP verify caption quality
-                caption_verified = True
-                if CLIP_AVAILABLE and verify_caption_quality and final_caption:
+                # Tự động dịch sang tiếng Việt
+                if synthesized_caption_en:
                     try:
-                        verify_result = verify_caption_quality(
-                            image_path,
-                            final_caption,
-                            threshold=float(os.environ.get("CLIP_VERIFY_THRESHOLD", "0.7"))
-                        )
-                        caption_verified = verify_result.get("is_valid", True)
-                        # Log CLIP verify similarity
-                        try:
-                            error_msg = verify_result.get('error', '')
-                            error_str = f", error={error_msg}" if error_msg else ""
-                            console.print(
-                                f"[blue]Frame {sec}s: CLIP verify → similarity={verify_result.get('similarity', 0):.2f}, "
-                                f"valid={caption_verified}{error_str}[/blue]"
-                            )
-                        except Exception:
-                            pass
-                        if not caption_verified:
-                            console.print(f"[yellow]Frame {sec}s: Caption quality low (similarity: {verify_result.get('similarity', 0):.2f})[/yellow]")
-                    except Exception as e:
-                        console.print(f"[yellow]CLIP verify failed: {e}[/yellow]")
+                        final_caption = translate_text(synthesized_caption_en, "vi")
+                    except Exception:
+                        final_caption = synthesized_caption_en
+                else:
+                    final_caption = ""
                 
-                results.append(CaptionResult(second=sec, image_path=image_path, caption=final_caption))
-                
-                # Step 4: BERT classify (chỉ khi caption verified hoặc không có CLIP)
-                if caption_verified or not CLIP_AVAILABLE:
+                # Lưu caption tổng hợp cho tất cả frames trong nhóm
+                for sec, image_path in zip(group_seconds, group_image_paths):
+                    results.append(CaptionResult(
+                        second=sec, 
+                        image_path=image_path, 
+                        caption=final_caption,
+                        caption_original=synthesized_caption_en if synthesized_caption_en else None
+                    ))
+                    
+                    # Step 2: BERT classify
                     try:
                         pred = classify_text(final_caption, clf_dir)
-                        # Add CLIP info if available
-                        if clip_result:
-                            pred["clip_prefilter"] = clip_result
-                        # Optional: CLIP zero-shot frame labels via env CLIP_FRAME_LABELS (pipe-separated)
-                        clip_frame_labels = os.environ.get("CLIP_FRAME_LABELS", "").strip()
-                        # Fallback to frame_labels.FRAME_LABELS_VI if env not set
-                        if not clip_frame_labels:
-                            try:
-                                from frame_labels import FRAME_LABELS_VI, labels_to_pipe  # type: ignore
-                                clip_frame_labels = labels_to_pipe(FRAME_LABELS_VI)
-                            except Exception:
-                                clip_frame_labels = ""
-                        if CLIP_AVAILABLE and classify_image_zeroshot and clip_frame_labels:
-                            labels_list = [s.strip() for s in clip_frame_labels.split("|") if s.strip()]
-                            if labels_list:
-                                try:
-                                    cls_res = classify_image_zeroshot(image_path, labels_list)
-                                    pred["clip_label"] = cls_res.get("top_label")
-                                    pred["clip_label_score"] = cls_res.get("top_score")
-                                except Exception:
-                                    pass
                     except Exception as e:
                         pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
-                else:
-                    # Caption quality low, mark as unknown
-                    pred = {
-                        "label_id": None,
-                        "score": 0.0,
-                        "probs": [],
-                        "method": "clip_verify_failed",
-                        "note": "Caption quality too low"
-                    }
-                labels.append(pred)
+                    labels.append(pred)
         else:
             # If not auto-captioning, just prepare results with empty captions for export/markdown later
             for image_path in frame_paths:
@@ -707,14 +849,13 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
                 "second": r.second,
                 "image_path": os.path.relpath(r.image_path, out_dir),
                 "caption": r.caption,
+                "caption_original": r.caption_original if hasattr(r, 'caption_original') else None,
                 "s": (svos[i][0] if i < len(svos) else ''),
                 "v": (svos[i][1] if i < len(svos) else ''),
                 "o": (svos[i][2] if i < len(svos) else ''),
                 "svo_format": (labels[i].get("svo_text", r.caption) if i < len(labels) else r.caption),
                 "label_id": (labels[i].get("label_id") if i < len(labels) else None),
                 "label_score": (labels[i].get("score") if i < len(labels) else None),
-                "clip_label": (labels[i].get("clip_label") if i < len(labels) else None),
-                "clip_label_score": (labels[i].get("clip_label_score") if i < len(labels) else None),
             }
             for i, r in enumerate(results)
         ]).sort_values("second")
@@ -740,7 +881,7 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
         audio_json_path = os.path.join(out_dir, "audio_transcript.json")
         if process_audio:
             try:
-                extract_audio_wav(input_video, audio_wav_path, sample_rate=16000)
+                extract_audio_wav(video_path, audio_wav_path, sample_rate=16000)
                 asr_result = transcribe_audio_whisper(audio_wav_path, model_name=asr_model, language=(language if language else None))
                 # asr_result['segments'] with start/end/text
                 segments = asr_result.get("segments", []) or []
@@ -829,14 +970,28 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
                 v_disp = (row.v if isinstance(row.v, str) else str(row.v))
                 o_disp = (row.o if isinstance(row.o, str) else str(row.o))
                 fmd.write(f"- SVO: {s_disp}, {v_disp}, {o_disp}\n")
-                # Optionally include original caption
-                fmd.write(f"- Mô tả gốc: {row.caption}\n")
+                # Include caption (đã dịch sang tiếng Việt)
+                fmd.write(f"- Mô tả (tiếng Việt): {row.caption}\n")
+                # Optionally include original caption if different
+                if 'caption_original' in df.columns:
+                    caption_orig = row['caption_original']
+                    if pd.notna(caption_orig) and str(caption_orig).strip() and caption_orig != row.caption:
+                        fmd.write(f"- Mô tả gốc: {caption_orig}\n")
                 fmd.write(f"- Nhãn: {row.label_id} (score: {row.label_score})\n\n")
         console.print(
             "[bold green]Done[/bold green]. Results written to: "
             f"\n- {csv_path}\n- {md_path}\n- {summary_path}\n"
             + (f"- {audio_json_path}\n" if audio_transcript is not None else "")
         )
+        
+        # Xóa file video tạm nếu là file tải từ URL
+        if temp_video_path and os.path.exists(temp_video_path):
+            try:
+                os.unlink(temp_video_path)
+                console.print(f"[green]✓ Đã xóa file video tạm[/green]")
+            except Exception as e:
+                console.print(f"[yellow]Không thể xóa file tạm {temp_video_path}: {e}[/yellow]")
+        
         if web_proc is not None:
             try:
                 web_proc.wait()

@@ -21,57 +21,51 @@
       })();
     </script>
     <style>
-      :root { color-scheme: light dark; }
+      :root { color-scheme: dark; }
       html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji','Segoe UI Emoji'; }
-      .card { @apply bg-white/80 dark:bg-slate-800/60 backdrop-blur rounded-xl shadow border border-slate-200/60 dark:border-slate-700/60; }
-      .container { @apply mx-auto max-w-7xl px-6 sm:px-8 lg:px-12; }
-      .btn-primary { @apply inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white shadow hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500; }
-      .btn-secondary { @apply inline-flex items-center gap-2 rounded-lg bg-slate-200 dark:bg-slate-700 px-4 py-2 font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600; }
-      .label { @apply block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1; }
-      .input { @apply block w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500; }
+      .card { @apply bg-slate-800/60 backdrop-blur rounded-xl shadow border border-slate-700/50; }
+      .container { @apply mx-auto max-w-[1800px] px-6 sm:px-8 lg:px-12; }
+      .btn-primary { @apply inline-flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 font-medium text-white shadow hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500; }
+      .btn-secondary { @apply inline-flex items-center gap-2 rounded-lg bg-slate-700/50 px-4 py-2 font-medium text-slate-200 hover:bg-slate-700 border border-slate-600; }
+      .label { @apply block text-sm font-semibold text-slate-300 mb-1; }
+      .input { @apply block w-full rounded-lg border border-slate-600 bg-slate-700/50 px-3 py-2 text-white placeholder-slate-400 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500; }
       .select { @apply input; }
-      .checkbox { @apply h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500; }
-      .hero-bg { background-image: radial-gradient(40rem 20rem at 10% -10%, rgba(99,102,241,.18), transparent), radial-gradient(45rem 25rem at 110% 10%, rgba(14,165,233,.14), transparent); }
+      .checkbox { @apply w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500; }
+      .hero-bg { background-image: radial-gradient(40rem 20rem at 10% -10%, rgba(147,51,234,.2), transparent), radial-gradient(45rem 25rem at 110% 10%, rgba(59,130,246,.15), transparent); }
     </style>
   </head>
-  <body class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
-    <header class="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur sticky top-0 z-10">
-      <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 flex items-center justify-between py-4">
+  <body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    {% block header %}
+    <header class="border-b border-slate-700/50 bg-slate-800/50 backdrop-blur sticky top-0 z-50">
+      <div class="mx-auto max-w-[1800px] px-6 py-4 flex items-center justify-between">
         <a href="/" class="flex items-center gap-3">
-          <div class="h-9 w-9 grid place-items-center rounded-lg bg-indigo-600 text-white font-bold">V</div>
-          <div>
-            <div class="text-lg font-semibold">Video → Ảnh + Mô tả</div>
-            <div class="text-xs text-slate-500">1 ảnh / giây • Tự động mô tả</div>
+          <div class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            MM-VID Transcriber
           </div>
+          <div class="text-sm text-slate-400">Video → Script</div>
         </a>
         <div class="flex items-center gap-3">
-          <button id="themeToggle" class="btn-secondary" title="Đổi giao diện sáng/tối">
-            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.64 13a9 9 0 11-10.63-10.63 1 1 0 00-.88 1.51A7 7 0 1019.12 14.51 1 1 0 0021.64 13z"/></svg>
-            Theme
+          <select class="bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <option>GPT-4V MM-VID preset</option>
+          </select>
+          <button class="bg-slate-700/50 hover:bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-sm text-white">
+            Settings
           </button>
         </div>
       </div>
     </header>
+    {% endblock %}
 
-    <section class="hero-bg">
-      <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-10">
-        {% block hero %}{% endblock %}
-      </div>
-    </section>
+    {% block hero %}{% endblock %}
 
-    <main class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-8">
+    <main>
       {% block content %}{% endblock %}
     </main>
 
-    <footer class="mt-12 border-t border-slate-200/80 dark:border-slate-800/80">
-      <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-6 text-sm text-slate-500">Made with Flask · TailwindCSS</div>
+    {% block footer %}
+    <footer class="mt-12 border-t border-slate-700/50">
+      <div class="mx-auto max-w-[1800px] px-6 py-6 text-sm text-slate-400">Made with Flask · TailwindCSS</div>
     </footer>
-
-    <script>
-      document.getElementById('themeToggle')?.addEventListener('click', () => {
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      });
-    </script>
+    {% endblock %}
   </body>
 </html>
