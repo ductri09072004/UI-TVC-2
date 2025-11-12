@@ -51,10 +51,24 @@
               <input type="checkbox" name="extract_scene" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
               <span class="text-slate-200">Scene description</span>
             </label>
+            <div class="pl-8">
+              <label class="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" name="use_llava" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
+                <span class="text-slate-300 text-sm">Use LLaVA for visual captioning</span>
+              </label>
+              <p class="text-xs text-slate-500 mt-1">Nếu bật, hệ thống sẽ cố dùng LLaVA (hiện tạm fallback sang BLIP nếu LLaVA chưa sẵn sàng).</p>
+            </div>
             <label class="flex items-center gap-3 cursor-pointer">
               <input type="checkbox" name="extract_ocr" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
               <span class="text-slate-200">On-screen text (OCR)</span>
             </label>
+            <div class="pl-8">
+              <label class="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" name="use_ocr_only" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
+                <span class="text-slate-300 text-sm">Only OCR (no visual model)</span>
+              </label>
+              <p class="text-xs text-slate-500 mt-1">Chỉ trích xuất văn bản trên màn hình; không chạy BLIP/LLaVA.</p>
+            </div>
           </div>
         </div>
 
@@ -184,6 +198,12 @@
   const browseBtn = document.getElementById('browseBtn');
   const fileInfo = document.getElementById('fileInfo');
   const startBtn = document.getElementById('startBtn');
+  // Checkboxes
+  const cbSpeech = document.querySelector('input[name="extract_speech"]');
+  const cbScene = document.querySelector('input[name="extract_scene"]');
+  const cbOCR = document.querySelector('input[name="extract_ocr"]');
+  const cbLLaVA = document.querySelector('input[name="use_llava"]');
+  const cbOCROnly = document.querySelector('input[name="use_ocr_only"]');
 
   const setFileInfo = (file) => {
     if (file) {
@@ -222,6 +242,43 @@
   // Form validation: require either URL or file
   const uploadForm = document.getElementById('uploadForm');
   const videoUrlInput = document.getElementById('video_url');
+
+  // Enforce "Only OCR" behavior: when enabled, clear and disable other options
+  function applyOcrOnlyState() {
+    if (!cbOCROnly) return;
+    const enabled = cbOCROnly.checked === true;
+    if (enabled) {
+      // Ensure OCR is on
+      if (cbOCR) {
+        cbOCR.checked = true;
+        cbOCR.disabled = true;
+      }
+      // Turn off and disable others
+      if (cbScene) {
+        cbScene.checked = false;
+        cbScene.disabled = true;
+      }
+      if (cbSpeech) {
+        cbSpeech.checked = false;
+        cbSpeech.disabled = true;
+      }
+      if (cbLLaVA) {
+        cbLLaVA.checked = false;
+        cbLLaVA.disabled = true;
+      }
+    } else {
+      // Re-enable controls
+      if (cbOCR) cbOCR.disabled = false;
+      if (cbScene) cbScene.disabled = false;
+      if (cbSpeech) cbSpeech.disabled = false;
+      if (cbLLaVA) cbLLaVA.disabled = false;
+    }
+  }
+  if (cbOCROnly) {
+    cbOCROnly.addEventListener('change', applyOcrOnlyState);
+    // Apply once on load
+    applyOcrOnlyState();
+  }
   
   uploadForm.addEventListener('submit', (e) => {
     const hasUrl = videoUrlInput.value.trim() !== '';

@@ -1,13 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "../TVC-AI"
-		},
-		{
 			"path": "."
 		},
 		{
 			"path": "../blip-image-LLM"
+		},
+		{
+			"path": "../TVC-AI"
 		}
 	],
 	"settings": {}

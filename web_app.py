@@ -25,7 +25,7 @@ from app import (
 )
 from rich.progress import track
 # Import captioning from dedicated module
-from image_captioning import caption_image_local, synthesize_captions
+from image_captioning import caption_image_local, caption_image_llava, _extract_ocr_text_simple
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -211,7 +211,7 @@ def normalize_and_correct(text: str) -> str:
     return s
 
 
-def process_video(job_id: str, video_path: str, backend: str, language: str, hf_model: str, openai_model: str, translate: bool, use_object_detection: bool = False) -> Dict:
+def process_video(job_id: str, video_path: str, backend: str, language: str, hf_model: str, openai_model: str, translate: bool, use_object_detection: bool = False, use_llava: bool = False, use_ocr_only: bool = False) -> Dict:
     out_dir = os.path.join(OUTPUT_DIR, job_id)
     ensure_dir(out_dir)
 
@@ -224,23 +224,22 @@ def process_video(job_id: str, video_path: str, backend: str, language: str, hf_
 
     # Step 1: Create data structure and caption frames immediately
     # Save video_path so we can extract frames again later if needed for captioning
-    console.print(f"[cyan]Extracting and captioning {len(frames_in_memory)} frames (grouped by 3)...[/cyan]")
-    
-    # Nhóm frames thành nhóm 3
-    frame_groups = []
-    for i in range(0, len(frames_in_memory), 3):
-        group = frames_in_memory[i:i+3]
-        frame_groups.append(group)
+    console.print(f"[cyan]Extracting and captioning {len(frames_in_memory)} frames (mỗi frame có mô tả riêng)...[/cyan]")
     
     frames_data = []
-    for group in track(frame_groups, description="Captioning frame groups (3 frames per group)"):
-        # Tạo caption cho từng frame trong nhóm
-        group_captions_en = []
-        group_seconds = []
-        
-        for sec, pil_image in group:
-            try:
-                # Generate caption from PIL Image
+    # Tạo caption cho từng frame riêng biệt (không gộp)
+    for sec, pil_image in track(frames_in_memory, description="Captioning frames (1 caption per frame)"):
+        try:
+            # Generate caption from PIL Image
+            if use_ocr_only:
+                # OCR-only mode: bypass visual captioning models
+                try:
+                    cap_en = _extract_ocr_text_simple(pil_image, languages=["vi", "en"], min_confidence=0.3)
+                except Exception as _:
+                    cap_en = ""
+            elif use_llava:
+                cap_en = caption_image_llava(pil_image, console=console)
+            else:
                 cap_en = caption_image_local(
                     pil_image,
                     hf_model,
@@ -248,37 +247,34 @@ def process_video(job_id: str, video_path: str, backend: str, language: str, hf_
                     detect_objects_func=detect_objects,
                     console=console
                 )
-                group_captions_en.append(cap_en if cap_en else "")
-                group_seconds.append(sec)
-            except Exception as e:
-                # If captioning fails, log error but continue
-                console.print(f"[yellow]Warning: Failed to caption frame at {sec}s: {e}[/yellow]")
-                group_captions_en.append("")
-                group_seconds.append(sec)
-        
-        # Tổng hợp 3 captions thành 1 caption
-        synthesized_caption_en = synthesize_captions(group_captions_en, console=console) if group_captions_en else ""
-        caption_original = synthesized_caption_en if synthesized_caption_en else None
-        
-        # Auto translate to Vietnamese
-        final = ""
-        if synthesized_caption_en:
-            if translate:
-                try:
-                    final = translate_text(synthesized_caption_en, "vi")
-                except Exception:
-                    # If translation fails, keep original caption
-                    final = synthesized_caption_en
-            else:
-                final = synthesized_caption_en
-        
-        # Lưu caption tổng hợp cho tất cả frames trong nhóm
-        for sec in group_seconds:
+            caption_original = cap_en if cap_en else None
+            
+            # Auto translate to Vietnamese
+            final = ""
+            if cap_en:
+                if translate:
+                    try:
+                        final = translate_text(cap_en, "vi")
+                    except Exception:
+                        # If translation fails, keep original caption
+                        final = cap_en
+                else:
+                    final = cap_en
+            
+            # Lưu caption riêng cho frame này
             frames_data.append({
                 "second": sec,
                 "caption": final,
                 "caption_original": caption_original,
                 # No image_rel - images are not saved
+            })
+        except Exception as e:
+            # If captioning fails, log error but continue
+            console.print(f"[yellow]Warning: Failed to caption frame at {sec}s: {e}[/yellow]")
+            frames_data.append({
+                "second": sec,
+                "caption": "",
+                "caption_original": None,
             })
     
     data = {
@@ -415,77 +411,60 @@ def caption_existing(job_id: str, language: str, hf_model: str, translate: bool,
     # Create a dict for quick lookup by second
     frames_dict = {sec: img for sec, img in frames_in_memory}
 
-    # Nhóm frames thành nhóm 3 và caption
+    # Tạo caption cho từng frame riêng biệt (không gộp)
     frames_list = data.get("frames", [])
-    frame_groups = []
-    for i in range(0, len(frames_list), 3):
-        group = frames_list[i:i+3]
-        frame_groups.append(group)
-    
     updated_frames = []
-    for group in frame_groups:
-        # Tạo caption cho từng frame trong nhóm
-        group_captions_en = []
-        group_items = []
-        group_seconds = []
+    
+    for item in frames_list:
+        sec = item["second"]
+        if sec not in frames_dict:
+            # Frame not found, giữ nguyên item
+            updated_frames.append(item)
+            continue
         
-        for item in group:
-            sec = item["second"]
-            if sec not in frames_dict:
-                # Frame not found, skip this item
-                continue
+        pil_image = frames_dict[sec]
+        try:
+            cap_en = caption_image_local(
+                pil_image,  # Pass PIL Image instead of path
+                hf_model, 
+                use_object_detection=use_object_detection,
+                detect_objects_func=detect_objects,
+                console=console
+            )
+            caption_original = cap_en if cap_en else None
             
-            pil_image = frames_dict[sec]
-            try:
-                cap_en = caption_image_local(
-                    pil_image,  # Pass PIL Image instead of path
-                    hf_model, 
-                    use_object_detection=use_object_detection,
-                    detect_objects_func=detect_objects,
-                    console=console
-                )
-                group_captions_en.append(cap_en if cap_en else "")
-                group_items.append(item)
-                group_seconds.append(sec)
-            except RuntimeError as e:
-                # Nếu là lỗi model không load được, raise để dừng lại
-                raise
-            except Exception as e:
-                # Lỗi khác, giữ caption cũ
-                import traceback
-                print(f"Error in caption_existing for frame {sec}: {e}")
-                print(traceback.format_exc())
-                group_captions_en.append(item.get("caption", ""))  # Giữ caption cũ
-                group_items.append(item)
-                group_seconds.append(sec)
+            # Tự động dịch sang tiếng Việt
+            final = ""
+            if cap_en:
+                try:
+                    final = translate_text(cap_en, "vi")
+                except Exception:
+                    # Nếu dịch lỗi, giữ nguyên caption gốc
+                    final = cap_en
+        except RuntimeError as e:
+            # Nếu là lỗi model không load được, raise để dừng lại
+            raise
+        except Exception as e:
+            # Lỗi khác, giữ caption cũ
+            import traceback
+            print(f"Error in caption_existing for frame {sec}: {e}")
+            print(traceback.format_exc())
+            final = item.get("caption", "")
+            caption_original = item.get("caption_original", None)
         
-        # Tổng hợp 3 captions thành 1 caption
-        synthesized_caption_en = synthesize_captions(group_captions_en, console=console) if group_captions_en else ""
-        caption_original = synthesized_caption_en if synthesized_caption_en else None
-        
-        # Tự động dịch sang tiếng Việt
-        final = ""
-        if synthesized_caption_en:
-            try:
-                final = translate_text(synthesized_caption_en, "vi")
-            except Exception:
-                # Nếu dịch lỗi, giữ nguyên caption gốc
-                final = synthesized_caption_en
-        
-        # Lưu caption tổng hợp cho tất cả frames trong nhóm
-        for item, sec in zip(group_items, group_seconds):
-            updated_item = {
-                "second": sec,
-                # No image_rel - images are not saved
-                "caption": final,
-                "caption_original": caption_original,
-            }
-            # Giữ lại các thông tin khác nếu có (như label_id, label_score)
-            if "label_id" in item:
-                updated_item["label_id"] = item["label_id"]
-            if "label_score" in item:
-                updated_item["label_score"] = item["label_score"]
-            updated_frames.append(updated_item)
+        # Lưu caption riêng cho frame này
+        updated_item = {
+            "second": sec,
+            # No image_rel - images are not saved
+            "caption": final,
+            "caption_original": caption_original,
+        }
+        # Giữ lại các thông tin khác nếu có (như label_id, label_score)
+        if "label_id" in item:
+            updated_item["label_id"] = item["label_id"]
+        if "label_score" in item:
+            updated_item["label_score"] = item["label_score"]
+        updated_frames.append(updated_item)
 
     data["frames"] = sorted(updated_frames, key=lambda x: x["second"])
     with open(meta_path, "w", encoding="utf-8") as f:
@@ -515,82 +494,63 @@ def regenerate_captions(job_id: str, language: str, hf_model: str, translate: bo
     # Create a dict for quick lookup by second
     frames_dict = {sec: img for sec, img in frames_in_memory}
 
-    # Nhóm frames thành nhóm 3 và caption
+    # Tạo caption cho từng frame riêng biệt (không gộp)
     frames_list = data.get("frames", [])
-    frame_groups = []
-    for i in range(0, len(frames_list), 3):
-        group = frames_list[i:i+3]
-        frame_groups.append(group)
-    
     updated_frames = []
-    for group in frame_groups:
-        # Tạo caption cho từng frame trong nhóm
-        group_captions_en = []
-        group_items = []
-        group_seconds = []
+    
+    for item in frames_list:
+        sec = item["second"]
+        if sec not in frames_dict:
+            # Frame not found, keep old data
+            updated_frames.append(item)
+            continue
         
-        for item in group:
-            sec = item["second"]
-            if sec not in frames_dict:
-                # Frame not found, keep old data
-                updated_frames.append(item)
-                continue
+        pil_image = frames_dict[sec]
+        try:
+            # local backend only
+            cap_en = caption_image_local(pil_image, hf_model, use_object_detection=use_object_detection, detect_objects_func=detect_objects, console=console)
+            caption_original = cap_en if cap_en else None
             
-            pil_image = frames_dict[sec]
-            try:
-                # local backend only
-                cap_en = caption_image_local(pil_image, hf_model, use_object_detection=use_object_detection, detect_objects_func=detect_objects, console=console)
-                group_captions_en.append(cap_en if cap_en else "")
-                group_items.append(item)
-                group_seconds.append(sec)
-            except RuntimeError as e:
-                # RuntimeError thường là lỗi nghiêm trọng (OOM, model không load được)
-                # Dừng lại và báo lỗi rõ ràng
-                import traceback
-                error_msg = f"Lỗi nghiêm trọng khi tạo mô tả: {e}"
-                print(error_msg)
-                print(traceback.format_exc())
-                # Nếu là lỗi OOM, giữ caption cũ và log lỗi
-                if "out of memory" in str(e).lower() or "oom" in str(e).lower() or "quá lớn" in str(e).lower():
-                    group_captions_en.append(item.get("caption", ""))  # Giữ caption cũ
-                    group_items.append(item)
-                    group_seconds.append(sec)
-                    print(f"Model quá lớn, giữ caption cũ cho frame {sec}")
-                else:
-                    # Các lỗi khác, raise để dừng lại
-                    raise
-            except Exception as e:
-                # Nếu caption lỗi, giữ lại caption cũ hoặc để trống
-                import traceback
-                print(f"Error captioning frame {sec}: {e}")
-                print(traceback.format_exc())
-                group_captions_en.append(item.get("caption", ""))  # Giữ caption cũ nếu có
-                group_items.append(item)
-                group_seconds.append(sec)
+            # Tự động dịch sang tiếng Việt
+            final = ""
+            if cap_en:
+                try:
+                    final = translate_text(cap_en, "vi")
+                except Exception as e:
+                    # Nếu dịch lỗi, giữ nguyên caption gốc
+                    final = cap_en
+        except RuntimeError as e:
+            # RuntimeError thường là lỗi nghiêm trọng (OOM, model không load được)
+            # Dừng lại và báo lỗi rõ ràng
+            import traceback
+            error_msg = f"Lỗi nghiêm trọng khi tạo mô tả: {e}"
+            print(error_msg)
+            print(traceback.format_exc())
+            # Nếu là lỗi OOM, giữ caption cũ và log lỗi
+            if "out of memory" in str(e).lower() or "oom" in str(e).lower() or "quá lớn" in str(e).lower():
+                final = item.get("caption", "")  # Giữ caption cũ
+                caption_original = item.get("caption_original", None)
+                print(f"Model quá lớn, giữ caption cũ cho frame {sec}")
+            else:
+                # Các lỗi khác, raise để dừng lại
+                raise
+        except Exception as e:
+            # Nếu caption lỗi, giữ lại caption cũ hoặc để trống
+            import traceback
+            print(f"Error captioning frame {sec}: {e}")
+            print(traceback.format_exc())
+            final = item.get("caption", "")  # Giữ caption cũ nếu có
+            caption_original = item.get("caption_original", None)
         
-        # Tổng hợp 3 captions thành 1 caption
-        synthesized_caption_en = synthesize_captions(group_captions_en, console=console) if group_captions_en else ""
-        caption_original = synthesized_caption_en if synthesized_caption_en else None
-        
-        # Tự động dịch sang tiếng Việt
-        final = ""
-        if synthesized_caption_en:
-            try:
-                final = translate_text(synthesized_caption_en, "vi")
-            except Exception as e:
-                # Nếu dịch lỗi, giữ nguyên caption gốc
-                final = synthesized_caption_en
-        
-        # Lưu caption tổng hợp cho tất cả frames trong nhóm
+        # Lưu caption riêng cho frame này
         # Tạo lại mô tả, không giữ label cũ vì mô tả mới có thể khác
-        for item, sec in zip(group_items, group_seconds):
-            updated_item = {
-                "second": sec,
-                # No image_rel - images are not saved
-                "caption": final,
-                "caption_original": caption_original,
-            }
-            updated_frames.append(updated_item)
+        updated_item = {
+            "second": sec,
+            # No image_rel - images are not saved
+            "caption": final,
+            "caption_original": caption_original,
+        }
+        updated_frames.append(updated_item)
 
     data["frames"] = sorted(updated_frames, key=lambda x: x["second"])
     # Xóa summary cũ nếu có vì label đã thay đổi
@@ -903,7 +863,9 @@ def upload():
     try:
         # Get use_object_detection from form (default False)
         use_object_detection = request.form.get("extract_scene") == "on"  # If "Scene description" is checked
-        process_video(job_id, video_path, backend, language, hf_model, openai_model, translate, use_object_detection=use_object_detection)
+        use_llava = request.form.get("use_llava") == "on"
+        use_ocr_only = request.form.get("use_ocr_only") == "on"
+        process_video(job_id, video_path, backend, language, hf_model, openai_model, translate, use_object_detection=use_object_detection, use_llava=use_llava, use_ocr_only=use_ocr_only)
     except Exception as e:
         # On error, clean up and show a simple error page
         # Xóa file tạm nếu có
@@ -943,7 +905,9 @@ def use_uploaded():
     try:
         # Get use_object_detection from form (default False)
         use_object_detection = request.form.get("extract_scene") == "on"  # If "Scene description" is checked
-        process_video(job_id, video_path, "local", language, hf_model, "", translate, use_object_detection=use_object_detection)
+        use_llava = request.form.get("use_llava") == "on"
+        use_ocr_only = request.form.get("use_ocr_only") == "on"
+        process_video(job_id, video_path, "local", language, hf_model, "", translate, use_object_detection=use_object_detection, use_llava=use_llava, use_ocr_only=use_ocr_only)
     except Exception as e:
         return render_template("result.html", error=str(e), job_id=job_id, frames=[], out_dir="")
 

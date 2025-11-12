@@ -8,7 +8,7 @@ import re
 from typing import Dict, Optional
 
 # Path đến model đã fine-tune (bắt buộc)
-FINETUNED_MODEL_PATH = r"C:\Users\Kris\blip-image-LLM\output\blip-flickr30k-local"
+FINETUNED_MODEL_PATH = r"C:\Users\Kris\blip-image-LLM\output\blip-flickr30k-incremental\batch_20"
 DEFAULT_CAPTION_MODEL = "Salesforce/blip-image-captioning-base"  # Base model (chỉ dùng để load LoRA adapter)
 
 # Import SVO extraction function
@@ -110,19 +110,27 @@ def _get_local_captioner(model_name: str):
                     # Extract generation parameters
                     max_new_tokens = kwargs.get("max_new_tokens", 150)  # Tăng từ 100 lên 150 để tránh câu bị ngắt
                     num_beams = kwargs.get("num_beams", 5)
-                    temperature = kwargs.get("temperature", 0.7)
                     repetition_penalty = kwargs.get("repetition_penalty", 1.2)
                     num_return_sequences = kwargs.get("num_return_sequences", 1)
+                    do_sample = kwargs.get("do_sample", False)
+                    temperature = kwargs.get("temperature", 0.7)
+                    no_repeat_ngram_size = kwargs.get("no_repeat_ngram_size", None)
                     
                     with torch.no_grad():
-                        generated_ids = self.model.generate(
-                            **inputs,
-                            max_length=max_new_tokens,
-                            num_beams=num_beams,
-                            temperature=temperature,
-                            repetition_penalty=repetition_penalty,
-                            num_return_sequences=num_return_sequences,
-                        )
+                        gen_kwargs = {
+                            "max_length": max_new_tokens,
+                            "num_beams": num_beams,
+                            "repetition_penalty": repetition_penalty,
+                            "num_return_sequences": num_return_sequences,
+                            "do_sample": do_sample,
+                        }
+                        # Only pass temperature when sampling is enabled to avoid warnings
+                        if do_sample and temperature is not None:
+                            gen_kwargs["temperature"] = temperature
+                        # Optionally pass no_repeat_ngram_size if provided
+                        if no_repeat_ngram_size:
+                            gen_kwargs["no_repeat_ngram_size"] = no_repeat_ngram_size
+                        generated_ids = self.model.generate(**inputs, **gen_kwargs)
                     
                     generated_texts = self.processor.batch_decode(
                         generated_ids, skip_special_tokens=True
@@ -777,17 +785,7 @@ def synthesize_captions(captions: list[str], console=None) -> str:
     if len(valid_captions) == 1:
         return valid_captions[0]
     
-    # Kiểm tra xem có API key không, nếu không có thì dùng rule-based luôn
-    has_openai_key = bool(os.environ.get("OPENAI_API_KEY"))
-    has_anthropic_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
-    
-    # Phương pháp 1: Dùng LLM để tổng hợp (nếu có API key)
-    if has_openai_key or has_anthropic_key:
-        synthesized = _synthesize_with_llm(valid_captions, console=console)
-        if synthesized:
-            return synthesized
-    
-    # Phương pháp 2: Rule-based synthesis (fallback hoặc mặc định)
+    # Luôn dùng rule-based synthesis (vô hiệu hóa đường LLM dùng API key)
     return _synthesize_rule_based(valid_captions, console=console)
 
 
@@ -1218,6 +1216,67 @@ def _extract_ocr_text_simple(image_input, languages: list = ["vi", "en"], min_co
     return ""
 
 
+def extract_ocr_text_for_frames(
+    frames: list,
+    languages: list[str] = ["vi", "en"],
+    min_confidence: float = 0.3,
+    console=None,
+) -> dict[str, str]:
+    """Quét OCR cho từng frame và trả về text tìm được.
+
+    Args:
+        frames: Danh sách frame. Mỗi phần tử có thể là:
+            - Đường dẫn tới file ảnh
+            - Đối tượng PIL Image
+            - Tuple (frame_id, image_input)
+            - Dict có khóa 'frame_id'/'id' và 'image'/'frame'/'path'
+        languages: Danh sách ngôn ngữ cho OCR.
+        min_confidence: Ngưỡng confidence tối thiểu.
+        console: Đối tượng console để log (tùy chọn).
+
+    Returns:
+        dict[str, str]: Mapping frame_id -> text OCR đã làm sạch (chỉ chứa các frame có text).
+    """
+    results: dict[str, str] = {}
+
+    for idx, frame in enumerate(frames):
+        frame_id = str(idx)
+        image_input = frame
+
+        if isinstance(frame, tuple) and len(frame) >= 2:
+            frame_id = str(frame[0])
+            image_input = frame[1]
+        elif isinstance(frame, dict):
+            frame_id = str(frame.get("frame_id", frame.get("id", idx)))
+            image_input = frame.get("image") or frame.get("frame") or frame.get("path") or frame.get("file")
+            if image_input is None:
+                if console:
+                    console.print(f"[yellow]Bỏ qua frame {frame_id}: không tìm thấy dữ liệu ảnh[/yellow]")
+                continue
+
+        try:
+            text = _extract_ocr_text_simple(
+                image_input,
+                languages=languages,
+                min_confidence=min_confidence,
+            )
+        except Exception as exc:
+            if console:
+                console.print(f"[yellow]OCR lỗi tại frame {frame_id}: {exc}[/yellow]")
+            continue
+
+        if text:
+            results[frame_id] = text
+            if console:
+                display_text = text if len(text) <= 60 else f"{text[:57]}..."
+                console.print(f"[green]Frame {frame_id}: {display_text}[/green]")
+        else:
+            if console:
+                console.print(f"[blue]Frame {frame_id}: không phát hiện chữ[/blue]")
+
+    return results
+
+
 def caption_image_local(image_input, model_name: str, use_object_detection: bool = False, detect_objects_func=None, console=None) -> str:
     """Caption an image using a local Hugging Face pipeline model (cached).
     Optionally integrates object detection (YOLO) for richer descriptions.
@@ -1260,10 +1319,9 @@ def caption_image_local(image_input, model_name: str, use_object_detection: bool
         repetition_penalty = float(os.environ.get("CAPTION_REPETITION_PENALTY", "1.2"))
         no_repeat_ngram_size = int(os.environ.get("CAPTION_NO_REPEAT_NGRAM", "3"))
 
-        # Support generating multiple candidates and reranking with CLIP
-        # Nếu bật synthesis (tổng hợp), tự động tạo 3 candidates
-        use_synthesis = os.environ.get("CAPTION_USE_SYNTHESIS", "false").lower() in ("true", "1", "yes")
-        num_candidates = int(os.environ.get("CAPTION_NUM_CANDIDATES", "3" if use_synthesis else "1"))
+        # Chỉ tạo 1 candidate cho mỗi frame (không tổng hợp nhiều candidates)
+        # Mỗi frame sẽ có mô tả riêng biệt
+        num_candidates = 1
         candidates: list[str] = []
         try:
             # Try to request multiple sequences directly
@@ -1297,41 +1355,17 @@ def caption_image_local(image_input, model_name: str, use_object_detection: bool
                 if isinstance(result, list) and result:
                     candidates = [result[0].get("generated_text", "").strip()]
 
-        # If we still need more candidates, attempt to sample with varied temperature
-        if num_candidates > 1 and len(candidates) < num_candidates:
-            extra_needed = num_candidates - len(candidates)
-            for i in range(extra_needed):
-                try:
-                    res_i = captioner(
-                        image_path_for_captioner,
-                        prompt=prompt,
-                        num_beams=max(1, num_beams // 2),
-                        temperature=min(1.0, temperature + 0.2 * (i + 1)),
-                        max_new_tokens=max_new_tokens,
-                    )
-                    if isinstance(res_i, list) and res_i:
-                        candidates.append(res_i[0].get("generated_text", "").strip())
-                except Exception:
-                    break
-
-        # Clean up candidates and rerank
-        processed_candidates: list[str] = []
-        for text in candidates:
-            if not text:
-                continue
-            t = _remove_repetition(text, max_repeat=2)
-            t = _fix_incomplete_sentence(t)  # Sửa câu bị ngắt trước khi xử lý khác
-            t = _remove_vague_references(t)
-            t = _ensure_single_verb_svo(t)
-            processed_candidates.append(t)
-
+        # Clean up candidate và post-process
         base_caption = ""
-        if processed_candidates:
-            # Nếu có nhiều candidates (>= 3), tổng hợp thành 1 mô tả tổng quát
-            if len(processed_candidates) >= 3:
-                base_caption = synthesize_captions(processed_candidates[:3], console=console)
-            else:
-                base_caption = processed_candidates[0]
+        if candidates:
+            # Chỉ lấy candidate đầu tiên (mỗi frame có 1 mô tả riêng)
+            text = candidates[0]
+            if text:
+                # Post-processing
+                base_caption = _remove_repetition(text, max_repeat=2)
+                base_caption = _fix_incomplete_sentence(base_caption)  # Sửa câu bị ngắt trước khi xử lý khác
+                base_caption = _remove_vague_references(base_caption)
+                base_caption = _ensure_single_verb_svo(base_caption)
         
         # 1.5. Xử lý trường hợp BLIP trả về caption "lạ" hoặc có chữ nhưng sai chính tả
         use_ocr = False
@@ -1457,3 +1491,14 @@ def caption_image_local(image_input, model_name: str, use_object_detection: bool
             except Exception:
                 pass
 
+def caption_image_llava(image_input, console=None) -> str:
+    """Placeholder LLaVA captioner.
+    Hiện tại chưa tích hợp LLaVA, tạm thời fallback sang BLIP local để không gián đoạn luồng xử lý.
+    """
+    try:
+        if console:
+            console.print("[yellow]LLaVA chưa được tích hợp. Đang dùng BLIP (fallback)...[/yellow]")
+    except Exception:
+        pass
+    # Gọi BLIP local với cấu hình hiện tại
+    return caption_image_local(image_input, FINETUNED_MODEL_PATH, use_object_detection=False, detect_objects_func=None, console=console)
