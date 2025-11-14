@@ -658,12 +658,12 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.option("--hf_model", default=None, help="Path to fine-tuned LoRA adapter (optional). If not provided, uses hardcoded path in image_captioning.py")
 @click.option("--clf_dir", default=r"C:\Users\Kris\TVC-AI\output_moderation", help="Directory of trained text classifier to label captions. Use --list-models to see available models.")
 @click.option("--list-models", is_flag=True, default=False, help="List all available classifier models and exit")
-@click.option("--language", default="en", help="Preferred caption language (e.g., vi, en)")
+@click.option("--language", default="vi", help="Preferred caption language (e.g., vi, en)")
 @click.option("--translate", is_flag=True, default=False, help="Translate captions to the target language if backend returns other language")
 @click.option("--overwrite", is_flag=True, default=False, help="Overwrite existing frame files")
 @click.option("--serve/--no-serve", "serve_web", default=True, help="Also start the web UI server (default: on)")
 @click.option("--audio/--no-audio", "process_audio", default=True, help="Also transcribe audio to text and label")
-@click.option("--asr_model", default="base", help="Whisper ASR model size (tiny, base, small, medium, large)")
+@click.option("--asr_model", default="vinai/phowhisper-large", help="Faster-Whisper ASR model (e.g., vinai/phowhisper-large, small, medium, large)")
 @click.option("--detect-objects/--no-detect-objects", "use_object_detection", default=False, help="Use YOLO object detection to enhance captions (default: off)")
 @click.option("--yolo-model", default="yolov8n.pt", help="YOLO model name (yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt)")
 @click.option("--auto-caption/--no-auto-caption", "auto_caption", default=False, help="Automatically generate captions in CLI mode (default: off)")
@@ -882,45 +882,48 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
         if process_audio:
             try:
                 extract_audio_wav(video_path, audio_wav_path, sample_rate=16000)
-                asr_result = transcribe_audio_whisper(audio_wav_path, model_name=asr_model, language=(language if language else None))
-                # asr_result['segments'] with start/end/text
-                segments = asr_result.get("segments", []) or []
-                labeled_segments = []
-                num_seg_ok = 0
-                num_seg_violate = 0
-                num_seg_unknown = 0
-                for seg in segments:
-                    text_seg = (seg.get("text") or "").strip()
-                    if not text_seg:
-                        labeled_segments.append({**seg, "label_id": None, "label_score": 0.0})
-                        num_seg_unknown += 1
-                        continue
+                # Use faster-whisper with PhoWhisper Large for better Vietnamese support
+                # Ensure using vinai/phowhisper-large model
+                asr_model_used = asr_model if asr_model else "vinai/phowhisper-large"
+                asr_lang = language if language else "vi"
+                asr_result = transcribe_audio_faster_whisper(
+                    audio_wav_path, 
+                    model_name=asr_model_used, 
+                    language=asr_lang,
+                    initial_prompt="Quảng cáo TVC bằng tiếng Việt, thương hiệu, khuyến mãi, sản phẩm"
+                )
+                # Get full text as single line (no segments)
+                full_text = asr_result.get("text", "").strip()
+                
+                # Classify the entire audio text as one unit
+                label_id = None
+                label_score = 0.0
+                if full_text:
                     try:
-                        pred_seg = classify_text(text_seg, clf_dir)
+                        pred = classify_text(full_text, clf_dir)
+                        label_id = pred.get("label_id")
+                        label_score = pred.get("score", 0.0)
                     except Exception as e:
-                        pred_seg = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
-                    lid = pred_seg.get("label_id")
-                    if lid == 0:
-                        num_seg_ok += 1
-                    elif lid == 1:
-                        num_seg_violate += 1
-                    else:
-                        num_seg_unknown += 1
-                    labeled_segments.append({**seg, "label_id": lid, "label_score": pred_seg.get("score")})
-                total_segs = len(labeled_segments)
-                pct_seg_ok = round((num_seg_ok / total_segs * 100.0), 2) if total_segs else 0.0
-                pct_seg_violate = round((num_seg_violate / total_segs * 100.0), 2) if total_segs else 0.0
+                        console.print(f"[yellow]Audio classification failed: {e}[/yellow]")
+                
+                # Create summary with single classification result
+                num_ok = 1 if label_id == 0 else 0
+                num_violate = 1 if label_id == 1 else 0
+                num_unknown = 1 if label_id is None else 0
+                
                 audio_summary = {
-                    "total_segments": total_segs,
-                    "num_compliant": num_seg_ok,
-                    "num_violations": num_seg_violate,
-                    "num_unknown": num_seg_unknown,
-                    "percent_compliant": pct_seg_ok,
-                    "percent_violations": pct_seg_violate,
+                    "total_segments": 1,
+                    "num_compliant": num_ok,
+                    "num_violations": num_violate,
+                    "num_unknown": num_unknown,
+                    "percent_compliant": 100.0 if num_ok else 0.0,
+                    "percent_violations": 100.0 if num_violate else 0.0,
                 }
                 audio_transcript = {
-                    "text": asr_result.get("text", ""),
-                    "segments": labeled_segments,
+                    "text": full_text,
+                    "label_id": label_id,
+                    "label_score": label_score,
+                    "model_used": asr_model_used,
                 }
             except Exception as e:
                 console.print(f"[yellow]Audio processing skipped:[/yellow] {e}")
@@ -955,7 +958,9 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
                 fmd.write(f"- Không xác định: {num_unknown}\n\n")
             if audio_summary is not None:
                 fmd.write(f"## Âm thanh\n\n")
-                fmd.write(f"- Tổng đoạn thoại: {audio_summary['total_segments']}\n\n")
+                if audio_transcript and audio_transcript.get("text"):
+                    fmd.write(f"**Nội dung:** {audio_transcript.get('text')}\n\n")
+                fmd.write(f"- Nhãn: {audio_transcript.get('label_id') if audio_transcript else 'N/A'} (score: {audio_transcript.get('label_score', 0.0):.4f if audio_transcript else 0.0})\n\n")
                 fmd.write(f"- Đạt chuẩn: {audio_summary['num_compliant']} ({audio_summary['percent_compliant']:.2f}%)\n\n")
                 fmd.write(f"- Vi phạm: {audio_summary['num_violations']} ({audio_summary['percent_violations']:.2f}%)\n\n")
                 if audio_summary.get("num_unknown", 0) > 0:
