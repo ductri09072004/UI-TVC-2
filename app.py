@@ -36,7 +36,7 @@ except ImportError:
 console = Console()
 
 # Import image captioning module
-from image_captioning import caption_image_local, synthesize_captions
+from image_captioning import caption_image_local, caption_image_openai, synthesize_captions
 
 _TEXT_CLASSIFIER_CACHE: Optional[Dict[str, object]] = None
 _WHISPER_CACHE: Optional[Dict[str, object]] = None
@@ -60,6 +60,67 @@ class CaptionResult:
     image_path: str
     caption: str
     caption_original: Optional[str] = None  # Caption gốc trước khi dịch
+
+
+DEFAULT_OPENAI_CAPTION_PROMPT = (
+    "Bạn là chuyên gia mô tả hình ảnh. Hãy mô tả ảnh bằng định dạng SVO (Chủ ngữ - Động từ - Tân ngữ) "
+    "với CHỈ MỘT động từ chính, tối đa 20 từ."
+)
+
+
+@dataclass
+class OpenAICaptionConfig:
+    api_key: str
+    model: str
+    prompt: str
+    temperature: float
+    max_tokens: int
+    target_language: str = "vi"
+
+
+def build_openai_caption_config(
+    api_key: Optional[str] = None,
+    model: Optional[str] = None,
+    prompt: Optional[str] = None,
+    temperature: Optional[float] = None,
+    max_tokens: Optional[int] = None,
+    target_language: Optional[str] = None,
+) -> OpenAICaptionConfig:
+    """
+    Build OpenAI caption config, loading defaults from openai_config.py if available.
+    CLI parameters override config file values.
+    """
+    # Try to load from openai_config.py
+    try:
+        from openai_config import get_openai_config
+        config = get_openai_config()
+        # Use config file values as defaults, but allow CLI override
+        final_api_key = api_key or config.get("api_key")
+        final_model = model or config.get("model", "gpt-4o-mini")
+        final_prompt = prompt or config.get("prompt", DEFAULT_OPENAI_CAPTION_PROMPT)
+        final_temperature = temperature if temperature is not None else config.get("temperature", 0.3)
+        final_max_tokens = max_tokens if max_tokens is not None else config.get("max_tokens", 150)
+        final_target_language = target_language or config.get("target_language", "vi")
+    except ImportError:
+        # Fallback to environment variables or defaults
+        final_api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        final_model = model or os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+        final_prompt = prompt or os.environ.get("OPENAI_CAPTION_PROMPT", DEFAULT_OPENAI_CAPTION_PROMPT)
+        final_temperature = temperature if temperature is not None else float(os.environ.get("OPENAI_CAPTION_TEMPERATURE", "0.3"))
+        final_max_tokens = max_tokens if max_tokens is not None else int(os.environ.get("OPENAI_CAPTION_MAX_TOKENS", "150"))
+        final_target_language = target_language or "vi"
+    
+    if not final_api_key:
+        raise ValueError("OpenAI API key is required")
+    
+    return OpenAICaptionConfig(
+        api_key=final_api_key,
+        model=final_model,
+        prompt=final_prompt,
+        temperature=final_temperature,
+        max_tokens=final_max_tokens,
+        target_language=final_target_language,
+    )
 
 
 def ensure_dir(path: str) -> None:
@@ -656,6 +717,17 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.option("--input", "input_video", required=False, type=str, help="Path to input video file or URL (http/https)")
 @click.option("--out_dir", default="output", type=click.Path(dir_okay=True, file_okay=False), help="Directory to write frames and captions")
 @click.option("--hf_model", default=None, help="Path to fine-tuned LoRA adapter (optional). If not provided, uses hardcoded path in image_captioning.py")
+@click.option(
+    "--caption_backend",
+    type=click.Choice(["local", "openai"]),
+    default="local",
+    help="Backend used to generate frame captions (local Hugging Face or OpenAI).",
+)
+@click.option("--openai_key", default=None, help="OpenAI API key (fallback to openai_config.py or OPENAI_API_KEY env).")
+@click.option("--openai_model", default=None, help="OpenAI vision model (overrides openai_config.py).")
+@click.option("--openai_prompt", default=None, help="Custom prompt (overrides openai_config.py).")
+@click.option("--openai_temperature", default=None, type=float, help="Temperature (overrides openai_config.py).")
+@click.option("--openai_max_tokens", default=None, type=int, help="Max tokens (overrides openai_config.py).")
 @click.option("--clf_dir", default=r"C:\Users\Kris\TVC-AI\output_moderation", help="Directory of trained text classifier to label captions. Use --list-models to see available models.")
 @click.option("--list-models", is_flag=True, default=False, help="List all available classifier models and exit")
 @click.option("--language", default="vi", help="Preferred caption language (e.g., vi, en)")
@@ -667,7 +739,28 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.option("--detect-objects/--no-detect-objects", "use_object_detection", default=False, help="Use YOLO object detection to enhance captions (default: off)")
 @click.option("--yolo-model", default="yolov8n.pt", help="YOLO model name (yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt)")
 @click.option("--auto-caption/--no-auto-caption", "auto_caption", default=False, help="Automatically generate captions in CLI mode (default: off)")
-def main(input_video: str, out_dir: str, hf_model: str, language: str, translate: bool, overwrite: bool, serve_web: bool, clf_dir: str, process_audio: bool, asr_model: str, use_object_detection: bool, yolo_model: str, auto_caption: bool, list_models: bool) -> None:
+def main(
+    input_video: str,
+    out_dir: str,
+    hf_model: str,
+    caption_backend: str,
+    openai_key: Optional[str],
+    openai_model: Optional[str],
+    openai_prompt: Optional[str],
+    openai_temperature: Optional[float],
+    openai_max_tokens: Optional[int],
+    language: str,
+    translate: bool,
+    overwrite: bool,
+    serve_web: bool,
+    clf_dir: str,
+    process_audio: bool,
+    asr_model: str,
+    use_object_detection: bool,
+    yolo_model: str,
+    auto_caption: bool,
+    list_models: bool,
+) -> None:
     # Handle --list-models flag
     if list_models:
         tvc_ai_dir = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "TVC-AI"))
@@ -708,6 +801,27 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
         console.print(f"[yellow]Classifier path changed, clearing cache[/yellow]")
     
     console.print(f"[green]Using classifier from: {clf_dir}[/green]")
+
+    caption_backend = (caption_backend or "local").lower()
+    openai_config: Optional[OpenAICaptionConfig] = None
+    if caption_backend == "openai":
+        try:
+            openai_config = build_openai_caption_config(
+                api_key=openai_key,  # Can be None, will load from config file or env
+                model=openai_model,  # Can be None, will load from config file
+                prompt=openai_prompt,  # Can be None, will load from config file
+                temperature=openai_temperature,  # None means use config file default
+                max_tokens=openai_max_tokens,  # None means use config file default
+                target_language=language or None,  # Can be None, will load from config file
+            )
+            console.print(f"[cyan]Loaded OpenAI config from openai_config.py[/cyan]")
+            if openai_config.prompt:
+                prompt_preview = openai_config.prompt[:60] + "..." if len(openai_config.prompt) > 60 else openai_config.prompt
+                console.print(f"[dim]Prompt: {prompt_preview}[/dim]")
+        except ValueError as e:
+            console.print(f"[red]OpenAI backend selected but configuration failed: {e}[/red]")
+            console.print("[yellow]Set OPENAI_API_KEY in openai_config.py, environment variable, or pass --openai_key[/yellow]")
+            sys.exit(1)
 
     web_proc = None
     if serve_web:
@@ -766,9 +880,10 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
                 group = frame_paths[i:i+3]
                 frame_groups.append(group)
             
-            for group_idx, group in track(enumerate(frame_groups), description="Captioning frame groups (3 frames per group)"):
+            track_desc = f"Captioning frame groups ({caption_backend})"
+            for group_idx, group in track(enumerate(frame_groups), description=track_desc):
                 # Tạo caption cho từng frame trong nhóm
-                group_captions_en = []
+                group_captions = []
                 group_seconds = []
                 group_image_paths = []
                 
@@ -779,28 +894,43 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
                     except Exception:
                         sec = len(results)
                     
-                    # Step 1: BLIP caption cho từng frame
-                    caption_en = caption_image_local(
-                        image_path, 
-                        hf_model, 
-                        use_object_detection=use_object_detection,
-                        detect_objects_func=detect_objects,
-                        console=console
-                    )
+                    # Step 1: Caption từng frame bằng backend tương ứng
+                    if caption_backend == "openai" and openai_config:
+                        caption_text = caption_image_openai(
+                            image_path,
+                            model_name=openai_config.model,
+                            api_key=openai_config.api_key,
+                            target_language=openai_config.target_language,
+                            prompt=openai_config.prompt,
+                            temperature=openai_config.temperature,
+                            max_tokens=openai_config.max_tokens,
+                            console=console,
+                        )
+                    else:
+                        caption_text = caption_image_local(
+                            image_path, 
+                            hf_model, 
+                            use_object_detection=use_object_detection,
+                            detect_objects_func=detect_objects,
+                            console=console
+                        )
                     
-                    group_captions_en.append(caption_en if caption_en else "")
+                    group_captions.append(caption_text if caption_text else "")
                     group_seconds.append(sec)
                     group_image_paths.append(image_path)
                 
                 # Tổng hợp 3 captions thành 1 caption
-                synthesized_caption_en = synthesize_captions(group_captions_en, console=console) if group_captions_en else ""
+                synthesized_caption = synthesize_captions(group_captions, console=console) if group_captions else ""
                 
                 # Tự động dịch sang tiếng Việt
-                if synthesized_caption_en:
-                    try:
-                        final_caption = translate_text(synthesized_caption_en, "vi")
-                    except Exception:
-                        final_caption = synthesized_caption_en
+                if synthesized_caption:
+                    if translate and caption_backend != "openai":
+                        try:
+                            final_caption = translate_text(synthesized_caption, "vi")
+                        except Exception:
+                            final_caption = synthesized_caption
+                    else:
+                        final_caption = synthesized_caption
                 else:
                     final_caption = ""
                 
@@ -810,7 +940,7 @@ def main(input_video: str, out_dir: str, hf_model: str, language: str, translate
                         second=sec, 
                         image_path=image_path, 
                         caption=final_caption,
-                        caption_original=synthesized_caption_en if synthesized_caption_en else None
+                        caption_original=synthesized_caption if synthesized_caption else None
                     ))
                     
                     # Step 2: BERT classify

@@ -3,6 +3,8 @@ Module xử lý tạo mô tả hình ảnh (Image Captioning).
 Bao gồm logic captioning, post-processing và formatting.
 """
 
+import base64
+import io
 import os
 import re
 from typing import Dict, Optional
@@ -1490,6 +1492,147 @@ def caption_image_local(image_input, model_name: str, use_object_detection: bool
                 os.unlink(temp_path)
             except Exception:
                 pass
+
+
+def caption_image_openai(
+    image_input,
+    model_name: str = "gpt-4o-mini",
+    api_key: Optional[str] = None,
+    target_language: str = "vi",
+    prompt: Optional[str] = None,
+    temperature: Optional[float] = None,
+    max_tokens: Optional[int] = None,
+    console=None,
+) -> str:
+    """Caption an image using OpenAI Vision models (e.g., GPT-4o, GPT-4o-mini)."""
+    from PIL import Image
+
+    key = api_key or os.environ.get("OPENAI_API_KEY")
+    if not key:
+        raise RuntimeError("OpenAI API key is required. Provide --openai_key or set OPENAI_API_KEY.")
+
+    try:
+        from openai import OpenAI
+    except ImportError as exc:
+        raise RuntimeError("Package 'openai' is required. Install via `pip install openai`.") from exc
+
+    client = OpenAI(api_key=key)
+
+    if isinstance(image_input, Image.Image):
+        image = image_input
+    else:
+        image = Image.open(image_input)
+
+    buffer = io.BytesIO()
+    image.convert("RGB").save(buffer, format="PNG")
+    image_b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+
+    # Load config from openai_config.py if available
+    try:
+        from openai_config import get_openai_config, get_prompt
+        config = get_openai_config()
+        # Use config values as defaults, but allow override via parameters
+        prompt_text = prompt or config.get("prompt", "")
+        temperature_value = temperature if temperature is not None else config.get("temperature", 0.3)
+        max_tokens_value = max_tokens if max_tokens is not None else config.get("max_tokens", 150)
+        target_lang = target_language or config.get("target_language", "vi")
+    except ImportError:
+        # Fallback to environment variables or defaults
+        prompt_text = prompt or os.environ.get(
+            "OPENAI_CAPTION_PROMPT",
+            "Bạn là chuyên gia mô tả hình ảnh. Hãy mô tả ảnh bằng định dạng SVO (Chủ ngữ - Động từ - Tân ngữ) "
+            "với CHỈ MỘT động từ chính, tối đa 20 từ.",
+        )
+        temperature_value = (
+            temperature if temperature is not None else float(os.environ.get("OPENAI_CAPTION_TEMPERATURE", "0.3"))
+        )
+        max_tokens_value = (
+            max_tokens if max_tokens is not None else int(os.environ.get("OPENAI_CAPTION_MAX_TOKENS", "150"))
+        )
+        target_lang = target_language or "vi"
+    
+    if target_lang and "{image}" not in prompt_text:
+        # Only append language instruction if not already in prompt
+        prompt_text += f" Viết bằng tiếng {target_lang}."
+
+    response = client.responses.create(
+        model=model_name or os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
+        input=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "input_text", "text": prompt_text},
+                    {"type": "input_image", "image_url": f"data:image/png;base64,{image_b64}"},
+                ],
+            }
+        ],
+        temperature=temperature_value,
+        max_output_tokens=max_tokens_value,
+    )
+
+    def _collect_response_text(resp) -> str:
+        chunks = []
+        output = getattr(resp, "output", None)
+        if output:
+            for item in output:
+                contents = getattr(item, "content", None)
+                if contents is None and isinstance(item, dict):
+                    contents = item.get("content")
+                if not contents:
+                    continue
+                for content in contents:
+                    content_type = getattr(content, "type", None)
+                    if content_type is None and isinstance(content, dict):
+                        content_type = content.get("type")
+                    if content_type == "output_text":
+                        text_value = getattr(content, "text", None)
+                        if text_value is None and isinstance(content, dict):
+                            text_value = content.get("text", "")
+                        chunks.append(text_value or "")
+        if not chunks and hasattr(resp, "choices"):
+            for choice in resp.choices:
+                message = getattr(choice, "message", None)
+                if message is None and isinstance(choice, dict):
+                    message = choice.get("message")
+                if not message:
+                    continue
+                text = getattr(message, "content", None)
+                if text is None and isinstance(message, dict):
+                    text = message.get("content")
+                if isinstance(text, list):
+                    for part in text:
+                        if isinstance(part, dict) and part.get("type") == "text":
+                            chunks.append(part.get("text", ""))
+                        elif hasattr(part, "type") and getattr(part, "type") == "text":
+                            chunks.append(getattr(part, "text", ""))
+                elif isinstance(text, str):
+                    chunks.append(text)
+        return " ".join(chunks).strip()
+
+    caption = _collect_response_text(response)
+    caption = caption.replace("\n", " ").strip()
+    if caption and console:
+        console.print(f"[green]✓ OpenAI caption ({model_name}): {caption[:80]}[/green]")
+
+    if not caption:
+        return ""
+
+    caption = _remove_repetition(caption, max_repeat=2)
+    caption = _fix_incomplete_sentence(caption)
+    caption = _remove_vague_references(caption)
+    caption = _ensure_single_verb_svo(caption)
+
+    if extract_svo and caption:
+        try:
+            s, v, o = extract_svo(caption)
+            parts = [p for p in [s, v, o] if p and p.strip()]
+            if parts:
+                return " ".join(parts)
+        except Exception:
+            pass
+
+    return caption
+
 
 def caption_image_llava(image_input, console=None) -> str:
     """Placeholder LLaVA captioner.
