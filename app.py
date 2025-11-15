@@ -999,7 +999,7 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.option("--openai_prompt", default=None, help="Custom prompt (overrides openai_config.py).")
 @click.option("--openai_temperature", default=None, type=float, help="Temperature (overrides openai_config.py).")
 @click.option("--openai_max_tokens", default=None, type=int, help="Max tokens (overrides openai_config.py).")
-@click.option("--clf_dir", default=r"C:\Users\Kris\TVC-AI\output_moderation", help="Directory of trained text classifier to label captions. Use --list-models to see available models.")
+@click.option("--clf_dir", default=r"D:\Study\TVC-AI\output_moderation", help="Directory of trained text classifier to label captions. Use --list-models to see available models.")
 @click.option("--list-models", is_flag=True, default=False, help="List all available classifier models and exit")
 @click.option("--language", default="vi", help="Preferred caption language (e.g., vi, en)")
 @click.option("--translate", is_flag=True, default=False, help="Translate captions to the target language if backend returns other language")
