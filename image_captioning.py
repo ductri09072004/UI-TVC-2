@@ -1519,12 +1519,29 @@ def caption_image_openai(
     client = OpenAI(api_key=key)
 
     if isinstance(image_input, Image.Image):
-        image = image_input
+        image = image_input.copy()
     else:
         image = Image.open(image_input)
 
+    # Convert to RGB if needed
+    if image.mode != "RGB":
+        image = image.convert("RGB")
+    
+    # Resize to max 768px to reduce token usage (same as batch function)
+    MAX_DIMENSION = int(os.environ.get("OPENAI_IMAGE_MAX_DIMENSION", "768"))
+    width, height = image.size
+    if width > MAX_DIMENSION or height > MAX_DIMENSION:
+        if width > height:
+            new_width = MAX_DIMENSION
+            new_height = int(height * (MAX_DIMENSION / width))
+        else:
+            new_height = MAX_DIMENSION
+            new_width = int(width * (MAX_DIMENSION / height))
+        image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+    
+    # Save as JPEG (smaller than PNG)
     buffer = io.BytesIO()
-    image.convert("RGB").save(buffer, format="PNG")
+    image.save(buffer, format="JPEG", quality=85, optimize=True)
     image_b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
 
     # Load config from openai_config.py if available
@@ -1534,7 +1551,7 @@ def caption_image_openai(
         # Use config values as defaults, but allow override via parameters
         prompt_text = prompt or config.get("prompt", "")
         temperature_value = temperature if temperature is not None else config.get("temperature", 0.3)
-        max_tokens_value = max_tokens if max_tokens is not None else config.get("max_tokens", 150)
+        max_tokens_value = max_tokens if max_tokens is not None else config.get("max_tokens", 60)
         target_lang = target_language or config.get("target_language", "vi")
     except ImportError:
         # Fallback to environment variables or defaults
@@ -1547,7 +1564,7 @@ def caption_image_openai(
             temperature if temperature is not None else float(os.environ.get("OPENAI_CAPTION_TEMPERATURE", "0.3"))
         )
         max_tokens_value = (
-            max_tokens if max_tokens is not None else int(os.environ.get("OPENAI_CAPTION_MAX_TOKENS", "150"))
+            max_tokens if max_tokens is not None else int(os.environ.get("OPENAI_CAPTION_MAX_TOKENS", "60"))
         )
         target_lang = target_language or "vi"
     
@@ -1555,41 +1572,38 @@ def caption_image_openai(
         # Only append language instruction if not already in prompt
         prompt_text += f" Viết bằng tiếng {target_lang}."
 
-    response = client.responses.create(
+    # Use chat.completions for consistency and to support detail="low" parameter
+    use_low_res = os.environ.get("OPENAI_IMAGE_DETAIL", "low").lower() == "low"
+    response = client.chat.completions.create(
         model=model_name or os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
-        input=[
+        messages=[
+            {
+                "role": "system",
+                "content": "Chuyên gia mô tả hình ảnh tiếng Việt. Trả về mô tả ngắn gọn, SVO format."
+            },
             {
                 "role": "user",
                 "content": [
-                    {"type": "input_text", "text": prompt_text},
-                    {"type": "input_image", "image_url": f"data:image/png;base64,{image_b64}"},
-                ],
+                    {"type": "text", "text": prompt_text},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_b64}",
+                            "detail": "low" if use_low_res else "high"  # Use low-res to save tokens
+                        }
+                    }
+                ]
             }
         ],
-        temperature=temperature_value,
-        max_output_tokens=max_tokens_value,
+        max_tokens=max_tokens_value,
+        temperature=temperature_value
     )
 
     def _collect_response_text(resp) -> str:
+        """Extract text from OpenAI response (supports both old and new API formats)."""
         chunks = []
-        output = getattr(resp, "output", None)
-        if output:
-            for item in output:
-                contents = getattr(item, "content", None)
-                if contents is None and isinstance(item, dict):
-                    contents = item.get("content")
-                if not contents:
-                    continue
-                for content in contents:
-                    content_type = getattr(content, "type", None)
-                    if content_type is None and isinstance(content, dict):
-                        content_type = content.get("type")
-                    if content_type == "output_text":
-                        text_value = getattr(content, "text", None)
-                        if text_value is None and isinstance(content, dict):
-                            text_value = content.get("text", "")
-                        chunks.append(text_value or "")
-        if not chunks and hasattr(resp, "choices"):
+        # Try new format first (chat.completions)
+        if hasattr(resp, "choices"):
             for choice in resp.choices:
                 message = getattr(choice, "message", None)
                 if message is None and isinstance(choice, dict):
@@ -1599,14 +1613,31 @@ def caption_image_openai(
                 text = getattr(message, "content", None)
                 if text is None and isinstance(message, dict):
                     text = message.get("content")
-                if isinstance(text, list):
+                if isinstance(text, str):
+                    chunks.append(text)
+                elif isinstance(text, list):
                     for part in text:
                         if isinstance(part, dict) and part.get("type") == "text":
                             chunks.append(part.get("text", ""))
-                        elif hasattr(part, "type") and getattr(part, "type") == "text":
-                            chunks.append(getattr(part, "text", ""))
-                elif isinstance(text, str):
-                    chunks.append(text)
+        # Try old format (responses API)
+        elif hasattr(resp, "output"):
+            output = getattr(resp, "output", None)
+            if output:
+                for item in output:
+                    contents = getattr(item, "content", None)
+                    if contents is None and isinstance(item, dict):
+                        contents = item.get("content")
+                    if not contents:
+                        continue
+                    for content in contents:
+                        content_type = getattr(content, "type", None)
+                        if content_type is None and isinstance(content, dict):
+                            content_type = content.get("type")
+                        if content_type == "output_text":
+                            text_value = getattr(content, "text", None)
+                            if text_value is None and isinstance(content, dict):
+                                text_value = content.get("text", "")
+                            chunks.append(text_value or "")
         return " ".join(chunks).strip()
 
     caption = _collect_response_text(response)
@@ -1632,6 +1663,386 @@ def caption_image_openai(
             pass
 
     return caption
+
+
+def caption_images_openai_batch(
+    images_input: list,  # List of PIL Images or file paths
+    model_name: str = "gpt-4o-mini",
+    api_key: Optional[str] = None,
+    target_language: str = "vi",
+    prompt: Optional[str] = None,
+    temperature: Optional[float] = None,
+    max_tokens: Optional[int] = None,
+    console=None,
+    detailed: bool = False,  # If True, return detailed captions for each frame separately
+) -> list[str] | str:
+    """Caption multiple images using OpenAI Vision API.
+    
+    Args:
+        images_input: List of PIL Images or file paths
+        model_name: OpenAI model to use
+        api_key: OpenAI API key
+        target_language: Target language
+        prompt: Custom prompt
+        temperature: Temperature
+        max_tokens: Max tokens per caption
+        console: Console object for logging
+        detailed: If True, create separate detailed caption for each frame (returns list).
+                  If False, create one comprehensive caption for all frames (returns str).
+    
+    Returns:
+        If detailed=True: List of captions (one per image)
+        If detailed=False: Single comprehensive caption for all images
+    """
+    from PIL import Image
+    
+    if not images_input or len(images_input) == 0:
+        return ""
+    
+    key = api_key or os.environ.get("OPENAI_API_KEY")
+    if not key:
+        raise RuntimeError("OpenAI API key is required. Provide --openai_key or set OPENAI_API_KEY.")
+    
+    try:
+        from openai import OpenAI
+    except ImportError as exc:
+        raise RuntimeError("Package 'openai' is required. Install via `pip install openai`.") from exc
+    
+    client = OpenAI(api_key=key)
+    
+    # OpenAI Vision API calculates tokens based on image resolution
+    # Low-res mode: 85 base + (width * height) / (512 * 512) * 170 tokens per image
+    # High-res mode: 85 base + (width * height) / (512 * 512) * 170 tokens * 2 per image
+    # Example: 1024x576 in low-res ≈ 85 + (1024*576)/(512*512)*170 ≈ 467 tokens/image
+    # We use low-res mode and smaller images to save tokens
+    MAX_DIMENSION = int(os.environ.get("OPENAI_IMAGE_MAX_DIMENSION", "768"))  # Reduced to 768px for lower token usage
+    
+    # Convert all images to base64 with optimized size
+    image_b64_list = []
+    for img_input in images_input:
+        if isinstance(img_input, Image.Image):
+            image = img_input.copy()
+        else:
+            image = Image.open(img_input)
+        
+        # Convert to RGB if needed
+        if image.mode != "RGB":
+            image = image.convert("RGB")
+        
+        # Resize if image is larger than MAX_DIMENSION
+        width, height = image.size
+        if width > MAX_DIMENSION or height > MAX_DIMENSION:
+            # Maintain aspect ratio
+            if width > height:
+                new_width = MAX_DIMENSION
+                new_height = int(height * (MAX_DIMENSION / width))
+            else:
+                new_height = MAX_DIMENSION
+                new_width = int(width * (MAX_DIMENSION / height))
+            
+            # Use high-quality resampling
+            image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            if console:
+                console.print(f"[dim]Resized image from {width}x{height} to {new_width}x{new_height}[/dim]")
+        
+        # Save as JPEG with quality 85 (smaller than PNG, quality still good)
+        # PNG for transparent images, but we converted to RGB, so JPEG is fine
+        buffer = io.BytesIO()
+        image.save(buffer, format="JPEG", quality=85, optimize=True)
+        buffer.seek(0)
+        
+        # Calculate approximate size reduction
+        original_size = width * height * 3  # Rough estimate
+        new_size = len(buffer.getvalue())
+        if console and (width > MAX_DIMENSION or height > MAX_DIMENSION):
+            size_reduction = (1 - new_size / original_size) * 100 if original_size > 0 else 0
+            console.print(f"[dim]Image size reduced by ~{size_reduction:.1f}%[/dim]")
+        
+        image_b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+        image_b64_list.append(image_b64)
+    
+    # Load config from openai_config.py if available
+    try:
+        from openai_config import get_openai_config, get_prompt
+        config = get_openai_config()
+        prompt_text = prompt or config.get("prompt", "")
+        temperature_value = temperature if temperature is not None else config.get("temperature", 0.3)
+        max_tokens_value = max_tokens if max_tokens is not None else config.get("max_tokens", 60)
+        target_lang = target_language or config.get("target_language", "vi")
+    except ImportError:
+        prompt_text = prompt or os.environ.get(
+            "OPENAI_CAPTION_PROMPT",
+            "Bạn là chuyên gia mô tả hình ảnh. Hãy mô tả ảnh bằng định dạng SVO (Chủ ngữ - Động từ - Tân ngữ) "
+            "với CHỈ MỘT động từ chính, tối đa 20 từ.",
+        )
+        temperature_value = (
+            temperature if temperature is not None else float(os.environ.get("OPENAI_CAPTION_TEMPERATURE", "0.3"))
+        )
+        max_tokens_value = (
+            max_tokens if max_tokens is not None else int(os.environ.get("OPENAI_CAPTION_MAX_TOKENS", "60"))
+        )
+        target_lang = target_language or "vi"
+    
+    # Determine if we need detailed captions for each frame or one comprehensive caption
+    use_low_res = os.environ.get("OPENAI_IMAGE_DETAIL", "low").lower() == "low"
+    
+    if detailed:
+        # Mode 1: Create detailed caption for EACH frame separately
+        # Use longer max_tokens for detailed descriptions (but not too long)
+        detailed_max_tokens = max_tokens_value * 2 if max_tokens_value else 120  # Allow 15-25 words (~100-120 tokens)
+        
+        # Enhanced prompt for detailed single-frame captioning (vừa phải, không quá dài)
+        detailed_prompt_template = f"""Bạn là chuyên gia phân tích frames từ video quảng cáo TVC.
+
+Mô tả CHI TIẾT VỪA PHẢI frame này bằng tiếng Việt:
+
+Yêu cầu:
+- Định dạng SVO nhưng có thông tin chi tiết về đối tượng, hành động, bối cảnh
+- Mô tả: người (trang phục nếu nổi bật), hành động chính, sản phẩm/bối cảnh quan trọng
+- Độ dài: 15-25 từ (chi tiết vừa phải, không quá dài)
+- Tập trung vào yếu tố quan trọng của quảng cáo
+- Ví dụ tốt: "người đàn ông và người phụ nữ mặc thường phục vui vẻ đang cầm chai bia sau cửa sổ"
+- Ví dụ tốt: "hai người đàn ông mặc áo sơ mi đứng trong cửa hàng cầm chai bia màu xanh"
+- Tránh: mô tả quá chi tiết về ánh sáng, màu tường, cảm giác không cần thiết
+
+Mô tả:"""
+        
+        if target_lang and "{image}" not in detailed_prompt_template:
+            detailed_prompt_template += f" Viết bằng tiếng {target_lang}."
+        
+        captions = []
+        for idx, img_b64 in enumerate(image_b64_list):
+            try:
+                if console:
+                    console.print(f"[blue]Đang caption frame {idx + 1}/{len(images_input)} bằng OpenAI ({model_name})...[/blue]")
+                
+                # Call API for each frame individually
+                content_items_single = [
+                    {"type": "text", "text": detailed_prompt_template},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{img_b64}",
+                            "detail": "low" if use_low_res else "high"
+                        }
+                    }
+                ]
+                
+                response = client.chat.completions.create(
+                    model=model_name or os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": "Chuyên gia mô tả hình ảnh chi tiết vừa phải bằng tiếng Việt. Trả về mô tả SVO với thông tin chi tiết nhưng ngắn gọn (15-25 từ)."
+                        },
+                        {
+                            "role": "user",
+                            "content": content_items_single
+                        }
+                    ],
+                    max_tokens=detailed_max_tokens,
+                    temperature=temperature_value
+                )
+                
+                caption = response.choices[0].message.content.strip()
+                caption = caption.replace("\n", " ").strip()
+                
+                if caption:
+                    # Apply post-processing but keep more details
+                    caption = _remove_repetition(caption, max_repeat=2)
+                    caption = _fix_incomplete_sentence(caption)
+                    caption = _remove_vague_references(caption)
+                    # Don't enforce single verb too strictly for detailed captions
+                    # caption = _ensure_single_verb_svo(caption)  # Skip this for detailed mode
+                else:
+                    caption = ""
+                
+                captions.append(caption)
+                
+                if console:
+                    preview = caption[:60] + "..." if len(caption) > 60 else caption
+                    console.print(f"[green]✓ Frame {idx + 1}: {preview}[/green]")
+                    
+            except Exception as e:
+                error_str = str(e)
+                # Retry logic for rate limits (same as batch mode)
+                if "429" in error_str or "rate_limit" in error_str.lower() or "tokens per min" in error_str.lower():
+                    import time
+                    import re
+                    wait_match = re.search(r'(\d+)\s*ms', error_str)
+                    if wait_match:
+                        wait_ms = int(wait_match.group(1))
+                        retry_delay = max(wait_ms / 1000.0, 2.0)
+                    else:
+                        retry_delay = 2.0 * (2 ** 0)  # 2 seconds for first retry
+                    
+                    if console:
+                        console.print(f"[yellow]Rate limit. Đợi {retry_delay:.1f}s...[/yellow]")
+                    time.sleep(retry_delay)
+                    
+                    # Retry once
+                    try:
+                        response = client.chat.completions.create(
+                            model=model_name or os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
+                            messages=[
+                                {
+                                    "role": "system",
+                                    "content": "Chuyên gia mô tả hình ảnh chi tiết vừa phải bằng tiếng Việt. Trả về mô tả SVO với thông tin chi tiết nhưng ngắn gọn (15-25 từ)."
+                                },
+                                {
+                                    "role": "user",
+                                    "content": content_items_single
+                                }
+                            ],
+                            max_tokens=detailed_max_tokens,
+                            temperature=temperature_value
+                        )
+                        caption = response.choices[0].message.content.strip()
+                        caption = caption.replace("\n", " ").strip()
+                        if caption:
+                            caption = _remove_repetition(caption, max_repeat=2)
+                            caption = _fix_incomplete_sentence(caption)
+                            caption = _remove_vague_references(caption)
+                        else:
+                            caption = ""
+                        captions.append(caption)
+                    except Exception as retry_error:
+                        if console:
+                            console.print(f"[yellow]Retry failed: {retry_error}[/yellow]")
+                        captions.append("")
+                else:
+                    if console:
+                        console.print(f"[yellow]Error captioning frame {idx + 1}: {e}[/yellow]")
+                    captions.append("")
+        
+        return captions  # Return list of captions
+    else:
+        # Mode 2: Original batch mode - one caption for all frames
+        # Modify prompt to handle multiple frames (3 frames) - SHORTENED for lower token usage
+        if len(images_input) == 3:
+            # Use shorter, more concise prompt to reduce token usage
+            prompt_text = f"""Xem 3 frames liên tiếp và tạo MỘT mô tả bao quát (SVO format, 15-20 từ, 1 động từ chính). {prompt_text}"""
+        else:
+            prompt_text = f"""Xem {len(images_input)} frames và tạo một mô tả bao quát. {prompt_text}"""
+        
+        if target_lang and "{image}" not in prompt_text:
+            prompt_text += f" Viết bằng tiếng {target_lang}."
+        
+        # Build content with all images
+        # Format: image_url must be an object with "url" key, not a string
+        # Use detail="low" to significantly reduce image tokens (low-res mode)
+        # Low-res: ~85 + (w*h)/(512*512)*170 tokens per image
+        # High-res: ~85 + (w*h)/(512*512)*170*2 tokens per image (default)
+        content_items = [{"type": "text", "text": prompt_text}]
+        for img_b64 in image_b64_list:
+            image_item = {
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:image/jpeg;base64,{img_b64}"  # Changed from png to jpeg (matches save format)
+                }
+            }
+            # Add detail="low" to reduce token usage by ~50%
+            if use_low_res:
+                image_item["image_url"]["detail"] = "low"
+            content_items.append(image_item)
+        
+        # Batch mode - one caption for all frames
+        try:
+            if console:
+                console.print(f"[blue]Đang caption {len(images_input)} frames bằng OpenAI ({model_name})...[/blue]")
+            
+            # Retry logic with exponential backoff for rate limits
+            max_retries = 3
+            retry_delay = 1.0  # Start with 1 second
+            
+            for attempt in range(max_retries):
+                try:
+                    # Use chat.completions for multiple images
+                    # Use detail="low" to reduce token usage (low-res mode for images)
+                    # This significantly reduces image tokens while maintaining good caption quality
+                    response = client.chat.completions.create(
+                        model=model_name or os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
+                        messages=[
+                            {
+                                "role": "system",
+                                "content": "Chuyên gia mô tả hình ảnh tiếng Việt. Trả về mô tả ngắn gọn, SVO format."
+                            },
+                            {
+                                "role": "user",
+                                "content": content_items
+                            }
+                        ],
+                        max_tokens=max_tokens_value,
+                        temperature=temperature_value
+                    )
+                    # Success, break out of retry loop
+                    break
+                except Exception as api_error:
+                    error_str = str(api_error)
+                    # Check if it's a rate limit error (429)
+                    if "429" in error_str or "rate_limit" in error_str.lower() or "tokens per min" in error_str.lower():
+                        if attempt < max_retries - 1:
+                            # Extract wait time from error message if available
+                            import re
+                            wait_match = re.search(r'(\d+)\s*ms', error_str)
+                            if wait_match:
+                                wait_ms = int(wait_match.group(1))
+                                retry_delay = max(wait_ms / 1000.0, 2.0)  # At least 2 seconds
+                            else:
+                                # Exponential backoff: 1s, 2s, 4s
+                                retry_delay = 2.0 * (2 ** attempt)
+                            
+                            if console:
+                                console.print(f"[yellow]Rate limit reached. Đợi {retry_delay:.1f}s rồi thử lại (lần {attempt + 2}/{max_retries})...[/yellow]")
+                            
+                            import time
+                            time.sleep(retry_delay)
+                            continue
+                        else:
+                            # Max retries reached
+                            raise RuntimeError(
+                                f"Rate limit error sau {max_retries} lần thử. "
+                                f"Vui lòng đợi một chút rồi thử lại hoặc nâng cấp plan của bạn. "
+                                f"Lỗi: {api_error}"
+                            ) from api_error
+                    else:
+                        # Not a rate limit error, raise immediately
+                        raise
+            
+            # Extract caption from response (batch mode)
+            caption = response.choices[0].message.content.strip()
+            caption = caption.replace("\n", " ").strip()
+            
+            if console:
+                console.print(f"[green]✓ OpenAI caption cho {len(images_input)} frames ({model_name}): {caption[:80]}[/green]")
+            
+            if not caption:
+                return ""
+            
+            # Apply post-processing
+            caption = _remove_repetition(caption, max_repeat=2)
+            caption = _fix_incomplete_sentence(caption)
+            caption = _remove_vague_references(caption)
+            caption = _ensure_single_verb_svo(caption)
+            
+            extract_svo = os.environ.get("EXTRACT_SVO", "false").lower() == "true"
+            if extract_svo and caption:
+                try:
+                    from svo_format import extract_svo
+                    s, v, o = extract_svo(caption)
+                    parts = [p for p in [s, v, o] if p and p.strip()]
+                    if parts:
+                        return " ".join(parts)
+                except Exception:
+                    pass
+            
+            return caption
+        
+        except Exception as e:
+            error_msg = f"OpenAI API error: {e}"
+            if console:
+                console.print(f"[red]{error_msg}[/red]")
+            raise RuntimeError(error_msg)
 
 
 def caption_image_llava(image_input, console=None) -> str:

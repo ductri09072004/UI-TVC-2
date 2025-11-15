@@ -781,26 +781,26 @@ def main(
     
     console.rule("Video to Step Images + Captions (1 fps)")
 
-    # Always validate classifier directory (even if not used immediately)
-    # This prevents silent failures when wrong path is provided
-    if not os.path.isdir(clf_dir):
-        console.print(f"[red]Error: Classifier directory does not exist: {clf_dir}[/red]")
-        console.print(f"[yellow]Please check the --clf_dir path and ensure it points to a valid model directory.[/yellow]")
-        sys.exit(1)
-    config_file = os.path.join(clf_dir, "config.json")
-    if not os.path.exists(config_file):
-        console.print(f"[red]Error: Invalid classifier directory: {clf_dir}[/red]")
-        console.print(f"[yellow]Missing required file: config.json[/yellow]")
-        console.print(f"[yellow]Please ensure the directory contains a valid Hugging Face model.[/yellow]")
-        sys.exit(1)
-    
-    # Clear cache if path changed from previous run
-    global _TEXT_CLASSIFIER_CACHE
-    if _TEXT_CLASSIFIER_CACHE and _TEXT_CLASSIFIER_CACHE.get("dir") != clf_dir:
-        _TEXT_CLASSIFIER_CACHE = None
-        console.print(f"[yellow]Classifier path changed, clearing cache[/yellow]")
-    
-    console.print(f"[green]Using classifier from: {clf_dir}[/green]")
+    # Only validate classifier directory if auto_caption is enabled (it will be used)
+    # If not needed, just warn but don't exit
+    if auto_caption:
+        if not os.path.isdir(clf_dir):
+            console.print(f"[yellow]Warning: Classifier directory does not exist: {clf_dir}[/yellow]")
+            console.print(f"[yellow]Classification will be skipped. To enable, set --clf_dir to a valid model directory.[/yellow]")
+            clf_dir = None  # Mark as unavailable
+        elif not os.path.exists(os.path.join(clf_dir, "config.json")):
+            console.print(f"[yellow]Warning: Invalid classifier directory: {clf_dir}[/yellow]")
+            console.print(f"[yellow]Classification will be skipped. Missing required file: config.json[/yellow]")
+            clf_dir = None  # Mark as unavailable
+        else:
+            # Clear cache if path changed from previous run
+            global _TEXT_CLASSIFIER_CACHE
+            if _TEXT_CLASSIFIER_CACHE and _TEXT_CLASSIFIER_CACHE.get("dir") != clf_dir:
+                _TEXT_CLASSIFIER_CACHE = None
+                console.print(f"[yellow]Classifier path changed, clearing cache[/yellow]")
+            console.print(f"[green]Using classifier from: {clf_dir}[/green]")
+    else:
+        console.print(f"[blue]Classifier not needed (auto_caption is off). Classification will be skipped.[/blue]")
 
     caption_backend = (caption_backend or "local").lower()
     openai_config: Optional[OpenAICaptionConfig] = None
@@ -943,12 +943,15 @@ def main(
                         caption_original=synthesized_caption if synthesized_caption else None
                     ))
                     
-                    # Step 2: BERT classify
-                    try:
-                        pred = classify_text(final_caption, clf_dir)
-                    except Exception as e:
-                        pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
-                    labels.append(pred)
+                    # Step 2: BERT classify (only if clf_dir is available)
+                    if clf_dir:
+                        try:
+                            pred = classify_text(final_caption, clf_dir)
+                        except Exception as e:
+                            pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
+                        labels.append(pred)
+                    else:
+                        labels.append({"label_id": None, "score": 0.0, "probs": []})
         else:
             # If not auto-captioning, just prepare results with empty captions for export/markdown later
             for image_path in frame_paths:
@@ -1025,10 +1028,10 @@ def main(
                 # Get full text as single line (no segments)
                 full_text = asr_result.get("text", "").strip()
                 
-                # Classify the entire audio text as one unit
+                # Classify the entire audio text as one unit (only if clf_dir is available)
                 label_id = None
                 label_score = 0.0
-                if full_text:
+                if full_text and clf_dir:
                     try:
                         pred = classify_text(full_text, clf_dir)
                         label_id = pred.get("label_id")

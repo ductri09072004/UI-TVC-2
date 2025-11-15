@@ -171,7 +171,16 @@
                 </button>
                 {% endif %}
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="text-xs font-mono text-purple-400">[{{ '%02d:%02d'|format(f.second//60, f.second%60) }}s]</span>
+                  {% if f.get('second_range') %}
+                    {# Display range for grouped frames (e.g., 0s-2s) #}
+                    <span class="text-xs font-mono text-purple-400">[{{ f.second_range }}]</span>
+                    {% if f.get('frame_count') %}
+                    <span class="text-xs text-slate-500">({{ f.frame_count }} frames)</span>
+                    {% endif %}
+                  {% else %}
+                    {# Single frame display #}
+                    <span class="text-xs font-mono text-purple-400">[{{ '%02d:%02d'|format(f.second//60, f.second%60) }}s]</span>
+                  {% endif %}
                   {% if f.get('label_id') is not none %}
                     {% if f.label_id == 1 %}
                       <span class="text-xs font-semibold text-red-400">[VI PHẠM]</span>

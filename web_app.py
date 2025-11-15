@@ -25,7 +25,7 @@ from app import (
 )
 from rich.progress import track
 # Import captioning from dedicated module
-from image_captioning import caption_image_local, caption_image_llava, _extract_ocr_text_simple
+from image_captioning import caption_image_local, caption_image_llava, caption_images_openai_batch, _extract_ocr_text_simple
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -222,60 +222,141 @@ def process_video(job_id: str, video_path: str, backend: str, language: str, hf_
     if not hf_model:
         hf_model = "Salesforce/blip-image-captioning-base"
 
-    # Step 1: Create data structure and caption frames immediately
-    # Save video_path so we can extract frames again later if needed for captioning
-    console.print(f"[cyan]Extracting and captioning {len(frames_in_memory)} frames (mỗi frame có mô tả riêng)...[/cyan]")
-    
+    # Step 1: Create data structure and caption frames
+    # For OpenAI backend: group 3 frames and create 1 caption per group
+    # For other backends: process each frame individually
     frames_data = []
-    # Tạo caption cho từng frame riêng biệt (không gộp)
-    for sec, pil_image in track(frames_in_memory, description="Captioning frames (1 caption per frame)"):
+    
+    if backend == "openai":
+        console.print(f"[cyan]Extracting and captioning {len(frames_in_memory)} frames (OpenAI: 3 frames = 1 caption)...[/cyan]")
+        
+        # Load OpenAI config
         try:
-            # Generate caption from PIL Image
-            if use_ocr_only:
-                # OCR-only mode: bypass visual captioning models
-                try:
-                    cap_en = _extract_ocr_text_simple(pil_image, languages=["vi", "en"], min_confidence=0.3)
-                except Exception as _:
-                    cap_en = ""
-            elif use_llava:
-                cap_en = caption_image_llava(pil_image, console=console)
-            else:
-                cap_en = caption_image_local(
-                    pil_image,
-                    hf_model,
-                    use_object_detection=use_object_detection,
-                    detect_objects_func=detect_objects,
-                    console=console
-                )
-            caption_original = cap_en if cap_en else None
+            from app import build_openai_caption_config
+            openai_config_obj = build_openai_caption_config(
+                api_key=None,  # Will load from config or env
+                model=openai_model or None,
+                prompt=None,
+                temperature=None,
+                max_tokens=None,
+                target_language=language or None,
+            )
+            api_key = openai_config_obj.api_key
+            model_name = openai_config_obj.model
+            prompt_text = openai_config_obj.prompt
+            temperature_val = openai_config_obj.temperature
+            max_tokens_val = openai_config_obj.max_tokens
+        except Exception as e:
+            console.print(f"[red]OpenAI config error: {e}[/red]")
+            raise RuntimeError(f"Cannot load OpenAI config: {e}")
+        
+        # Process each frame individually with detailed captions
+        # This uses more tokens but generates detailed descriptions for each frame
+        import time
+        delay_between_frames = float(os.environ.get("OPENAI_REQUEST_DELAY", "0.3"))  # Default 0.3s delay per frame
+        
+        # Get all frames as individual images (not batched)
+        all_frames_list = [(sec, img) for sec, img in frames_in_memory]
+        
+        try:
+            # Generate detailed caption for each frame separately
+            # detailed=True returns a list of captions (one per image)
+            captions_list = caption_images_openai_batch(
+                [img for _, img in all_frames_list],  # List of images only
+                model_name=model_name,
+                api_key=api_key,
+                target_language=language or "vi",
+                prompt=prompt_text,
+                temperature=temperature_val,
+                max_tokens=max_tokens_val,
+                console=console,
+                detailed=True  # Enable detailed mode - one caption per frame
+            )
             
-            # Auto translate to Vietnamese
-            final = ""
-            if cap_en:
-                if translate:
+            # Process each frame with its corresponding caption
+            for idx, (sec, img) in enumerate(all_frames_list):
+                cap_en = captions_list[idx] if idx < len(captions_list) else ""
+                caption_original = cap_en if cap_en else None
+                
+                # Auto translate to Vietnamese (usually already in Vietnamese)
+                final = cap_en if cap_en else ""
+                if translate and cap_en and language != "vi":
                     try:
                         final = translate_text(cap_en, "vi")
                     except Exception:
-                        # If translation fails, keep original caption
                         final = cap_en
-                else:
-                    final = cap_en
-            
-            # Lưu caption riêng cho frame này
-            frames_data.append({
-                "second": sec,
-                "caption": final,
-                "caption_original": caption_original,
-                # No image_rel - images are not saved
-            })
+                
+                # Store each frame individually (no grouping)
+                frames_data.append({
+                    "second": sec,
+                    "caption": final,
+                    "caption_original": caption_original,
+                })
+                
+                # Add delay between frames (except last one)
+                if idx < len(all_frames_list) - 1:
+                    time.sleep(delay_between_frames)
+                    
         except Exception as e:
-            # If captioning fails, log error but continue
-            console.print(f"[yellow]Warning: Failed to caption frame at {sec}s: {e}[/yellow]")
-            frames_data.append({
-                "second": sec,
-                "caption": "",
-                "caption_original": None,
-            })
+            # If captioning fails, log error and store empty captions
+            console.print(f"[yellow]Warning: Failed to caption frames: {e}[/yellow]")
+            for sec, img in all_frames_list:
+                frames_data.append({
+                    "second": sec,
+                    "caption": "",
+                    "caption_original": None,
+                })
+    else:
+        # Local backend: process each frame individually
+        console.print(f"[cyan]Extracting and captioning {len(frames_in_memory)} frames (mỗi frame có mô tả riêng)...[/cyan]")
+        
+        for sec, pil_image in track(frames_in_memory, description="Captioning frames (1 caption per frame)"):
+            try:
+                # Generate caption from PIL Image
+                if use_ocr_only:
+                    # OCR-only mode: bypass visual captioning models
+                    try:
+                        cap_en = _extract_ocr_text_simple(pil_image, languages=["vi", "en"], min_confidence=0.3)
+                    except Exception as _:
+                        cap_en = ""
+                elif use_llava:
+                    cap_en = caption_image_llava(pil_image, console=console)
+                else:
+                    cap_en = caption_image_local(
+                        pil_image,
+                        hf_model,
+                        use_object_detection=use_object_detection,
+                        detect_objects_func=detect_objects,
+                        console=console
+                    )
+                caption_original = cap_en if cap_en else None
+                
+                # Auto translate to Vietnamese
+                final = ""
+                if cap_en:
+                    if translate:
+                        try:
+                            final = translate_text(cap_en, "vi")
+                        except Exception:
+                            # If translation fails, keep original caption
+                            final = cap_en
+                    else:
+                        final = cap_en
+                
+                # Lưu caption riêng cho frame này
+                frames_data.append({
+                    "second": sec,
+                    "caption": final,
+                    "caption_original": caption_original,
+                })
+            except Exception as e:
+                # If captioning fails, log error but continue
+                console.print(f"[yellow]Warning: Failed to caption frame at {sec}s: {e}[/yellow]")
+                frames_data.append({
+                    "second": sec,
+                    "caption": "",
+                    "caption_original": None,
+                })
     
     data = {
         "job_id": job_id,
@@ -851,12 +932,14 @@ def upload():
     else:
         return redirect(url_for("index"))
 
-    # Force local backend; remove OpenAI from UI
-    backend = "local"
-    language = "vi"  # Auto translate to Vietnamese
-    # Force backend default model (ignore UI selection)
-    hf_model = ""
-    openai_model = ""
+    # Get backend from form (default to local)
+    backend = request.form.get("caption_backend", "local")
+    language = request.form.get("language", "vi")
+    # Get OpenAI config if using OpenAI backend
+    openai_key_from_form = request.form.get("openai_key", "").strip()
+    openai_model_from_form = request.form.get("openai_model", "").strip()
+    hf_model = ""  # Use default from image_captioning.py
+    openai_model = openai_model_from_form if openai_model_from_form else ""
     translate = True  # Always translate to Vietnamese
     
     # Step 1: extract frames and caption immediately
