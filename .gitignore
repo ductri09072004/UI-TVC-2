@@ -1,7 +1,6 @@
 __pycache__/
 .venv/
 uploads/
-web_outputs/
 *.mp4
 *.png
 *.csv
