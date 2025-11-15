@@ -1356,6 +1356,176 @@ def label_job(job_id: str):
         return render_template("result.html", error=str(e), job_id=job_id, frames=[], out_dir=out_dir)
 
 
+@app.route("/moderate/<job_id>", methods=["POST"])
+def moderate_job(job_id: str):
+    """Kiểm duyệt mô tả: Gán nhãn từ cấm trước, sau đó chỉ gán nhãn ML cho những mô tả đạt chuẩn."""
+    from flask import jsonify
+    
+    out_dir = os.path.join(OUTPUT_DIR, job_id)
+    meta_path = os.path.join(out_dir, "result.json")
+    if not os.path.exists(meta_path):
+        return jsonify({"success": False, "message": "Không tìm thấy file result.json"}), 404
+    
+    # classifier directory
+    clf_dir = request.form.get(
+        "clf_dir",
+        os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "TVC-AI", "output_moderation")),
+    )
+    
+    try:
+        # Load banned words
+        banned_words = load_banned_words()
+        if not banned_words:
+            return jsonify({
+                "success": False,
+                "message": "Không thể tải danh sách từ cấm. Vui lòng kiểm tra file data_ban.txt."
+            }), 400
+        
+        # Load data
+        with open(meta_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        frames = data.get("frames", [])
+        audio_sentences = data.get("audio", {}).get("sentences", [])
+        
+        # Bước 1: Gán nhãn từ cấm cho tất cả frames
+        updated_frames = []
+        banned_violations_count = 0
+        for item in frames:
+            cap = item.get("caption", "")
+            if cap:
+                result = check_banned_words(cap, banned_words)
+                new_item = dict(item)
+                new_item["label_id"] = result.get("label_id")
+                new_item["label_score"] = result.get("score")
+                if result.get("matched_words"):
+                    new_item["matched_banned_words"] = result.get("matched_words")
+                    banned_violations_count += 1
+                else:
+                    # Nếu không có từ cấm, xóa matched_banned_words cũ (nếu có)
+                    new_item.pop("matched_banned_words", None)
+                updated_frames.append(new_item)
+            else:
+                updated_frames.append(item)
+        
+        # Bước 2: Chỉ gán nhãn ML cho những frame đạt chuẩn (label_id != 1)
+        # Nếu đã bị từ cấm đánh là vi phạm, giữ nguyên nhãn đó
+        ml_labeled_count = 0
+        for item in updated_frames:
+            # Chỉ gán nhãn ML nếu chưa bị từ cấm đánh là vi phạm
+            if item.get("label_id") != 1:
+                cap = item.get("caption", "")
+                if cap and clf_dir and os.path.isdir(clf_dir):
+                    try:
+                        pred = classify_text(cap, clf_dir)
+                        # Cập nhật nhãn ML (chỉ khi chưa bị từ cấm đánh dấu)
+                        item["label_id"] = pred.get("label_id")
+                        item["label_score"] = pred.get("score")
+                        ml_labeled_count += 1
+                        # Xóa matched_banned_words nếu ML classifier đánh là đạt chuẩn
+                        if pred.get("label_id") != 1:
+                            item.pop("matched_banned_words", None)
+                    except Exception as e:
+                        # Nếu ML classifier lỗi, giữ nguyên nhãn từ cấm
+                        pass
+        
+        # Xử lý audio sentences tương tự
+        audio_banned_violations_count = 0
+        audio_ml_labeled_count = 0
+        updated_audio_sentences = []
+        if audio_sentences:
+            # Bước 1: Gán nhãn từ cấm
+            for sent in audio_sentences:
+                text = sent.get("text", "")
+                if text:
+                    result = check_banned_words(text, banned_words)
+                    new_sent = dict(sent)
+                    new_sent["label_id"] = result.get("label_id")
+                    new_sent["label_score"] = result.get("score")
+                    if result.get("matched_words"):
+                        new_sent["matched_banned_words"] = result.get("matched_words")
+                        audio_banned_violations_count += 1
+                    else:
+                        new_sent.pop("matched_banned_words", None)
+                    updated_audio_sentences.append(new_sent)
+                else:
+                    updated_audio_sentences.append(sent)
+            
+            # Bước 2: Chỉ gán nhãn ML cho những câu đạt chuẩn
+            for sent in updated_audio_sentences:
+                if sent.get("label_id") != 1:
+                    text = sent.get("text", "")
+                    if text and clf_dir and os.path.isdir(clf_dir):
+                        try:
+                            pred = classify_text(text, clf_dir)
+                            sent["label_id"] = pred.get("label_id")
+                            sent["label_score"] = pred.get("score")
+                            audio_ml_labeled_count += 1
+                            if pred.get("label_id") != 1:
+                                sent.pop("matched_banned_words", None)
+                        except Exception:
+                            pass
+            
+            if "audio" in data:
+                data["audio"]["sentences"] = updated_audio_sentences
+                # Recalculate audio summary
+                total_sent = len(updated_audio_sentences)
+                s_ok = sum(1 for s in updated_audio_sentences if s.get("label_id") == 0)
+                s_violate = sum(1 for s in updated_audio_sentences if s.get("label_id") == 1)
+                s_unknown = total_sent - s_ok - s_violate
+                data["audio"]["sentence_summary"] = {
+                    "total_sentences": total_sent,
+                    "num_compliant": s_ok,
+                    "num_violations": s_violate,
+                    "num_unknown": s_unknown,
+                    "percent_compliant": round((s_ok / total_sent * 100.0), 2) if total_sent else 0.0,
+                    "percent_violations": round((s_violate / total_sent * 100.0), 2) if total_sent else 0.0,
+                }
+        
+        data["frames"] = updated_frames
+        
+        # Compute and persist summary to result.json
+        try:
+            total = len(updated_frames)
+            num_ok = sum(1 for fr in updated_frames if fr.get("label_id") == 0)
+            num_violate = sum(1 for fr in updated_frames if fr.get("label_id") == 1)
+            num_unknown = total - num_ok - num_violate
+            pct_ok = round((num_ok / total * 100.0), 2) if total else 0.0
+            pct_violate = round((num_violate / total * 100.0), 2) if total else 0.0
+            data["summary"] = {
+                "total_frames": total,
+                "num_compliant": num_ok,
+                "num_violations": num_violate,
+                "num_unknown": num_unknown,
+                "percent_compliant": pct_ok,
+                "percent_violations": pct_violate,
+            }
+        except Exception:
+            pass
+        
+        with open(meta_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        message = f"✓ Kiểm duyệt hoàn tất! Phát hiện {banned_violations_count} frame và {audio_banned_violations_count} câu audio vi phạm từ cấm. Đã gán nhãn ML cho {ml_labeled_count} frame và {audio_ml_labeled_count} câu audio đạt chuẩn."
+        return jsonify({
+            "success": True,
+            "message": message,
+            "stats": {
+                "banned_frame_violations": banned_violations_count,
+                "banned_audio_violations": audio_banned_violations_count,
+                "ml_labeled_frames": ml_labeled_count,
+                "ml_labeled_audio": audio_ml_labeled_count,
+                "total_frames": len(updated_frames),
+                "total_audio_sentences": len(updated_audio_sentences) if audio_sentences else 0
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Lỗi khi kiểm duyệt: {str(e)}"
+        }), 500
+
+
 @app.route("/label-banned-words/<job_id>", methods=["POST"])
 def label_banned_words(job_id: str):
     """Gán nhãn vi phạm dựa trên danh sách từ cấm trong data_ban.txt."""

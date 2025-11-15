@@ -73,16 +73,13 @@
           <a href="{{ url_for('index') }}" class="w-full btn-secondary text-center block">← Tải video khác</a>
           <a href="/web_outputs/{{ job_id }}/result.json" class="w-full btn-primary text-center block" download>📥 Tải JSON</a>
           {% if frames and frames[0].get('caption') %}
-          <form method="post" action="{{ url_for('label_job', job_id=job_id) }}" class="space-y-3">
+          <form method="post" action="{{ url_for('moderate_job', job_id=job_id) }}" class="space-y-3" id="moderateForm" onsubmit="return handleModerate(event)">
             <select name="clf_dir" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
               {% for model in available_models %}
                 <option value="{{ model.path }}" {% if loop.first %}selected{% endif %}>{{ model.display_name }}</option>
               {% endfor %}
             </select>
-            <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg transition" type="submit">Gán nhãn caption (ML)</button>
-          </form>
-          <form method="post" action="{{ url_for('label_banned_words', job_id=job_id) }}" class="space-y-3" id="labelBannedWordsForm" onsubmit="return handleBannedWordsLabel(event)">
-            <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg transition" type="submit">🚫 Gán nhãn từ cấm</button>
+            <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold px-4 py-2 rounded-lg transition" type="submit">🛡️ Kiểm duyệt mô tả</button>
           </form>
           <button onclick="document.getElementById('regenerateModal').classList.remove('hidden')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition">
             🔄 Tạo lại mô tả
@@ -408,8 +405,8 @@
     });
   });
 
-  // Handle banned words labeling with AJAX
-  function handleBannedWordsLabel(event) {
+  // Handle moderation with AJAX (combines banned words check + ML classification)
+  function handleModerate(event) {
     event.preventDefault();
     
     const form = event.target;
@@ -419,7 +416,7 @@
     
     // Disable button and show loading
     button.disabled = true;
-    button.textContent = '⏳ Đang xử lý...';
+    button.textContent = '⏳ Đang kiểm duyệt...';
     button.classList.add('opacity-50', 'cursor-not-allowed');
     
     fetch(form.action, {
@@ -437,7 +434,7 @@
         }, 1500);
       } else {
         // Show error notification
-        showNotification(data.message || 'Có lỗi xảy ra khi gán nhãn', 'error');
+        showNotification(data.message || 'Có lỗi xảy ra khi kiểm duyệt', 'error');
         // Re-enable button
         button.disabled = false;
         button.textContent = originalText;
