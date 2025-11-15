@@ -29,18 +29,11 @@
           <div id="fileInfo" class="mt-3 text-xs text-slate-400"></div>
         </div>
 
-        <!-- Caption Backend Selection -->
-        <div>
-          <label class="text-sm font-semibold text-slate-300 mb-3 block">CAPTION BACKEND</label>
-          <select name="caption_backend" id="caption_backend" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-            <option value="local">Local (BLIP)</option>
-            <option value="openai">OpenAI (GPT-4o Vision)</option>
-          </select>
-          <p class="text-xs text-slate-400 mt-1">Chọn model để tạo caption cho frames</p>
-        </div>
-
-        <!-- OpenAI API Key (shown when OpenAI is selected) -->
-        <div id="openai_config" class="hidden space-y-3">
+        <!-- Caption Backend Selection (Hidden, default to OpenAI) -->
+        <input type="hidden" name="caption_backend" value="openai">
+        
+        <!-- OpenAI API Key -->
+        <div class="space-y-3">
           <div>
             <label class="text-sm font-semibold text-slate-300 mb-2 block">OpenAI API Key</label>
             <input type="password" id="openai_key" name="openai_key" placeholder="sk-..." 
@@ -56,77 +49,6 @@
               <option value="gpt-4-vision-preview">GPT-4 Vision Preview</option>
             </select>
           </div>
-        </div>
-
-        <!-- Language Selection -->
-        <div>
-          <label class="text-sm font-semibold text-slate-300 mb-3 block">LANGUAGE</label>
-          <select name="language" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-            <option value="auto">Auto detect</option>
-            <option value="vi">Tiếng Việt</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-
-        <!-- What to Extract -->
-        <div>
-          <label class="text-sm font-semibold text-slate-300 mb-3 block">WHAT TO EXTRACT</label>
-          <div class="space-y-3">
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" name="extract_speech" checked class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
-              <span class="text-slate-200">Speech transcription</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" name="extract_scene" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
-              <span class="text-slate-200">Scene description</span>
-            </label>
-            <div class="pl-8">
-              <label class="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" name="use_llava" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
-                <span class="text-slate-300 text-sm">Use LLaVA for visual captioning</span>
-              </label>
-              <p class="text-xs text-slate-500 mt-1">Nếu bật, hệ thống sẽ cố dùng LLaVA (hiện tạm fallback sang BLIP nếu LLaVA chưa sẵn sàng).</p>
-            </div>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" name="extract_ocr" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
-              <span class="text-slate-200">On-screen text (OCR)</span>
-            </label>
-            <div class="pl-8">
-              <label class="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" name="use_ocr_only" class="w-5 h-5 rounded border-slate-600 bg-slate-700 text-purple-600 focus:ring-purple-500">
-                <span class="text-slate-300 text-sm">Only OCR (no visual model)</span>
-              </label>
-              <p class="text-xs text-slate-500 mt-1">Chỉ trích xuất văn bản trên màn hình; không chạy BLIP/LLaVA.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Processing Pipeline -->
-        <div>
-          <label class="text-sm font-semibold text-slate-300 mb-3 block">PROCESSING PIPELINE</label>
-          <div class="space-y-3" id="pipeline">
-            <div class="flex items-center gap-3">
-              <div class="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600" id="pipeline-scene"></div>
-              <span class="text-slate-300 text-sm">Scene detection</span>
-              <span class="ml-auto text-xs text-slate-500" id="pipeline-scene-status">Pending</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600" id="pipeline-audio"></div>
-              <span class="text-slate-300 text-sm">Audio transcription</span>
-              <span class="ml-auto text-xs text-slate-500" id="pipeline-audio-status">Pending</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600" id="pipeline-visual"></div>
-              <span class="text-slate-300 text-sm">Visual captioning</span>
-              <span class="ml-auto text-xs text-slate-500" id="pipeline-visual-status">Pending</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600" id="pipeline-script"></div>
-              <span class="text-slate-300 text-sm">Script synthesis</span>
-              <span class="ml-auto text-xs text-slate-500" id="pipeline-script-status">Pending</span>
-            </div>
-          </div>
-          <p class="text-xs text-slate-400 mt-4">Demo: ETA giả lập ~ vài giây. Thực tế phụ thuộc độ dài video.</p>
         </div>
 
         <!-- Start Transcription Button -->
@@ -227,32 +149,6 @@
   const browseBtn = document.getElementById('browseBtn');
   const fileInfo = document.getElementById('fileInfo');
   const startBtn = document.getElementById('startBtn');
-  // Checkboxes
-  const cbSpeech = document.querySelector('input[name="extract_speech"]');
-  const cbScene = document.querySelector('input[name="extract_scene"]');
-  const cbOCR = document.querySelector('input[name="extract_ocr"]');
-  const cbLLaVA = document.querySelector('input[name="use_llava"]');
-  const cbOCROnly = document.querySelector('input[name="use_ocr_only"]');
-  
-  // Caption backend selection
-  const captionBackend = document.getElementById('caption_backend');
-  const openaiConfig = document.getElementById('openai_config');
-  
-  // Show/hide OpenAI config based on backend selection
-  function updateBackendUI() {
-    if (captionBackend && openaiConfig) {
-      if (captionBackend.value === 'openai') {
-        openaiConfig.classList.remove('hidden');
-      } else {
-        openaiConfig.classList.add('hidden');
-      }
-    }
-  }
-  
-  if (captionBackend) {
-    captionBackend.addEventListener('change', updateBackendUI);
-    updateBackendUI(); // Initialize on load
-  }
 
   const setFileInfo = (file) => {
     if (file) {
@@ -292,43 +188,6 @@
   const uploadForm = document.getElementById('uploadForm');
   const videoUrlInput = document.getElementById('video_url');
 
-  // Enforce "Only OCR" behavior: when enabled, clear and disable other options
-  function applyOcrOnlyState() {
-    if (!cbOCROnly) return;
-    const enabled = cbOCROnly.checked === true;
-    if (enabled) {
-      // Ensure OCR is on
-      if (cbOCR) {
-        cbOCR.checked = true;
-        cbOCR.disabled = true;
-      }
-      // Turn off and disable others
-      if (cbScene) {
-        cbScene.checked = false;
-        cbScene.disabled = true;
-      }
-      if (cbSpeech) {
-        cbSpeech.checked = false;
-        cbSpeech.disabled = true;
-      }
-      if (cbLLaVA) {
-        cbLLaVA.checked = false;
-        cbLLaVA.disabled = true;
-      }
-    } else {
-      // Re-enable controls
-      if (cbOCR) cbOCR.disabled = false;
-      if (cbScene) cbScene.disabled = false;
-      if (cbSpeech) cbSpeech.disabled = false;
-      if (cbLLaVA) cbLLaVA.disabled = false;
-    }
-  }
-  if (cbOCROnly) {
-    cbOCROnly.addEventListener('change', applyOcrOnlyState);
-    // Apply once on load
-    applyOcrOnlyState();
-  }
-  
   uploadForm.addEventListener('submit', (e) => {
     const hasUrl = videoUrlInput.value.trim() !== '';
     const hasFile = input.files && input.files.length > 0;

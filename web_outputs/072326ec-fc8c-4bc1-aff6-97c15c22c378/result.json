@@ -1,0 +1,130 @@
+{
+  "job_id": "072326ec-fc8c-4bc1-aff6-97c15c22c378",
+  "out_dir": "E:\\Study\\UI-TVC-2\\web_outputs\\072326ec-fc8c-4bc1-aff6-97c15c22c378",
+  "video_path": "C:\\Users\\ductr\\AppData\\Local\\Temp\\video_sqqn7in0.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Người phụ nữ mặc áo phông sáng và quần jeans dẫn dắt cậu bé mặc áo trắng trong bếp hiện đại, cả hai đều cười vui",
+      "caption_original": "Người phụ nữ mặc áo phông sáng và quần jeans dẫn dắt cậu bé mặc áo trắng trong bếp hiện đại, cả hai đều cười vui",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 1,
+      "caption": "Cậu bé mặc áo xanh, vui vẻ cầm bóng rổ, đứng bên hộp Milo trong bối cảnh bếp sáng sủa.",
+      "caption_original": "Cậu bé mặc áo xanh, vui vẻ cầm bóng rổ, đứng bên hộp Milo trong bối cảnh bếp sáng sủa.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 2,
+      "caption": "Một lớp kem trắng mịn đang được tạo hình, nổi bật trên nền sáng, thể hiện sự mềm mại và hấp dẫn của sản phẩm.",
+      "caption_original": "Một lớp kem trắng mịn đang được tạo hình, nổi bật trên nền sáng, thể hiện sự mềm mại và hấp dẫn của sản phẩm.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 3,
+      "caption": "Chất lỏng màu trắng đặc sánh chảy nhẹ nhàng, tạo hình sóng lăn tăn trên bề mặt, thể hiện sự mịn màng và tinh khiết.",
+      "caption_original": "Chất lỏng màu trắng đặc sánh chảy nhẹ nhàng, tạo hình sóng lăn tăn trên bề mặt, thể hiện sự mịn màng và tinh khiết.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 4,
+      "caption": "Sản phẩm sữa trắng nổi bật giữa nền mềm mại, nhấn mạnh lợi ích về protein và canxi cho sự phát triển.",
+      "caption_original": "Sản phẩm sữa trắng nổi bật giữa nền mềm mại, nhấn mạnh lợi ích về protein và canxi cho sự phát triển.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 5,
+      "caption": "Sản phẩm sữa trắng với hình ảnh sữa văng ra, nhấn mạnh lợi ích về Protein và Can-xi, tạo cảm giác tươi mới.",
+      "caption_original": "Sản phẩm sữa trắng với hình ảnh sữa văng ra, nhấn mạnh lợi ích về Protein và Can-xi, tạo cảm giác tươi mới.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 6,
+      "caption": "Cành lúa mì khô nổi bật, vươn lên giữa nền đất cát, thể hiện sự bền bỉ và sức sống của thiên nhiên.",
+      "caption_original": "Cành lúa mì khô nổi bật, vươn lên giữa nền đất cát, thể hiện sự bền bỉ và sức sống của thiên nhiên.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 7,
+      "caption": "Cành lúa vàng rực rỡ nổi bật trên nền mờ, thể hiện sức sống và năng lượng, nhấn mạnh sản phẩm bổ sung vitamin.",
+      "caption_original": "Cành lúa vàng rực rỡ nổi bật trên nền mờ, thể hiện sức sống và năng lượng, nhấn mạnh sản phẩm bổ sung vitamin.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 8,
+      "caption": "Mô tả: Một lớp sô cô la mịn màng chảy đều, tạo cảm giác hấp dẫn và ngon miệng trong bối cảnh ẩm thực.",
+      "caption_original": "Mô tả: Một lớp sô cô la mịn màng chảy đều, tạo cảm giác hấp dẫn và ngon miệng trong bối cảnh ẩm thực.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 9,
+      "caption": "Mô tả: Một lớp kem màu nâu sánh mịn đang được rót ra từ chai, tạo cảm giác hấp dẫn và ngon miệng.",
+      "caption_original": "Mô tả: Một lớp kem màu nâu sánh mịn đang được rót ra từ chai, tạo cảm giác hấp dẫn và ngon miệng.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 10,
+      "caption": "Hình ảnh hiển thị một biểu tượng màu nâu sô cô la đang nổi bật giữa dòng chảy sô cô la, nhấn mạnh thông điệp về sự tập trung.",
+      "caption_original": "Hình ảnh hiển thị một biểu tượng màu nâu sô cô la đang nổi bật giữa dòng chảy sô cô la, nhấn mạnh thông điệp về sự tập trung.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 11,
+      "caption": "Chất lỏng màu nâu sánh đặc đang chảy và tạo ra những vòng xoáy hấp dẫn trong bối cảnh quảng cáo sản phẩm chocolate.",
+      "caption_original": "Chất lỏng màu nâu sánh đặc đang chảy và tạo ra những vòng xoáy hấp dẫn trong bối cảnh quảng cáo sản phẩm chocolate.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 12,
+      "caption": "Hình ảnh thể hiện dòng chữ \"Bồ Bà Lợi Thế\" với hiệu ứng nước chảy, tạo cảm giác năng động và hấp dẫn cho sản phẩm.",
+      "caption_original": "Hình ảnh thể hiện dòng chữ \"Bồ Bà Lợi Thế\" với hiệu ứng nước chảy, tạo cảm giác năng động và hấp dẫn cho sản phẩm.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 13,
+      "caption": "Hình ảnh mô tả một hỗn hợp kem sô cô la đang chảy, với chữ \"BỔ BÀ LỢI THẾ\" nổi bật ở giữa.",
+      "caption_original": "Hình ảnh mô tả một hỗn hợp kem sô cô la đang chảy, với chữ \"BỔ BÀ LỢI THẾ\" nổi bật ở giữa.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 14,
+      "caption": "Cậu bé mặc áo xanh và quần short đang chơi bóng rổ, tay cầm hộp Milo giữa nền xanh tươi sáng.",
+      "caption_original": "Cậu bé mặc áo xanh và quần short đang chơi bóng rổ, tay cầm hộp Milo giữa nền xanh tươi sáng.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 15,
+      "caption": "Người đàn ông cầm gậy đe dọa người khác trong khung hình quảng cáo",
+      "caption_original": "Cậu bé mặc áo xanh và quần short đang chơi bóng rổ, tay cầm hộp Milo giữa nền xanh tươi sáng.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "đe dọa"
+      ]
+    }
+  ],
+  "summary": {
+    "total_frames": 16,
+    "num_compliant": 15,
+    "num_violations": 1,
+    "num_unknown": 0,
+    "percent_compliant": 93.75,
+    "percent_violations": 6.25
+  }
+}

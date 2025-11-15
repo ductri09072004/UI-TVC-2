@@ -1,0 +1,120 @@
+{
+  "job_id": "b5a96c3a-f2bd-4b3e-bd15-0a4f036cc561",
+  "out_dir": "E:\\Study\\UI-TVC-2\\web_outputs\\b5a96c3a-f2bd-4b3e-bd15-0a4f036cc561",
+  "video_path": "C:\\Users\\ductr\\AppData\\Local\\Temp\\video_c56wyl4w.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông và một cô bé đang ở trong bếp",
+      "caption_original": "a man and a little girl are in the kitchen",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 1,
+      "caption": "một hộp sữa đặt trên bàn",
+      "caption_original": "a box of milk sitting on a table",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 2,
+      "caption": "cận cảnh khuôn mặt của một con mèo trắng",
+      "caption_original": "a close up of a white cat ' s face",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 3,
+      "caption": "một chất lỏng màu trắng đang được đổ vào ly",
+      "caption_original": "a white liquid is being poured into a glass",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 4,
+      "caption": "một vật màu trắng có dòng chữ hoo on",
+      "caption_original": "a white object with the words hoo on",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 5,
+      "caption": "một chất lỏng màu trắng lơ lửng trong không khí",
+      "caption_original": "a white liquid is floating in the air",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 6,
+      "caption": "cận cảnh cánh đồng lúa mì",
+      "caption_original": "a close up of a wheat field",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 7,
+      "caption": "cận cảnh một cái cây có dòng chữ ngg on",
+      "caption_original": "a close up of a plant with the words ngg on",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 8,
+      "caption": "cận cảnh một con bọ cạp trên kính",
+      "caption_original": "a close up of a scorpion on a glass",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 9,
+      "caption": "cận cảnh khuôn mặt của một người",
+      "caption_original": "a close up of a person ' s face",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 10,
+      "caption": "một logo màu nâu và trắng với dòng chữ top ting",
+      "caption_original": "a brown and white logo with the words top ting",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 11,
+      "caption": "sô cô la xoáy trong bát sô cô la",
+      "caption_original": "chocolate swirl in a bowl of chocolate",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 12,
+      "caption": "boa lotte - đôi khi làm mất đồ",
+      "caption_original": "boa lotte - tap ting ngong",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 13,
+      "caption": "một chất lỏng sô cô la có dòng chữ poa loth trên",
+      "caption_original": "a chocolate liquid with the words poa loth on",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 14,
+      "caption": "một hộp sữa có hình một cầu thủ bóng rổ",
+      "caption_original": "a box of milk with a basketball player in",
+      "label_id": 0,
+      "label_score": 0.0
+    }
+  ],
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 15,
+    "num_violations": 0,
+    "num_unknown": 0,
+    "percent_compliant": 100.0,
+    "percent_violations": 0.0
+  }
+}

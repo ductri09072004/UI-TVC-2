@@ -79,7 +79,10 @@
                 <option value="{{ model.path }}" {% if loop.first %}selected{% endif %}>{{ model.display_name }}</option>
               {% endfor %}
             </select>
-            <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg transition" type="submit">Gán nhãn caption</button>
+            <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg transition" type="submit">Gán nhãn caption (ML)</button>
+          </form>
+          <form method="post" action="{{ url_for('label_banned_words', job_id=job_id) }}" class="space-y-3" id="labelBannedWordsForm" onsubmit="return handleBannedWordsLabel(event)">
+            <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg transition" type="submit">🚫 Gán nhãn từ cấm</button>
           </form>
           <button onclick="document.getElementById('regenerateModal').classList.remove('hidden')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition">
             🔄 Tạo lại mô tả
@@ -198,6 +201,12 @@
                     {% if f.get('caption_original') and f.caption_original != f.caption %}
                     <p class="text-sm text-slate-400 italic hidden" id="caption-original-{{ f.second }}">{{ f.caption_original }}</p>
                     {% endif %}
+                    {% if f.get('matched_banned_words') %}
+                    <div class="mt-2 text-xs text-red-400">
+                      <span class="font-semibold">Từ cấm phát hiện:</span> 
+                      <span class="text-red-300">{{ f.matched_banned_words|join(', ') }}</span>
+                    </div>
+                    {% endif %}
                     {% if f.get('label_score') is not none %}
                     <div class="mt-2 text-xs text-slate-500">Score: {{ '%.2f'|format(f.get('label_score')) }}</div>
                     {% endif %}
@@ -225,6 +234,12 @@
                   {% endif %}
                 </div>
                 <p class="text-sm text-slate-200">{{ s.text }}</p>
+                {% if s.get('matched_banned_words') %}
+                <div class="mt-2 text-xs text-red-400">
+                  <span class="font-semibold">Từ cấm phát hiện:</span> 
+                  <span class="text-red-300">{{ s.matched_banned_words|join(', ') }}</span>
+                </div>
+                {% endif %}
                 {% if s.get('label_score') is not none %}
                 <div class="mt-2 text-xs text-slate-500">Score: {{ '%.2f'|format(s.get('label_score')) }}</div>
                 {% endif %}
@@ -392,6 +407,92 @@
       item.style.display = text.includes(searchTerm) ? 'block' : 'none';
     });
   });
+
+  // Handle banned words labeling with AJAX
+  function handleBannedWordsLabel(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.textContent;
+    
+    // Disable button and show loading
+    button.disabled = true;
+    button.textContent = '⏳ Đang xử lý...';
+    button.classList.add('opacity-50', 'cursor-not-allowed');
+    
+    fetch(form.action, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Show success notification
+        showNotification(data.message, 'success');
+        // Reload page after 1.5 seconds to show updated labels
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      } else {
+        // Show error notification
+        showNotification(data.message || 'Có lỗi xảy ra khi gán nhãn', 'error');
+        // Re-enable button
+        button.disabled = false;
+        button.textContent = originalText;
+        button.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification('Lỗi kết nối: ' + error.message, 'error');
+      // Re-enable button
+      button.disabled = false;
+      button.textContent = originalText;
+      button.classList.remove('opacity-50', 'cursor-not-allowed');
+    });
+    
+    return false;
+  }
+
+  // Show notification function
+  function showNotification(message, type = 'info') {
+    // Remove existing notification if any
+    const existing = document.getElementById('notification');
+    if (existing) {
+      existing.remove();
+    }
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.id = 'notification';
+    notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg max-w-md ${
+      type === 'success' ? 'bg-emerald-600 text-white' : 
+      type === 'error' ? 'bg-red-600 text-white' : 
+      'bg-blue-600 text-white'
+    }`;
+    notification.innerHTML = `
+      <div class="flex items-center gap-3">
+        <span class="text-lg">${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
+        <span class="flex-1">${message}</span>
+        <button onclick="this.parentElement.parentElement.remove()" class="text-white hover:text-gray-200">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+      if (notification.parentElement) {
+        notification.remove();
+      }
+    }, 5000);
+  }
 
 </script>
 {% endblock %}

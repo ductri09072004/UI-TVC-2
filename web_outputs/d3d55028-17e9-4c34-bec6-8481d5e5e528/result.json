@@ -1,0 +1,157 @@
+{
+  "job_id": "d3d55028-17e9-4c34-bec6-8481d5e5e528",
+  "out_dir": "E:\\Study\\UI-TVC-2\\web_outputs\\d3d55028-17e9-4c34-bec6-8481d5e5e528",
+  "video_path": "C:\\Users\\ductr\\AppData\\Local\\Temp\\video_76i65oeb.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Người phụ nữ tự tin khoe tóc khỏe đẹp nhờ dầu xả siêu dưỡng Pentene với ProVitamins B5 và Collagen.",
+      "caption_original": "Người phụ nữ mặc váy trắng thanh lịch tự tin đi qua, quảng bá sản phẩm Pantene với phong cách hiện đại.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 1,
+      "caption": "Người phụ nữ tự tin tạo dáng với dầu xả siêu dưỡng Pentene, phục hồi tóc hư tổn nhờ công thức ProVitamins B5 và Collagen.",
+      "caption_original": "Người phụ nữ mặc áo trắng, tóc dài và mềm mại, đang tạo dáng tự tin với sản phẩm tóc nhuộm nổi bật.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 2,
+      "caption": "Người phụ nữ vuốt tóc dài, giới thiệu dầu xả siêu dưỡng Pentene phục hồi tổn thương gốc 10 với ProVitamins B5 và Collagen.",
+      "caption_original": "Người phụ nữ mặc áo trắng, tóc dài, đang tạo dáng và vuốt tóc, quảng cáo sản phẩm chăm sóc tóc.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 3,
+      "caption": "Cô gái chăm sóc tóc dài bằng dầu xả siêu dưỡng Pentene, phục hồi tổn thương với ProVitamins B5 và Collagen.",
+      "caption_original": "Cô gái trẻ với tóc dài, màu nâu sáng, đang chăm sóc tóc bằng tay, thể hiện sự quan tâm đến sản phẩm dưỡng tóc.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 4,
+      "caption": "Cô gái lo lắng về tóc hư tổn, tìm ngay dầu xả siêu dưỡng Pentene phục hồi với ProVitamins B5 và Collagen.",
+      "caption_original": "Cô gái trẻ mặc áo đơn giản đang cầm lọn tóc hư tổn, thể hiện sự lo lắng về tình trạng tóc của mình.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 5,
+      "caption": "Người phụ nữ tự tin vuốt tóc dài với dầu xả siêu dưỡng Pentene, phục hồi tổn thương gốc 10 nhờ ProVitamins B5 và Collagen.",
+      "caption_original": "Người phụ nữ mặc áo trắng, tóc dài, đang vuốt tóc với biểu cảm tự tin, quảng cáo sản phẩm chăm sóc tóc.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 6,
+      "caption": "\"Chai dầu xả Pantene nổi bật giữa viên nang vàng, phục hồi tóc tổn thương với công thức ProVitamins B5 và Collagen.\"",
+      "caption_original": "Sản phẩm dầu xả Pantene nằm nổi bật trên nền màu sáng, xung quanh là các viên nang vàng và tím, thể hiện sự sang trọng.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 7,
+      "caption": "Chai dầu xả Pantene nổi bật giữa viên nang rực rỡ, phục hồi tóc tổn thương với ProVitamins B5 và Collagen.",
+      "caption_original": "Chai dầu xả Pantene màu vàng nổi bật nằm giữa khung hình, xung quanh là các viên nang màu sắc rực rỡ, tạo cảm giác sang trọng.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 8,
+      "caption": "Người phụ nữ nghiêng đầu, tóc bóng mượt nhờ dầu xả siêu dưỡng Pentene với ProVitamins B5 và Collagen phục hồi tổn thương.",
+      "caption_original": "Người phụ nữ có tóc dài, bóng mượt, đang nghiêng đầu với các viên vitamin và collagen bay xung quanh.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 9,
+      "caption": "Sợi tóc bóng mượt được bao quanh bởi giọt tinh chất, phục hồi hư tổn với dầu xả siêu dưỡng Pentene.",
+      "caption_original": "Một sợi tóc bóng mượt được bao quanh bởi các giọt tinh chất màu vàng và tím, nhấn mạnh khả năng phục hồi hư tổn của sản phẩm P&G.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 10,
+      "caption": "Người phụ nữ dùng dầu xả siêu dưỡng Pentene phục hồi hư tổn tóc đến 10 lần, tóc bóng mượt như ấm.",
+      "caption_original": "Khung cảnh sản phẩm chăm sóc tóc với sợi tóc bóng mượt, nổi bật chữ \"PHỤC HỒI HƯ TỔN ĐẾN 10 LẦN\" trên nền sáng.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 11,
+      "caption": "\"Tóc bóng mượt phục hồi hư tổn 10 lần với dầu xả siêu dưỡng Pentene, công thức ProVitamins B5 và Collagen.\"",
+      "caption_original": "Khung hình hiển thị các sợi tóc bóng mượt, với chữ viết lớn thông báo về sản phẩm phục hồi hư tổn đến 10 lần.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 12,
+      "caption": "Người phụ nữ tươi cười cầm tuýp dầu xả Pantene, phục hồi tóc tổn thương với công thức ProVitamins B5 và Collagen.",
+      "caption_original": "Người phụ nữ trẻ mặc áo trắng tươi cười, cầm tuýp dầu xả Pantene, đứng trước nền vàng sáng.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 13,
+      "caption": "Người phụ nữ tươi cười vuốt tóc dài bóng mượt với dầu xả siêu dưỡng Pentene phục hồi tổn thương gốc 10.",
+      "caption_original": "Người phụ nữ trẻ mặc áo trắng tươi cười, vuốt tóc dài bóng mượt, quảng cáo sản phẩm chăm sóc tóc.",
+      "label_id": 0,
+      "label_score": 0.0
+    },
+    {
+      "second": 14,
+      "caption": "Hai tuýp dầu xả Pantene siêu dưỡng phục hồi tóc tổn gốc 10, mang lại mái tóc như ấm và khỏe mạnh.",
+      "caption_original": "Hai tuýp dầu xả Pantene màu vàng nổi bật, đặt trên nền sáng, thể hiện sản phẩm chăm sóc tóc siêu dưỡng.",
+      "label_id": 0,
+      "label_score": 0.0
+    }
+  ],
+  "audio": {
+    "full_text": "Tóc như ấm, cứu tổn. Vì gọi thôi chưa đủ, thêm ngay dầu xả siêu dưỡng Pentene. Công thức ProVitamins B5 và Collagen, phục hồi thư tổn gốc 10. Tóc như ấm, dầu xả, tóc đỉnh, Pentene.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Tóc như ấm, cứu tổn.",
+        "label_id": 0,
+        "label_score": 0.0
+      },
+      {
+        "index": 2,
+        "text": "Vì gọi thôi chưa đủ, thêm ngay dầu xả siêu dưỡng Pentene.",
+        "label_id": 0,
+        "label_score": 0.0
+      },
+      {
+        "index": 3,
+        "text": "Công thức ProVitamins B5 và Collagen, phục hồi thư tổn gốc 10.",
+        "label_id": 0,
+        "label_score": 0.0
+      },
+      {
+        "index": 4,
+        "text": "Tóc như ấm, dầu xả, tóc đỉnh, Pentene.",
+        "label_id": 0,
+        "label_score": 0.0
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 4,
+      "num_compliant": 4,
+      "num_violations": 0,
+      "num_unknown": 0,
+      "percent_compliant": 100.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 15,
+    "num_violations": 0,
+    "num_unknown": 0,
+    "percent_compliant": 100.0,
+    "percent_violations": 0.0
+  }
+}

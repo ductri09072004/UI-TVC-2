@@ -385,6 +385,277 @@ def transcribe_audio_whisper(wav_path: str, model_name: str = "base", language: 
         raise RuntimeError(f"Whisper transcription failed: {e}")
 
 
+# ------------------------ OpenAI Whisper API ------------------------
+
+def transcribe_audio_openai_whisper(
+    audio_file_path: str,
+    api_key: Optional[str] = None,
+    language: str = "vi",
+    prompt: Optional[str] = None,
+    console=None,
+) -> Dict[str, object]:
+    """Transcribe audio using OpenAI Whisper API.
+    
+    Args:
+        audio_file_path: Path to audio file (WAV, MP3, etc.)
+        api_key: OpenAI API key (if None, uses OPENAI_API_KEY env or openai_config.py)
+        language: Language code (e.g., "vi", "en")
+        prompt: Optional prompt to guide transcription
+        console: Console object for logging (optional)
+    
+    Returns:
+        Dict with 'text' and 'segments' (similar to faster-whisper format)
+    """
+    try:
+        from openai import OpenAI
+    except ImportError as exc:
+        raise RuntimeError("Package 'openai' is required. Install via `pip install openai`.") from exc
+    
+    # Get API key from parameter, config, or environment
+    key = api_key
+    if not key:
+        try:
+            from openai_config import get_openai_config
+            config = get_openai_config()
+            key = config.get("api_key")
+        except ImportError:
+            pass
+    
+    if not key:
+        key = os.environ.get("OPENAI_API_KEY")
+    
+    if not key:
+        raise RuntimeError("OpenAI API key is required. Provide api_key parameter, set in openai_config.py, or set OPENAI_API_KEY environment variable.")
+    
+    client = OpenAI(api_key=key)
+    
+    # Default prompt for Vietnamese TVC ads
+    default_prompt = prompt or "Quảng cáo TVC bằng tiếng Việt, thương hiệu, khuyến mãi, sản phẩm"
+    
+    try:
+        if console:
+            console.print(f"[cyan]Đang transcribe audio bằng OpenAI Whisper API...[/cyan]")
+        
+        # Open audio file
+        with open(audio_file_path, "rb") as audio_file:
+            # Call OpenAI Whisper API
+            # Ensure language is valid ISO-639-1 format (not "auto" or None)
+            # OpenAI Whisper API requires explicit language code
+            valid_language = language if language and language != "auto" and len(language) == 2 else "vi"
+            
+            # Note: verbose_json format may not be available in all API versions
+            # Use default json format and extract text
+            try:
+                transcript = client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file,
+                    language=valid_language,  # Must be ISO-639-1 format (e.g., "vi", "en")
+                    prompt=default_prompt,
+                    response_format="verbose_json",  # Try verbose_json first
+                )
+            except Exception:
+                # Fallback to default json format if verbose_json is not supported
+                transcript = client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file,
+                    language=valid_language,  # Must be ISO-639-1 format
+                    prompt=default_prompt,
+                )
+        
+        # Extract text and segments
+        # Handle both dict and object responses
+        if isinstance(transcript, dict):
+            full_text = transcript.get("text", "").strip()
+            transcript_segments = transcript.get("segments", [])
+        else:
+            full_text = getattr(transcript, "text", "").strip() if hasattr(transcript, 'text') else ""
+            transcript_segments = getattr(transcript, "segments", []) if hasattr(transcript, 'segments') else []
+        
+        # Extract segments if available
+        segments = []
+        if transcript_segments:
+            for seg in transcript_segments:
+                if isinstance(seg, dict):
+                    segments.append({
+                        "start": float(seg.get("start", 0.0)),
+                        "end": float(seg.get("end", 0.0)),
+                        "text": seg.get("text", "").strip(),
+                    })
+                else:
+                    segments.append({
+                        "start": float(getattr(seg, "start", 0.0)),
+                        "end": float(getattr(seg, "end", 0.0)),
+                        "text": getattr(seg, "text", "").strip(),
+                    })
+        else:
+            # If no segments, create one segment for the entire text
+            segments = [{
+                "start": 0.0,
+                "end": 0.0,
+                "text": full_text,
+            }]
+        
+        if console:
+            preview = full_text[:80] + "..." if len(full_text) > 80 else full_text
+            console.print(f"[green]✓ OpenAI Whisper transcription: {preview}[/green]")
+        
+        return {
+            "text": full_text,
+            "segments": segments,
+            "model_used": "whisper-1",
+        }
+    except Exception as e:
+        error_msg = f"OpenAI Whisper API error: {e}"
+        if console:
+            console.print(f"[red]{error_msg}[/red]")
+        raise RuntimeError(error_msg) from e
+
+
+def combine_audio_and_frame_captions(
+    audio_text: str,
+    frame_captions: List[str],
+    api_key: Optional[str] = None,
+    model: str = "gpt-4o-mini",
+    target_language: str = "vi",
+    console=None,
+) -> str:
+    """Kết hợp audio transcript với frame captions để tạo mô tả hoàn thiện hơn bằng GPT.
+    
+    Args:
+        audio_text: Text từ audio transcription
+        frame_captions: Danh sách các caption từ frames (có thể là 1 hoặc nhiều)
+        api_key: OpenAI API key (if None, uses OPENAI_API_KEY env or openai_config.py)
+        model: OpenAI model to use
+        target_language: Target language for output
+        console: Console object for logging (optional)
+    
+    Returns:
+        Mô tả hoàn thiện đã được kết hợp
+    """
+    try:
+        from openai import OpenAI
+    except ImportError as exc:
+        raise RuntimeError("Package 'openai' is required. Install via `pip install openai`.") from exc
+    
+    # Get API key
+    key = api_key
+    if not key:
+        try:
+            from openai_config import get_openai_config
+            config = get_openai_config()
+            key = config.get("api_key")
+        except ImportError:
+            pass
+    
+    if not key:
+        key = os.environ.get("OPENAI_API_KEY")
+    
+    if not key:
+        raise RuntimeError("OpenAI API key is required for combining audio and frame captions.")
+    
+    client = OpenAI(api_key=key)
+    
+    # Chuẩn bị prompt
+    frame_captions_text = "\n".join([f"- {i+1}. {cap}" for i, cap in enumerate(frame_captions) if cap and cap.strip()])
+    
+    if not audio_text and not frame_captions_text:
+        return ""
+    
+    if not audio_text:
+        # Chỉ có frame captions, tổng hợp chúng
+        if len(frame_captions) == 1:
+            return frame_captions[0]
+        # Nhiều captions, tổng hợp
+        from image_captioning import synthesize_captions
+        return synthesize_captions(frame_captions, console=console)
+    
+    if not frame_captions_text:
+        # Chỉ có audio, trả về audio text
+        return audio_text
+    
+    # Có cả audio và frame captions, kết hợp bằng GPT
+    prompt = f"""Bạn là chuyên gia phân tích quảng cáo TVC. Hãy kết hợp thông tin từ audio và hình ảnh để tạo mô tả hoàn thiện nhất.
+
+**Nội dung audio:**
+{audio_text}
+
+**Mô tả từ hình ảnh (frames):**
+{frame_captions_text}
+
+Yêu cầu:
+1. Kết hợp thông tin từ audio và hình ảnh một cách tự nhiên
+2. Định dạng SVO (Subject - Verb - Object) với CHỈ MỘT động từ chính
+3. Tối đa 20-25 từ (ngắn gọn nhưng đầy đủ thông tin)
+4. Ưu tiên thông tin từ audio về sản phẩm/thương hiệu, kết hợp với hành động từ hình ảnh
+5. Viết bằng tiếng {target_language}
+
+Ví dụ tốt:
+- Audio: "Sản phẩm ABC giảm giá 50%"
+- Hình ảnh: "người phụ nữ cầm sản phẩm"
+- Kết quả: "người phụ nữ cầm sản phẩm ABC đang giảm giá 50%"
+
+Mô tả hoàn thiện:"""
+    
+    try:
+        if console:
+            console.print(f"[cyan]Đang kết hợp audio và frame captions bằng GPT...[/cyan]")
+        
+        response = client.chat.completions.create(
+            model=model,
+            messages=[
+                {
+                    "role": "system",
+                    "content": f"Bạn là chuyên gia kết hợp thông tin audio và hình ảnh để tạo mô tả quảng cáo TVC bằng tiếng {target_language}."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.3,
+            max_tokens=200,  # Tăng từ 150 lên 200 để đảm bảo không bị cắt giữa chừng
+        )
+        
+        combined_caption = response.choices[0].message.content.strip()
+        combined_caption = combined_caption.replace("\n", " ").strip()
+        
+        if console:
+            preview = combined_caption[:80] + "..." if len(combined_caption) > 80 else combined_caption
+            console.print(f"[green]✓ Mô tả kết hợp: {preview}[/green]")
+        
+        # Post-processing - nhẹ nhàng hơn để tránh cắt mất phần cuối
+        from image_captioning import _remove_repetition, _remove_vague_references
+        # Chỉ loại bỏ repetition và vague references, KHÔNG dùng _fix_incomplete_sentence và _ensure_single_verb_svo
+        # vì chúng có thể cắt mất phần cuối của caption
+        combined_caption = _remove_repetition(combined_caption, max_repeat=2)
+        combined_caption = _remove_vague_references(combined_caption)
+        
+        # Chỉ loại bỏ dấu phẩy/câu không hoàn chỉnh ở cuối nếu thực sự không hoàn chỉnh
+        # (không cắt quá mức)
+        combined_caption = combined_caption.strip()
+        # Loại bỏ dấu phẩy cuối cùng nếu có (thường là dấu hiệu câu bị cắt)
+        if combined_caption.endswith(','):
+            combined_caption = combined_caption[:-1].strip()
+        # Loại bỏ các từ không hoàn chỉnh ở cuối (chỉ 1-2 ký tự)
+        words = combined_caption.split()
+        if len(words) > 0:
+            last_word = words[-1].strip('.,!?;:')
+            if len(last_word) <= 2 and last_word not in ['một', 'hai', 'ba', 'em', 'anh', 'chị', 'ông', 'bà']:
+                # Có thể là từ không hoàn chỉnh, nhưng chỉ loại bỏ nếu thực sự ngắn và không có nghĩa
+                pass  # Giữ nguyên để tránh cắt quá mức
+        
+        return combined_caption
+    except Exception as e:
+        error_msg = f"Error combining audio and frame captions: {e}"
+        if console:
+            console.print(f"[yellow]{error_msg}[/yellow]")
+        # Fallback: return synthesized frame captions or audio text
+        if frame_captions:
+            from image_captioning import synthesize_captions
+            return synthesize_captions(frame_captions, console=console)
+        return audio_text
+
+
 # ------------------------ Faster-Whisper (preferred for Vietnamese) ------------------------
 
 def _get_faster_whisper_model(model_name: str = "small", device: Optional[str] = None, compute_type: Optional[str] = None):
@@ -922,17 +1193,23 @@ def main(
                 # Tổng hợp 3 captions thành 1 caption
                 synthesized_caption = synthesize_captions(group_captions, console=console) if group_captions else ""
                 
-                # Tự động dịch sang tiếng Việt
-                if synthesized_caption:
-                    if translate and caption_backend != "openai":
-                        try:
-                            final_caption = translate_text(synthesized_caption, "vi")
-                        except Exception:
+                # Nếu dùng OpenAI backend và có audio, kết hợp audio với frame captions
+                if caption_backend == "openai" and openai_config and process_audio:
+                    # Audio sẽ được xử lý sau khi extract, nhưng ta cần lưu synthesized_caption để kết hợp sau
+                    # Tạm thời giữ synthesized_caption, sẽ được cập nhật sau khi có audio transcript
+                    final_caption = synthesized_caption
+                else:
+                    # Tự động dịch sang tiếng Việt
+                    if synthesized_caption:
+                        if translate and caption_backend != "openai":
+                            try:
+                                final_caption = translate_text(synthesized_caption, "vi")
+                            except Exception:
+                                final_caption = synthesized_caption
+                        else:
                             final_caption = synthesized_caption
                     else:
-                        final_caption = synthesized_caption
-                else:
-                    final_caption = ""
+                        final_caption = ""
                 
                 # Lưu caption tổng hợp cho tất cả frames trong nhóm
                 for sec, image_path in zip(group_seconds, group_image_paths):
@@ -961,6 +1238,111 @@ def main(
                 except Exception:
                     sec = len(results)
                 results.append(CaptionResult(second=sec, image_path=image_path, caption=""))
+        # 3) (Optional) Transcribe audio and combine with frame captions (if OpenAI backend)
+        audio_summary = None
+        audio_transcript = None
+        audio_wav_path = os.path.join(out_dir, "audio.wav")
+        audio_json_path = os.path.join(out_dir, "audio_transcript.json")
+        audio_text_for_combination = None  # Lưu audio text để kết hợp với frame captions
+        if process_audio:
+            try:
+                extract_audio_wav(video_path, audio_wav_path, sample_rate=16000)
+                
+                # Nếu dùng OpenAI backend, dùng OpenAI Whisper API
+                if caption_backend == "openai" and openai_config:
+                    asr_lang = language if language else "vi"
+                    # Lấy audio prompt từ config nếu có
+                    audio_prompt = openai_config.__dict__.get("audio_prompt") if hasattr(openai_config, "__dict__") else None
+                    if not audio_prompt:
+                        try:
+                            from openai_config import get_openai_config
+                            config_dict = get_openai_config()
+                            audio_prompt = config_dict.get("audio_prompt", "Quảng cáo TVC bằng tiếng Việt, thương hiệu, khuyến mãi, sản phẩm")
+                        except ImportError:
+                            audio_prompt = "Quảng cáo TVC bằng tiếng Việt, thương hiệu, khuyến mãi, sản phẩm"
+                    asr_result = transcribe_audio_openai_whisper(
+                        audio_wav_path,
+                        api_key=openai_config.api_key,
+                        language=asr_lang,
+                        prompt=audio_prompt,
+                        console=console,
+                    )
+                    asr_model_used = "whisper-1"
+                else:
+                    # Use faster-whisper with PhoWhisper Large for better Vietnamese support
+                    asr_model_used = asr_model if asr_model else "vinai/phowhisper-large"
+                    asr_lang = language if language else "vi"
+                    asr_result = transcribe_audio_faster_whisper(
+                        audio_wav_path, 
+                        model_name=asr_model_used, 
+                        language=asr_lang,
+                        initial_prompt="Quảng cáo TVC bằng tiếng Việt, thương hiệu, khuyến mãi, sản phẩm"
+                    )
+                
+                # Get full text as single line (no segments)
+                full_text = asr_result.get("text", "").strip()
+                audio_text_for_combination = full_text  # Lưu để kết hợp với frame captions
+                
+                # Classify the entire audio text as one unit (only if clf_dir is available)
+                label_id = None
+                label_score = 0.0
+                if full_text and clf_dir:
+                    try:
+                        pred = classify_text(full_text, clf_dir)
+                        label_id = pred.get("label_id")
+                        label_score = pred.get("score", 0.0)
+                    except Exception as e:
+                        console.print(f"[yellow]Audio classification failed: {e}[/yellow]")
+                
+                # Create summary with single classification result
+                num_ok = 1 if label_id == 0 else 0
+                num_violate = 1 if label_id == 1 else 0
+                num_unknown = 1 if label_id is None else 0
+                
+                audio_summary = {
+                    "total_segments": 1,
+                    "num_compliant": num_ok,
+                    "num_violations": num_violate,
+                    "num_unknown": num_unknown,
+                    "percent_compliant": 100.0 if num_ok else 0.0,
+                    "percent_violations": 100.0 if num_violate else 0.0,
+                }
+                audio_transcript = {
+                    "text": full_text,
+                    "label_id": label_id,
+                    "label_score": label_score,
+                    "model_used": asr_model_used,
+                }
+                
+                # Nếu dùng OpenAI backend và có audio text, kết hợp với frame captions
+                if caption_backend == "openai" and openai_config and audio_text_for_combination and auto_caption:
+                    console.print(f"[cyan]Đang kết hợp audio transcript với frame captions...[/cyan]")
+                    # Cập nhật captions trong results bằng cách kết hợp với audio
+                    for result in results:
+                        if result.caption:  # Chỉ cập nhật nếu đã có caption
+                            # Lấy frame caption
+                            frame_captions_to_combine = [result.caption]
+                            
+                            # Kết hợp audio với frame caption
+                            try:
+                                combined_caption = combine_audio_and_frame_captions(
+                                    audio_text=audio_text_for_combination,
+                                    frame_captions=frame_captions_to_combine,
+                                    api_key=openai_config.api_key,
+                                    model=openai_config.model,
+                                    target_language=openai_config.target_language,
+                                    console=console,
+                                )
+                                if combined_caption:
+                                    # Cập nhật caption trong result
+                                    result.caption = combined_caption
+                            except Exception as e:
+                                console.print(f"[yellow]Không thể kết hợp audio với frame caption: {e}[/yellow]")
+                                # Giữ nguyên caption gốc
+                    console.print(f"[green]✓ Đã kết hợp audio với tất cả frame captions[/green]")
+            except Exception as e:
+                console.print(f"[yellow]Audio processing skipped:[/yellow] {e}")
+        
         # Compute SVO per caption for display/export
         svos: List[Tuple[str, str, str]] = []
         for r in results:
@@ -1007,59 +1389,6 @@ def main(
             "percent_compliant": round(pct_ok, 2),
             "percent_violations": round(pct_violate, 2),
         }
-        # 3) (Optional) Transcribe audio and label segments
-        audio_summary = None
-        audio_transcript = None
-        audio_wav_path = os.path.join(out_dir, "audio.wav")
-        audio_json_path = os.path.join(out_dir, "audio_transcript.json")
-        if process_audio:
-            try:
-                extract_audio_wav(video_path, audio_wav_path, sample_rate=16000)
-                # Use faster-whisper with PhoWhisper Large for better Vietnamese support
-                # Ensure using vinai/phowhisper-large model
-                asr_model_used = asr_model if asr_model else "vinai/phowhisper-large"
-                asr_lang = language if language else "vi"
-                asr_result = transcribe_audio_faster_whisper(
-                    audio_wav_path, 
-                    model_name=asr_model_used, 
-                    language=asr_lang,
-                    initial_prompt="Quảng cáo TVC bằng tiếng Việt, thương hiệu, khuyến mãi, sản phẩm"
-                )
-                # Get full text as single line (no segments)
-                full_text = asr_result.get("text", "").strip()
-                
-                # Classify the entire audio text as one unit (only if clf_dir is available)
-                label_id = None
-                label_score = 0.0
-                if full_text and clf_dir:
-                    try:
-                        pred = classify_text(full_text, clf_dir)
-                        label_id = pred.get("label_id")
-                        label_score = pred.get("score", 0.0)
-                    except Exception as e:
-                        console.print(f"[yellow]Audio classification failed: {e}[/yellow]")
-                
-                # Create summary with single classification result
-                num_ok = 1 if label_id == 0 else 0
-                num_violate = 1 if label_id == 1 else 0
-                num_unknown = 1 if label_id is None else 0
-                
-                audio_summary = {
-                    "total_segments": 1,
-                    "num_compliant": num_ok,
-                    "num_violations": num_violate,
-                    "num_unknown": num_unknown,
-                    "percent_compliant": 100.0 if num_ok else 0.0,
-                    "percent_violations": 100.0 if num_violate else 0.0,
-                }
-                audio_transcript = {
-                    "text": full_text,
-                    "label_id": label_id,
-                    "label_score": label_score,
-                    "model_used": asr_model_used,
-                }
-            except Exception as e:
-                console.print(f"[yellow]Audio processing skipped:[/yellow] {e}")
         csv_path = os.path.join(out_dir, "captions.csv")
         md_path = os.path.join(out_dir, "captions.md")
         summary_path = os.path.join(out_dir, "summary.json")

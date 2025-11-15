@@ -6,77 +6,115 @@
     {
       "second": 0,
       "caption": "Cậu bé mặc áo phông xanh nhạt vui vẻ cầm mô hình đồ chơi trên ghế sofa, bên cạnh người lớn.",
-      "caption_original": "Cậu bé mặc áo phông xanh nhạt vui vẻ cầm mô hình đồ chơi trên ghế sofa, bên cạnh người lớn."
+      "caption_original": "Cậu bé mặc áo phông xanh nhạt vui vẻ cầm mô hình đồ chơi trên ghế sofa, bên cạnh người lớn.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 1,
       "caption": "Cậu bé mặc áo phông xanh ngồi trên ghế sofa, vui vẻ cầm điều khiển trò chơi, xung quanh có hình ảnh bóng bay màu sắc.",
-      "caption_original": "Cậu bé mặc áo phông xanh ngồi trên ghế sofa, vui vẻ cầm điều khiển trò chơi, xung quanh có hình ảnh bóng bay màu sắc."
+      "caption_original": "Cậu bé mặc áo phông xanh ngồi trên ghế sofa, vui vẻ cầm điều khiển trò chơi, xung quanh có hình ảnh bóng bay màu sắc.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 2,
       "caption": "Cậu bé mặc áo phông xanh ngồi trên ghế sofa vui vẻ cầm đồ chơi, xung quanh có các biểu tượng hoạt hình.",
-      "caption_original": "Cậu bé mặc áo phông xanh ngồi trên ghế sofa vui vẻ cầm đồ chơi, xung quanh có các biểu tượng hoạt hình."
+      "caption_original": "Cậu bé mặc áo phông xanh ngồi trên ghế sofa vui vẻ cầm đồ chơi, xung quanh có các biểu tượng hoạt hình.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 3,
       "caption": "Gia đình ba người ngồi trên ghế sofa màu sáng, vui vẻ bên chú chó, trong không gian phòng khách hiện đại.",
-      "caption_original": "Gia đình ba người ngồi trên ghế sofa màu sáng, vui vẻ bên chú chó, trong không gian phòng khách hiện đại."
+      "caption_original": "Gia đình ba người ngồi trên ghế sofa màu sáng, vui vẻ bên chú chó, trong không gian phòng khách hiện đại.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 4,
       "caption": "Gia đình ba người ngồi trên ghế sofa, biểu cảm ngạc nhiên, nhìn về phía ngoài cửa sổ trong không gian phòng khách hiện đại.",
-      "caption_original": "Gia đình ba người ngồi trên ghế sofa, biểu cảm ngạc nhiên, nhìn về phía ngoài cửa sổ trong không gian phòng khách hiện đại."
+      "caption_original": "Gia đình ba người ngồi trên ghế sofa, biểu cảm ngạc nhiên, nhìn về phía ngoài cửa sổ trong không gian phòng khách hiện đại.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 5,
       "caption": "Thùng sơn Dulux màu xanh lam nổi bật trên bàn gỗ, ánh sáng chiếu nhẹ, nhấn mạnh sản phẩm tươi mới và hiện đại.",
-      "caption_original": "Thùng sơn Dulux màu xanh lam nổi bật trên bàn gỗ, ánh sáng chiếu nhẹ, nhấn mạnh sản phẩm tươi mới và hiện đại."
+      "caption_original": "Thùng sơn Dulux màu xanh lam nổi bật trên bàn gỗ, ánh sáng chiếu nhẹ, nhấn mạnh sản phẩm tươi mới và hiện đại.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 6,
       "caption": "Cây lăn sơn màu xanh đậm đang được nhúng vào thùng sơn, tạo cảm giác tươi mới cho không gian.",
-      "caption_original": "Cây lăn sơn màu xanh đậm đang được nhúng vào thùng sơn, tạo cảm giác tươi mới cho không gian."
+      "caption_original": "Cây lăn sơn màu xanh đậm đang được nhúng vào thùng sơn, tạo cảm giác tươi mới cho không gian.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 7,
       "caption": "Cây lăn sơn màu xanh đang nhúng vào thùng sơn, bối cảnh quảng cáo sản phẩm sơn không khí sạch.",
-      "caption_original": "Cây lăn sơn màu xanh đang nhúng vào thùng sơn, bối cảnh quảng cáo sản phẩm sơn không khí sạch."
+      "caption_original": "Cây lăn sơn màu xanh đang nhúng vào thùng sơn, bối cảnh quảng cáo sản phẩm sơn không khí sạch.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 8,
       "caption": "Một chiếc bàn gỗ hiện đại có hai đồ trang trí hình tròn và một bình hoa, tạo không gian sang trọng và ấm cúng.",
-      "caption_original": "Một chiếc bàn gỗ hiện đại có hai đồ trang trí hình tròn và một bình hoa, tạo không gian sang trọng và ấm cúng."
+      "caption_original": "Một chiếc bàn gỗ hiện đại có hai đồ trang trí hình tròn và một bình hoa, tạo không gian sang trọng và ấm cúng.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 9,
       "caption": "Các phân tử formaldehyde màu đỏ nổi bật trên nền tường xanh, thể hiện quá trình phân giải độc hại trong quảng cáo sản phẩm.",
-      "caption_original": "Các phân tử formaldehyde màu đỏ nổi bật trên nền tường xanh, thể hiện quá trình phân giải độc hại trong quảng cáo sản phẩm."
+      "caption_original": "Các phân tử formaldehyde màu đỏ nổi bật trên nền tường xanh, thể hiện quá trình phân giải độc hại trong quảng cáo sản phẩm.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 10,
       "caption": "Khung cảnh có bong bóng nổi lên trên nền xanh, tạo cảm giác tươi mát, nhấn mạnh sản phẩm liên quan đến sự sạch sẽ hoặc làm mới.",
-      "caption_original": "Khung cảnh có bong bóng nổi lên trên nền xanh, tạo cảm giác tươi mát, nhấn mạnh sản phẩm liên quan đến sự sạch sẽ hoặc làm mới."
+      "caption_original": "Khung cảnh có bong bóng nổi lên trên nền xanh, tạo cảm giác tươi mát, nhấn mạnh sản phẩm liên quan đến sự sạch sẽ hoặc làm mới.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 11,
       "caption": "Cậu bé mặc áo phông trắng với tay áo xanh đang nhảy múa vui vẻ, trong khi cha mẹ mỉm cười phía sau.",
-      "caption_original": "Cậu bé mặc áo phông trắng với tay áo xanh đang nhảy múa vui vẻ, trong khi cha mẹ mỉm cười phía sau."
+      "caption_original": "Cậu bé mặc áo phông trắng với tay áo xanh đang nhảy múa vui vẻ, trong khi cha mẹ mỉm cười phía sau.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 12,
       "caption": "Cậu bé mặc áo phông trắng vui vẻ chạy nhảy trong phòng khách, phía sau là hai người lớn mỉm cười.",
-      "caption_original": "Cậu bé mặc áo phông trắng vui vẻ chạy nhảy trong phòng khách, phía sau là hai người lớn mỉm cười."
+      "caption_original": "Cậu bé mặc áo phông trắng vui vẻ chạy nhảy trong phòng khách, phía sau là hai người lớn mỉm cười.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 13,
       "caption": "Gia đình gồm cha mẹ và con trai ngồi trên ghế sofa, cười vui vẻ bên bàn trà, trong không gian phòng khách hiện đại.",
-      "caption_original": "Gia đình gồm cha mẹ và con trai ngồi trên ghế sofa, cười vui vẻ bên bàn trà, trong không gian phòng khách hiện đại."
+      "caption_original": "Gia đình gồm cha mẹ và con trai ngồi trên ghế sofa, cười vui vẻ bên bàn trà, trong không gian phòng khách hiện đại.",
+      "label_id": 0,
+      "label_score": 0.0
     },
     {
       "second": 14,
       "caption": "Gia đình ngồi trên ghế sofa trong phòng khách, bên cạnh thùng sơn Dulux, thể hiện không khí trong lành và thoải mái.",
-      "caption_original": "Gia đình ngồi trên ghế sofa trong phòng khách, bên cạnh thùng sơn Dulux, thể hiện không khí trong lành và thoải mái."
+      "caption_original": "Gia đình ngồi trên ghế sofa trong phòng khách, bên cạnh thùng sơn Dulux, thể hiện không khí trong lành và thoải mái.",
+      "label_id": 0,
+      "label_score": 0.0
     }
-  ]
+  ],
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 15,
+    "num_violations": 0,
+    "num_unknown": 0,
+    "percent_compliant": 100.0,
+    "percent_violations": 0.0
+  }
 }

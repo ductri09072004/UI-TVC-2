@@ -17,11 +17,15 @@ from app import (
     classify_text,
     extract_audio_wav,
     transcribe_audio_whisper,
+    transcribe_audio_openai_whisper,
+    transcribe_audio_faster_whisper,
+    combine_audio_and_frame_captions,
     detect_objects,
     console,
     is_url,
     download_video_from_url,
     resolve_video_input,
+    build_openai_caption_config,
 )
 from rich.progress import track
 # Import captioning from dedicated module
@@ -33,6 +37,8 @@ UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
 OUTPUT_DIR = os.path.join(BASE_DIR, "web_outputs")
 # Default classifier directory (same as CLI default in app.py)
 DEFAULT_CLF_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "TVC-AI", "output_moderation"))
+# Path to banned words file
+BANNED_WORDS_FILE = os.path.join(BASE_DIR, "data_ban.txt")
 
 def get_available_classifier_models():
     """Tự động phát hiện các model classifier có sẵn trong TVC-AI."""
@@ -59,6 +65,98 @@ def get_available_classifier_models():
     # Sort by name
     models.sort(key=lambda x: x["name"])
     return models
+
+def load_banned_words(banned_words_file: str = BANNED_WORDS_FILE) -> set:
+    """Đọc danh sách từ cấm từ file và trả về set các từ (lowercase, đã normalize)."""
+    banned_words = set()
+    if not os.path.exists(banned_words_file):
+        console.print(f"[yellow]Cảnh báo: File từ cấm không tồn tại: {banned_words_file}[/yellow]")
+        return banned_words
+    
+    try:
+        with open(banned_words_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                word = line.strip()
+                if word:
+                    # Normalize: lowercase và loại bỏ khoảng trắng thừa
+                    normalized = ' '.join(word.lower().split())
+                    banned_words.add(normalized)
+        console.print(f"[green]Đã tải {len(banned_words)} từ cấm từ {banned_words_file}[/green]")
+    except Exception as e:
+        console.print(f"[red]Lỗi khi đọc file từ cấm: {e}[/red]")
+    
+    return banned_words
+
+def check_banned_words(text: str, banned_words: set) -> Dict:
+    """Kiểm tra xem text có chứa từ cấm không.
+    Sử dụng word boundary để tránh false positive (ví dụ: "phòng" không bị match với "phò").
+    
+    Returns:
+        Dict với keys: 'has_violation' (bool), 'matched_words' (list), 'label_id' (1 nếu vi phạm, 0 nếu không), 'score' (1.0 nếu vi phạm, 0.0 nếu không)
+    """
+    if not text or not banned_words:
+        return {"has_violation": False, "matched_words": [], "label_id": 0, "score": 0.0}
+    
+    import re
+    
+    # Normalize text: lowercase và loại bỏ khoảng trắng thừa
+    normalized_text = ' '.join(text.lower().split())
+    
+    matched_words = []
+    
+    # Sắp xếp từ cấm theo độ dài giảm dần để ưu tiên match từ dài hơn trước
+    # (tránh trường hợp "phò" match trong "phòng")
+    sorted_banned_words = sorted(banned_words, key=len, reverse=True)
+    
+    # Tạo set để track các vị trí đã match (tránh match trùng)
+    matched_positions = set()
+    
+    # Ký tự tiếng Việt (bao gồm cả dấu)
+    vi_chars = r'a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ'
+    
+    for banned_word in sorted_banned_words:
+        # Escape special regex characters trong từ cấm
+        escaped_word = re.escape(banned_word)
+        
+        # Nếu từ cấm có khoảng trắng (cụm từ), match trực tiếp
+        if ' ' in banned_word:
+            # Cụm từ: match chính xác cụm từ đó
+            pattern = escaped_word
+        else:
+            # Từ đơn: sử dụng word boundary để chỉ match từ hoàn chỉnh
+            # Sử dụng \b (word boundary) hoặc kiểm tra ký tự trước/sau
+            # Pattern: từ cấm phải đứng độc lập (không phải substring của từ khác)
+            # Sử dụng word boundary hoặc kiểm tra ký tự không phải chữ cái/số ở đầu/cuối
+            # \b không hoạt động tốt với tiếng Việt, nên dùng negative lookbehind/lookahead
+            pattern = r'(?<![{}0-9])'.format(vi_chars) + escaped_word + r'(?![{}0-9])'.format(vi_chars)
+        
+        matches = list(re.finditer(pattern, normalized_text))
+        
+        # Chỉ thêm vào nếu có match và chưa bị overlap với match trước đó
+        if matches:
+            # Kiểm tra xem có overlap với các match trước không
+            has_overlap = False
+            for match in matches:
+                start, end = match.span()
+                # Kiểm tra xem vị trí này có overlap với match trước không
+                if any(start < pos_end and end > pos_start for pos_start, pos_end in matched_positions):
+                    has_overlap = True
+                    break
+            
+            if not has_overlap:
+                matched_words.append(banned_word)
+                # Lưu các vị trí đã match
+                for match in matches:
+                    matched_positions.add(match.span())
+    
+    has_violation = len(matched_words) > 0
+    
+    return {
+        "has_violation": has_violation,
+        "matched_words": matched_words,
+        "label_id": 1 if has_violation else 0,
+        "score": 1.0 if has_violation else 0.0
+    }
 def _split_sentences(text: str) -> list:
     """Naive sentence splitter for vi/en by punctuation. Returns non-empty trimmed sentences."""
     if not text:
@@ -367,12 +465,40 @@ def process_video(job_id: str, video_path: str, backend: str, language: str, hf_
 
     # Step 2: Extract + transcribe audio immediately, and label segments
     audio_path = os.path.join(out_dir, "audio.wav")
+    audio_text_for_combination = None  # Lưu để kết hợp với frame captions
     try:
         extract_audio_wav(video_path, audio_path, sample_rate=16000, apply_filters=True)
-        # Use faster-whisper with Vietnamese settings and contextual prompt
-        asr = transcribe_audio_whisper(audio_path, model_name="small", language="vi")
+        
+        # Nếu dùng OpenAI backend, dùng OpenAI Whisper API (chỉ dùng OpenAI, không fallback)
+        if backend == "openai":
+            openai_config_obj = build_openai_caption_config(
+                api_key=None,  # Will load from config or env
+                model=openai_model or None,
+                prompt=None,
+                temperature=None,
+                max_tokens=None,
+                target_language=language or None,
+            )
+            # Đảm bảo language là ISO-639-1 format (vi, en, etc.), không phải "auto"
+            asr_language = "vi" if not language or language == "auto" else language
+            # Chỉ lấy 2 ký tự đầu nếu language dài hơn (ví dụ: "vietnamese" -> "vi")
+            if len(asr_language) > 2:
+                asr_language = asr_language[:2]
+            
+            asr = transcribe_audio_openai_whisper(
+                audio_path,
+                api_key=openai_config_obj.api_key,
+                language=asr_language,
+                prompt="Quảng cáo TVC bằng tiếng Việt, thương hiệu, khuyến mãi, sản phẩm",
+                console=console,
+            )
+        else:
+            # Use local Whisper for non-OpenAI backends
+            asr = transcribe_audio_whisper(audio_path, model_name="small", language="vi")
+        
         # Full text then sentence-level labeling
         full_text = asr.get("text", "") or ""
+        audio_text_for_combination = full_text  # Lưu để kết hợp với frame captions
         sentences = _split_sentences(full_text)
         labeled_sentences = []
         s_ok = s_violate = s_unknown = 0
@@ -411,9 +537,51 @@ def process_video(job_id: str, video_path: str, backend: str, language: str, hf_
                 "percent_violations": round((s_violate / total_sent * 100.0), 2) if total_sent else 0.0,
             },
         }
-    except Exception:
+    except Exception as e:
         # If audio step fails (no ffmpeg/whisper), continue with frames only
-        pass
+        console.print(f"[yellow]Audio processing skipped: {e}[/yellow]")
+    
+    # Step 3: Nếu dùng OpenAI backend và có audio, kết hợp audio với frame captions
+    if backend == "openai" and audio_text_for_combination and frames_data:
+        try:
+            console.print(f"[cyan]Đang kết hợp audio transcript với frame captions...[/cyan]")
+            # Load OpenAI config
+            openai_config_obj = build_openai_caption_config(
+                api_key=None,
+                model=openai_model or None,
+                prompt=None,
+                temperature=None,
+                max_tokens=None,
+                target_language=language or None,
+            )
+            
+            # Kết hợp audio với từng frame caption
+            for frame_data in frames_data:
+                if frame_data.get("caption"):  # Chỉ cập nhật nếu đã có caption
+                    frame_captions_to_combine = [frame_data["caption"]]
+                    
+                    try:
+                        combined_caption = combine_audio_and_frame_captions(
+                            audio_text=audio_text_for_combination,
+                            frame_captions=frame_captions_to_combine,
+                            api_key=openai_config_obj.api_key,
+                            model=openai_config_obj.model,
+                            target_language=openai_config_obj.target_language,
+                            console=console,
+                        )
+                        if combined_caption:
+                            # Cập nhật caption trong frame_data
+                            frame_data["caption"] = combined_caption
+                    except Exception as e:
+                        console.print(f"[yellow]Không thể kết hợp audio với frame caption: {e}[/yellow]")
+                        # Giữ nguyên caption gốc
+            
+            # Cập nhật lại data["frames"] với captions đã được kết hợp
+            data["frames"] = sorted(frames_data, key=lambda x: x["second"])
+            console.print(f"[green]✓ Đã kết hợp audio với tất cả frame captions[/green]")
+        except Exception as e:
+            console.print(f"[yellow]Error combining audio with frame captions: {e}[/yellow]")
+            # Continue without combination
 
     with open(os.path.join(out_dir, "result.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -932,9 +1100,9 @@ def upload():
     else:
         return redirect(url_for("index"))
 
-    # Get backend from form (default to local)
-    backend = request.form.get("caption_backend", "local")
-    language = request.form.get("language", "vi")
+    # Get backend from form (default to openai)
+    backend = request.form.get("caption_backend", "openai")
+    language = "vi"  # Mặc định tiếng Việt
     # Get OpenAI config if using OpenAI backend
     openai_key_from_form = request.form.get("openai_key", "").strip()
     openai_model_from_form = request.form.get("openai_model", "").strip()
@@ -942,12 +1110,16 @@ def upload():
     openai_model = openai_model_from_form if openai_model_from_form else ""
     translate = True  # Always translate to Vietnamese
     
+    # Nếu có OpenAI key từ form, set vào environment variable tạm thời
+    if openai_key_from_form:
+        os.environ["OPENAI_API_KEY"] = openai_key_from_form
+    
     # Step 1: extract frames and caption immediately
     try:
-        # Get use_object_detection from form (default False)
-        use_object_detection = request.form.get("extract_scene") == "on"  # If "Scene description" is checked
-        use_llava = request.form.get("use_llava") == "on"
-        use_ocr_only = request.form.get("use_ocr_only") == "on"
+        # Mặc định không dùng object detection, llava, ocr_only (đã bỏ UI options)
+        use_object_detection = False
+        use_llava = False
+        use_ocr_only = False
         process_video(job_id, video_path, backend, language, hf_model, openai_model, translate, use_object_detection=use_object_detection, use_llava=use_llava, use_ocr_only=use_ocr_only)
     except Exception as e:
         # On error, clean up and show a simple error page
@@ -975,9 +1147,11 @@ def use_uploaded():
     if not name:
         return redirect(url_for("index"))
 
-    language = "vi"  # Auto translate to Vietnamese
-    # Force backend default model (ignore UI selection)
+    language = "vi"  # Mặc định tiếng Việt
+    # Force backend to openai (default)
+    backend = "openai"
     hf_model = ""
+    openai_model = ""
     translate = True  # Always translate to Vietnamese
 
     video_path = os.path.join(UPLOAD_DIR, name)
@@ -986,11 +1160,11 @@ def use_uploaded():
 
     job_id = str(uuid.uuid4())
     try:
-        # Get use_object_detection from form (default False)
-        use_object_detection = request.form.get("extract_scene") == "on"  # If "Scene description" is checked
-        use_llava = request.form.get("use_llava") == "on"
-        use_ocr_only = request.form.get("use_ocr_only") == "on"
-        process_video(job_id, video_path, "local", language, hf_model, "", translate, use_object_detection=use_object_detection, use_llava=use_llava, use_ocr_only=use_ocr_only)
+        # Mặc định không dùng object detection, llava, ocr_only
+        use_object_detection = False
+        use_llava = False
+        use_ocr_only = False
+        process_video(job_id, video_path, backend, language, hf_model, openai_model, translate, use_object_detection=use_object_detection, use_llava=use_llava, use_ocr_only=use_ocr_only)
     except Exception as e:
         return render_template("result.html", error=str(e), job_id=job_id, frames=[], out_dir="")
 
@@ -1148,6 +1322,13 @@ def label_job(job_id: str):
             new_item = dict(item)
             new_item["label_id"] = pred.get("label_id")
             new_item["label_score"] = pred.get("score")
+            # Xóa matched_banned_words nếu nhãn mới không phải vi phạm (label_id != 1)
+            # Khi gán nhãn lại bằng ML classifier, nếu nhãn mới không phải vi phạm thì xóa matched_banned_words cũ
+            # Điều này đảm bảo rằng nếu ML classifier đánh là đạt chuẩn, thì matched_banned_words sẽ bị xóa
+            if pred.get("label_id") != 1:
+                # Xóa matched_banned_words nếu có (dùng pop để tránh lỗi nếu key không tồn tại)
+                if "matched_banned_words" in new_item:
+                    del new_item["matched_banned_words"]
             updated.append(new_item)
         data["frames"] = updated
         # Compute and persist summary to result.json
@@ -1173,6 +1354,127 @@ def label_job(job_id: str):
         return redirect(url_for("result", job_id=job_id))
     except Exception as e:
         return render_template("result.html", error=str(e), job_id=job_id, frames=[], out_dir=out_dir)
+
+
+@app.route("/label-banned-words/<job_id>", methods=["POST"])
+def label_banned_words(job_id: str):
+    """Gán nhãn vi phạm dựa trên danh sách từ cấm trong data_ban.txt."""
+    from flask import jsonify
+    
+    out_dir = os.path.join(OUTPUT_DIR, job_id)
+    meta_path = os.path.join(out_dir, "result.json")
+    if not os.path.exists(meta_path):
+        return jsonify({"success": False, "message": "Không tìm thấy file result.json"}), 404
+    
+    try:
+        # Load banned words
+        banned_words = load_banned_words()
+        if not banned_words:
+            return jsonify({
+                "success": False,
+                "message": "Không thể tải danh sách từ cấm. Vui lòng kiểm tra file data_ban.txt."
+            }), 400
+        
+        # Load data
+        with open(meta_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        frames = data.get("frames", [])
+        audio_sentences = data.get("audio", {}).get("sentences", [])
+        
+        updated_frames = []
+        violations_count = 0
+        for item in frames:
+            cap = item.get("caption", "")
+            if cap:
+                result = check_banned_words(cap, banned_words)
+                new_item = dict(item)
+                new_item["label_id"] = result.get("label_id")
+                new_item["label_score"] = result.get("score")
+                if result.get("matched_words"):
+                    new_item["matched_banned_words"] = result.get("matched_words")
+                    violations_count += 1
+                else:
+                    # Nếu không có từ cấm, xóa matched_banned_words cũ (nếu có)
+                    new_item.pop("matched_banned_words", None)
+                updated_frames.append(new_item)
+            else:
+                updated_frames.append(item)
+        
+        # Also label audio sentences if available
+        audio_violations_count = 0
+        updated_audio_sentences = []
+        if audio_sentences:
+            for sent in audio_sentences:
+                text = sent.get("text", "")
+                if text:
+                    result = check_banned_words(text, banned_words)
+                    new_sent = dict(sent)
+                    new_sent["label_id"] = result.get("label_id")
+                    new_sent["label_score"] = result.get("score")
+                    if result.get("matched_words"):
+                        new_sent["matched_banned_words"] = result.get("matched_words")
+                        audio_violations_count += 1
+                    updated_audio_sentences.append(new_sent)
+                else:
+                    updated_audio_sentences.append(sent)
+            
+            if "audio" in data:
+                data["audio"]["sentences"] = updated_audio_sentences
+                # Recalculate audio summary
+                total_sent = len(updated_audio_sentences)
+                s_ok = sum(1 for s in updated_audio_sentences if s.get("label_id") == 0)
+                s_violate = sum(1 for s in updated_audio_sentences if s.get("label_id") == 1)
+                s_unknown = total_sent - s_ok - s_violate
+                data["audio"]["sentence_summary"] = {
+                    "total_sentences": total_sent,
+                    "num_compliant": s_ok,
+                    "num_violations": s_violate,
+                    "num_unknown": s_unknown,
+                    "percent_compliant": round((s_ok / total_sent * 100.0), 2) if total_sent else 0.0,
+                    "percent_violations": round((s_violate / total_sent * 100.0), 2) if total_sent else 0.0,
+                }
+        
+        data["frames"] = updated_frames
+        
+        # Compute and persist summary to result.json
+        try:
+            total = len(updated_frames)
+            num_ok = sum(1 for fr in updated_frames if fr.get("label_id") == 0)
+            num_violate = sum(1 for fr in updated_frames if fr.get("label_id") == 1)
+            num_unknown = total - num_ok - num_violate
+            pct_ok = round((num_ok / total * 100.0), 2) if total else 0.0
+            pct_violate = round((num_violate / total * 100.0), 2) if total else 0.0
+            data["summary"] = {
+                "total_frames": total,
+                "num_compliant": num_ok,
+                "num_violations": num_violate,
+                "num_unknown": num_unknown,
+                "percent_compliant": pct_ok,
+                "percent_violations": pct_violate,
+            }
+        except Exception:
+            pass
+        
+        with open(meta_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        message = f"✓ Đã gán nhãn thành công! Phát hiện {violations_count} frame và {audio_violations_count} câu audio vi phạm."
+        return jsonify({
+            "success": True,
+            "message": message,
+            "stats": {
+                "frame_violations": violations_count,
+                "audio_violations": audio_violations_count,
+                "total_frames": len(updated_frames),
+                "total_audio_sentences": len(updated_audio_sentences) if audio_sentences else 0
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Lỗi khi gán nhãn: {str(e)}"
+        }), 500
 
 
 @app.route("/outputs/<job_id>/frames/<path:filename>")

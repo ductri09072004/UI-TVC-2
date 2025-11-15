@@ -139,13 +139,17 @@ DEFAULT_REQUEST_DELAY = 0.5  # Giây
 # Có thể thay đổi giá trị này để dùng prompt khác
 SELECTED_PROMPT_STYLE = "default"  # "default", "fashion", "food", "product", "people"
 
+# Cấu hình cho audio transcription (OpenAI Whisper API)
+# Prompt mặc định cho audio transcription
+DEFAULT_AUDIO_PROMPT = "Quảng cáo TVC bằng tiếng Việt, thương hiệu, khuyến mãi, sản phẩm"
+
 
 def get_openai_config():
     """
     Trả về cấu hình OpenAI hoàn chỉnh.
     
     Returns:
-        dict: Dictionary chứa api_key, model, prompt, temperature, max_tokens, target_language
+        dict: Dictionary chứa api_key, model, prompt, temperature, max_tokens, target_language, audio_prompt
     """
     import os
     
@@ -163,6 +167,7 @@ def get_openai_config():
         "max_tokens": DEFAULT_MAX_TOKENS,
         "target_language": DEFAULT_TARGET_LANGUAGE,
         "prompt_style": SELECTED_PROMPT_STYLE,
+        "audio_prompt": DEFAULT_AUDIO_PROMPT,
     }
 
 
