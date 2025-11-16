@@ -946,25 +946,32 @@ def normalize_caption_for_classification(
 **Mô tả gốc:**
 {caption}
 
-**Yêu cầu:**
+**Yêu cầu QUAN TRỌNG:**
 1. Loại bỏ tất cả tên thương hiệu, tên sản phẩm cụ thể (ví dụ: "Sài Gòn Chiêu", "Coca Cola", "Pepsi", v.v.)
-2. Đơn giản hóa câu theo cấu trúc SVO (Subject - Verb - Object) nhưng phải ĐÚNG NGỮ PHÁP và TỰ NHIÊN
-3. Giữ lại ý nghĩa chính: ai làm gì với cái gì
-4. Loại bỏ các từ mô tả phức tạp, từ ngữ marketing không cần thiết
-5. Sắp xếp lại thứ tự từ để câu có nghĩa và tự nhiên hơn (ưu tiên hành động/cảm xúc chính)
-6. Nếu có nhiều hành động, sắp xếp theo thứ tự logic: hành động chính trước, hành động phụ sau (dùng "khi", "trong lúc", v.v.)
-7. Giữ câu ngắn gọn, tối đa 15-20 từ
-8. Viết bằng tiếng {target_language}
+2. KHÔNG được dùng dấu phẩy để ngắt câu - phải viết thành MỘT CÂU LIỀN MẠCH không có dấu phẩy
+3. KHÔNG được dùng dấu chấm (.) - loại bỏ tất cả dấu chấm trong câu
+4. Kết hợp tất cả hành động, cảm xúc, tính từ thành một câu đơn giản, tự nhiên
+5. Đặt tính từ/cảm xúc gần chủ ngữ để câu tự nhiên hơn (ví dụ: "Nhóm bạn trẻ sảng khoái cầm bia" thay vì "Nhóm bạn trẻ cầm bia, sảng khoái")
+6. Loại bỏ các từ mô tả phức tạp, từ ngữ marketing không cần thiết (ví dụ: "thưởng thức sự sảng khoái" -> "sảng khoái")
+7. Giữ lại ý nghĩa chính: ai làm gì với cái gì, ở đâu, như thế nào
+8. Giữ câu ngắn gọn, tối đa 15-20 từ
+9. Viết bằng tiếng {target_language}
+10. Câu phải ĐÚNG NGỮ PHÁP và TỰ NHIÊN như người Việt nói
 
-**Ví dụ tốt:**
+**Ví dụ tốt (KHÔNG có dấu phẩy):**
 - Input: "Nhóm bàn trẻ cầm bia Sài Gòn Chiêu, vui vẻ tạo dáng trong không gian tối, tận hưởng sự sảng khoái và chất riêng."
-- Output: "Nhóm bạn trẻ vui vẻ cầm bia trong không gian tối"
+- Output: "Nhóm bạn trẻ vui vẻ sảng khoái cầm bia trong không gian tối"
 
 - Input: "Nhóm thanh niên chờ nhận bia, cảm thấy sảng khoái."
-- Output: "Nhóm thanh niên cảm thấy sảng khoái khi chờ nhận bia"
+- Output: "Nhóm thanh niên sảng khoái chờ nhận bia"
 
 - Input: "Người phụ nữ mua sản phẩm ABC, hài lòng với chất lượng."
-- Output: "Người phụ nữ hài lòng khi mua sản phẩm"
+- Output: "Người phụ nữ hài lòng mua sản phẩm"
+
+- Input: "Nhóm bạn trẻ cầm chai bia, thưởng thức sự sảng khoái trong không khí vui vẻ"
+- Output: "Nhóm bạn trẻ sảng khoái cầm chai bia trong không khí vui vẻ"
+
+**Lưu ý:** Tuyệt đối KHÔNG dùng dấu phẩy và KHÔNG dùng dấu chấm. Viết thành một câu liền mạch, tự nhiên, không có dấu câu.
 
 **Mô tả đã chuẩn hóa:**"""
     
@@ -977,7 +984,7 @@ def normalize_caption_for_classification(
             messages=[
                 {
                     "role": "system",
-                    "content": f"Bạn là chuyên gia chuẩn hóa mô tả quảng cáo bằng tiếng {target_language}. Loại bỏ tên thương hiệu, đơn giản hóa theo SVO nhưng phải đảm bảo câu đúng ngữ pháp, tự nhiên và có nghĩa. Sắp xếp lại thứ tự từ để ưu tiên hành động/cảm xúc chính."
+                    "content": f"Bạn là chuyên gia chuẩn hóa mô tả quảng cáo bằng tiếng {target_language}. Loại bỏ tên thương hiệu, đơn giản hóa thành MỘT CÂU LIỀN MẠCH KHÔNG CÓ DẤU PHẨY VÀ KHÔNG CÓ DẤU CHẤM. Đặt tính từ/cảm xúc gần chủ ngữ để câu tự nhiên. Câu phải đúng ngữ pháp và tự nhiên như người Việt nói."
                 },
                 {
                     "role": "user",
@@ -990,6 +997,9 @@ def normalize_caption_for_classification(
         
         normalized = response.choices[0].message.content.strip()
         normalized = normalized.replace("\n", " ").strip()
+        
+        # Loại bỏ tất cả dấu chấm (.) trong câu
+        normalized = normalized.replace(".", "").strip()
         
         # Fallback: nếu kết quả rỗng hoặc quá dài, trả về caption gốc đã được xử lý đơn giản
         if not normalized or len(normalized) > len(caption) * 1.5:
