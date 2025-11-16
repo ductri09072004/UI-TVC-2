@@ -1140,7 +1140,7 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.option("--openai_temperature", default=None, type=float, help="Temperature (overrides openai_config.py).")
 @click.option("--openai_max_tokens", default=None, type=int, help="Max tokens (overrides openai_config.py).")
 @click.option("--clf_dir", default=None, help="Full directory path of trained text classifier to label captions. Use --list-models to see available models.")
-@click.option("--clf_model", default="output_moderation", type=click.Choice(["output_moderation", "output_moderation_mota"]), help="Classifier model name (output_moderation or output_moderation_mota). This will auto-build path from TVC-AI directory.")
+@click.option("--clf_model", default="output_moderation_plus", type=click.Choice(["output_moderation_plus", "output_moderation_mota"]), help="Classifier model name (output_moderation_plus or output_moderation_mota). This will auto-build path from TVC-AI directory.")
 @click.option("--list-models", is_flag=True, default=False, help="List all available classifier models and exit")
 @click.option("--language", default="vi", help="Preferred caption language (e.g., vi, en)")
 @click.option("--translate", is_flag=True, default=False, help="Translate captions to the target language if backend returns other language")
@@ -1181,7 +1181,7 @@ def main(
         models_found = False
         if os.path.isdir(tvc_ai_dir):
             for item in sorted(os.listdir(tvc_ai_dir)):
-                if item.startswith("output_moderation"):
+                if item.startswith("output_moderation_plus"):
                     model_dir = os.path.join(tvc_ai_dir, item)
                     config_file = os.path.join(model_dir, "config.json")
                     if os.path.isdir(model_dir) and os.path.exists(config_file):
