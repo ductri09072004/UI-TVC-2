@@ -941,7 +941,7 @@ def classify_text(text: str, model_dir: str, min_score: Optional[float] = None) 
     # Get threshold from parameter or environment variable
     # Default 0.7 means model must be at least 70% confident to assign a label
     if min_score is None:
-        min_score = float(os.environ.get("CLASSIFIER_MIN_SCORE", "0.7"))
+        min_score = float(os.environ.get("CLASSIFIER_MIN_SCORE", "0.6"))
     
     tokenizer, model, device = _get_text_classifier(model_dir)
     import torch

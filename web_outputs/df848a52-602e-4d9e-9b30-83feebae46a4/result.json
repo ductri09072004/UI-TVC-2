@@ -6,77 +6,115 @@
     {
       "second": 0,
       "caption": "Người phụ nữ mặc váy trắng thanh lịch tự tin đi qua khung cảnh sáng, quảng bá sản phẩm Pantene.",
-      "caption_original": "Người phụ nữ mặc váy trắng thanh lịch tự tin đi qua khung cảnh sáng, quảng bá sản phẩm Pantene."
+      "caption_original": "Người phụ nữ mặc váy trắng thanh lịch tự tin đi qua khung cảnh sáng, quảng bá sản phẩm Pantene.",
+      "label_id": 1,
+      "label_score": 0.9344478249549866
     },
     {
       "second": 1,
       "caption": "Người phụ nữ mặc áo trắng, tóc dài và bóng mượt, đang tạo dáng tự tin với sản phẩm chăm sóc tóc.",
-      "caption_original": "Người phụ nữ mặc áo trắng, tóc dài và bóng mượt, đang tạo dáng tự tin với sản phẩm chăm sóc tóc."
+      "caption_original": "Người phụ nữ mặc áo trắng, tóc dài và bóng mượt, đang tạo dáng tự tin với sản phẩm chăm sóc tóc.",
+      "label_id": 0,
+      "label_score": 0.8332928419113159
     },
     {
       "second": 2,
       "caption": "Người phụ nữ mặc áo trắng, tóc dài, đang tạo dáng và vuốt tóc, quảng cáo sản phẩm chăm sóc tóc.",
-      "caption_original": "Người phụ nữ mặc áo trắng, tóc dài, đang tạo dáng và vuốt tóc, quảng cáo sản phẩm chăm sóc tóc."
+      "caption_original": "Người phụ nữ mặc áo trắng, tóc dài, đang tạo dáng và vuốt tóc, quảng cáo sản phẩm chăm sóc tóc.",
+      "label_id": 1,
+      "label_score": 0.7422356009483337
     },
     {
       "second": 3,
       "caption": "Cô gái với tóc dài, màu nâu sáng, đang chăm sóc tóc bằng cách vuốt nhẹ sợi tóc, tạo cảm giác tinh tế và chăm sóc.",
-      "caption_original": "Cô gái với tóc dài, màu nâu sáng, đang chăm sóc tóc bằng cách vuốt nhẹ sợi tóc, tạo cảm giác tinh tế và chăm sóc."
+      "caption_original": "Cô gái với tóc dài, màu nâu sáng, đang chăm sóc tóc bằng cách vuốt nhẹ sợi tóc, tạo cảm giác tinh tế và chăm sóc.",
+      "label_id": 0,
+      "label_score": 0.8775604367256165
     },
     {
       "second": 4,
       "caption": "Cô gái trẻ mặc áo trắng đang cầm lọn tóc hư tổn, thể hiện sự lo lắng về tình trạng tóc của mình.",
-      "caption_original": "Cô gái trẻ mặc áo trắng đang cầm lọn tóc hư tổn, thể hiện sự lo lắng về tình trạng tóc của mình."
+      "caption_original": "Cô gái trẻ mặc áo trắng đang cầm lọn tóc hư tổn, thể hiện sự lo lắng về tình trạng tóc của mình.",
+      "label_id": 1,
+      "label_score": 0.7970646619796753
     },
     {
       "second": 5,
       "caption": "Người phụ nữ mặc áo trắng đang tạo dáng, vuốt tóc dài và nhìn thẳng về phía camera, truyền tải thông điệp về sản phẩm chăm sóc tóc.",
-      "caption_original": "Người phụ nữ mặc áo trắng đang tạo dáng, vuốt tóc dài và nhìn thẳng về phía camera, truyền tải thông điệp về sản phẩm chăm sóc tóc."
+      "caption_original": "Người phụ nữ mặc áo trắng đang tạo dáng, vuốt tóc dài và nhìn thẳng về phía camera, truyền tải thông điệp về sản phẩm chăm sóc tóc.",
+      "label_id": 1,
+      "label_score": 0.6228739023208618
     },
     {
       "second": 6,
       "caption": "Sản phẩm dầu xả Pantene Collagen nằm giữa khung hình, xung quanh là các viên gel màu vàng và tím lấp lánh.",
-      "caption_original": "Sản phẩm dầu xả Pantene Collagen nằm giữa khung hình, xung quanh là các viên gel màu vàng và tím lấp lánh."
+      "caption_original": "Sản phẩm dầu xả Pantene Collagen nằm giữa khung hình, xung quanh là các viên gel màu vàng và tím lấp lánh.",
+      "label_id": 1,
+      "label_score": 0.9146672487258911
     },
     {
       "second": 7,
       "caption": "Sản phẩm dầu xả Pantene Collagen nổi bật trên nền trắng, với các viên nang màu vàng và tím xung quanh, tạo cảm giác sang trọng.",
-      "caption_original": "Sản phẩm dầu xả Pantene Collagen nổi bật trên nền trắng, với các viên nang màu vàng và tím xung quanh, tạo cảm giác sang trọng."
+      "caption_original": "Sản phẩm dầu xả Pantene Collagen nổi bật trên nền trắng, với các viên nang màu vàng và tím xung quanh, tạo cảm giác sang trọng.",
+      "label_id": 1,
+      "label_score": 0.8508498668670654
     },
     {
       "second": 8,
       "caption": "Người phụ nữ có tóc dài, mượt, đang nghiêng đầu, xung quanh là các viên vitamin B5 và collagen bay lơ lửng.",
-      "caption_original": "Người phụ nữ có tóc dài, mượt, đang nghiêng đầu, xung quanh là các viên vitamin B5 và collagen bay lơ lửng."
+      "caption_original": "Người phụ nữ có tóc dài, mượt, đang nghiêng đầu, xung quanh là các viên vitamin B5 và collagen bay lơ lửng.",
+      "label_id": 1,
+      "label_score": 0.9314276576042175
     },
     {
       "second": 9,
       "caption": "Sợi tóc được bao phủ bởi các giọt dầu màu vàng và tím, nhấn mạnh khả năng phục hồi hư tổn của sản phẩm P&G.",
-      "caption_original": "Sợi tóc được bao phủ bởi các giọt dầu màu vàng và tím, nhấn mạnh khả năng phục hồi hư tổn của sản phẩm P&G."
+      "caption_original": "Sợi tóc được bao phủ bởi các giọt dầu màu vàng và tím, nhấn mạnh khả năng phục hồi hư tổn của sản phẩm P&G.",
+      "label_id": 1,
+      "label_score": 0.9055452346801758
     },
     {
       "second": 10,
       "caption": "Sản phẩm chăm sóc tóc với thiết kế bóng bẩy, nhấn mạnh khả năng phục hồi hư tổn đến 10 lần, tạo sự thu hút mạnh",
-      "caption_original": "Sản phẩm chăm sóc tóc với thiết kế bóng bẩy, nhấn mạnh khả năng phục hồi hư tổn đến 10 lần, tạo sự thu hút mạnh"
+      "caption_original": "Sản phẩm chăm sóc tóc với thiết kế bóng bẩy, nhấn mạnh khả năng phục hồi hư tổn đến 10 lần, tạo sự thu hút mạnh",
+      "label_id": 1,
+      "label_score": 0.903701663017273
     },
     {
       "second": 11,
       "caption": "Khung hình hiển thị các sợi tóc bóng mượt, với chữ \"Phục hồi hư tổn đến 10 lần\" nổi bật, nhấn mạnh hiệu quả sản phẩm chăm sóc tóc.",
-      "caption_original": "Khung hình hiển thị các sợi tóc bóng mượt, với chữ \"Phục hồi hư tổn đến 10 lần\" nổi bật, nhấn mạnh hiệu quả sản phẩm chăm sóc tóc."
+      "caption_original": "Khung hình hiển thị các sợi tóc bóng mượt, với chữ \"Phục hồi hư tổn đến 10 lần\" nổi bật, nhấn mạnh hiệu quả sản phẩm chăm sóc tóc.",
+      "label_id": 1,
+      "label_score": 0.9308624863624573
     },
     {
       "second": 12,
       "caption": "Người phụ nữ mặc áo trắng tươi cười, đang cầm tuýp dầu xả Pantene, đứng trước nền vàng sáng.",
-      "caption_original": "Người phụ nữ mặc áo trắng tươi cười, đang cầm tuýp dầu xả Pantene, đứng trước nền vàng sáng."
+      "caption_original": "Người phụ nữ mặc áo trắng tươi cười, đang cầm tuýp dầu xả Pantene, đứng trước nền vàng sáng.",
+      "label_id": null,
+      "label_score": 0.5482073426246643
     },
     {
       "second": 13,
       "caption": "Người phụ nữ mặc áo trắng tươi cười, vuốt tóc dài óng ả, nổi bật trên nền vàng ánh kim.",
-      "caption_original": "Người phụ nữ mặc áo trắng tươi cười, vuốt tóc dài óng ả, nổi bật trên nền vàng ánh kim."
+      "caption_original": "Người phụ nữ mặc áo trắng tươi cười, vuốt tóc dài óng ả, nổi bật trên nền vàng ánh kim.",
+      "label_id": 1,
+      "label_score": 0.9178722500801086
     },
     {
       "second": 14,
       "caption": "Hai tuýp dầu xả Pantene màu vàng kim nổi bật trên nền sáng, nhấn mạnh công dụng siêu dưỡng cho tóc.",
-      "caption_original": "Hai tuýp dầu xả Pantene màu vàng kim nổi bật trên nền sáng, nhấn mạnh công dụng siêu dưỡng cho tóc."
+      "caption_original": "Hai tuýp dầu xả Pantene màu vàng kim nổi bật trên nền sáng, nhấn mạnh công dụng siêu dưỡng cho tóc.",
+      "label_id": 0,
+      "label_score": 0.6042064428329468
     }
-  ]
+  ],
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 3,
+    "num_violations": 11,
+    "num_unknown": 1,
+    "percent_compliant": 20.0,
+    "percent_violations": 73.33
+  }
 }

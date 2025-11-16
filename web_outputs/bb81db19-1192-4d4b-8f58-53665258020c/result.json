@@ -8,147 +8,147 @@
       "caption": "Người phụ nữ nhìn chăm chú người đàn ông sửa xe, trong khi Downy ngăn 99% mùi hôi,",
       "caption_original": "Người đàn ông mặc áo sơ mi trắng đang sửa xe máy, trong khi người phụ nữ mặc áo tím đứng bên cạnh, nhìn chăm chú.",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.8586100339889526
     },
     {
       "second": 1,
       "caption": "Hai người phụ nữ ngắm xe máy bên tiệm giặt, cảm nhận hương thơm ngăn mùi 99% từ Downy gói khổng lồ mới.",
       "caption_original": "Hai người phụ nữ mặc áo dài và váy đứng trong tiệm giặt, nhìn về phía xe máy màu trắng bên cạnh.",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.8125685453414917
     },
     {
       "second": 2,
       "caption": "Người phụ nữ với áo dài tím ngắm xe máy và nói \"Thơm Downy ngăn 99% vi khuẩn gây mùi, giữ hương thơm qua đêm.\"",
       "caption_original": "Người phụ nữ mặc áo dài tím đứng bên cạnh người đàn ông mặc áo trắng, họ cùng nhìn vào xe máy trong bối cảnh cửa hàng giặt",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.9246587753295898
     },
     {
       "second": 3,
       "caption": "Người phụ nữ với áo dài tím lau xe máy với Downy, ngăn 99% mùi hôi, giữ thơm qua đêm.",
       "caption_original": "Người phụ nữ mặc áo dài tím và người đàn ông trong áo sơ mi trắng đang lau xe máy, biểu cảm lo lắng vì vết bẩn.",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.607888400554657
     },
     {
       "second": 4,
       "caption": "Người phụ nữ cầm ô mỉm",
       "caption_original": "Người phụ nữ mặc áo vest tím cầm ô đứng dưới mưa, mỉm cười vui vẻ, quảng bá sản phẩm nước xả vải Downy.",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.8516541719436646
     },
     {
       "second": 5,
       "caption": "Người phụ nữ cầm ô vui vẻ dưới mưa, cảm",
       "caption_original": "Người phụ nữ mặc áo tím tươi cười vui vẻ cầm ô đứng dưới mưa, quảng cáo sản phẩm Downy.",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.8163414597511292
     },
     {
       "second": 6,
       "caption": "Hai người trẻ tuổi ngạc nhiên nhìn Downy, sản phẩm ngăn 99% vi khuẩn gây mùi, thơm suốt đêm.",
       "caption_original": "Hai người trẻ tuổi mặc trang phục lịch sự, ngạc nhiên nhìn về phía camera, bên cạnh là sản phẩm Downy.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.931467592716217
     },
     {
       "second": 7,
       "caption": "Người phụ nữ cầm chai Downy lớn, ngăn 99% vi khuẩn gây mùi,",
       "caption_original": "Người phụ nữ mặc áo phông vui vẻ đứng cạnh máy giặt, cầm chai Downy lớn với hoa tím xung quanh.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.9198257923126221
     },
     {
       "second": 8,
       "caption": "Người phụ nữ vui vẻ đứng cạnh chai Downy, ngăn 99% vi khuẩn gây mùi, đứng cạnh chai Downy, ngăn 99% vi khuẩn gây mùi, mang lại hương thơm suốt đêm.",
       "caption_original": "Người phụ nữ mặc áo phông sáng vui vẻ đứng cạnh chai Downy, xung quanh là hoa tím bay lượn.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.8993237614631653
     },
     {
       "second": 9,
       "caption": "Người phụ nữ cầm chai Downy, giới thiệu sản phẩm ngăn 99% vi khuẩn gây mùi,",
       "caption_original": "Người phụ nữ mặc áo tím tươi cười, đứng bên chai Downy, giới thiệu sản phẩm với bối cảnh phòng giặt",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.9289770722389221
     },
     {
       "second": 10,
       "caption": "Người phụ nữ đổ nước xả Downy vào máy giặt, ngăn 99% vi khuẩn gây mùi, mang lại hương thơm tươi mới.",
       "caption_original": "Người phụ nữ mặc áo trắng đang đổ nước xả Downy vào máy giặt, hoa tím rơi xung quanh tạo cảm giác tươi mới.",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.7162267565727234
     },
     {
       "second": 11,
       "caption": "Hai người vui vẻ cầm chai Downy, ngăn 99% vi khuẩn gây mùi, thơm suốt đêm trong nhà.",
       "caption_original": "Hai người mặc trang phục công sở vui vẻ đứng trong nhà, cầm chai Downy, giới thiệu khả năng kháng khuẩn 99%.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.9106607437133789
     },
     {
       "second": 12,
       "caption": "Cặp đôi tự tin cầm chai Downy, ngăn 99% vi khuẩn gây mùi, thơm suốt đêm trong không gian thoải mái.",
       "caption_original": "Cặp đôi mặc trang phục lịch sự vui vẻ đứng trong nhà, cầm chai nước xả vải Downy, thể hiện sự tự tin và thoải mái.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.9088988900184631
     },
     {
       "second": 13,
       "caption": "Người phụ nữ tự tin bên chai Downy ngăn 99% vi khuẩn gây mùi, thơm suốt đêm với gói khổng lồ mới.",
       "caption_original": "Người phụ nữ mặc áo dài tím ngồi trên ghế, tạo dáng tự tin bên hai chai nước xả Downy màu sắc nổi bật.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.92781001329422
     },
     {
       "second": 14,
       "caption": "Người phụ nữ cầm chai Downy Huyền Bí và Đam, ngăn 99% vi khuẩn gây mùi, vẫn thơm suốt đêm.",
       "caption_original": "Người phụ nữ mặc áo tím ngồi vui vẻ bên cửa sổ, cầm chai nước xả Downy Huyền Bí và Đam",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.9132811427116394
     },
     {
       "second": 15,
       "caption": "Người phụ nữ cầm hộp bột giặt Downy, ngăn 99% vi khuẩn gây mùi, vẫn thơm qua đêm.",
       "caption_original": "Người phụ nữ mặc váy tím tươi cười, đang giơ hộp bột giặt Downy bên cạnh giá phơi quần",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.6006067991256714
     },
     {
       "second": 16,
       "caption": "Người phụ nữ cầm hộp Downy ngăn mùi 99% trong không gian hiện đại, tươi",
       "caption_original": "Người phụ nữ mặc áo vest tím tươi cười, đang cầm hộp Downy bên cạnh giá phơi đồ trong không gian hiện đại.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": null,
+      "label_score": 0.5725513100624084
     },
     {
       "second": 17,
       "caption": "Người phụ nữ tự tin cầm hộp Downy, ngăn 99% vi khuẩn gây mùi, thơm suốt đêm trong không gian thiên nhiên.",
       "caption_original": "Người phụ nữ mặc áo trắng đang nắm chặt hộp Downy, thể hiện sự mạnh mẽ và tự tin giữa không gian thiên nhiên.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": 1,
+      "label_score": 0.9095240831375122
     },
     {
       "second": 18,
       "caption": "Người phụ nữ cầm hộp Downy ngăn 99% vi khuẩn gây mùi,",
       "caption_original": "Người phụ nữ mặc áo trắng nhẹ nhàng cầm hộp Downy, đứng giữa không gian có hoa tím, thể hiện sự tươi mới và thơm mát.",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": null,
+      "label_score": 0.5919792652130127
     },
     {
       "second": 19,
       "caption": "\"Chiếc giá treo quần áo chứa trang phục thơm Downy ngăn 99% vi khuẩn gây mùi, giữ hương thơm qua đêm.\"",
       "caption_original": "Một chiếc giá treo quần áo chứa nhiều trang phục màu sắc nhẹ nhàng, với chữ \"Thơmmmm\" nổi bật",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": null,
+      "label_score": 0.5804833173751831
     },
     {
       "second": 20,
       "caption": "Hai hộp bột giặt Downy ngăn mùi hiệu quả, mang lại hương thơm hấp dẫn suốt đêm, nổi bật trên nền hoa tím.",
       "caption_original": "Hai hộp bột giặt Downy đặt cạnh nhau, nền hoa tím nổi bật, chữ \"Thơmmmmm\" lớn thể hiện hương thơm hấp dẫn.",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.8201108574867249
     }
   ],
   "audio": {
@@ -157,28 +157,25 @@
       {
         "index": 1,
         "text": "Thôi quá, phải thôi trong nhà, hết cách rồi, dễ thiếu, tạm lưu hết cách Em Downy, thơm Ngăn 99% sự phát triển phiên khuẩn gây mùi Downy, thôi trong nhà nhầm, thơm Downy, gói khổng lồ mới, thơm Với các bà sức mạnh ngăn mùi, thơi qua đêm vẫn thơm",
-        "label_id": 0,
-        "label_score": 0.0,
-        "matched_banned_words": [
-          "qua đêm"
-        ]
+        "label_id": 1,
+        "label_score": 0.9322980642318726
       }
     ],
     "sentence_summary": {
       "total_sentences": 1,
-      "num_compliant": 1,
-      "num_violations": 0,
+      "num_compliant": 0,
+      "num_violations": 1,
       "num_unknown": 0,
-      "percent_compliant": 100.0,
-      "percent_violations": 0.0
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
     }
   },
   "summary": {
     "total_frames": 21,
-    "num_compliant": 21,
-    "num_violations": 0,
-    "num_unknown": 0,
-    "percent_compliant": 100.0,
-    "percent_violations": 0.0
+    "num_compliant": 8,
+    "num_violations": 10,
+    "num_unknown": 3,
+    "percent_compliant": 38.1,
+    "percent_violations": 47.62
   }
 }

@@ -5,10 +5,10 @@
   "frames": [
     {
       "second": 0,
-      "caption": "Người đàn ông mặc áo vest đỏ và kính đen đang nhìn chăm chú, tạo không khí bí ẩn trong không gian tối.",
+      "caption": "Người đàn ông mặc áo vest đỏ và kính đen đang nhìn chăm chú",
       "caption_original": "Người đàn ông mặc áo vest đỏ và kính đen đang nhìn chăm chú, tạo không khí bí ẩn trong không gian tối.",
       "label_id": 0,
-      "label_score": 0.0
+      "label_score": 0.7437536716461182
     },
     {
       "second": 1,
@@ -17,7 +17,6 @@
       "label_id": 1,
       "label_score": 1.0,
       "matched_banned_words": [
-        "88",
         "man88"
       ]
     },
@@ -28,9 +27,8 @@
       "label_id": 1,
       "label_score": 1.0,
       "matched_banned_words": [
-        "rượu",
-        "88",
-        "man88"
+        "man88",
+        "rượu"
       ]
     },
     {
@@ -91,7 +89,6 @@
       "label_id": 1,
       "label_score": 1.0,
       "matched_banned_words": [
-        "88",
         "man88"
       ]
     },
@@ -120,8 +117,8 @@
       "second": 11,
       "caption": "Xin lỗi, tôi không thể giúp với yêu cầu",
       "caption_original": "Xin lỗi, tôi không thể giúp với yêu cầu",
-      "label_id": 0,
-      "label_score": 0.0
+      "label_id": null,
+      "label_score": 0.504114031791687
     },
     {
       "second": 12,
@@ -136,10 +133,10 @@
   ],
   "summary": {
     "total_frames": 13,
-    "num_compliant": 2,
+    "num_compliant": 1,
     "num_violations": 11,
-    "num_unknown": 0,
-    "percent_compliant": 15.38,
+    "num_unknown": 1,
+    "percent_compliant": 7.69,
     "percent_violations": 84.62
   }
 }
