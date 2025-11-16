@@ -60,6 +60,7 @@ class CaptionResult:
     image_path: str
     caption: str
     caption_original: Optional[str] = None  # Caption gốc trước khi dịch
+    caption_for_classification: Optional[str] = None  # Caption đã chuẩn hóa cho model gán nhãn (loại bỏ tên thương hiệu, đơn giản hóa)
 
 
 DEFAULT_OPENAI_CAPTION_PROMPT = (
@@ -893,6 +894,125 @@ def _get_text_classifier(model_dir: str):
         raise RuntimeError(f"Cannot load classifier from: {model_dir}. {e}")
 
 
+def normalize_caption_for_classification(
+    caption: str,
+    api_key: Optional[str] = None,
+    model: str = "gpt-4o-mini",
+    target_language: str = "vi",
+    console=None,
+) -> str:
+    """Chuẩn hóa caption cho model gán nhãn: loại bỏ tên thương hiệu, đơn giản hóa theo SVO.
+    
+    Args:
+        caption: Caption gốc cần chuẩn hóa
+        api_key: OpenAI API key (if None, uses OPENAI_API_KEY env or openai_config.py)
+        model: OpenAI model to use
+        target_language: Target language
+        console: Console object for logging (optional)
+    
+    Returns:
+        Caption đã được chuẩn hóa (đơn giản hóa, loại bỏ tên thương hiệu)
+    """
+    if not caption or not caption.strip():
+        return caption
+    
+    try:
+        from openai import OpenAI
+    except ImportError:
+        # Nếu không có OpenAI, trả về caption gốc
+        return caption
+    
+    # Get API key
+    key = api_key
+    if not key:
+        try:
+            from openai_config import get_openai_config
+            config = get_openai_config()
+            key = config.get("api_key")
+        except ImportError:
+            pass
+    
+    if not key:
+        key = os.environ.get("OPENAI_API_KEY")
+    
+    if not key:
+        # Nếu không có API key, trả về caption gốc
+        return caption
+    
+    client = OpenAI(api_key=key)
+    
+    prompt = f"""Bạn là chuyên gia chuẩn hóa mô tả quảng cáo. Hãy đơn giản hóa câu mô tả sau theo yêu cầu:
+
+**Mô tả gốc:**
+{caption}
+
+**Yêu cầu:**
+1. Loại bỏ tất cả tên thương hiệu, tên sản phẩm cụ thể (ví dụ: "Sài Gòn Chiêu", "Coca Cola", "Pepsi", v.v.)
+2. Đơn giản hóa câu theo cấu trúc SVO (Subject - Verb - Object)
+3. Giữ lại ý nghĩa chính: ai làm gì với cái gì
+4. Loại bỏ các từ mô tả phức tạp, từ ngữ marketing không cần thiết
+5. Giữ câu ngắn gọn, tối đa 15-20 từ
+6. Viết bằng tiếng {target_language}
+
+**Ví dụ:**
+- Input: "Nhóm bàn trẻ cầm bia Sài Gòn Chiêu, vui vẻ tạo dáng trong không gian tối, tận hưởng sự sảng khoái và chất riêng."
+- Output: "Nhóm bạn trẻ vui vẻ cầm bia trong không gian tối"
+
+**Mô tả đã chuẩn hóa:**"""
+    
+    try:
+        if console:
+            console.print(f"[dim]Đang chuẩn hóa caption cho classification...[/dim]")
+        
+        response = client.chat.completions.create(
+            model=model,
+            messages=[
+                {
+                    "role": "system",
+                    "content": f"Bạn là chuyên gia chuẩn hóa mô tả quảng cáo bằng tiếng {target_language}. Loại bỏ tên thương hiệu và đơn giản hóa theo SVO."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.2,  # Thấp để đảm bảo tính nhất quán
+            max_tokens=100,
+        )
+        
+        normalized = response.choices[0].message.content.strip()
+        normalized = normalized.replace("\n", " ").strip()
+        
+        # Fallback: nếu kết quả rỗng hoặc quá dài, trả về caption gốc đã được xử lý đơn giản
+        if not normalized or len(normalized) > len(caption) * 1.5:
+            # Thử extract SVO từ caption gốc
+            if extract_svo:
+                try:
+                    s, v, o = extract_svo(caption)
+                    parts = [p for p in [s, v, o] if p and p.strip()]
+                    if parts:
+                        normalized = " ".join(parts)
+                except Exception:
+                    normalized = caption
+            else:
+                normalized = caption
+        
+        return normalized
+    except Exception as e:
+        if console:
+            console.print(f"[yellow]Warning: Không thể chuẩn hóa caption bằng GPT: {e}[/yellow]")
+        # Fallback: extract SVO từ caption gốc
+        if extract_svo:
+            try:
+                s, v, o = extract_svo(caption)
+                parts = [p for p in [s, v, o] if p and p.strip()]
+                if parts:
+                    return " ".join(parts)
+            except Exception:
+                pass
+        return caption
+
+
 def _convert_to_svo_format(text: str) -> str:
     """Convert caption text to SVO format for classification.
     
@@ -1220,19 +1340,37 @@ def main(
                     else:
                         final_caption = ""
                 
+                # Chuẩn hóa caption cho classification (chỉ khi dùng OpenAI backend)
+                caption_for_clf = None
+                if caption_backend == "openai" and openai_config and final_caption:
+                    try:
+                        caption_for_clf = normalize_caption_for_classification(
+                            final_caption,
+                            api_key=openai_config.api_key,
+                            model=openai_config.model,
+                            target_language=openai_config.target_language,
+                            console=console,
+                        )
+                    except Exception as e:
+                        console.print(f"[yellow]Warning: Không thể chuẩn hóa caption: {e}[/yellow]")
+                        caption_for_clf = None
+                
                 # Lưu caption tổng hợp cho tất cả frames trong nhóm
                 for sec, image_path in zip(group_seconds, group_image_paths):
                     results.append(CaptionResult(
                         second=sec, 
                         image_path=image_path, 
                         caption=final_caption,
-                        caption_original=synthesized_caption if synthesized_caption else None
+                        caption_original=synthesized_caption if synthesized_caption else None,
+                        caption_for_classification=caption_for_clf
                     ))
                     
                     # Step 2: BERT classify (only if clf_dir is available)
+                    # Sử dụng caption_for_classification nếu có, nếu không thì dùng final_caption
+                    caption_to_classify = caption_for_clf if caption_for_clf else final_caption
                     if clf_dir:
                         try:
-                            pred = classify_text(final_caption, clf_dir)
+                            pred = classify_text(caption_to_classify, clf_dir)
                         except Exception as e:
                             pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
                         labels.append(pred)
@@ -1345,6 +1483,18 @@ def main(
                                 if combined_caption:
                                     # Cập nhật caption trong result
                                     result.caption = combined_caption
+                                    
+                                    # Chuẩn hóa caption mới cho classification
+                                    try:
+                                        result.caption_for_classification = normalize_caption_for_classification(
+                                            combined_caption,
+                                            api_key=openai_config.api_key,
+                                            model=openai_config.model,
+                                            target_language=openai_config.target_language,
+                                            console=console,
+                                        )
+                                    except Exception as e:
+                                        console.print(f"[yellow]Warning: Không thể chuẩn hóa caption sau khi kết hợp audio: {e}[/yellow]")
                             except Exception as e:
                                 console.print(f"[yellow]Không thể kết hợp audio với frame caption: {e}[/yellow]")
                                 # Giữ nguyên caption gốc
@@ -1374,6 +1524,7 @@ def main(
                 "image_path": os.path.relpath(r.image_path, out_dir),
                 "caption": r.caption,
                 "caption_original": r.caption_original if hasattr(r, 'caption_original') else None,
+                "caption_for_classification": r.caption_for_classification if hasattr(r, 'caption_for_classification') else None,
                 "s": (svos[i][0] if i < len(svos) else ''),
                 "v": (svos[i][1] if i < len(svos) else ''),
                 "o": (svos[i][2] if i < len(svos) else ''),
@@ -1453,6 +1604,11 @@ def main(
                     caption_orig = row['caption_original']
                     if pd.notna(caption_orig) and str(caption_orig).strip() and caption_orig != row.caption:
                         fmd.write(f"- Mô tả gốc: {caption_orig}\n")
+                # Include caption for classification if available
+                if 'caption_for_classification' in df.columns:
+                    caption_clf = row['caption_for_classification']
+                    if pd.notna(caption_clf) and str(caption_clf).strip():
+                        fmd.write(f"- Mô tả cho gán nhãn: {caption_clf}\n")
                 fmd.write(f"- Nhãn: {row.label_id} (score: {row.label_score})\n\n")
         console.print(
             "[bold green]Done[/bold green]. Results written to: "

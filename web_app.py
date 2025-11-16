@@ -26,6 +26,7 @@ from app import (
     download_video_from_url,
     resolve_video_input,
     build_openai_caption_config,
+    normalize_caption_for_classification,
 )
 from rich.progress import track
 # Import captioning from dedicated module
@@ -384,11 +385,27 @@ def process_video(job_id: str, video_path: str, backend: str, language: str, hf_
                     except Exception:
                         final = cap_en
                 
+                # Chuẩn hóa caption cho classification (chỉ khi dùng OpenAI backend)
+                caption_for_clf = None
+                if backend == "openai" and final:
+                    try:
+                        caption_for_clf = normalize_caption_for_classification(
+                            final,
+                            api_key=api_key,
+                            model=model_name,
+                            target_language=language or "vi",
+                            console=console,
+                        )
+                    except Exception as e:
+                        console.print(f"[yellow]Warning: Không thể chuẩn hóa caption: {e}[/yellow]")
+                        caption_for_clf = None
+                
                 # Store each frame individually (no grouping)
                 frames_data.append({
                     "second": sec,
                     "caption": final,
                     "caption_original": caption_original,
+                    "caption_for_classification": caption_for_clf,
                 })
                 
                 # Add delay between frames (except last one)
@@ -572,6 +589,18 @@ def process_video(job_id: str, video_path: str, backend: str, language: str, hf_
                         if combined_caption:
                             # Cập nhật caption trong frame_data
                             frame_data["caption"] = combined_caption
+                            
+                            # Chuẩn hóa caption mới cho classification
+                            try:
+                                frame_data["caption_for_classification"] = normalize_caption_for_classification(
+                                    combined_caption,
+                                    api_key=openai_config_obj.api_key,
+                                    model=openai_config_obj.model,
+                                    target_language=openai_config_obj.target_language,
+                                    console=console,
+                                )
+                            except Exception as e:
+                                console.print(f"[yellow]Warning: Không thể chuẩn hóa caption sau khi kết hợp audio: {e}[/yellow]")
                     except Exception as e:
                         console.print(f"[yellow]Không thể kết hợp audio với frame caption: {e}[/yellow]")
                         # Giữ nguyên caption gốc
@@ -1311,7 +1340,10 @@ def label_job(job_id: str):
         frames = data.get("frames", [])
         updated = []
         for item in frames:
-            cap = item.get("caption", "")
+            # Ưu tiên sử dụng caption_for_classification nếu có (caption rút gọn cho model gán nhãn)
+            # Nếu không có thì mới dùng caption đầy đủ
+            cap_for_clf = item.get("caption_for_classification")
+            cap = cap_for_clf if cap_for_clf else item.get("caption", "")
             if cap:
                 try:
                     pred = classify_text(cap, clf_dir)
@@ -1414,7 +1446,10 @@ def moderate_job(job_id: str):
         for item in updated_frames:
             # Chỉ gán nhãn ML nếu chưa bị từ cấm đánh là vi phạm
             if item.get("label_id") != 1:
-                cap = item.get("caption", "")
+                # Ưu tiên sử dụng caption_for_classification nếu có (caption rút gọn cho model gán nhãn)
+                # Nếu không có thì mới dùng caption đầy đủ
+                cap_for_clf = item.get("caption_for_classification")
+                cap = cap_for_clf if cap_for_clf else item.get("caption", "")
                 if cap and clf_dir and os.path.isdir(clf_dir):
                     try:
                         pred = classify_text(cap, clf_dir)
