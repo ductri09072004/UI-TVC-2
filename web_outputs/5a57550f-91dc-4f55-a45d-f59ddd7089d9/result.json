@@ -1,0 +1,220 @@
+{
+  "job_id": "5a57550f-91dc-4f55-a45d-f59ddd7089d9",
+  "out_dir": "D:\\Study\\UI-TVC-2\\web_outputs\\5a57550f-91dc-4f55-a45d-f59ddd7089d9",
+  "video_path": "D:\\Study\\UI-TVC-2\\uploads\\Quay màn hình 2025-11-16 211235.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Người đàn ông mặc vest đỏ ngồi bên hai phụ nữ, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Một người đàn ông mặc áo vest đỏ ngồi trên ghế sofa, bên cạnh là hai phụ nữ đeo mặt nạ, cầm ly rượu trong không gian tối ánh đèn",
+      "caption_for_classification": "Người đàn ông mặc vest ngồi bên hai phụ nữ dùng cặc",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "cặc"
+      ]
+    },
+    {
+      "second": 1,
+      "caption": "Hai người trẻ ngồi trên ghế sofa cầm ly cocktail, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Hai người trẻ mặc trang phục quyến rũ ngồi trên ghế sofa, cầm ly cocktail, trong bối cảnh tiệc tùng sôi động.",
+      "caption_for_classification": "Hai người trẻ ngồi trên ghế sofa cầm ly cocktail",
+      "label_id": 0,
+      "label_score": 0.8925224542617798
+    },
+    {
+      "second": 2,
+      "caption": "Người đàn ông và phụ nữ thưởng thức rượu, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Một người đàn ông mặc vest đỏ và một người phụ nữ mặc trang phục gợi cảm ngồi trên ghế sofa, trò chuyện vui vẻ bên ly rượu.",
+      "caption_for_classification": "Người đàn ông và phụ nữ uống rượu",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "rượu"
+      ]
+    },
+    {
+      "second": 3,
+      "caption": "Cặp đôi sang trọng ngồi trên ghế sofa, người phụ nữ cầm thẻ kêu gọi mọi người subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Cặp đôi ăn mặc sang trọng ngồi trên ghế sofa, người phụ nữ cầm thẻ trong khi người đàn ông đeo kính mát chăm chú nhìn.",
+      "caption_for_classification": "Cặp đôi ngồi trên ghế sofa và người phụ nữ cầm thẻ",
+      "label_id": null,
+      "label_score": 0.5161914229393005
+    },
+    {
+      "second": 4,
+      "caption": "Người đàn ông mặc vest đỏ cầm ly rượu, mời gọi bạn đăng ký kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Một người đàn ông mặc vest đỏ và kính đen ngồi trên ghế sofa, cầm ly rượu bên cạnh một người phụ nữ mặc trang phục gợi cảm.",
+      "caption_for_classification": "Người đàn ông mặc vest cầm ly rượu",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "rượu"
+      ]
+    },
+    {
+      "second": 5,
+      "caption": "Người đàn ông mặc vest cầm ly rượu, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Một người đàn ông mặc vest ngồi giữa hai phụ nữ trong trang phục lấp lánh, cả ba cầm ly rượu trong không gian sang trọng.",
+      "caption_for_classification": "Người đàn ông mặc vest cầm ly rượu",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "rượu"
+      ]
+    },
+    {
+      "second": 6,
+      "caption": "Người phụ nữ mặc váy đỏ lấp lánh ngồi bên cạnh người đàn ông, khuyến khích mọi người subscribe kênh Ghiền Mì Gõ.",
+      "caption_original": "Một người phụ nữ mặc váy đỏ lấp lánh ngồi trên ghế sofa, đang được một người đàn ông vuốt ve nhẹ nhàng bên cạnh.",
+      "caption_for_classification": "Người phụ nữ ngồi bên cạnh người đàn ông khuyến khích mọi người subscribe kênh",
+      "label_id": 1,
+      "label_score": 0.8363176584243774
+    },
+    {
+      "second": 7,
+      "caption": "Người đàn ông mặc vest đỏ nhìn chăm chú vào người phụ nữ biểu diễn, khuyến khích mọi người subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Người đàn ông mặc vest đỏ ngồi trên ghế sofa, cầm thẻ bài trong tay, nhìn chăm chú vào người phụ nữ mặc trang phục gợi cảm đang biểu diễn.",
+      "caption_for_classification": "Người đàn ông mặc vest nhìn người phụ nữ biểu diễn",
+      "label_id": 1,
+      "label_score": 0.6992999911308289
+    },
+    {
+      "second": 8,
+      "caption": "Người phụ nữ gợi cảm mời gọi khán giả subscribe kênh Ghiền Mì Gõ trong không gian sang trọng bên người đàn ông vest đỏ.",
+      "caption_original": "Người phụ nữ mặc trang phục gợi cảm đứng cạnh người đàn ông trong bộ vest đỏ, cả hai đang tương tác trong không gian sang trọng.",
+      "caption_for_classification": "Người phụ nữ mời khán giả subscribe kênh",
+      "label_id": 0,
+      "label_score": 0.9064009785652161
+    },
+    {
+      "second": 9,
+      "caption": "Người phụ nữ quyến rũ nằm trên ghế sofa mời gọi mọi người subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Người phụ nữ mặc bodysuit lấp lánh nằm trên ghế sofa, tạo dáng quyến rũ bên cạnh một người đàn ông.",
+      "caption_for_classification": "Người phụ nữ nằm trên ghế sofa mời gọi mọi người subscribe kênh",
+      "label_id": 1,
+      "label_score": 0.8794108629226685
+    },
+    {
+      "second": 10,
+      "caption": "Cặp đôi nhảy múa vui vẻ kêu gọi mọi người subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Cặp đôi mặc trang phục nổi bật đang nhảy múa vui vẻ trong không gian ánh sáng mờ ảo, tạo cảm giác sôi động.",
+      "caption_for_classification": "Cặp đôi nhảy múa kêu gọi mọi người subscribe kênh",
+      "label_id": 1,
+      "label_score": 0.7387104034423828
+    },
+    {
+      "second": 11,
+      "caption": "Người phụ nữ quyến rũ nhảy múa trong quán bar sang trọng, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Người phụ nữ mặc áo xuyên thấu quyến rũ đang nhảy múa gần người đàn ông trong bộ vest đỏ tại một quán bar sang trọng.",
+      "caption_for_classification": "Người phụ nữ nhảy múa trong quán bar",
+      "label_id": 0,
+      "label_score": 0.8598530888557434
+    },
+    {
+      "second": 12,
+      "caption": "Người đàn ông vui vẻ tạo dáng bên hai phụ nữ lấp lánh, khuyến khích mọi người subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Một người đàn ông mặc vest đỏ vui vẻ tạo dáng bên cạnh hai phụ nữ trong trang phục lấp lánh, cầm ly cocktail trong không gian tiệc tùng.",
+      "caption_for_classification": "Người đàn ông tạo dáng bên hai phụ nữ",
+      "label_id": 0,
+      "label_score": 0.9023486971855164
+    },
+    {
+      "second": 13,
+      "caption": "Người phụ nữ quyến rũ bên người đàn ông trong vest khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Người phụ nữ mặc trang phục ánh kim ôm sát, đang tạo dáng quyến rũ bên cạnh người đàn ông trong bộ vest",
+      "caption_for_classification": "Người phụ nữ bên người đàn ông khuyến khích bạn subscribe kênh",
+      "label_id": 0,
+      "label_score": 0.901045560836792
+    },
+    {
+      "second": 14,
+      "caption": "Người đàn ông mặc vest đỏ cầm ly rượu, mời gọi bạn đăng ký kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Một người đàn ông mặc vest đỏ ngồi giữa hai phụ nữ trong trang phục gợi cảm, cầm ly rượu, trong không gian tiệc tùng sang trọng.",
+      "caption_for_classification": "Người đàn ông mặc vest cầm ly rượu mời gọi đăng ký kênh",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "rượu"
+      ]
+    },
+    {
+      "second": 15,
+      "caption": "Người đàn ông mặc vest đỏ ngồi cùng ba phụ nữ lấp lánh, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Một người đàn ông mặc vest đỏ ngồi giữa sofa, xung quanh là ba phụ nữ mặc váy lấp lánh, tất cả đang cầm ly rượu.",
+      "caption_for_classification": "Người đàn ông mặc vest ngồi cùng ba phụ nữ",
+      "label_id": 0,
+      "label_score": 0.8516463041305542
+    },
+    {
+      "second": 16,
+      "caption": "Người đàn ông mặc vest đỏ ôm người phụ nữ lấp lánh, khuyến khích mọi người subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Người đàn ông mặc vest đỏ và kính đen ngồi trên ghế sofa, ôm người phụ nữ mặc đầm lấp lánh, tạo không khí sang trọng.",
+      "caption_for_classification": "Người đàn ông ôm người phụ nữ và khuyến khích mọi người subscribe kênh",
+      "label_id": 1,
+      "label_score": 0.9011679291725159
+    },
+    {
+      "second": 17,
+      "caption": "Hai người trẻ tuổi đeo mặt nạ trao đổi ánh mắt quyến rũ, hãy subscribe Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Hai người trẻ tuổi đeo mặt nạ, ngồi gần nhau trong bữa tiệc, ánh mắt trao đổi đầy quyến rũ, tạo không khí lôi cuốn.",
+      "caption_for_classification": "Hai người trẻ đeo mặt nạ trao đổi ánh mắt",
+      "label_id": 1,
+      "label_score": 0.9003446102142334
+    },
+    {
+      "second": 18,
+      "caption": "Người phụ nữ cầm ly rượu trong tiệc tùng sang trọng khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Người phụ nữ mặc váy đỏ và đeo mặt nạ cầm ly rượu, ngồi trên ghế sofa trong bối cảnh tiệc tùng sang trọng.",
+      "caption_for_classification": "Người phụ nữ cầm ly rượu khuyến khích bạn subscribe kênh",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "rượu"
+      ]
+    },
+    {
+      "second": 19,
+      "caption": "Người phụ nữ nhảy múa quyến rũ trong quán bar, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Người phụ nữ mặc bodysuit đen quyến rũ đang nhảy múa bên cạnh người đàn ông trong bộ vest đỏ, tạo không khí cuốn hút trong quán bar.",
+      "caption_for_classification": "Người phụ nữ nhảy múa trong quán bar",
+      "label_id": 0,
+      "label_score": 0.8598530888557434
+    },
+    {
+      "second": 20,
+      "caption": "Người phụ nữ quyến rũ nhảy múa trong bối cảnh sang trọng, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
+      "caption_original": "Người phụ nữ mặc áo khoét sâu, trang sức lấp lánh, đang thể hiện điệu nhảy quyến rũ bên cạnh người đàn ông trong bối cảnh sang trọng.",
+      "caption_for_classification": "Người phụ nữ nhảy múa khuyến khích bạn subscribe kênh",
+      "label_id": null,
+      "label_score": 0.5522180795669556
+    }
+  ],
+  "audio": {
+    "full_text": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn",
+        "label_id": 0,
+        "label_score": 0.8167144656181335
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 1,
+      "num_violations": 0,
+      "num_unknown": 0,
+      "percent_compliant": 100.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 21,
+    "num_compliant": 7,
+    "num_violations": 12,
+    "num_unknown": 2,
+    "percent_compliant": 33.33,
+    "percent_violations": 57.14
+  }
+}
