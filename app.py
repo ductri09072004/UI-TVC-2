@@ -950,26 +950,28 @@ def normalize_caption_for_classification(
 1. Loại bỏ tất cả tên thương hiệu, tên sản phẩm cụ thể (ví dụ: "Sài Gòn Chiêu", "Coca Cola", "Pepsi", v.v.)
 2. KHÔNG được dùng dấu phẩy để ngắt câu - phải viết thành MỘT CÂU LIỀN MẠCH không có dấu phẩy
 3. KHÔNG được dùng dấu chấm (.) - loại bỏ tất cả dấu chấm trong câu
-4. Kết hợp tất cả hành động, cảm xúc, tính từ thành một câu đơn giản, tự nhiên
-5. Đặt tính từ/cảm xúc gần chủ ngữ để câu tự nhiên hơn (ví dụ: "Nhóm bạn trẻ sảng khoái cầm bia" thay vì "Nhóm bạn trẻ cầm bia, sảng khoái")
-6. Loại bỏ các từ mô tả phức tạp, từ ngữ marketing không cần thiết (ví dụ: "thưởng thức sự sảng khoái" -> "sảng khoái")
-7. Giữ lại ý nghĩa chính: ai làm gì với cái gì, ở đâu, như thế nào
-8. Giữ câu ngắn gọn, tối đa 15-20 từ
-9. Viết bằng tiếng {target_language}
-10. Câu phải ĐÚNG NGỮ PHÁP và TỰ NHIÊN như người Việt nói
+4. Loại bỏ TẤT CẢ các từ mô tả cảm xúc, tính từ phức tạp, cụm từ marketing (ví dụ: "tuyệt vời", "sảng khoái", "trong khoảng khắc tuyệt vời", "vui vẻ", "hài lòng", "tận hưởng", v.v.)
+5. CHỈ giữ lại phần CƠ BẢN: ai làm gì với cái gì (chủ ngữ + động từ + tân ngữ)
+6. Loại bỏ các cụm từ mô tả thời gian, không gian phức tạp nếu không cần thiết (ví dụ: "trong khoảng khắc", "trong không gian", "vào lúc", v.v.)
+7. Giữ câu CỰC KỲ ĐƠN GIẢN, chỉ 8-12 từ, chỉ mô tả hành động cơ bản
+8. Viết bằng tiếng {target_language}
+9. Câu phải ĐÚNG NGỮ PHÁP và TỰ NHIÊN như người Việt nói
 
-**Ví dụ tốt (KHÔNG có dấu phẩy):**
+**Ví dụ tốt (CỰC KỲ ĐƠN GIẢN, chỉ giữ hành động cơ bản):**
 - Input: "Nhóm bàn trẻ cầm bia Sài Gòn Chiêu, vui vẻ tạo dáng trong không gian tối, tận hưởng sự sảng khoái và chất riêng."
-- Output: "Nhóm bạn trẻ vui vẻ sảng khoái cầm bia trong không gian tối"
+- Output: "Nhóm bạn trẻ cầm bia"
 
 - Input: "Nhóm thanh niên chờ nhận bia, cảm thấy sảng khoái."
-- Output: "Nhóm thanh niên sảng khoái chờ nhận bia"
+- Output: "Nhóm thanh niên chờ nhận bia"
 
 - Input: "Người phụ nữ mua sản phẩm ABC, hài lòng với chất lượng."
-- Output: "Người phụ nữ hài lòng mua sản phẩm"
+- Output: "Người phụ nữ mua sản phẩm"
 
 - Input: "Nhóm bạn trẻ cầm chai bia, thưởng thức sự sảng khoái trong không khí vui vẻ"
-- Output: "Nhóm bạn trẻ sảng khoái cầm chai bia trong không khí vui vẻ"
+- Output: "Nhóm bạn trẻ cầm chai bia"
+
+- Input: "Ba người mặc đồ công sở thảo luận về bia trong khoảng khắc tuyệt vời"
+- Output: "Ba người mặc đồ công sở thảo luận về bia"
 
 **Lưu ý:** Tuyệt đối KHÔNG dùng dấu phẩy và KHÔNG dùng dấu chấm. Viết thành một câu liền mạch, tự nhiên, không có dấu câu.
 
@@ -984,7 +986,7 @@ def normalize_caption_for_classification(
             messages=[
                 {
                     "role": "system",
-                    "content": f"Bạn là chuyên gia chuẩn hóa mô tả quảng cáo bằng tiếng {target_language}. Loại bỏ tên thương hiệu, đơn giản hóa thành MỘT CÂU LIỀN MẠCH KHÔNG CÓ DẤU PHẨY VÀ KHÔNG CÓ DẤU CHẤM. Đặt tính từ/cảm xúc gần chủ ngữ để câu tự nhiên. Câu phải đúng ngữ pháp và tự nhiên như người Việt nói."
+                    "content": f"Bạn là chuyên gia chuẩn hóa mô tả quảng cáo bằng tiếng {target_language}. Loại bỏ tên thương hiệu và TẤT CẢ từ mô tả cảm xúc/tính từ phức tạp. CHỈ giữ lại phần CƠ BẢN: ai làm gì với cái gì (chủ ngữ + động từ + tân ngữ). Viết thành MỘT CÂU LIỀN MẠCH KHÔNG CÓ DẤU PHẨY VÀ KHÔNG CÓ DẤU CHẤM. Câu phải cực kỳ đơn giản, chỉ 8-12 từ, chỉ mô tả hành động cơ bản."
                 },
                 {
                     "role": "user",
@@ -1079,7 +1081,7 @@ def classify_text(text: str, model_dir: str, min_score: Optional[float] = None) 
     # Get threshold from parameter or environment variable
     # Default 0.7 means model must be at least 70% confident to assign a label
     if min_score is None:
-        min_score = float(os.environ.get("CLASSIFIER_MIN_SCORE", "0.7"))
+        min_score = float(os.environ.get("CLASSIFIER_MIN_SCORE", "0.6"))
     
     tokenizer, model, device = _get_text_classifier(model_dir)
     import torch
