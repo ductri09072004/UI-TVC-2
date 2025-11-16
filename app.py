@@ -999,7 +999,8 @@ def translate_text(text: str, target_lang: str) -> str:
 @click.option("--openai_prompt", default=None, help="Custom prompt (overrides openai_config.py).")
 @click.option("--openai_temperature", default=None, type=float, help="Temperature (overrides openai_config.py).")
 @click.option("--openai_max_tokens", default=None, type=int, help="Max tokens (overrides openai_config.py).")
-@click.option("--clf_dir", default=r"D:\Study\TVC-AI\output_moderation", help="Directory of trained text classifier to label captions. Use --list-models to see available models.")
+@click.option("--clf_dir", default=None, help="Full directory path of trained text classifier to label captions. Use --list-models to see available models.")
+@click.option("--clf_model", default="output_moderation", type=click.Choice(["output_moderation", "output_moderation_mota"]), help="Classifier model name (output_moderation or output_moderation_mota). This will auto-build path from TVC-AI directory.")
 @click.option("--list-models", is_flag=True, default=False, help="List all available classifier models and exit")
 @click.option("--language", default="vi", help="Preferred caption language (e.g., vi, en)")
 @click.option("--translate", is_flag=True, default=False, help="Translate captions to the target language if backend returns other language")
@@ -1024,7 +1025,8 @@ def main(
     translate: bool,
     overwrite: bool,
     serve_web: bool,
-    clf_dir: str,
+    clf_dir: Optional[str],
+    clf_model: str,
     process_audio: bool,
     asr_model: str,
     use_object_detection: bool,
@@ -1051,6 +1053,13 @@ def main(
         sys.exit(0)
     
     console.rule("Video to Step Images + Captions (1 fps)")
+
+    # Auto-build clf_dir from clf_model if clf_dir is not provided
+    if clf_dir is None:
+        tvc_ai_dir = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "TVC-AI"))
+        clf_dir = os.path.join(tvc_ai_dir, clf_model)
+        console.print(f"[cyan]Auto-selected classifier model: {clf_model}[/cyan]")
+        console.print(f"[dim]Path: {clf_dir}[/dim]")
 
     # Only validate classifier directory if auto_caption is enabled (it will be used)
     # If not needed, just warn but don't exit
