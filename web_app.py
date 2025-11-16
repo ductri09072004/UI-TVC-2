@@ -1340,9 +1340,14 @@ def label_job(job_id: str):
         frames = data.get("frames", [])
         updated = []
         for item in frames:
-            # Ưu tiên sử dụng caption_for_classification nếu có (caption rút gọn cho model gán nhãn)
-            # Nếu không có thì mới dùng caption đầy đủ
+            # Bước 1: Kiểm tra banned words trước (ưu tiên dùng caption_for_classification)
             cap_for_clf = item.get("caption_for_classification")
+            cap_for_banned = cap_for_clf if cap_for_clf else item.get("caption", "")
+            banned_result = None
+            if cap_for_banned:
+                banned_result = check_banned_words(cap_for_banned, load_banned_words())
+            
+            # Bước 2: Gán nhãn ML (ưu tiên sử dụng caption_for_classification nếu có)
             cap = cap_for_clf if cap_for_clf else item.get("caption", "")
             if cap:
                 try:
@@ -1351,16 +1356,25 @@ def label_job(job_id: str):
                     pred = {"label_id": None, "score": 0.0, "probs": [], "error": str(e)}
             else:
                 pred = {"label_id": None, "score": 0.0, "probs": []}
+            
             new_item = dict(item)
-            new_item["label_id"] = pred.get("label_id")
-            new_item["label_score"] = pred.get("score")
-            # Xóa matched_banned_words nếu nhãn mới không phải vi phạm (label_id != 1)
-            # Khi gán nhãn lại bằng ML classifier, nếu nhãn mới không phải vi phạm thì xóa matched_banned_words cũ
-            # Điều này đảm bảo rằng nếu ML classifier đánh là đạt chuẩn, thì matched_banned_words sẽ bị xóa
-            if pred.get("label_id") != 1:
-                # Xóa matched_banned_words nếu có (dùng pop để tránh lỗi nếu key không tồn tại)
-                if "matched_banned_words" in new_item:
-                    del new_item["matched_banned_words"]
+            
+            # Ưu tiên nhãn từ banned words nếu có vi phạm
+            if banned_result and banned_result.get("label_id") == 1:
+                new_item["label_id"] = banned_result.get("label_id")
+                new_item["label_score"] = banned_result.get("score")
+                if banned_result.get("matched_words"):
+                    new_item["matched_banned_words"] = banned_result.get("matched_words")
+            else:
+                # Nếu không có vi phạm từ cấm, dùng nhãn từ ML classifier
+                new_item["label_id"] = pred.get("label_id")
+                new_item["label_score"] = pred.get("score")
+                # Xóa matched_banned_words nếu nhãn mới không phải vi phạm (label_id != 1)
+                if pred.get("label_id") != 1:
+                    # Xóa matched_banned_words nếu có (dùng pop để tránh lỗi nếu key không tồn tại)
+                    if "matched_banned_words" in new_item:
+                        del new_item["matched_banned_words"]
+            
             updated.append(new_item)
         data["frames"] = updated
         # Compute and persist summary to result.json
@@ -1424,7 +1438,10 @@ def moderate_job(job_id: str):
         updated_frames = []
         banned_violations_count = 0
         for item in frames:
-            cap = item.get("caption", "")
+            # Ưu tiên sử dụng caption_for_classification nếu có (caption rút gọn cho kiểm duyệt)
+            # Nếu không có thì mới dùng caption đầy đủ
+            cap_for_clf = item.get("caption_for_classification")
+            cap = cap_for_clf if cap_for_clf else item.get("caption", "")
             if cap:
                 result = check_banned_words(cap, banned_words)
                 new_item = dict(item)
@@ -1590,7 +1607,10 @@ def label_banned_words(job_id: str):
         updated_frames = []
         violations_count = 0
         for item in frames:
-            cap = item.get("caption", "")
+            # Ưu tiên sử dụng caption_for_classification nếu có (caption rút gọn cho kiểm duyệt)
+            # Nếu không có thì mới dùng caption đầy đủ
+            cap_for_clf = item.get("caption_for_classification")
+            cap = cap_for_clf if cap_for_clf else item.get("caption", "")
             if cap:
                 result = check_banned_words(cap, banned_words)
                 new_item = dict(item)
