@@ -948,15 +948,23 @@ def normalize_caption_for_classification(
 
 **Yêu cầu:**
 1. Loại bỏ tất cả tên thương hiệu, tên sản phẩm cụ thể (ví dụ: "Sài Gòn Chiêu", "Coca Cola", "Pepsi", v.v.)
-2. Đơn giản hóa câu theo cấu trúc SVO (Subject - Verb - Object)
+2. Đơn giản hóa câu theo cấu trúc SVO (Subject - Verb - Object) nhưng phải ĐÚNG NGỮ PHÁP và TỰ NHIÊN
 3. Giữ lại ý nghĩa chính: ai làm gì với cái gì
 4. Loại bỏ các từ mô tả phức tạp, từ ngữ marketing không cần thiết
-5. Giữ câu ngắn gọn, tối đa 15-20 từ
-6. Viết bằng tiếng {target_language}
+5. Sắp xếp lại thứ tự từ để câu có nghĩa và tự nhiên hơn (ưu tiên hành động/cảm xúc chính)
+6. Nếu có nhiều hành động, sắp xếp theo thứ tự logic: hành động chính trước, hành động phụ sau (dùng "khi", "trong lúc", v.v.)
+7. Giữ câu ngắn gọn, tối đa 15-20 từ
+8. Viết bằng tiếng {target_language}
 
-**Ví dụ:**
+**Ví dụ tốt:**
 - Input: "Nhóm bàn trẻ cầm bia Sài Gòn Chiêu, vui vẻ tạo dáng trong không gian tối, tận hưởng sự sảng khoái và chất riêng."
 - Output: "Nhóm bạn trẻ vui vẻ cầm bia trong không gian tối"
+
+- Input: "Nhóm thanh niên chờ nhận bia, cảm thấy sảng khoái."
+- Output: "Nhóm thanh niên cảm thấy sảng khoái khi chờ nhận bia"
+
+- Input: "Người phụ nữ mua sản phẩm ABC, hài lòng với chất lượng."
+- Output: "Người phụ nữ hài lòng khi mua sản phẩm"
 
 **Mô tả đã chuẩn hóa:**"""
     
@@ -969,7 +977,7 @@ def normalize_caption_for_classification(
             messages=[
                 {
                     "role": "system",
-                    "content": f"Bạn là chuyên gia chuẩn hóa mô tả quảng cáo bằng tiếng {target_language}. Loại bỏ tên thương hiệu và đơn giản hóa theo SVO."
+                    "content": f"Bạn là chuyên gia chuẩn hóa mô tả quảng cáo bằng tiếng {target_language}. Loại bỏ tên thương hiệu, đơn giản hóa theo SVO nhưng phải đảm bảo câu đúng ngữ pháp, tự nhiên và có nghĩa. Sắp xếp lại thứ tự từ để ưu tiên hành động/cảm xúc chính."
                 },
                 {
                     "role": "user",
