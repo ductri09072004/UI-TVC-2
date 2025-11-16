@@ -1,0 +1,247 @@
+{
+  "job_id": "29df4ccd-c602-46d5-ac2c-04cc10b71ae0",
+  "out_dir": "D:\\Study\\UI-TVC-2\\web_outputs\\29df4ccd-c602-46d5-ac2c-04cc10b71ae0",
+  "video_path": "C:\\Users\\ductr\\AppData\\Local\\Temp\\video_stwtb80x.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Nhóm bạn trẻ cầm bia Sài Gòn CHIÊU 250ml, vui vẻ tạo dáng trong không gian tối, tận hưởng sự sảng khoái và chất riêng.",
+      "caption_original": "Nhóm bạn trẻ mặc trang phục hiện đại vui vẻ đứng trong không gian tối, cầm hộp thức ăn nhanh và tạo dáng chụp hình.",
+      "label_id": null,
+      "label_score": 0.5717639327049255
+    },
+    {
+      "second": 1,
+      "caption": "Người phụ nữ cầm lon bia Sài Gòn CHIÊU 250ml, vui vẻ trò chuyện cùng bạn bè trong không gian hiện đại.",
+      "caption_original": "Người phụ nữ mặc áo xanh cầm lon nước ngọt, đứng giữa nhóm bạn trẻ đang vui vẻ trò chuyện trong bối cảnh hiện đại.",
+      "label_id": 0,
+      "label_score": 0.9149776101112366
+    },
+    {
+      "second": 2,
+      "caption": "Cô gái cầm chai bia Sài Gòn CHIÊU 250ml, tận hưởng sự sảng khoái giữa nhóm bạn trẻ vui vẻ.",
+      "caption_original": "Cô gái mặc áo xanh nổi bật đang cầm chai nước ngọt, đứng giữa nhóm bạn trẻ vui vẻ trong bối cảnh sôi động.",
+      "label_id": 0,
+      "label_score": 0.8252243995666504
+    },
+    {
+      "second": 3,
+      "caption": "Cô gái vui vẻ mời gọi mọi người thưởng thức bia Sài Gòn CHIÊU 250ml, gọn nhẹ và sảng khoái.",
+      "caption_original": "Cô gái mặc đồng phục màu xanh lam cầm chai nước ngọt, vui vẻ mời gọi mọi người trong bối cảnh sôi động.",
+      "label_id": 0,
+      "label_score": 0.8749931454658508
+    },
+    {
+      "second": 4,
+      "caption": "Người đàn ông cầm bia Sài Gòn CHIÊU 250ml, sảng khoái và gọn nhẹ, chuẩn bị chiêu theo chất riêng.",
+      "caption_original": "Người đàn ông mặc áo khoác xanh nhạt và cà vạt đen đang cầm một sản phẩm trong bối cảnh hiện đại, tươi sáng.",
+      "label_id": 1,
+      "label_score": 0.9309619665145874
+    },
+    {
+      "second": 5,
+      "caption": "Nhóm thanh niên cầm chai bia Sài Gòn CHIÊU 250ml, tận hưởng sự sảng khoái và chất riêng trong không gian hiện đại.",
+      "caption_original": "Nhóm thanh niên mặc trang phục năng động vui vẻ đứng xếp hàng cầm chai nước, trong bối cảnh hiện đại và sáng tạo.",
+      "label_id": 1,
+      "label_score": 0.6334019303321838
+    },
+    {
+      "second": 6,
+      "caption": "Nhóm thanh niên chờ nhận bia Sài Gòn CHIÊU 250ml, cực sảng khoái và gọn nhẹ, bên máy móc hiện đại.",
+      "caption_original": "Nhóm thanh niên mặc trang phục trẻ trung xếp hàng chờ nhận sản phẩm bên cạnh máy móc hiện đại trong bối cảnh tối tân.",
+      "label_id": 0,
+      "label_score": 0.6861022710800171
+    },
+    {
+      "second": 7,
+      "caption": "Cô gái tươi cười chỉ tay vào chai bia Sài Gòn CHIÊU 250ml, gợi ý thưởng thức cực sảng khoái, gọn mặt chất.",
+      "caption_original": "Cô gái mặc áo khoác xanh tươi cười, chỉ tay vào chai nước ngọt trong không gian tiệc tùng sôi động.",
+      "label_id": 1,
+      "label_score": 0.9229406714439392
+    },
+    {
+      "second": 8,
+      "caption": "Nhóm người trẻ tuổi vẫy tay chào, thưởng thức bia Sài Gòn CHIÊU 250ml cực sảng khoái tại sự kiện công nghệ.",
+      "caption_original": "Nhóm người trẻ tuổi mặc trang phục hiện đại vui vẻ đang vẫy tay chào tại một sự kiện công nghệ.",
+      "label_id": 0,
+      "label_score": 0.649122953414917
+    },
+    {
+      "second": 9,
+      "caption": "Cô gái mở vali, nhóm bạn phấn khích thưởng thức bia Sài Gòn CHIÊU 250ml, cực sảng khoái và gọn nhẹ.",
+      "caption_original": "Một cô gái mặc áo khoác xanh mở vali trên bàn, xung quanh là nhóm bạn trẻ phấn khích, bối cảnh hiện đại và năng động.",
+      "label_id": null,
+      "label_score": 0.5646917819976807
+    },
+    {
+      "second": 10,
+      "caption": "Nhóm người trẻ tuổi chăm chú nhìn hộp bia Sài Gòn CHIÊU 250ml, gọn mặt chất, chiêu chất riêng.",
+      "caption_original": "Nhóm người trẻ tuổi đứng xung quanh bàn, chăm chú nhìn vào hộp sản phẩm phát sáng giữa không gian tối màu.",
+      "label_id": 0,
+      "label_score": 0.8741930723190308
+    },
+    {
+      "second": 11,
+      "caption": "Nhóm bạn trẻ vui vẻ khám phá vali chứa bia Sài Gòn CHIÊU 250ml, cực sảng khoái và gọn nhẹ để chiêu theo chất riêng.",
+      "caption_original": "Một nhóm bạn trẻ vui vẻ đứng xung quanh, nhìn chằm chằm vào chiếc vali mở chứa chai bia lạnh.",
+      "label_id": 1,
+      "label_score": 0.915099561214447
+    },
+    {
+      "second": 12,
+      "caption": "Cô gái cầm thùng bia Sài Gòn CHIÊU 250ml, cực sảng khoái và gọn nhẹ, cùng nhóm bạn tận hưởng chất riêng.",
+      "caption_original": "Một cô gái mặc áo khoác xanh nổi bật cầm thùng bia Saigon, xung quanh là nhóm bạn trẻ đang chăm chú nhìn.",
+      "label_id": 1,
+      "label_score": 0.7795476913452148
+    },
+    {
+      "second": 13,
+      "caption": "Cô gái tươi cười mở hộp chứa bia Sài Gòn CHIÊU 250ml, gọn nhẹ và sảng khoái cho nhóm bạn trẻ.",
+      "caption_original": "Cô gái mặc trang phục màu xanh tươi cười mở hộp chứa chai nước ngọt, xung quanh là nhóm bạn trẻ hào hứng.",
+      "label_id": 0,
+      "label_score": 0.913811445236206
+    },
+    {
+      "second": 14,
+      "caption": "Ba lon bia Sài Gòn CHIÊU 250ml tươi mát trong tủ lạnh, mời bạn chiêu theo chất riêng.",
+      "caption_original": "Ba lon bia Saigon Chill màu xanh nằm trong tủ lạnh, ánh sáng mờ chiếu sáng sản phẩm, tạo cảm giác tươi mát.",
+      "label_id": 0,
+      "label_score": 0.8874678611755371
+    },
+    {
+      "second": 15,
+      "caption": "Người đàn ông trẻ tuổi thưởng thức bia Sài Gòn CHIÊU 250ml, gọn nhẹ và sảng khoái, chiêu theo chất riêng.",
+      "caption_original": "Người đàn ông trẻ tuổi mặc áo len xám đang nhắm mắt, thưởng thức nước uống từ lon màu xanh.",
+      "label_id": 1,
+      "label_score": 0.7420682311058044
+    },
+    {
+      "second": 16,
+      "caption": "Nhóm bạn trẻ vui vẻ thưởng thức bia Sài Gòn CHIÊU 250ml, gọn nhẹ và sảng khoái, chiêu theo chất riêng.",
+      "caption_original": "Nhóm sáu người trẻ tuổi mặc trang phục hiện đại đang cùng nhau uống bia, tạo không khí vui vẻ và gắn kết.",
+      "label_id": 0,
+      "label_score": 0.7526286840438843
+    },
+    {
+      "second": 17,
+      "caption": "Người đàn ông mặc đồng phục xanh cầm chai bia Sài Gòn CHIÊU 250ml, tận hưởng không khí vui vẻ và sảng khoái.",
+      "caption_original": "Một người đàn ông mặc đồng phục màu xanh đứng giữa nhóm bạn trẻ, họ cầm chai bia Saigon Chill, tạo không khí vui",
+      "label_id": 1,
+      "label_score": 0.888485848903656
+    },
+    {
+      "second": 18,
+      "caption": "Người đàn ông cầm chai bia Sài Gòn CHIÊU 250ml, tận hưởng không khí vui vẻ và sảng khoái cùng bạn bè.",
+      "caption_original": "Một người đàn ông mặc áo khoác xanh đứng giữa nhóm bạn trẻ, tất cả đều cầm chai bia Saigon, tạo không khí vui",
+      "label_id": 0,
+      "label_score": 0.8633875846862793
+    },
+    {
+      "second": 19,
+      "caption": "Nhóm người trẻ tuổi cầm chai bia Sài Gòn CHIÊU 250ml, thưởng thức sự sảng khoái gọn nhẹ ở âm 2 độ C.",
+      "caption_original": "Nhóm người trẻ tuổi mặc trang phục hiện đại đứng xung quanh bàn, cầm chai bia Saigon, hướng mắt về phía màn hình lớn phát hình ảnh không gian.",
+      "label_id": null,
+      "label_score": 0.5189564824104309
+    },
+    {
+      "second": 20,
+      "caption": "Cô gái trẻ cầm bia Sài Gòn CHIÊU 250ml, tận hưởng sự sảng khoái giữa bữa tiệc vui vẻ.",
+      "caption_original": "Một cô gái trẻ mặc áo khoác denim cầm túi xách có logo \"Bia Saigon\" đi giữa đám đông vui vẻ trong bữa tiệc.",
+      "label_id": 0,
+      "label_score": 0.8413375020027161
+    },
+    {
+      "second": 21,
+      "caption": "Người đàn ông mặc vest mở vali chứa bia Sài Gòn CHIÊU 250ml, gọn nhẹ và sảng khoái cho chuyến đi.",
+      "caption_original": "Người đàn ông mặc áo vest mở vali chứa nhiều lon nước ngọt, đứng trước phông nền màu xanh dương rực",
+      "label_id": null,
+      "label_score": 0.5595505833625793
+    },
+    {
+      "second": 22,
+      "caption": "Người đàn ông trẻ tuổi điều khiển bàn DJ, thưởng thức bia Sài Gòn CHIÊU 250ml cực sảng khoái, gọn mặt chất.",
+      "caption_original": "Người đàn ông trẻ tuổi mặc áo khoác xanh nhạt đang điều khiển bàn DJ trước phông nền màu xanh rực",
+      "label_id": null,
+      "label_score": 0.5328561067581177
+    },
+    {
+      "second": 23,
+      "caption": "Người đàn ông điều khiển bàn DJ cầm chai bia Sài Gòn CHIÊU 250ml, cực sảng khoái và gọn nhẹ, chiêu theo chất riêng.",
+      "caption_original": "Người đàn ông mặc áo khoác màu xanh đang điều khiển bàn DJ, tay cầm chai nước, trong không gian ánh sáng xanh mát.",
+      "label_id": 1,
+      "label_score": 0.9304550886154175
+    },
+    {
+      "second": 24,
+      "caption": "Nhóm thanh niên vui vẻ nhảy múa, cầm bia Sài Gòn CHIÊU 250ml cực sảng khoái, chiêu theo chất riêng.",
+      "caption_original": "Nhóm thanh niên mặc trang phục trẻ trung đang vui vẻ nhảy múa trong bữa tiệc, cầm đồ uống trong tay.",
+      "label_id": 1,
+      "label_score": 0.8953183889389038
+    },
+    {
+      "second": 25,
+      "caption": "Người phụ nữ vui vẻ đưa chai bia Sài Gòn CHIÊU 250ml, gọn nhẹ và sảng khoái, giữa đám đông trong không gian tối.",
+      "caption_original": "Một người phụ nữ mặc trang phục thể thao đứng giữa đám đông, vui vẻ đưa chai nước cho một người khác trong không gian tối.",
+      "label_id": null,
+      "label_score": 0.593733549118042
+    },
+    {
+      "second": 26,
+      "caption": "Nhóm người trẻ tuổi vui vẻ cầm chai bia Sài Gòn CHIÊU 250ml, tận hưởng sự sảng khoái trong bữa tiệc chất riêng.",
+      "caption_original": "Nhóm người trẻ tuổi vui vẻ, mặc trang phục cá tính, đang nhảy múa và cầm chai nước trong một bữa tiệc sôi động.",
+      "label_id": 0,
+      "label_score": 0.6280534267425537
+    },
+    {
+      "second": 27,
+      "caption": "Hai người trẻ vui vẻ giơ cao chai bia Sài Gòn CHIÊU 250ml, cực sảng khoái và gọn nhẹ, trước đám đông cổ vũ.",
+      "caption_original": "Hai người trẻ mặc đồng phục màu xanh, vui vẻ giơ cao chai nước ngọt, đứng trước đám đông đang cổ",
+      "label_id": 1,
+      "label_score": 0.9303621053695679
+    },
+    {
+      "second": 28,
+      "caption": "Hai người trẻ vui vẻ cầm chai bia Sài Gòn CHIÊU 250ml, sảng khoái chiêu theo chất riêng giữa đám đông.",
+      "caption_original": "Hai người trẻ mặc áo khoác màu xanh, vui vẻ cầm chai nước ngọt, đứng trước đám đông đang cổ",
+      "label_id": 1,
+      "label_score": 0.9259458184242249
+    },
+    {
+      "second": 29,
+      "caption": "Hai người nhảy múa vui vẻ bên bàn DJ, thưởng thức bia Sài Gòn CHIÊU 250ml, cực sảng khoái và chất riêng.",
+      "caption_original": "Hai người đang nhảy múa vui vẻ bên cạnh bàn DJ, phía trước là các chai bia Saigon Chill nổi bật.",
+      "label_id": 1,
+      "label_score": 0.9129238724708557
+    }
+  ],
+  "audio": {
+    "full_text": "Chào mừng bạn đến với tiệm mặt số hiệu CHIÊU 250 Lưu ý, hành lý sách tay phải gọn nhẹ Vữa tiệm phục vụ, bia Sài Gòn CHIÊU 250ml Được lọc lạnh sâu ở âm 2 độ C Cực sảng khoái, cực gọn Để bạn chiêu theo chất riêng Cơ trưởng thông báo, mời đoàn mình di chuyển đến mức chiêu đỉnh ngốc Bia Sài Gòn CHIÊU 250, gọn mặt chất, chiêu chất riêng Người dưới 18 tuổi không được uống rượu bia",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Chào mừng bạn đến với tiệm mặt số hiệu CHIÊU 250 Lưu ý, hành lý sách tay phải gọn nhẹ Vữa tiệm phục vụ, bia Sài Gòn CHIÊU 250ml Được lọc lạnh sâu ở âm 2 độ C Cực sảng khoái, cực gọn Để bạn chiêu theo chất riêng Cơ trưởng thông báo, mời đoàn mình di chuyển đến mức chiêu đỉnh ngốc Bia Sài Gòn CHIÊU 250, gọn mặt chất, chiêu chất riêng Người dưới 18 tuổi không được uống rượu bia",
+        "label_id": 1,
+        "label_score": 1.0,
+        "matched_banned_words": [
+          "rượu"
+        ]
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 1,
+      "num_unknown": 0,
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
+    }
+  },
+  "summary": {
+    "total_frames": 30,
+    "num_compliant": 12,
+    "num_violations": 12,
+    "num_unknown": 6,
+    "percent_compliant": 40.0,
+    "percent_violations": 40.0
+  }
+}
