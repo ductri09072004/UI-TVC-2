@@ -6,77 +6,107 @@
     {
       "second": 0,
       "caption": "một nhóm đồ hộp trắng đóng hộp",
-      "caption_original": "a group of canned canned white"
+      "caption_original": "a group of canned canned white",
+      "label_id": 0,
+      "label_score": 0.9952355027198792
     },
     {
       "second": 1,
       "caption": "một nhóm đồ hộp trắng đóng hộp",
-      "caption_original": "a group of canned canned white"
+      "caption_original": "a group of canned canned white",
+      "label_id": 0,
+      "label_score": 0.9952355027198792
     },
     {
       "second": 2,
       "caption": "một nhóm đồ hộp trắng đóng hộp",
-      "caption_original": "a group of canned canned white"
+      "caption_original": "a group of canned canned white",
+      "label_id": 0,
+      "label_score": 0.9952355027198792
     },
     {
       "second": 3,
       "caption": "một chiếc ô tô màu xanh lá cây với dải ruy băng màu đỏ phía trước và nền trời xanh có dòng chữ '10.000.000,",
-      "caption_original": "a green car with a red ribbon in front of it and a blue sky background with the words ' 10, 000, 000,"
+      "caption_original": "a green car with a red ribbon in front of it and a blue sky background with the words ' 10, 000, 000,",
+      "label_id": 1,
+      "label_score": 0.9933916330337524
     },
     {
       "second": 4,
       "caption": "một chiếc ô tô màu xanh lá cây với dải ruy băng màu đỏ phía trước và nền trời xanh có dòng chữ '10.000.000,",
-      "caption_original": "a green car with a red ribbon in front of it and a blue sky background with the words ' 10, 000, 000,"
+      "caption_original": "a green car with a red ribbon in front of it and a blue sky background with the words ' 10, 000, 000,",
+      "label_id": 1,
+      "label_score": 0.9933916330337524
     },
     {
       "second": 5,
       "caption": "một chiếc ô tô màu xanh lá cây với dải ruy băng màu đỏ phía trước và nền trời xanh có dòng chữ '10.000.000,",
-      "caption_original": "a green car with a red ribbon in front of it and a blue sky background with the words ' 10, 000, 000,"
+      "caption_original": "a green car with a red ribbon in front of it and a blue sky background with the words ' 10, 000, 000,",
+      "label_id": 1,
+      "label_score": 0.9933916330337524
     },
     {
       "second": 6,
       "caption": "một người đàn ông mặc áo sơ mi trắng đang đẩy một chiếc ô tô màu xanh lá cây có dải ruy băng màu đỏ trên đó và dòng chữ",
-      "caption_original": "a man in a white shirt is pushing a green car with a red ribbon on it and the words"
+      "caption_original": "a man in a white shirt is pushing a green car with a red ribbon on it and the words",
+      "label_id": 0,
+      "label_score": 0.9840618968009949
     },
     {
       "second": 7,
       "caption": "một người đàn ông mặc áo sơ mi trắng đang đẩy một chiếc ô tô màu xanh lá cây có dải ruy băng màu đỏ trên đó và dòng chữ",
-      "caption_original": "a man in a white shirt is pushing a green car with a red ribbon on it and the words"
+      "caption_original": "a man in a white shirt is pushing a green car with a red ribbon on it and the words",
+      "label_id": 0,
+      "label_score": 0.9840618968009949
     },
     {
       "second": 8,
       "caption": "một người đàn ông mặc áo sơ mi trắng đang đẩy một chiếc ô tô màu xanh lá cây có dải ruy băng màu đỏ trên đó và dòng chữ",
-      "caption_original": "a man in a white shirt is pushing a green car with a red ribbon on it and the words"
+      "caption_original": "a man in a white shirt is pushing a green car with a red ribbon on it and the words",
+      "label_id": 0,
+      "label_score": 0.9840618968009949
     },
     {
       "second": 9,
       "caption": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',",
-      "caption_original": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',"
+      "caption_original": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',",
+      "label_id": 1,
+      "label_score": 0.986417293548584
     },
     {
       "second": 10,
       "caption": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',",
-      "caption_original": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',"
+      "caption_original": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',",
+      "label_id": 1,
+      "label_score": 0.986417293548584
     },
     {
       "second": 11,
       "caption": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',",
-      "caption_original": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',"
+      "caption_original": "a number of different types of t - shirts on display in front of a blue sky background with the words 'TỔNG GIẢl THƯỞNG GIẢl THUN...', t - t - shirts, 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', 'TỔNG GIẢl THƯỞNG GIẢl THUN...', ',",
+      "label_id": 1,
+      "label_score": 0.986417293548584
     },
     {
       "second": 12,
       "caption": "một quảng cáo có hình một chiếc ô tô màu xanh lá cây và nhiều sản phẩm khác nhau trên đó, với nền là bầu trời xanh và",
-      "caption_original": "an advertisement with a green car and various products on it, with a blue sky in the background and"
+      "caption_original": "an advertisement with a green car and various products on it, with a blue sky in the background and",
+      "label_id": 0,
+      "label_score": 0.7501410245895386
     },
     {
       "second": 13,
       "caption": "một quảng cáo có hình một chiếc ô tô màu xanh lá cây và nhiều sản phẩm khác nhau trên đó, với nền là bầu trời xanh và",
-      "caption_original": "an advertisement with a green car and various products on it, with a blue sky in the background and"
+      "caption_original": "an advertisement with a green car and various products on it, with a blue sky in the background and",
+      "label_id": 0,
+      "label_score": 0.7501410245895386
     },
     {
       "second": 14,
       "caption": "một quảng cáo có hình một chiếc ô tô màu xanh lá cây và nhiều sản phẩm khác nhau trên đó, với nền là bầu trời xanh và",
-      "caption_original": "an advertisement with a green car and various products on it, with a blue sky in the background and"
+      "caption_original": "an advertisement with a green car and various products on it, with a blue sky in the background and",
+      "label_id": 0,
+      "label_score": 0.7501410245895386
     }
   ],
   "audio": {
@@ -85,17 +115,28 @@
       {
         "index": 1,
         "text": "Nhân quà cường đá cùng Sunspeck Chỉ với 10 triệu đồng cơ hội chúng thượng ngay Chúng seo ô tô điện viên phát VF và xe máy điện Honda Icon-E đồng hồ Citysion Cùng nhiều phân quà hấp dẫn Với tổng giá trị hơn 1,7 tỷ đồng Sunspeck chúng tay vì một thế giới xanh",
-        "label_id": 0,
-        "label_score": 0.9400008320808411
+        "label_id": 1,
+        "label_score": 1.0,
+        "matched_banned_words": [
+          "đá"
+        ]
       }
     ],
     "sentence_summary": {
       "total_sentences": 1,
-      "num_compliant": 1,
-      "num_violations": 0,
+      "num_compliant": 0,
+      "num_violations": 1,
       "num_unknown": 0,
-      "percent_compliant": 100.0,
-      "percent_violations": 0.0
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
     }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 9,
+    "num_violations": 6,
+    "num_unknown": 0,
+    "percent_compliant": 60.0,
+    "percent_violations": 40.0
   }
 }

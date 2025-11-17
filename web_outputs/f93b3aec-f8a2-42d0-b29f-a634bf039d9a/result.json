@@ -1,0 +1,303 @@
+{
+  "job_id": "f93b3aec-f8a2-42d0-b29f-a634bf039d9a",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\f93b3aec-f8a2-42d0-b29f-a634bf039d9a",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\camhutthuoc.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Chiếc xe buýt trắng di chuyển qua cánh đồng xanh, nhắc nhở mọi người về luật cấm hút thuốc lá nơi công cộng.",
+      "caption_original": "Chiếc xe buýt trắng di chuyển trên con đường giữa cánh đồng xanh mướt, với núi non và cây cối bao quanh.",
+      "caption_for_classification": "Chiếc xe buýt di chuyển qua cánh đồng",
+      "label_id": 0,
+      "label_score": 0.99920254945755
+    },
+    {
+      "second": 1,
+      "caption": "Hành khách trên xe buýt hít phải khói thuốc lá độc hại, tăng nguy cơ mắc bệnh tim theo luật phòng chống tác hại thuốc lá.",
+      "caption_original": "Một chiếc xe buýt chật chội có nhiều hành khách, người đàn ông mặc áo sơ mi trắng đọc báo, trẻ em ngồi bên cạnh.",
+      "caption_for_classification": "Hành khách hít khói thuốc lá trên xe buýt",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 2,
+      "caption": "Người đàn ông hút thuốc trên xe buýt, khói thuốc chứa độc hại làm tăng nguy cơ bệnh tật cho mọi người xung quanh.",
+      "caption_original": "Người đàn ông mặc áo sơ mi sáng màu ngồi trên xe buýt, cúi đầu hút thuốc, khói thuốc bay lên giữa không gian chật chội.",
+      "caption_for_classification": "Người đàn ông hút thuốc trên xe buýt",
+      "label_id": null,
+      "label_score": 0.5060223937034607
+    },
+    {
+      "second": 3,
+      "caption": "Người đàn ông buồn bã hít phải khói thuốc độc hại, tăng nguy cơ bệnh tật theo luật phòng chống thuốc lá.",
+      "caption_original": "Người đàn ông mặc áo sơ mi xám ngồi trên xe buýt, biểu cảm buồn bã, khói thuốc bay lên xung quanh.",
+      "caption_for_classification": "Người đàn ông hít khói thuốc độc hại",
+      "label_id": 1,
+      "label_score": 0.9979695677757263
+    },
+    {
+      "second": 4,
+      "caption": "Người đàn ông nhắm mắt trên xe buýt hít phải khói thuốc lá độc hại, tăng nguy cơ bệnh tật theo luật phòng chống thuốc lá.",
+      "caption_original": "Một người đàn ông mặc áo sơ mi xanh nhắm mắt ngồi trên xe buýt, bên cạnh là người phụ nữ lo âu che miệng, xung quanh có nhiều hành khách khác.",
+      "caption_for_classification": "Người đàn ông nhắm mắt hít khói thuốc lá",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 5,
+      "caption": "Người phụ nữ che mặt vì khói thuốc lá độc hại, ảnh hưởng đến sức khỏe mọi người trên xe buýt.",
+      "caption_original": "Người đàn ông trẻ tuổi ngồi ngủ gật trên xe buýt, trong khi người phụ nữ bên cạnh che mặt, thể hiện nỗi buồn.",
+      "caption_for_classification": "Người phụ nữ che mặt vì khói thuốc lá",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 6,
+      "caption": "Người phụ nữ ôm đứa trẻ trên xe buýt, tránh xa khói thuốc lá độc hại theo luật phòng chống tác hại thuốc lá.",
+      "caption_original": "Người phụ nữ mặc áo xanh nhạt ngồi trên xe buýt, vui vẻ ôm đứa trẻ, trong khi một bé gái bên cạnh nghịch ngợm.",
+      "caption_for_classification": "Người phụ nữ ôm đứa trẻ trên xe buýt",
+      "label_id": 0,
+      "label_score": 0.9786460995674133
+    },
+    {
+      "second": 7,
+      "caption": "Người phụ nữ ôm bé gái trên xe buýt, nhấn mạnh luật cấm hút thuốc lá tại nơi công cộng để bảo vệ sức khỏe.",
+      "caption_original": "Người phụ nữ mặc áo xanh nhạt ngồi trên xe buýt, ôm một bé gái, cả hai nhìn chăm chú về phía trước.",
+      "caption_for_classification": "Người phụ nữ ôm bé gái trên xe buýt",
+      "label_id": 0,
+      "label_score": 0.9950459003448486
+    },
+    {
+      "second": 8,
+      "caption": "Cô bé chạm vào bụng mẹ, hình ảnh phổi hiện lên, nhắc nhở về tác hại của khói thuốc lá trong không gian công cộng.",
+      "caption_original": "Cô bé mặc váy trắng ngồi trên xe buýt, chạm vào bụng mẹ, hình ảnh phổi hiện lên rõ nét bên cạnh.",
+      "caption_for_classification": "Cô bé chạm vào bụng mẹ và hình ảnh phổi hiện lên",
+      "label_id": 1,
+      "label_score": 0.9857425689697266
+    },
+    {
+      "second": 9,
+      "caption": "Cô bé giơ tay trên xe buýt, nhấn mạnh luật cấm hút thuốc lá bảo vệ sức khỏe phổi mọi người.",
+      "caption_original": "Cô bé mặc váy trắng ngồi trên xe buýt, tay giơ lên, bên cạnh là người lớn mặc áo xanh. Hình ảnh phổi hiện rõ trên ngực.",
+      "caption_for_classification": "Cô bé giơ tay trên xe buýt",
+      "label_id": 0,
+      "label_score": 0.9930277466773987
+    },
+    {
+      "second": 10,
+      "caption": "Cô bé ngạc nhiên nhìn mẹ khi thấy cảnh người hút thuốc lá trên xe buýt, nhắc nhở về tác hại của khói thuốc.",
+      "caption_original": "Cô bé mặc váy trắng và tím ngồi trên xe buýt, miệng mở to thể hiện sự ngạc nhiên, mẹ ôm bên cạnh.",
+      "caption_for_classification": "Cô bé nhìn mẹ khi thấy người hút thuốc",
+      "label_id": 1,
+      "label_score": 0.6274142861366272
+    },
+    {
+      "second": 11,
+      "caption": "Người đàn ông có dấu hiệu bệnh lý hít phải khói thuốc lá chứa độc tố, tăng nguy cơ mắc bệnh tim và phổi.",
+      "caption_original": "Ba hình ảnh hiển thị các khía cạnh khác nhau của sức khỏe: tế bào, cấu trúc xương và một người đàn ông có dấu hiệu bệnh lý trên cằm.",
+      "caption_for_classification": "Người đàn ông hít khói thuốc lá",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 12,
+      "caption": "Người đàn ông hút thuốc trong bóng tối làm tăng nguy cơ bệnh tật cho những người xung quanh theo luật phòng chống tác hại thuốc lá.",
+      "caption_original": "Người đàn ông đứng trong bóng tối đang hút thuốc, bên cạnh là hình ảnh mờ của một người và não",
+      "caption_for_classification": "Người đàn ông hút thuốc làm tăng nguy cơ bệnh tật",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "bệnh tật"
+      ]
+    },
+    {
+      "second": 13,
+      "caption": "Người đàn ông cầm thuốc lá trong bóng tối, thể hiện sự trầm tư về tác hại khói thuốc lá đối với sức khỏe.",
+      "caption_original": "Người đàn ông đứng trong bóng tối, tay cầm thuốc lá, thể hiện sự trầm tư giữa bối cảnh mờ",
+      "caption_for_classification": "Người đàn ông cầm thuốc lá",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 14,
+      "caption": "Người mờ ảo hít phải khói thuốc lá, làm tổn thương trái tim và gia tăng nguy cơ bệnh tật.",
+      "caption_original": "Ba khung hình hiển thị các hình ảnh trừu tượng: một hình người mờ ảo, một trái tim bên trong, và một vết thương trên",
+      "caption_for_classification": "Người hít khói thuốc lá làm tổn thương trái tim",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 15,
+      "caption": "Người đàn ông đưa thẻ cho cô gái trong xe buýt, nhấn mạnh luật cấm hút thuốc lá nơi công cộng để bảo vệ sức khỏe mọi người.",
+      "caption_original": "Một người đàn ông mặc áo sơ mi sáng màu đang đưa thẻ cho cô gái ngồi bên cạnh trong xe buýt, xung quanh có hành khách khác.",
+      "caption_for_classification": "Người đàn ông đưa thẻ cho cô gái",
+      "label_id": 0,
+      "label_score": 0.8957564830780029
+    },
+    {
+      "second": 16,
+      "caption": "Người đàn ông ngồi trên xe buýt nhắc nhở cô gái trẻ về nguy cơ sức khỏe từ khói thuốc lá trong không gian công cộng.",
+      "caption_original": "Người đàn ông mặc áo sơ mi sáng đang ngồi trên xe buýt, trao đổi với cô gái trẻ, trong bối cảnh hành khách xung quanh.",
+      "caption_for_classification": "Người đàn ông nhắc nhở cô gái về khói thuốc lá",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 17,
+      "caption": "Người đàn ông nói chuyện trên xe buýt cảnh báo về tác hại của khói thuốc lá và nhắc nhở về luật cấm hút thuốc nơi công cộng.",
+      "caption_original": "Người đàn ông mặc áo sơ mi sáng màu đang nói chuyện với khác trên xe buýt, xung quanh có hành khách đang ngồi.",
+      "caption_for_classification": "Người đàn ông nói chuyện trên xe buýt",
+      "label_id": 0,
+      "label_score": 0.9984773993492126
+    },
+    {
+      "second": 18,
+      "caption": "Người đàn ông cầm báo nhấn mạnh tác hại của khói thuốc lá trên xe buýt đông đúc, kêu gọi tuân thủ luật phòng chống thuốc lá.",
+      "caption_original": "Người đàn ông mặc áo sơ mi sáng màu đang nói chuyện với khác cầm báo trên xe buýt đông đúc.",
+      "caption_for_classification": "Người đàn ông cầm báo kêu gọi tuân thủ luật thuốc lá",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 19,
+      "caption": "Người đàn ông chỉ vào tờ báo, nhấn mạnh tác hại của khói thuốc lá đối với sức khỏe cộng đồng.",
+      "caption_original": "Người đàn ông mặc áo phông đứng cạnh hành khách, chỉ vào tờ báo trong tay khác trên xe buýt đông đúc.",
+      "caption_for_classification": "Người đàn ông chỉ vào tờ báo",
+      "label_id": 0,
+      "label_score": 0.9807243347167969
+    },
+    {
+      "second": 20,
+      "caption": "Hai người đàn ông ngồi trong xe buýt, cùng nhau thảo luận về tác hại của khói thuốc lá đối với sức khỏe.",
+      "caption_original": "Hai người đàn ông mặc áo sơ mi ngồi trong xe buýt, một người mỉm cười nói chuyện, người còn lại nhìn chăm chú.",
+      "caption_for_classification": "Hai người đàn ông thảo luận về khói thuốc lá",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 21,
+      "caption": "Xe buýt màu trắng xanh di chuyển qua cánh đồng, nhấn mạnh luật cấm hút thuốc lá để bảo vệ sức khỏe cộng đồng.",
+      "caption_original": "Xe buýt màu trắng xanh di chuyển trên đường giữa cánh đồng xanh mướt, biểu tượng cấm thuốc lá nổi bật bên cạnh.",
+      "caption_for_classification": "Xe buýt di chuyển qua cánh đồng",
+      "label_id": 0,
+      "label_score": 0.9985249638557434
+    },
+    {
+      "second": 22,
+      "caption": "Xe buýt chạy qua cánh đồng xanh mướt, nhấn mạnh luật cấm hút thuốc lá để bảo vệ sức khỏe cộng đồng.",
+      "caption_original": "Xe buýt màu trắng xanh chạy trên đường giữa cánh đồng xanh mướt, biểu tượng cấm hút thuốc nổi bật bên cạnh.",
+      "caption_for_classification": "Xe buýt chạy qua cánh đồng xanh",
+      "label_id": 0,
+      "label_score": 0.9958978295326233
+    },
+    {
+      "second": 23,
+      "caption": "\"Bảng thông báo cấm hút thuốc lá nhấn mạnh quy định bảo vệ sức khỏe cộng đồng khỏi tác hại của khói thuốc.\"",
+      "caption_original": "Bảng thông báo của Bộ Y tế có biểu tượng cấm hút thuốc lá, nhấn mạnh quy định không hút thuốc tại nơi công cộng.",
+      "caption_for_classification": "\"Bảng thông báo cấm hút thuốc lá\"",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    },
+    {
+      "second": 24,
+      "caption": "Người dân nhìn bảng hiệu cấm hút thuốc lá, nhấn mạnh nguy cơ bệnh tật từ khói thuốc độc hại.",
+      "caption_original": "Bảng hiệu cấm hút thuốc lá với biểu tượng thuốc lá và chữ \"Không tại những nơi công cộng\" nổi bật.",
+      "caption_for_classification": "Người dân nhìn bảng hiệu cấm hút thuốc lá",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "thuốc lá"
+      ]
+    }
+  ],
+  "audio": {
+    "full_text": "Và mọi người cảm thấy báo cáo đã bị phá hủy, cố gắng sử dụng khói thuốc để sản phẩm một sản phẩm. Phói thuốc lá chứa hàng ngàn hoại chất độc hại như cyanin và các bon monoxid, tấn công những anh hít phải đó, làm tăng nguy cơ mắc bệnh tin, bệnh tư cho những người hít phải khói thuốc và cho những người uống thuốc. Cầm uống thuốc lá trên các phương diện giao thông công cộng để hay ngại. Tôi xin lỗi. Luật phòng chống tăng hại thuốc lá, cầm uống thuốc lá tại nơi công cộng, nơi làm việc trong nhà và trên các phương diện.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Và mọi người cảm thấy báo cáo đã bị phá hủy, cố gắng sử dụng khói thuốc để sản phẩm một sản phẩm.",
+        "label_id": 1,
+        "label_score": 0.9967393279075623
+      },
+      {
+        "index": 2,
+        "text": "Phói thuốc lá chứa hàng ngàn hoại chất độc hại như cyanin và các bon monoxid, tấn công những anh hít phải đó, làm tăng nguy cơ mắc bệnh tin, bệnh tư cho những người hít phải khói thuốc và cho những người uống thuốc.",
+        "label_id": 1,
+        "label_score": 1.0,
+        "matched_banned_words": [
+          "thuốc lá"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "Cầm uống thuốc lá trên các phương diện giao thông công cộng để hay ngại.",
+        "label_id": 1,
+        "label_score": 1.0,
+        "matched_banned_words": [
+          "thuốc lá"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "Tôi xin lỗi.",
+        "label_id": 1,
+        "label_score": 0.9560003876686096
+      },
+      {
+        "index": 5,
+        "text": "Luật phòng chống tăng hại thuốc lá, cầm uống thuốc lá tại nơi công cộng, nơi làm việc trong nhà và trên các phương diện.",
+        "label_id": 1,
+        "label_score": 1.0,
+        "matched_banned_words": [
+          "thuốc lá"
+        ]
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 5,
+      "num_compliant": 0,
+      "num_violations": 5,
+      "num_unknown": 0,
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
+    }
+  },
+  "summary": {
+    "total_frames": 25,
+    "num_compliant": 9,
+    "num_violations": 15,
+    "num_unknown": 1,
+    "percent_compliant": 36.0,
+    "percent_violations": 60.0
+  }
+}

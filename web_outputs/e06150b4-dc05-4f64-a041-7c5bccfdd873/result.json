@@ -1,0 +1,172 @@
+{
+  "job_id": "e06150b4-dc05-4f64-a041-7c5bccfdd873",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\e06150b4-dc05-4f64-a041-7c5bccfdd873",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_xrbperyv.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Người phụ nữ dẫn dắt cậu bé đến bếp, giới thiệu Milo với bộ 3 lợi thế phát triển cao lớn, nhiều protein và năng lượng.",
+      "caption_original": "Người phụ nữ mặc áo phông sáng và quần jeans dẫn dắt cậu bé mặc áo trắng trong bếp hiện đại, vui vẻ trò chuyện.",
+      "caption_for_classification": "Người phụ nữ dẫn cậu bé đến bếp",
+      "label_id": 0,
+      "label_score": 0.9979050159454346
+    },
+    {
+      "second": 1,
+      "caption": "Cậu bé cầm hộp Milo với bộ 3 lợi thế hỗ trợ phát triển cao lớn, năng động và tập trung.",
+      "caption_original": "Cậu bé mặc áo xanh vui vẻ cầm bóng rổ bên hộp Milo, đứng trong bếp sáng sủa với không gian hiện đại.",
+      "caption_for_classification": "Cậu bé cầm hộp đồ uống",
+      "label_id": 0,
+      "label_score": 0.9989245533943176
+    },
+    {
+      "second": 2,
+      "caption": "\"Đầu bếp tạo hình lớp kem Milo tươi mới, mang bộ 3 lợi thế hỗ trợ cao lớn, nhiều protein và canxi.\"",
+      "caption_original": "Một lớp kem trắng mịn đang được tạo hình, nổi bật trên nền bếp sáng, thể hiện sự tươi mới và hấp dẫn của sản phẩm.",
+      "caption_for_classification": "Đầu bếp tạo hình lớp kem",
+      "label_id": 0,
+      "label_score": 0.9972066283226013
+    },
+    {
+      "second": 3,
+      "caption": "Chất lỏng Milo đặc sánh chảy mềm mại, hỗ trợ cao lớn với protein, canxi và vitamin, giúp bạn năng động và tập trung.",
+      "caption_original": "Chất lỏng màu trắng đặc sánh chảy từ trên xuống, tạo thành những hình dạng sóng mềm mại trên bề mặt phẳng.",
+      "caption_for_classification": "Chất lỏng hỗ trợ cao lớn với protein canxi và vitamin",
+      "label_id": 0,
+      "label_score": 0.7386741042137146
+    },
+    {
+      "second": 4,
+      "caption": "Khối sữa trắng nổi bật hỗ trợ cao lớn với protein và canxi từ Milo, mang lại năng lượng và vitamin cho sự phát triển.",
+      "caption_original": "Khối sữa trắng nổi bật giữa nền mềm mại, nhấn mạnh lợi ích hỗ trợ cao lớn từ protein và canxi.",
+      "caption_for_classification": "Khối sữa hỗ trợ phát triển với protein và canxi",
+      "label_id": 0,
+      "label_score": 0.9890395402908325
+    },
+    {
+      "second": 5,
+      "caption": "Giọt sữa trắng văng lên, nhấn mạnh Milo hỗ trợ cao lớn với protein và canxi, mang lại năng lượng và vitamin cho trẻ.",
+      "caption_original": "Hình ảnh một giọt sữa trắng lớn văng lên giữa nền trắng, nhấn mạnh sản phẩm hỗ trợ cao lớn với protein và canxi.",
+      "caption_for_classification": "Giọt sữa văng lên hỗ trợ cao lớn với protein và canxi",
+      "label_id": 0,
+      "label_score": 0.6298669576644897
+    },
+    {
+      "second": 6,
+      "caption": "Cành lúa mì khô hỗ trợ Milo với bộ 3 lợi thế phát triển, cung cấp protein, canxi và vitamin cho sự năng động.",
+      "caption_original": "Cành lúa mì khô nổi bật trong khung cảnh đồng quê, tạo cảm giác gần gũi và tự nhiên, thể hiện sản phẩm nông sản.",
+      "caption_for_classification": "Cành lúa mì khô hỗ trợ phát triển và cung cấp protein canxi vitamin",
+      "label_id": 0,
+      "label_score": 0.981062114238739
+    },
+    {
+      "second": 7,
+      "caption": "Cảnh lúa mì khô truyền tải năng lượng, hỗ trợ cao lớn và nhiều protein từ Milo, giúp bạn năng động và tập trung.",
+      "caption_original": "Cảnh lúa mì khô nổi bật trên nền sáng, truyền tải thông điệp về năng lượng và vitamin trong quảng cáo.",
+      "caption_for_classification": "Cảnh lúa mì khô hỗ trợ năng lượng và protein",
+      "label_id": 0,
+      "label_score": 0.9959650039672852
+    },
+    {
+      "second": 8,
+      "caption": "\"Chất lỏng Milo màu nâu sẫm hỗ trợ phát triển cao lớn với protein, canxi và vitamin.\"",
+      "caption_original": "Chất lỏng màu nâu sẫm lăn tăn trên bề mặt, tạo cảm giác hấp dẫn và mịn màng, gợi nhớ đến chocolate.",
+      "caption_for_classification": "Chất lỏng hỗ trợ phát triển với protein canxi và vitamin",
+      "label_id": 0,
+      "label_score": 0.9000202417373657
+    },
+    {
+      "second": 9,
+      "caption": "\"Ly Milo chảy mịn màng với bộ 3 lợi thế hỗ trợ cao lớn, nhiều protein và năng lượng.\"",
+      "caption_original": "Một lớp kem màu nâu sẫm đang chảy trên bề mặt, tạo cảm giác mịn màng và hấp dẫn.",
+      "caption_for_classification": "Ly chứa protein và năng lượng",
+      "label_id": 0,
+      "label_score": 0.8108307719230652
+    },
+    {
+      "second": 10,
+      "caption": "Biểu tượng Milo nổi bật trên nền sô cô la chảy giúp tập trung với sắt và hỗ trợ phát triển cao lớn, nhiều protein và canxi.",
+      "caption_original": "Hình ảnh một biểu tượng màu nâu nổi bật trên nền sô cô la chảy, kèm theo chữ \"Giúp Tập trung với Sắt\".",
+      "caption_for_classification": "Biểu tượng nổi bật trên nền sô cô la chảy",
+      "label_id": 0,
+      "label_score": 0.6393275856971741
+    },
+    {
+      "second": 11,
+      "caption": "\"Chocolate sánh mịn của Milo hỗ trợ phát triển cao lớn với bộ 3 lợi thế dinh dưỡng hấp dẫn.\"",
+      "caption_original": "Hình ảnh cho thấy dòng chocolate sánh mịn đang chảy và tạo thành những vòng xoáy hấp dẫn trong bối cảnh ẩm ướt.",
+      "caption_for_classification": "Sản phẩm hỗ trợ phát triển chiều cao với dinh dưỡng",
+      "label_id": 0,
+      "label_score": 0.8050448894500732
+    },
+    {
+      "second": 12,
+      "caption": "\"Trẻ em năng động chọn Milo với bộ 3 lợi thế hỗ trợ phát triển cao lớn, nhiều protein và canxi.\"",
+      "caption_original": "Hình ảnh có dòng chữ \"BÔ BA LỢI THẾ\" nổi bật trên nền màu nâu, với các vệt kem sữa hòa quyện, tạo cảm giác năng động và hấp dẫn.",
+      "caption_for_classification": "Trẻ em chọn sản phẩm hỗ trợ phát triển",
+      "label_id": 0,
+      "label_score": 0.9961240887641907
+    },
+    {
+      "second": 13,
+      "caption": "\"Chai Milo với ba lợi thế hỗ trợ phát triển, chảy mịn màng, giúp trẻ năng động và tập trung.\"",
+      "caption_original": "Hình ảnh mô tả một dòng kem sô cô la mịn màng chảy, với chữ \"Bỏ ba lợi thế\" nổi bật ở giữa.",
+      "caption_for_classification": "Trẻ uống sản phẩm hỗ trợ phát triển",
+      "label_id": 0,
+      "label_score": 0.9560654163360596
+    },
+    {
+      "second": 14,
+      "caption": "Cậu bé cầm bóng rổ vui vẻ bên hộp Milo, hỗ trợ phát triển cao lớn với protein, canxi và vitamin.",
+      "caption_original": "Cậu bé mặc áo xanh đang cầm bóng rổ vui vẻ bên hộp Milo lớn trên nền xanh",
+      "caption_for_classification": "Cậu bé cầm bóng rổ bên hộp thức uống",
+      "label_id": 0,
+      "label_score": 0.9987241625785828
+    }
+  ],
+  "audio": {
+    "full_text": "À, Milo này! Milo với bộ 3 lợi thế, hỗ trợ cao lớn, nhiều protein và canxi, năng động cùng vitamin và năng lượng, giúp tập trung với sắc. Chọn Milo! Chào còn bộ 3 lợi thế phát triển!",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "À, Milo này!",
+        "label_id": 1,
+        "label_score": 0.7651574611663818
+      },
+      {
+        "index": 2,
+        "text": "Milo với bộ 3 lợi thế, hỗ trợ cao lớn, nhiều protein và canxi, năng động cùng vitamin và năng lượng, giúp tập trung với sắc.",
+        "label_id": 1,
+        "label_score": 0.8178620338439941
+      },
+      {
+        "index": 3,
+        "text": "Chọn Milo!",
+        "label_id": 1,
+        "label_score": 0.9586445689201355
+      },
+      {
+        "index": 4,
+        "text": "Chào còn bộ 3 lợi thế phát triển!",
+        "label_id": 1,
+        "label_score": 0.986049473285675
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 4,
+      "num_compliant": 0,
+      "num_violations": 4,
+      "num_unknown": 0,
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 15,
+    "num_violations": 0,
+    "num_unknown": 0,
+    "percent_compliant": 100.0,
+    "percent_violations": 0.0
+  }
+}

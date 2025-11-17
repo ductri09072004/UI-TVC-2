@@ -317,9 +317,10 @@ def process_video(job_id: str, video_path: str, backend: str, language: str, hf_
     # Extract frames to memory (don't save to disk)
     frames_in_memory = extract_frames_to_memory(video_path)
 
-    # Use default model if not specified
+    # Use default model if not specified (will use FINETUNED_MODEL_PATH from image_captioning.py)
+    # Only override if explicitly provided
     if not hf_model:
-        hf_model = "Salesforce/blip-image-captioning-base"
+        hf_model = ""  # Empty string signals to use default from image_captioning.py
 
     # Step 1: Create data structure and caption frames
     # For OpenAI backend: group 3 frames and create 1 caption per group
@@ -1135,7 +1136,9 @@ def upload():
     # Get OpenAI config if using OpenAI backend
     openai_key_from_form = request.form.get("openai_key", "").strip()
     openai_model_from_form = request.form.get("openai_model", "").strip()
-    hf_model = ""  # Use default from image_captioning.py
+    # Get BLIP model path if using local backend
+    hf_model_from_form = request.form.get("hf_model", "").strip()
+    hf_model = hf_model_from_form if hf_model_from_form else ""  # Use default from image_captioning.py if empty
     openai_model = openai_model_from_form if openai_model_from_form else ""
     translate = True  # Always translate to Vietnamese
     

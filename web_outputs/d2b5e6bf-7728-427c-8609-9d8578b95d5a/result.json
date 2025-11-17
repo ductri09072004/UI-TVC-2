@@ -9,15 +9,15 @@
       "caption_original": "Nhóm thanh niên mặc trang phục trẻ trung vui vẻ, cầm hộp đồ ăn nhẹ, đứng trong không gian hiện đại với ánh sáng xanh.",
       "caption_for_classification": "Nhóm thanh niên thưởng thức đồ ăn nhẹ và bia, cảm thấy sảng khoái.",
       "label_id": 0,
-      "label_score": 0.7398340106010437
+      "label_score": 0.9783976078033447
     },
     {
       "second": 1,
       "caption": "Người phụ nữ cầm chai bia Sài Gòn CHIÊU 250ml, tận hưởng sự sảng khoái cùng nhóm bạn trẻ vui vẻ.",
       "caption_original": "Người phụ nữ mặc áo blouse xanh cầm chai nước ngọt, đứng giữa nhóm bạn trẻ đang trò chuyện vui vẻ trong bối cảnh sôi động.",
       "caption_for_classification": "Người phụ nữ tận hưởng sự sảng khoái cùng nhóm bạn trẻ.",
-      "label_id": 0,
-      "label_score": 0.6127948760986328
+      "label_id": 1,
+      "label_score": 0.6948979496955872
     },
     {
       "second": 2,
@@ -25,7 +25,7 @@
       "caption_original": "Cô gái mặc trang phục xanh nổi bật đang cầm chai nước ngọt, đứng giữa nhóm bạn trẻ vui vẻ trong bối cảnh sôi động.",
       "caption_for_classification": "Cô gái tận hưởng sự sảng khoái khi cầm chai bia cùng nhóm bạn.",
       "label_id": 0,
-      "label_score": 0.6670807600021362
+      "label_score": 0.938936173915863
     },
     {
       "second": 3,
@@ -33,23 +33,23 @@
       "caption_original": "Cô gái mặc đồng phục xanh cầm lon nước, tươi cười mời gọi giữa nhóm người đang làm việc trong bối cảnh hiện đại.",
       "caption_for_classification": "Cô gái cầm lon bia, tươi cười mời gọi mọi người.",
       "label_id": 0,
-      "label_score": 0.9068560600280762
+      "label_score": 0.9810333251953125
     },
     {
       "second": 4,
       "caption": "Người đàn ông vui vẻ cầm bia Sài Gòn CHIÊU 250ml, sảng khoái bên quạt gió lớn, chiêu theo chất riêng.",
       "caption_original": "Người đàn ông mặc áo khoác xanh nhạt đứng bên cạnh quạt gió lớn, vui vẻ cầm sản phẩm trong tay.",
       "caption_for_classification": "Người đàn ông vui vẻ cầm bia, sảng khoái bên quạt gió lớn.",
-      "label_id": null,
-      "label_score": 0.5492960810661316
+      "label_id": 0,
+      "label_score": 0.9080600738525391
     },
     {
       "second": 5,
       "caption": "Nhóm người trẻ tuổi vui vẻ cầm bia Sài Gòn CHIÊU 250ml, sảng khoái chiêu theo chất riêng tại tiệm CHIÊU 250.",
       "caption_original": "Nhóm người trẻ tuổi mặc trang phục thời trang đứng xếp hàng, cầm hộp đồ uống, vui vẻ chờ nhận quà từ quầy.",
       "caption_for_classification": "Nhóm người trẻ vui vẻ cầm bia, sảng khoái tại tiệm.",
-      "label_id": 0,
-      "label_score": 0.7564733624458313
+      "label_id": null,
+      "label_score": 0.5010634660720825
     },
     {
       "second": 6,
@@ -57,7 +57,7 @@
       "caption_original": "Nhóm thanh niên mặc trang phục trẻ trung xếp hàng chờ nhận sản phẩm bên cạnh máy móc hiện đại trong bối cảnh tối tăm.",
       "caption_for_classification": "Nhóm thanh niên cảm thấy sảng khoái khi chờ nhận bia",
       "label_id": 0,
-      "label_score": 0.8545209169387817
+      "label_score": 0.9513508081436157
     },
     {
       "second": 7,
@@ -65,7 +65,7 @@
       "caption_original": "Cô gái mặc áo khoác xanh tươi cười, giơ chai nước ngọt lên giữa bữa tiệc, xung quanh mọi người đang nhảy múa vui",
       "caption_for_classification": "Cô gái tươi cười giơ chai bia, cảm thấy sảng khoái trong bữa tiệc vui",
       "label_id": 1,
-      "label_score": 0.7704154253005981
+      "label_score": 0.8347856998443604
     },
     {
       "second": 8,
@@ -73,7 +73,7 @@
       "caption_original": "Nhóm người trẻ tuổi mặc trang phục sáng màu vui vẻ đang vẫy tay tại một sự kiện, xung quanh là không gian hiện đại.",
       "caption_for_classification": "Nhóm người trẻ vui vẻ vẫy tay và thưởng thức bia tại sự kiện.",
       "label_id": 0,
-      "label_score": 0.900701642036438
+      "label_score": 0.9911739230155945
     },
     {
       "second": 9,
@@ -81,7 +81,7 @@
       "caption_original": "Một cô gái mặc áo khoác xanh vui vẻ mở vali, xung quanh là nhóm bạn trẻ hào hứng trong bối cảnh hiện đại.",
       "caption_for_classification": "Cô gái mở vali, hào hứng chiêu bia và sảng khoái bên nhóm bạn",
       "label_id": 0,
-      "label_score": 0.8408868908882141
+      "label_score": 0.9862815737724304
     },
     {
       "second": 10,
@@ -89,7 +89,7 @@
       "caption_original": "Một nhóm người trẻ tuổi đứng xung quanh bàn, chăm chú nhìn vào hộp sản phẩm phát sáng giữa không gian hiện đại.",
       "caption_for_classification": "Nhóm người trẻ thưởng thức bia trong không gian hiện đại.",
       "label_id": 0,
-      "label_score": 0.9154296517372131
+      "label_score": 0.9965705871582031
     },
     {
       "second": 11,
@@ -97,7 +97,7 @@
       "caption_original": "Nhóm bạn trẻ vui vẻ đứng xung quanh chiếc vali mở, bên trong chứa nhiều lon bia màu xanh, tạo không khí phấn khích.",
       "caption_for_classification": "Nhóm bạn trẻ vui vẻ thưởng thức bia bên chiếc vali đầy lon.",
       "label_id": 0,
-      "label_score": 0.9179874658584595
+      "label_score": 0.997825562953949
     },
     {
       "second": 12,
@@ -105,15 +105,15 @@
       "caption_original": "Một cô gái mặc áo khoác xanh cầm thùng bia Saigon, đứng giữa nhóm bạn trẻ đang chăm chú nhìn.",
       "caption_for_classification": "Cô gái cầm thùng bia, sảng khoái cùng bạn bè",
       "label_id": 0,
-      "label_score": 0.8562344908714294
+      "label_score": 0.9721637964248657
     },
     {
       "second": 13,
       "caption": "Cô gái mở hộp chứa bia Sài Gòn CHIÊU 250ml, cực sảng khoái, gọn nhẹ để chiêu theo chất riêng.",
       "caption_original": "Một cô gái mặc trang phục màu xanh tươi cười mở hộp chứa chai nước ngọt, xung quanh là nhóm bạn trẻ phấn khích.",
       "caption_for_classification": "Cô gái mở hộp bia, cảm thấy sảng khoái và gọn nhẹ",
-      "label_id": 1,
-      "label_score": 0.8456048369407654
+      "label_id": 0,
+      "label_score": 0.956890344619751
     },
     {
       "second": 14,
@@ -121,7 +121,7 @@
       "caption_original": "Ba lon bia Saigon Chill màu xanh nổi bật nằm trong tủ lạnh, tạo cảm giác mát lạnh và hấp dẫn.",
       "caption_for_classification": "\"Ba lon bia mát lạnh trong tủ lạnh, sẵn sàng cho trải nghiệm.\"",
       "label_id": 0,
-      "label_score": 0.9143639206886292
+      "label_score": 0.9952364563941956
     },
     {
       "second": 15,
@@ -129,7 +129,7 @@
       "caption_original": "Người đàn ông trẻ tuổi mặc áo len xám đang nhắm mắt, thưởng thức nước uống từ lon màu sắc rực",
       "caption_for_classification": "Người đàn ông trẻ tuổi thưởng thức bia, cảm thấy sảng khoái",
       "label_id": 1,
-      "label_score": 0.6533597707748413
+      "label_score": 0.6109903454780579
     },
     {
       "second": 16,
@@ -137,7 +137,7 @@
       "caption_original": "Nhóm thanh niên mặc trang phục trẻ trung đang đứng hàng ngang, vui vẻ uống nước từ chai trong một không gian hiện đại.",
       "caption_for_classification": "Nhóm thanh niên vui vẻ uống bia trong không gian hiện đại.",
       "label_id": 0,
-      "label_score": 0.9170199632644653
+      "label_score": 0.9977337121963501
     },
     {
       "second": 17,
@@ -145,7 +145,7 @@
       "caption_original": "Một người đàn ông mặc áo khoác xanh đứng giữa nhóm bạn trẻ, họ đang cầm chai bia Saigon Chill vui",
       "caption_for_classification": "Người đàn ông cầm chai bia, cảm thấy sảng khoái và vui vẻ cùng bạn trẻ.",
       "label_id": 0,
-      "label_score": 0.7379022240638733
+      "label_score": 0.6750649809837341
     },
     {
       "second": 18,
@@ -153,7 +153,7 @@
       "caption_original": "Một người đàn ông mặc đồng phục màu xanh lam đứng giữa nhóm bạn trẻ, họ cầm chai bia Saigon và cười nói vui",
       "caption_for_classification": "Nhóm bạn trẻ sảng khoái cầm chai bia trong không khí vui vẻ",
       "label_id": 0,
-      "label_score": 0.7864621877670288
+      "label_score": 0.8889109492301941
     },
     {
       "second": 19,
@@ -161,7 +161,7 @@
       "caption_original": "Nhóm người trẻ mặc trang phục hiện đại đứng xung quanh bàn, cầm chai bia Sài Gòn, hướng về màn hình lớn phát hình ảnh không gian.",
       "caption_for_classification": "Nhóm người trẻ cầm chai bia, thưởng thức sự sảng khoái trong không gian vui vẻ",
       "label_id": 1,
-      "label_score": 0.8264326453208923
+      "label_score": 0.8615163564682007
     },
     {
       "second": 20,
@@ -169,7 +169,7 @@
       "caption_original": "Một cô gái trẻ mặc áo khoác denim và đeo túi xách lớn cầm chai bia, vui vẻ đi giữa đám đông trong bữa tiệc.",
       "caption_for_classification": "Cô gái vui vẻ cầm chai bia, tận hưởng sự sảng khoái trong bữa tiệc",
       "label_id": 1,
-      "label_score": 0.6377277970314026
+      "label_score": 0.7906085848808289
     },
     {
       "second": 21,
@@ -177,23 +177,23 @@
       "caption_original": "Người đàn ông mặc áo vest mở vali chứa nhiều lon nước ngọt, đứng trước phông nền màu xanh ấn tượng.",
       "caption_for_classification": "Người đàn ông mở vali chứa bia, sảng khoái và gọn nhẹ.",
       "label_id": 1,
-      "label_score": 0.8359480500221252
+      "label_score": 0.7230482697486877
     },
     {
       "second": 22,
       "caption": "Chàng trai điều khiển bàn DJ, thưởng thức bia Sài Gòn CHIÊU 250ml, cực sảng khoái và chất riêng.",
       "caption_original": "Một chàng trai mặc áo khoác xanh nhạt đang điều khiển bàn DJ trước nền ánh sáng xanh rực",
       "caption_for_classification": "Chàng trai điều khiển bàn DJ, cảm thấy sảng khoái khi thưởng thức bia.",
-      "label_id": 1,
-      "label_score": 0.9143606424331665
+      "label_id": 0,
+      "label_score": 0.9637895226478577
     },
     {
       "second": 23,
       "caption": "Người đàn ông điều khiển bàn DJ cầm chai bia Sài Gòn CHIÊU 250ml, sảng khoái và chất riêng trong không gian ánh sáng xanh.",
       "caption_original": "Người đàn ông mặc áo khoác màu xanh đang điều khiển bàn DJ, tay cầm chai nước ngọt trong không gian ánh sáng xanh.",
       "caption_for_classification": "Người đàn ông điều khiển bàn DJ, sảng khoái cầm chai bia trong không gian ánh sáng xanh.",
-      "label_id": 1,
-      "label_score": 0.883628249168396
+      "label_id": 0,
+      "label_score": 0.9575065970420837
     },
     {
       "second": 24,
@@ -201,7 +201,7 @@
       "caption_original": "Nhóm người trẻ tuổi đang nhảy múa vui vẻ trong bữa tiệc, cầm chai nước, ánh sáng xanh mờ ảo tạo không khí sôi động.",
       "caption_for_classification": "Nhóm người trẻ vui vẻ nhảy múa cầm chai bia sảng khoái.",
       "label_id": 0,
-      "label_score": 0.8279317021369934
+      "label_score": 0.9069951772689819
     },
     {
       "second": 25,
@@ -209,7 +209,7 @@
       "caption_original": "Một cô gái mặc trang phục thể thao đứng giữa đám đông, vui vẻ đưa chai nước cho một người khác trong không gian tối.",
       "caption_for_classification": "Cô gái vui vẻ đưa chai bia cho bạn bè trong không gian tối.",
       "label_id": 0,
-      "label_score": 0.9200341105461121
+      "label_score": 0.9983311295509338
     },
     {
       "second": 26,
@@ -217,7 +217,7 @@
       "caption_original": "Một nhóm người trẻ tuổi vui vẻ, mặc trang phục năng động, đang nhảy múa và cầm chai nước trong một bữa tiệc sôi động.",
       "caption_for_classification": "Nhóm người trẻ nhảy múa và cầm chai bia trong bữa tiệc vui vẻ.",
       "label_id": 0,
-      "label_score": 0.8918731212615967
+      "label_score": 0.9494709372520447
     },
     {
       "second": 27,
@@ -225,7 +225,7 @@
       "caption_original": "Hai người trẻ mặc đồng phục màu xanh, vui vẻ cầm chai nước ngọt, đứng trước đám đông đang cổ",
       "caption_for_classification": "Hai người trẻ vui vẻ cầm chai bia giữa đám đông.",
       "label_id": 0,
-      "label_score": 0.8933348655700684
+      "label_score": 0.9482199549674988
     },
     {
       "second": 28,
@@ -233,7 +233,7 @@
       "caption_original": "Hai người trẻ tuổi mặc áo khoác màu xanh, vui vẻ cầm chai nước ngọt, đứng trước đám đông đang nhảy múa.",
       "caption_for_classification": "Hai người trẻ vui vẻ cầm chai bia trong không khí tiệc tùng.",
       "label_id": 0,
-      "label_score": 0.8133146166801453
+      "label_score": 0.863964855670929
     },
     {
       "second": 29,
@@ -241,7 +241,7 @@
       "caption_original": "Hai người trẻ tuổi mặc áo phông đang nhảy múa bên cạnh bàn DJ, bên cạnh là các chai bia Sài Gòn Chill.",
       "caption_for_classification": "Hai người trẻ nhảy múa bên bàn DJ, thưởng thức bia sảng khoái.",
       "label_id": 0,
-      "label_score": 0.7042196989059448
+      "label_score": 0.6938360929489136
     }
   ],
   "audio": {
@@ -268,10 +268,10 @@
   },
   "summary": {
     "total_frames": 30,
-    "num_compliant": 21,
-    "num_violations": 8,
+    "num_compliant": 23,
+    "num_violations": 6,
     "num_unknown": 1,
-    "percent_compliant": 70.0,
-    "percent_violations": 26.67
+    "percent_compliant": 76.67,
+    "percent_violations": 20.0
   }
 }

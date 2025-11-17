@@ -1,0 +1,157 @@
+{
+  "job_id": "a25bc2e9-c2ad-46f3-8abf-741a30b20062",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\a25bc2e9-c2ad-46f3-8abf-741a30b20062",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_m7a7pq54.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "hình ảnh một cuốn sách có nền đỏ",
+      "caption_original": "an image of a book with a red background",
+      "label_id": 0,
+      "label_score": 0.9768298268318176
+    },
+    {
+      "second": 1,
+      "caption": "một chai bia ngồi trên làn sóng đỏ",
+      "caption_original": "a bottle of beer sitting on top of a red wave",
+      "label_id": 0,
+      "label_score": 0.8978461623191833
+    },
+    {
+      "second": 2,
+      "caption": "một chai bia đặt trên bàn",
+      "caption_original": "a bottle of beer sitting on top of a table",
+      "label_id": 0,
+      "label_score": 0.9952433705329895
+    },
+    {
+      "second": 3,
+      "caption": "một nhóm người đứng trên thảm đỏ trước một tòa nhà",
+      "caption_original": "a group of people standing on a red carpet in front of a building",
+      "label_id": 1,
+      "label_score": 0.9964136481285095
+    },
+    {
+      "second": 4,
+      "caption": "một nhóm người đàn ông mặc bộ đồ màu bạc đang ngồi ở bàn",
+      "caption_original": "a group of men in silver suits sitting at a table",
+      "label_id": 1,
+      "label_score": 0.7372773289680481
+    },
+    {
+      "second": 5,
+      "caption": "một nhóm đàn ông ngồi ở bàn trước lon bia",
+      "caption_original": "a group of men sitting at a table in front of a beer can",
+      "label_id": 0,
+      "label_score": 0.979029655456543
+    },
+    {
+      "second": 6,
+      "caption": "cận cảnh một chiếc đồng hồ nền đỏ",
+      "caption_original": "a close up of a clock with a red background",
+      "label_id": 0,
+      "label_score": 0.996847927570343
+    },
+    {
+      "second": 7,
+      "caption": "một chai bia có đồng hồ ở phía sau",
+      "caption_original": "a bottle of beer with a clock in the background",
+      "label_id": 0,
+      "label_score": 0.9844937324523926
+    },
+    {
+      "second": 8,
+      "caption": "một chai bia có đồng hồ ở phía sau",
+      "caption_original": "a bottle of beer with a clock in the background",
+      "label_id": 0,
+      "label_score": 0.9844937324523926
+    },
+    {
+      "second": 9,
+      "caption": "một nhóm người đứng quanh chai bia",
+      "caption_original": "a group of people standing around a bottle of beer",
+      "label_id": 0,
+      "label_score": 0.9035512804985046
+    },
+    {
+      "second": 10,
+      "caption": "một nhóm người đứng trước đồng hồ với một chai bia",
+      "caption_original": "a group of people standing in front of a clock with a bottle of beer",
+      "label_id": 0,
+      "label_score": 0.9513669610023499
+    },
+    {
+      "second": 11,
+      "caption": "một nhóm người đứng trước đồng hồ",
+      "caption_original": "a group of people standing in front of a clock",
+      "label_id": null,
+      "label_score": 0.5158042907714844
+    },
+    {
+      "second": 12,
+      "caption": "một chai bia có dải ruy băng xung quanh",
+      "caption_original": "a bottle of beer with a ribbon around",
+      "label_id": 0,
+      "label_score": 0.983228325843811
+    },
+    {
+      "second": 13,
+      "caption": "một chai bia và hai lon bia trước một tòa nhà",
+      "caption_original": "a bottle of beer and two cans of beer in front of a building",
+      "label_id": 0,
+      "label_score": 0.9928562641143799
+    },
+    {
+      "second": 14,
+      "caption": "một chai bia có dải ruy băng xung quanh",
+      "caption_original": "a bottle of beer with a ribbon around",
+      "label_id": 0,
+      "label_score": 0.983228325843811
+    }
+  ],
+  "audio": {
+    "full_text": " Biê Babbabba, với vị nguyên bản quen thuộc cánh kết mọi thế hệ. Cùng tinh thần không ngừng đổi mới, này đã có thêm Babbabba thích nở mới với vị em cực em. Babbabba, biểu tượng vàng danh mọi thời. Người dếp với 8 tối không được cũng dự biê.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Biê Babbabba, với vị nguyên bản quen thuộc cánh kết mọi thế hệ.",
+        "label_id": 1,
+        "label_score": 0.7026798725128174
+      },
+      {
+        "index": 2,
+        "text": "Cùng tinh thần không ngừng đổi mới, này đã có thêm Babbabba thích nở mới với vị em cực em.",
+        "label_id": 1,
+        "label_score": 0.6331316232681274
+      },
+      {
+        "index": 3,
+        "text": "Babbabba, biểu tượng vàng danh mọi thời.",
+        "label_id": 1,
+        "label_score": 0.9948074221611023
+      },
+      {
+        "index": 4,
+        "text": "Người dếp với 8 tối không được cũng dự biê.",
+        "label_id": 1,
+        "label_score": 0.9901465773582458
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 4,
+      "num_compliant": 0,
+      "num_violations": 4,
+      "num_unknown": 0,
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 12,
+    "num_violations": 2,
+    "num_unknown": 1,
+    "percent_compliant": 80.0,
+    "percent_violations": 13.33
+  }
+}

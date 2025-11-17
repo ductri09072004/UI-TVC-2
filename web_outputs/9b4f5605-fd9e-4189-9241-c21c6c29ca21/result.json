@@ -1,0 +1,145 @@
+{
+  "job_id": "9b4f5605-fd9e-4189-9241-c21c6c29ca21",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\9b4f5605-fd9e-4189-9241-c21c6c29ca21",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_1chqrz2y.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người phụ nữ ngồi trong xe nhìn ra cửa sổ",
+      "caption_original": "a woman sitting in a car looking out the window",
+      "label_id": null,
+      "label_score": 0.5200770497322083
+    },
+    {
+      "second": 1,
+      "caption": "một đứa trẻ nhìn ra ngoài cửa sổ ô tô",
+      "caption_original": "a child looking out the window of a car",
+      "label_id": 0,
+      "label_score": 0.991135835647583
+    },
+    {
+      "second": 2,
+      "caption": "phần sau của một chiếc ô tô có cửa mở",
+      "caption_original": "the back end of a car with the door open",
+      "label_id": 0,
+      "label_score": 0.9867106080055237
+    },
+    {
+      "second": 3,
+      "caption": "một chiếc ô tô màu đen chạy trên đường giữa sa mạc",
+      "caption_original": "a black car driving down a road in the middle of a desert",
+      "label_id": 0,
+      "label_score": 0.9357936978340149
+    },
+    {
+      "second": 4,
+      "caption": "một con mèo đen trắng ngồi trên nóc ô tô",
+      "caption_original": "a black and white cat sitting on top of a car",
+      "label_id": 0,
+      "label_score": 0.9955714344978333
+    },
+    {
+      "second": 5,
+      "caption": "một người đàn ông đứng trên thuyền bên cạnh những tòa nhà cao tầng",
+      "caption_original": "a man standing on top of a boat next to tall buildings",
+      "label_id": 0,
+      "label_score": 0.9889867305755615
+    },
+    {
+      "second": 6,
+      "caption": "một người đàn ông mặc bộ đồ màu đỏ đang đứng trên boong thuyền",
+      "caption_original": "a man in a red suit is standing on the deck of a boat",
+      "label_id": 1,
+      "label_score": 0.928296685218811
+    },
+    {
+      "second": 7,
+      "caption": "người đàn ông mặc áo khoác màu đỏ",
+      "caption_original": "the man is wearing a red jacket",
+      "label_id": 0,
+      "label_score": 0.9903590083122253
+    },
+    {
+      "second": 8,
+      "caption": "một người đàn ông mặc áo khoác đỏ đứng trên thuyền",
+      "caption_original": "a man in a red jacket standing on top of a boat",
+      "label_id": 1,
+      "label_score": 0.9501913785934448
+    },
+    {
+      "second": 9,
+      "caption": "hai chiếc thuyền buồm ra khơi lúc hoàng hôn",
+      "caption_original": "two sailboats sailing in the ocean at sunset",
+      "label_id": 0,
+      "label_score": 0.9839748740196228
+    },
+    {
+      "second": 10,
+      "caption": "một chiếc thuyền lớn trên mặt nước với hai tòa nhà cao tầng trên đỉnh",
+      "caption_original": "a large boat in the water with two tall buildings on top of",
+      "label_id": 0,
+      "label_score": 0.8480846285820007
+    },
+    {
+      "second": 11,
+      "caption": "một bức ảnh đen trắng của một người đàn ông mặc vest",
+      "caption_original": "a black and white photo of a man in a suit",
+      "label_id": 0,
+      "label_score": 0.9897226095199585
+    },
+    {
+      "second": 12,
+      "caption": "một bức vẽ đen trắng của một phi hành gia",
+      "caption_original": "a black and white drawing of an astronaut",
+      "label_id": 0,
+      "label_score": 0.9975866079330444
+    },
+    {
+      "second": 13,
+      "caption": "cuộc thi thiết kế logo cho michel mot for life",
+      "caption_original": "contest logo design for michel mot for life",
+      "label_id": 0,
+      "label_score": 0.9683505892753601
+    },
+    {
+      "second": 14,
+      "caption": "cuộc thi thiết kế logo cho michel mot for life",
+      "caption_original": "contest logo design for michel mot for life",
+      "label_id": 0,
+      "label_score": 0.9683505892753601
+    }
+  ],
+  "audio": {
+    "full_text": " Mư Sư Linh đuổi mới sáng tạo, không chỉ trong lĩnh vực, vi chuyển đường bộ, mà còn vượt xa hơn thế, với việc phát triển cảnh buồn bơm lơi, nhằm dặm phát thại chiến sư ôn hai trong vượt tại Hà Hải. Mư Sư Linh Motion for Life",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Mư Sư Linh đuổi mới sáng tạo, không chỉ trong lĩnh vực, vi chuyển đường bộ, mà còn vượt xa hơn thế, với việc phát triển cảnh buồn bơm lơi, nhằm dặm phát thại chiến sư ôn hai trong vượt tại Hà Hải.",
+        "label_id": 1,
+        "label_score": 0.9930219054222107
+      },
+      {
+        "index": 2,
+        "text": "Mư Sư Linh Motion for Life",
+        "label_id": 0,
+        "label_score": 0.8669281005859375
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 2,
+      "num_compliant": 1,
+      "num_violations": 1,
+      "num_unknown": 0,
+      "percent_compliant": 50.0,
+      "percent_violations": 50.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 12,
+    "num_violations": 2,
+    "num_unknown": 1,
+    "percent_compliant": 80.0,
+    "percent_violations": 13.33
+  }
+}

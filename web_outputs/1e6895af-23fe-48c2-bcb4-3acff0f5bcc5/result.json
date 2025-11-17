@@ -1,0 +1,154 @@
+{
+  "job_id": "1e6895af-23fe-48c2-bcb4-3acff0f5bcc5",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\1e6895af-23fe-48c2-bcb4-3acff0f5bcc5",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_f8wsm7q3.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Cậu bé khám phá xe hơi Missilein với cánh buồm bơm hơi, giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Cậu bé ngồi trong xe hơi màu đen, nhìn ra ngoài cửa sổ với vẻ mặt tò mò, tạo cảm giác khám phá.",
+      "caption_for_classification": "Cậu bé khám phá xe hơi với cánh buồm bơm hơi",
+      "label_id": 0,
+      "label_score": 0.9982977509498596
+    },
+    {
+      "second": 1,
+      "caption": "Cô bé ngồi bên cửa sổ xe hơi, khám phá công nghệ cánh buồm bơm hơi của Missilein giảm phát thải CO2.",
+      "caption_original": "Cô bé ngồi bên cửa sổ xe hơi, nhìn ra ngoài với vẻ suy tư, thể hiện sự tò mò và khám phá.",
+      "caption_for_classification": "Cô bé ngồi bên cửa sổ xe hơi khám phá công nghệ cánh buồm",
+      "label_id": 0,
+      "label_score": 0.9978815913200378
+    },
+    {
+      "second": 2,
+      "caption": "Chiếc xe hơi màu tối mang logo Michelin thể hiện sự đổi mới với cánh buồm bơm hơi giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Chiếc xe hơi màu tối xuất hiện với logo Michelin nổi bật, thể hiện sự đổi mới và sáng tạo trong thiết",
+      "caption_for_classification": "Chiếc xe hơi mang cánh buồm bơm hơi giảm phát thải CO2",
+      "label_id": 0,
+      "label_score": 0.9856932163238525
+    },
+    {
+      "second": 3,
+      "caption": "Chiếc xe thể thao màu đen chạy nhanh, sử dụng cánh buồn bơm hơi của Missilein để giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Chiếc xe thể thao màu đen chạy trên đường, lốp xe Michelin nổi bật với viền trắng, tạo cảm giác năng động và hiện đại.",
+      "caption_for_classification": "Chiếc xe chạy nhanh và giảm phát thải CO2",
+      "label_id": 0,
+      "label_score": 0.9146437048912048
+    },
+    {
+      "second": 4,
+      "caption": "Chiếc xe ô tô di chuyển an toàn với lốp Michelin, sử dụng cánh buồm bơm hơi giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Chiếc xe ô tô di chuyển trên đường, lốp xe Michelin nổi bật dưới gầm, thể hiện sự bền bỉ và an toàn.",
+      "caption_for_classification": "Chiếc xe di chuyển với lốp và cánh buồm",
+      "label_id": 0,
+      "label_score": 0.996160626411438
+    },
+    {
+      "second": 5,
+      "caption": "Người đàn ông cầm công cụ trên tàu, giới thiệu cánh buồm bơm hơi của Missilein giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Người đàn ông mặc áo khoác dày đứng trên tàu, cầm công cụ nhìn ra biển, bên cạnh là cánh quạt lớn của tàu.",
+      "caption_for_classification": "Người đàn ông cầm công cụ giới thiệu cánh buồm bơm hơi",
+      "label_id": 0,
+      "label_score": 0.9842527508735657
+    },
+    {
+      "second": 6,
+      "caption": "Người đàn ông cầm chai nước trên boong tàu, giới thiệu cánh buồm bơm hơi của Missilein giúp giảm phát thải CO2.",
+      "caption_original": "Người đàn ông mặc áo khoác đỏ đứng trên boong tàu, cầm chai nước, trong bối cảnh biển xanh và cánh buồm lớn.",
+      "caption_for_classification": "Người đàn ông cầm chai nước giới thiệu cánh buồm bơm hơi",
+      "label_id": 0,
+      "label_score": 0.8317402601242065
+    },
+    {
+      "second": 7,
+      "caption": "Người đàn ông chỉ tay về phía biển, giới thiệu cánh buồm bơm hơi của Missilein giúp giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Người đàn ông mặc áo khoác đỏ đứng trên tàu, đang chỉ tay về phía biển, trong khi đội mũ bảo hiểm quan sát bên cạnh.",
+      "caption_for_classification": "Người đàn ông chỉ tay về phía biển giới thiệu cánh buồm bơm hơi",
+      "label_id": 1,
+      "label_score": 0.8332524299621582
+    },
+    {
+      "second": 8,
+      "caption": "Người đàn ông mặc áo khoác đỏ đang nói về cánh buồm bơm hơi của Missilein giảm phát thải khí CO2 trong vận tải hàng hóa.",
+      "caption_original": "Người đàn ông mặc áo khoác đỏ và mũ len đứng trên tàu, đang nói chuyện qua bộ đàm về việc giảm phát thải khí CO2.",
+      "caption_for_classification": "Người đàn ông nói về cánh buồm bơm hơi",
+      "label_id": 0,
+      "label_score": 0.9966063499450684
+    },
+    {
+      "second": 9,
+      "caption": "Tàu hàng lớn sử dụng cánh buồm bơm hơi của Missilein nhằm giảm phát thải khí CO2, thể hiện công nghệ bền vững.",
+      "caption_original": "Tàu hàng lớn di chuyển trên biển, có cánh buồm hình vẽ nhằm giảm phát thải khí CO2, thể hiện công nghệ bền vững.",
+      "caption_for_classification": "Tàu hàng sử dụng cánh buồm giảm phát thải CO2",
+      "label_id": 0,
+      "label_score": 0.9911485910415649
+    },
+    {
+      "second": 10,
+      "caption": "Tàu hàng lớn di chuyển trên biển với cánh buồm bơm hơi, thể hiện công nghệ mới của Missilein giảm phát thải CO2.",
+      "caption_original": "Tàu hàng lớn di chuyển trên biển, với ba cánh buồm hình ống nổi bật, thể hiện công nghệ mới trong vận tải hàng hải.",
+      "caption_for_classification": "Tàu hàng di chuyển trên biển với cánh buồm",
+      "label_id": 0,
+      "label_score": 0.9974543452262878
+    },
+    {
+      "second": 11,
+      "caption": "Chiếc xe tải màu trắng di chuyển nhanh, giới thiệu cánh buồn bơm hơi Michelin giảm phát thải khí CO2.",
+      "caption_original": "Một chiếc xe tải màu trắng di chuyển nhanh trên đường, hiển thị logo Michelin rõ ràng trong bối cảnh đường phố.",
+      "caption_for_classification": "Chiếc xe tải di chuyển nhanh giới thiệu cánh buồm bơm hơi",
+      "label_id": 0,
+      "label_score": 0.9963619112968445
+    },
+    {
+      "second": 12,
+      "caption": "Nhân vật hoạt hình chạy nhanh, giới thiệu cánh buồm bơm hơi của Missilein giúp giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Một nhân vật hoạt hình tròn trịa, mặc bộ đồ trắng, đang chạy nhanh trên nền trắng đơn giản, tạo cảm giác năng động và vui tươi.",
+      "caption_for_classification": "Nhân vật hoạt hình chạy giới thiệu cánh buồm bơm hơi",
+      "label_id": 0,
+      "label_score": 0.9956466555595398
+    },
+    {
+      "second": 13,
+      "caption": "Logo Michelin xuất hiện, nhân vật hoạt hình vui vẻ giới thiệu cánh buồm bơm hơi giúp giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Logo Michelin xuất hiện trên nền trắng, hình ảnh biểu tượng là một nhân vật hoạt hình vui vẻ, tay vẫy chào, thể hiện sự năng động và thân thiện.",
+      "caption_for_classification": "Nhân vật hoạt hình giới thiệu cánh buồm bơm hơi",
+      "label_id": 0,
+      "label_score": 0.9884831309318542
+    },
+    {
+      "second": 14,
+      "caption": "Logo Michelin xuất hiện với nhân vật hoạt hình vui vẻ, giới thiệu cánh buồm bơm hơi giảm phát thải CO2 trong vận tải hàng hóa.",
+      "caption_original": "Logo Michelin xuất hiện với hình ảnh nhân vật hoạt hình vui vẻ, tay vẫy chào, thể hiện thông điệp \"Chuyển động cho cuộc sống\".",
+      "caption_for_classification": "Logo xuất hiện với nhân vật hoạt hình giới thiệu cánh buồm bơm hơi",
+      "label_id": null,
+      "label_score": 0.5586124062538147
+    }
+  ],
+  "audio": {
+    "full_text": "Missilein đội mới sáng tạo, không chỉ trong lĩnh vực di chuyển đường bộ, mà còn vượt xa hơn thế Với việc phát triển cánh buồn bơm hơi, nhằm giảm phát thải khí CO2 trong vực tải hàng hãi",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Missilein đội mới sáng tạo, không chỉ trong lĩnh vực di chuyển đường bộ, mà còn vượt xa hơn thế Với việc phát triển cánh buồn bơm hơi, nhằm giảm phát thải khí CO2 trong vực tải hàng hãi",
+        "label_id": null,
+        "label_score": 0.533673882484436
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 13,
+    "num_violations": 1,
+    "num_unknown": 1,
+    "percent_compliant": 86.67,
+    "percent_violations": 6.67
+  }
+}

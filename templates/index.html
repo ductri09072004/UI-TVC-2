@@ -29,11 +29,19 @@
           <div id="fileInfo" class="mt-3 text-xs text-slate-400"></div>
         </div>
 
-        <!-- Caption Backend Selection (Hidden, default to OpenAI) -->
-        <input type="hidden" name="caption_backend" value="openai">
-        
-        <!-- OpenAI API Key -->
+        <!-- Caption Backend Selection -->
         <div class="space-y-3">
+          <div>
+            <label class="text-sm font-semibold text-slate-300 mb-2 block">Caption Backend</label>
+            <select name="caption_backend" id="caption_backend" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" onchange="updateConfigVisibility()">
+              <option value="openai">OpenAI (GPT-4o-mini)</option>
+              <option value="local">BLIP Fine-tuned (Local)</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- OpenAI Configuration (shown when OpenAI is selected) -->
+        <div id="openai_config" class="space-y-3">
           <div>
             <label class="text-sm font-semibold text-slate-300 mb-2 block">OpenAI API Key</label>
             <input type="password" id="openai_key" name="openai_key" placeholder="sk-..." 
@@ -43,11 +51,22 @@
           <div>
             <label class="text-sm font-semibold text-slate-300 mb-2 block">OpenAI Model</label>
             <select name="openai_model" class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-              <option value="">Default (gpt-4o-mini)</option>
+              <option value="">Default (gpt-5)</option>
+              <option value="gpt-5">GPT-5</option>
               <option value="gpt-4o">GPT-4o</option>
               <option value="gpt-4o-mini">GPT-4o-mini</option>
               <option value="gpt-4-vision-preview">GPT-4 Vision Preview</option>
             </select>
+          </div>
+        </div>
+        
+        <!-- BLIP Fine-tuned Configuration (shown when Local is selected) -->
+        <div id="local_config" class="space-y-3" style="display: none;">
+          <div>
+            <label class="text-sm font-semibold text-slate-300 mb-2 block">BLIP Model Path</label>
+            <input type="text" id="hf_model" name="hf_model" placeholder="Để trống để dùng model mặc định" 
+                   class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <p class="text-xs text-slate-400 mt-1">Đường dẫn đến thư mục chứa BLIP model đã fine-tune. Để trống để dùng model mặc định.</p>
           </div>
         </div>
 
@@ -230,5 +249,25 @@
       activeBtn.classList.remove('text-slate-400');
     }
   }
+
+  // Update configuration visibility based on caption backend selection
+  function updateConfigVisibility() {
+    const backend = document.getElementById('caption_backend').value;
+    const openaiConfig = document.getElementById('openai_config');
+    const localConfig = document.getElementById('local_config');
+    
+    if (backend === 'openai') {
+      openaiConfig.style.display = 'block';
+      localConfig.style.display = 'none';
+    } else {
+      openaiConfig.style.display = 'none';
+      localConfig.style.display = 'block';
+    }
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    updateConfigVisibility();
+  });
 </script>
 {% endblock %}
