@@ -1,0 +1,195 @@
+{
+  "job_id": "2c844e6f-c25f-43d5-bb4e-9e12d3248977",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\2c844e6f-c25f-43d5-bb4e-9e12d3248977",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\chismas.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông mặc bộ đồ ông già Noel đang cầm một chai coca cola trước cây thông Noel với chiếc mũ ông già Noel trên đầu",
+      "caption_original": "a man in a santa suit is holding a bottle of coca cola in front of a christmas tree with a santa hat on it ' s head",
+      "label_id": 0,
+      "label_score": 0.9406598806381226
+    },
+    {
+      "second": 1,
+      "caption": "một ông già Noel đứng trước cây thông Noel và một chai coca có logo coca trên đó, với khung cảnh tuyết rơi ở phía sau là",
+      "caption_original": "a santa claus in front of a christmas tree and a coca bottle with the coca logo on it, with a snowy scene in the background is",
+      "label_id": 0,
+      "label_score": 0.7908183336257935
+    },
+    {
+      "second": 2,
+      "caption": "một ông già Noel trước cây thông Noel và một chai coca có logo coca trên đó, ngồi phủ đầy tuyết",
+      "caption_original": "a santa claus in front of a christmas tree and a coca bottle with the coca logo on it, sitting snowy - covered",
+      "label_id": null,
+      "label_score": 0.6334331631660461
+    },
+    {
+      "second": 3,
+      "caption": "một người mặc bộ đồ ông già Noel đang cầm một món đồ chơi trước cây thông Noel có đèn nền",
+      "caption_original": "a person in a santa suit is holding a toy in front of a christmas tree with lights in the background",
+      "label_id": 0,
+      "label_score": 0.980492115020752
+    },
+    {
+      "second": 4,
+      "caption": "một người đội mũ ông già Noel đang cầm một món đồ chơi màu đỏ trước thành phố với các tòa nhà và ánh đèn ở phía sau",
+      "caption_original": "a person in a santa hat is holding a red toy in front of a city with buildings and lights in the background",
+      "label_id": 0,
+      "label_score": 0.9860650300979614
+    },
+    {
+      "second": 5,
+      "caption": "một người trong trang phục ông già Noel đang chơi với một chiếc xe tải đồ chơi ở giữa thị trấn đầy tuyết với hậu cảnh là cây thông Noel bị mờ",
+      "caption_original": "a person in a santa outfit is playing with a toy truck in the middle of a snowy town with a christmas tree in the background is blurred",
+      "label_id": 0,
+      "label_score": 0.98842453956604
+    },
+    {
+      "second": 6,
+      "caption": "một người đội chiếc mũ ông già Noel đang đi xuống phố với một chiếc xe tải đồ chơi trên lưng và chiếc mũ",
+      "caption_original": "a person in a santa hat is walking down the street with a toy truck on it ' s back and hat is",
+      "label_id": 0,
+      "label_score": 0.9791027903556824
+    },
+    {
+      "second": 7,
+      "caption": "một chiếc xe lửa đồ chơi đang di chuyển trên con đường đầy tuyết với đèn Giáng sinh trên đó và một người ở phía sau đội chiếc mũ ông già Noel và cầm một chiếc",
+      "caption_original": "a toy train is traveling down a snowy road with christmas lights on it and a person in the background is wearing a santa hat and holding a",
+      "label_id": 0,
+      "label_score": 0.9856488704681396
+    },
+    {
+      "second": 8,
+      "caption": "ảnh chụp cận cảnh một chiếc xe bán tải đang chạy trên đường thành phố ở phía trước xe tải bị mờ khi nó di chuyển dọc đường",
+      "caption_original": "a close up shot of a semi - truck driving down a city street in the front of the truck is blurred as it moves along the road",
+      "label_id": 0,
+      "label_score": 0.9856452345848083
+    },
+    {
+      "second": 9,
+      "caption": "một chiếc xe tải đang chạy trên con đường đầy tuyết có đèn chiếu sáng bên đường ở giữa bức tranh là một con đường phủ đầy tuyết và một",
+      "caption_original": "a truck driving down a snowy road with lights on the side of the road in the middle of the picture is a snow covered road and a",
+      "label_id": 0,
+      "label_score": 0.9852913618087769
+    },
+    {
+      "second": 10,
+      "caption": "một chiếc xe buýt đang chạy trên con đường đầy tuyết trong thành phố vào ban đêm với ánh đèn bên đường và một người đàn ông mặc áo khoác đỏ",
+      "caption_original": "a bus is driving down a snowy street in a city at night with lights on the side of the road and a man in a red coat",
+      "label_id": 0,
+      "label_score": 0.9877609014511108
+    },
+    {
+      "second": 11,
+      "caption": "một chiếc xe buýt đang chạy trên con đường đầy tuyết trong thành phố vào ban đêm với ánh đèn bên đường và một người đàn ông mặc áo khoác đỏ",
+      "caption_original": "a bus is driving down the snowy road in a city at night with lights on the side of the road and a man in a red jacket",
+      "label_id": 0,
+      "label_score": 0.9877609014511108
+    },
+    {
+      "second": 12,
+      "caption": "một người mẹ vùng cực và hai đàn con của nó đang nằm trên một tảng đá phía trước một thác nước đóng băng ở hậu cảnh",
+      "caption_original": "a mother polar and her two cubs are resting on a rock in front of a frozen waterfall in the background is background",
+      "label_id": null,
+      "label_score": 0.5783604979515076
+    },
+    {
+      "second": 13,
+      "caption": "một con gấu Bắc Cực và đàn con của nó đang ngồi trên tuyết, nhắm mắt nhìn vào máy ảnh và nhìn vào khoảng cách của khung hình",
+      "caption_original": "a polar bear and her cub are sitting in the snow, looking at the camera with their eyes closed and looking into the distance of the frame",
+      "label_id": 0,
+      "label_score": 0.9222068190574646
+    },
+    {
+      "second": 14,
+      "caption": "hai con gấu Bắc Cực đang ngồi trong tuyết và nhìn nhau. Những con gấu ở phía sau là một hang băng có thác nước",
+      "caption_original": "two polar bears are sitting in the snow and looking at each other bears in the background is an ice cave with a waterfall",
+      "label_id": 0,
+      "label_score": 0.9203253388404846
+    },
+    {
+      "second": 15,
+      "caption": "một nhóm chim cánh cụt đang đứng trước tảng băng trôi",
+      "caption_original": "a group of penguins are standing in front of an iceberg",
+      "label_id": 0,
+      "label_score": 0.7532314658164978
+    },
+    {
+      "second": 16,
+      "caption": "những chú chim cánh cụt đang nhìn nhau những chú chim cánh cụt trong một cảnh trong phim",
+      "caption_original": "the penguins are looking at each other penguins in a scene from the movie",
+      "label_id": 0,
+      "label_score": 0.84795081615448
+    },
+    {
+      "second": 17,
+      "caption": "một nhóm hàng rào đang đứng trên tuyết, nhìn vào máy ảnh với đôi mắt mở to và một người đang đứng trong khi",
+      "caption_original": "a group of hedges are standing in the snow, looking at the camera with their eyes open and one is while the",
+      "label_id": null,
+      "label_score": 0.5254663825035095
+    },
+    {
+      "second": 18,
+      "caption": "một đàn rái cá há miệng nhìn vào ống kính trong một cảnh trong phim 'hình dạng của nước', trong đó",
+      "caption_original": "a group of otters with their mouths open, looking at the camera in a scene from the film ' the shape of water ', which",
+      "label_id": 1,
+      "label_score": 0.8942107558250427
+    },
+    {
+      "second": 19,
+      "caption": "một nhóm rái cá há miệng và nhìn vào camera trong một cảnh từ hình đại diện của bộ phim, dựa trên",
+      "caption_original": "a group of otters with their mouths open and looking at the camera in a scene from the film ' s avatar, which is based on",
+      "label_id": 1,
+      "label_score": 0.8950190544128418
+    },
+    {
+      "second": 20,
+      "caption": "một con gấu trúc trong rừng đang mở to mắt nhìn vào camera và nó",
+      "caption_original": "a panda in the jungle is looking at the camera with its eyes open and it ' s",
+      "label_id": 0,
+      "label_score": 0.8810984492301941
+    },
+    {
+      "second": 21,
+      "caption": "một con gấu trúc trong rừng đang mở to mắt nhìn vào camera và nó",
+      "caption_original": "a panda in the jungle is looking at the camera with its eyes open and it ' s",
+      "label_id": 0,
+      "label_score": 0.8810984492301941
+    },
+    {
+      "second": 22,
+      "caption": "cận cảnh một con gấu trong rừng, nhìn vào máy ảnh với miệng mở và mắt mở, như thể",
+      "caption_original": "a close up of a bear in the jungle, looking at the camera with its mouth open and it ' s eyes open, as if the",
+      "label_id": null,
+      "label_score": 0.6802803874015808
+    }
+  ],
+  "audio": {
+    "full_text": " Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn",
+        "label_id": null,
+        "label_score": 0.6296356320381165
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 23,
+    "num_compliant": 17,
+    "num_violations": 2,
+    "num_unknown": 4,
+    "percent_compliant": 73.91,
+    "percent_violations": 8.7
+  }
+}

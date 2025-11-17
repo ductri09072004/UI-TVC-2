@@ -1,0 +1,76 @@
+{
+  "job_id": "16d23e57-40dc-4f05-b185-724c18ae83d4",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\16d23e57-40dc-4f05-b185-724c18ae83d4",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_lrf728eh.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "hai con ngựa chạy trước nền đỏ vàng xanh",
+      "caption_original": "two horses running in front of a red, yellow and blue background",
+      "label_id": 1,
+      "label_score": 0.9581933617591858
+    },
+    {
+      "second": 1,
+      "caption": "hai con ngựa chạy trước nền đỏ vàng xanh",
+      "caption_original": "two horses running in front of a red, yellow and blue background",
+      "label_id": 1,
+      "label_score": 0.9581933617591858
+    },
+    {
+      "second": 2,
+      "caption": "hai con ngựa chạy trước nền đỏ vàng xanh",
+      "caption_original": "two horses running in front of a red, yellow and blue background",
+      "label_id": 1,
+      "label_score": 0.9581933617591858
+    },
+    {
+      "second": 3,
+      "caption": "hình ảnh một lon và một lon bia có pháo hoa ở hậu cảnh",
+      "caption_original": "an image of a can and a can of beer with fireworks in the background",
+      "label_id": 1,
+      "label_score": 0.9438902139663696
+    },
+    {
+      "second": 4,
+      "caption": "hình ảnh một lon và một lon bia có pháo hoa ở hậu cảnh",
+      "caption_original": "an image of a can and a can of beer with fireworks in the background",
+      "label_id": 1,
+      "label_score": 0.9438902139663696
+    },
+    {
+      "second": 5,
+      "caption": "hình ảnh một lon và một lon bia có pháo hoa ở hậu cảnh",
+      "caption_original": "an image of a can and a can of beer with fireworks in the background",
+      "label_id": 1,
+      "label_score": 0.9438902139663696
+    }
+  ],
+  "audio": {
+    "full_text": " Tài cơ, cài xuân báng lĩnh!",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Tài cơ, cài xuân báng lĩnh!",
+        "label_id": null,
+        "label_score": 0.625735878944397
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 6,
+    "num_compliant": 0,
+    "num_violations": 6,
+    "num_unknown": 0,
+    "percent_compliant": 0.0,
+    "percent_violations": 100.0
+  }
+}

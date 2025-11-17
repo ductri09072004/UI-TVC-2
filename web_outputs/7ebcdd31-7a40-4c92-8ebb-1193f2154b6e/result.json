@@ -1,0 +1,209 @@
+{
+  "job_id": "7ebcdd31-7a40-4c92-8ebb-1193f2154b6e",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\7ebcdd31-7a40-4c92-8ebb-1193f2154b6e",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\tvc-blackjack-2.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "hình ảnh một người đàn ông mặc bộ đồ màu đỏ và đeo kính râm",
+      "caption_original": "an image of a man in a red suit and sunglasses",
+      "label_id": 0,
+      "label_score": 0.8913379907608032
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông mặc bộ đồ màu đỏ và đeo kính râm ngồi ở bàn",
+      "caption_original": "a man in a red suit and sunglasses sitting at a table",
+      "label_id": 1,
+      "label_score": 0.7815422415733337
+    },
+    {
+      "second": 2,
+      "caption": "một người đang rót thứ gì đó vào ly",
+      "caption_original": "a person is pouring something into a glass",
+      "label_id": 0,
+      "label_score": 0.9791622161865234
+    },
+    {
+      "second": 3,
+      "caption": "cận cảnh một chiếc ly có nhãn trên",
+      "caption_original": "a close up of a glass with a label on",
+      "label_id": 0,
+      "label_score": 0.9459244012832642
+    },
+    {
+      "second": 4,
+      "caption": "một người phụ nữ ngồi trên ghế cạnh một người đàn ông",
+      "caption_original": "a woman sitting on top of a couch next to a man",
+      "label_id": 0,
+      "label_score": 0.8618609309196472
+    },
+    {
+      "second": 5,
+      "caption": "một người phụ nữ ngồi trên ghế cạnh một người đàn ông",
+      "caption_original": "a woman sitting on top of a couch next to a man",
+      "label_id": 0,
+      "label_score": 0.8618609309196472
+    },
+    {
+      "second": 6,
+      "caption": "một nhóm phụ nữ quan hệ tình dục trong quán bar",
+      "caption_original": "a group of women having sex in a bar",
+      "label_id": 1,
+      "label_score": 0.979785144329071
+    },
+    {
+      "second": 7,
+      "caption": "một nhóm người khiêu vũ trong hộp đêm",
+      "caption_original": "a group of people dancing in a nightclub",
+      "label_id": 1,
+      "label_score": 0.9718194007873535
+    },
+    {
+      "second": 8,
+      "caption": "một người đàn ông và một người phụ nữ đang ngồi trên đi văng",
+      "caption_original": "a man and a woman are sitting on a couch",
+      "label_id": 0,
+      "label_score": 0.9270684719085693
+    },
+    {
+      "second": 9,
+      "caption": "một người đàn ông ngồi trên ghế cạnh một người phụ nữ",
+      "caption_original": "a man sitting on top of a couch next to a woman",
+      "label_id": 0,
+      "label_score": 0.7044891119003296
+    },
+    {
+      "second": 10,
+      "caption": "một người phụ nữ mặc váy đen và một người đàn ông mặc bộ đồ đỏ",
+      "caption_original": "a woman in a black dress and a man in a red suit",
+      "label_id": 1,
+      "label_score": 0.9618293046951294
+    },
+    {
+      "second": 11,
+      "caption": "một nhóm người ngồi trên ghế dài",
+      "caption_original": "a group of people sitting on top of a couch",
+      "label_id": 1,
+      "label_score": 0.9746707677841187
+    },
+    {
+      "second": 12,
+      "caption": "một người phụ nữ mặc váy đỏ đang nhảy múa",
+      "caption_original": "a woman in a red dress is dancing",
+      "label_id": 1,
+      "label_score": 0.9469152688980103
+    },
+    {
+      "second": 13,
+      "caption": "một người phụ nữ mặc váy đen đứng cạnh một người đàn ông mặc vest đỏ",
+      "caption_original": "a woman in a black dress is standing next to a man in a red suit",
+      "label_id": 1,
+      "label_score": 0.8915800452232361
+    },
+    {
+      "second": 14,
+      "caption": "một người phụ nữ mặc váy đen và một người đàn ông mặc bộ đồ đỏ đang khiêu vũ trên sàn nhảy",
+      "caption_original": "a woman in a black dress and a man in a red suit are dancing on the dance floor",
+      "label_id": 1,
+      "label_score": 0.9827195405960083
+    },
+    {
+      "second": 15,
+      "caption": "một người phụ nữ mặc váy đen ngồi trên ghế dài",
+      "caption_original": "a woman in a black dress sitting on a couch",
+      "label_id": 1,
+      "label_score": 0.9833767414093018
+    },
+    {
+      "second": 16,
+      "caption": "một người đàn ông mặc vest và đeo cà vạt khiêu vũ với một người phụ nữ",
+      "caption_original": "a man in a suit and tie dancing with a woman",
+      "label_id": null,
+      "label_score": 0.597171425819397
+    },
+    {
+      "second": 17,
+      "caption": "một nhóm người ngồi trên ghế dài",
+      "caption_original": "a group of people sitting on top of a couch",
+      "label_id": 1,
+      "label_score": 0.9746707677841187
+    },
+    {
+      "second": 18,
+      "caption": "một người đàn ông mặc bộ đồ màu đỏ và một người phụ nữ mặc bộ đồ đen",
+      "caption_original": "a man in a red suit and a woman in a black dress",
+      "label_id": 1,
+      "label_score": 0.957533061504364
+    },
+    {
+      "second": 19,
+      "caption": "một người đàn ông mặc bộ đồ màu đỏ và một người phụ nữ mặc bộ đồ đen",
+      "caption_original": "a man in a red suit and a woman in a black dress",
+      "label_id": 1,
+      "label_score": 0.957533061504364
+    },
+    {
+      "second": 20,
+      "caption": "một nhóm phụ nữ ngồi trên ghế dài",
+      "caption_original": "a group of women sitting on top of a couch",
+      "label_id": 1,
+      "label_score": 0.9059761762619019
+    },
+    {
+      "second": 21,
+      "caption": "một người phụ nữ mặc váy đen và một người đàn ông mặc áo sơ mi đỏ đang ngồi trên ghế dài",
+      "caption_original": "a woman in a black dress and a man in a red shirt sitting on a couch",
+      "label_id": null,
+      "label_score": 0.5509494543075562
+    },
+    {
+      "second": 22,
+      "caption": "một người đàn ông mặc bộ đồ đỏ và một người phụ nữ mặc váy đen đứng cạnh nhau",
+      "caption_original": "a man in a red suit and a woman in a black dress standing next to each other people",
+      "label_id": 1,
+      "label_score": 0.9695171117782593
+    },
+    {
+      "second": 23,
+      "caption": "một người phụ nữ mặc váy đỏ đứng cạnh một người đàn ông",
+      "caption_original": "a woman in a red dress standing next to a man",
+      "label_id": 1,
+      "label_score": 0.9796016216278076
+    },
+    {
+      "second": 24,
+      "caption": "một người đàn ông mặc vest đang hôn một người phụ nữ trên sàn nhảy",
+      "caption_original": "a man in a suit is kissing a woman on the dance floor",
+      "label_id": 0,
+      "label_score": 0.7773641347885132
+    }
+  ],
+  "audio": {
+    "full_text": " Mên 8 8, mẹ lên tên phố phiên kìm con phải bóng lói Để với Mên 8 8, không kìm bốc tận để đồ tư bằng kích sám Để với Mên 8 8, đềm tình về mua thêm 20 lỗ đứa khác Để với Mên 8 8, đứa bức mít Mên 8 8, mẹ 8 8, khuyên mãi độc quê Nào đẹp đẹp đường đầu phần thưởng nhân bà Đi bán cá là vãi con thuê Để đi đường quỳng với nhiều đồ là Mên 8 8, trời đón bệnh hình Thắng khách ngạng kí bắn cấp xa hoa Cảm tích không còn u",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Mên 8 8, mẹ lên tên phố phiên kìm con phải bóng lói Để với Mên 8 8, không kìm bốc tận để đồ tư bằng kích sám Để với Mên 8 8, đềm tình về mua thêm 20 lỗ đứa khác Để với Mên 8 8, đứa bức mít Mên 8 8, mẹ 8 8, khuyên mãi độc quê Nào đẹp đẹp đường đầu phần thưởng nhân bà Đi bán cá là vãi con thuê Để đi đường quỳng với nhiều đồ là Mên 8 8, trời đón bệnh hình Thắng khách ngạng kí bắn cấp xa hoa Cảm tích không còn u",
+        "label_id": null,
+        "label_score": 0.8206166625022888
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 25,
+    "num_compliant": 8,
+    "num_violations": 15,
+    "num_unknown": 2,
+    "percent_compliant": 32.0,
+    "percent_violations": 60.0
+  }
+}

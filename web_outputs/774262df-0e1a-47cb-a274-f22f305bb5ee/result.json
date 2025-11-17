@@ -1,0 +1,75 @@
+{
+  "job_id": "774262df-0e1a-47cb-a274-f22f305bb5ee",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\774262df-0e1a-47cb-a274-f22f305bb5ee",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\cafe.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "tổ yến",
+      "caption_original": "nest nest",
+      "label_id": 0,
+      "label_score": 0.9418925642967224
+    },
+    {
+      "second": 1,
+      "caption": "tổ yến",
+      "caption_original": "nest nest",
+      "label_id": 0,
+      "label_score": 0.9418925642967224
+    },
+    {
+      "second": 2,
+      "caption": "cận cảnh hỗn hợp các loại hạt trong máy xay với một cái thìa ở phía sau và một bát đựng các loại hạt có",
+      "caption_original": "a close up of a blend of nuts in a blender with a spoon in the background and a bowl of nuts with a",
+      "label_id": 0,
+      "label_score": 0.9881133437156677
+    },
+    {
+      "second": 3,
+      "caption": "một hộp thủy tinh chứa đầy các loại hạt và hạt trong đó",
+      "caption_original": "a glass container filled with nuts and nuts in it",
+      "label_id": 0,
+      "label_score": 0.9713546633720398
+    },
+    {
+      "second": 4,
+      "caption": "một người phụ nữ mặc áo sơ mi trắng đang uống nước từ chiếc cốc giấy trước cửa sổ với phông nền là cây xanh vào một ngày nắng",
+      "caption_original": "a woman in a white shirt is drinking from a paper cup in front of a window with a green plant in the background on a sunny day",
+      "label_id": 0,
+      "label_score": 0.9869023561477661
+    }
+  ],
+  "audio": {
+    "full_text": " Từ công nghệ ERA, dữ hướng cà phê mới ra. Cà phê sửa Nescafe signature.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Từ công nghệ ERA, dữ hướng cà phê mới ra.",
+        "label_id": 0,
+        "label_score": 0.9749749302864075
+      },
+      {
+        "index": 2,
+        "text": "Cà phê sửa Nescafe signature.",
+        "label_id": 0,
+        "label_score": 0.9881779551506042
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 2,
+      "num_compliant": 2,
+      "num_violations": 0,
+      "num_unknown": 0,
+      "percent_compliant": 100.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 5,
+    "num_compliant": 5,
+    "num_violations": 0,
+    "num_unknown": 0,
+    "percent_compliant": 100.0,
+    "percent_violations": 0.0
+  }
+}

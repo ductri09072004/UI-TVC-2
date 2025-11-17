@@ -1,0 +1,139 @@
+{
+  "job_id": "680793a5-03a3-4545-a9d5-a376146f0c03",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\680793a5-03a3-4545-a9d5-a376146f0c03",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\COMFORT_15s_PamThich_1920_1080_15100_2398_256_48000_-22.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người phụ nữ mặc áo sơ mi xanh đang đứng trước giường với một cuốn sách trên tay và phía trước là sau gáy và nền màu hồng nền trắng nền xanh có logo ai đọc ai????????????????????????????????????????????",
+      "caption_original": "a woman in a blue shirt is standing in front of a bed with a book in her hand and is in front of her back of her back of her head and a pink background with a white background with a blue background that says ai logo that reads ai???????????????????????????????????????????",
+      "label_id": 0,
+      "label_score": 0.9457824230194092
+    },
+    {
+      "second": 1,
+      "caption": "một em bé mặc áo sơ mi chấm bi màu xanh trắng với trái tim trên ngực và dòng chữ crya ở mặt trước áo",
+      "caption_original": "a baby in a blue and white polka shirt with a heart on it ' s chest and the words crya on the front of the shirt",
+      "label_id": null,
+      "label_score": 0.685584306716919
+    },
+    {
+      "second": 2,
+      "caption": "một người phụ nữ và một đứa trẻ đang ngồi trên giường với một tấm chăn màu xanh trên đầu và một đứa trẻ đang bế trong khi đứa trẻ kia",
+      "caption_original": "a woman and a child are sitting on a bed with a blue blanket over their head and one child is holding while the other",
+      "label_id": 1,
+      "label_score": 0.7981909513473511
+    },
+    {
+      "second": 3,
+      "caption": "Một em bé mặc áo sơ mi chấm bi xanh trắng đang nhìn vào ống kính trong khi tay cầm chiếc áo sơ mi sọc chấm bi",
+      "caption_original": "a baby in a blue and white polka dot shirt is looking at the camera while holding striped polka dot shirt in his hand",
+      "label_id": 0,
+      "label_score": 0.9388415813446045
+    },
+    {
+      "second": 4,
+      "caption": "một người phụ nữ đang giơ chiếc khăn màu xanh trước mặt và mỉm cười trước ống kính với dòng chữ 'mfort MÊM DỊU' ở phía sau",
+      "caption_original": "a woman is holding up a blue towel in front of her face and smiling at the camera with the words 'mfort MÊM DỊU' in the background",
+      "label_id": null,
+      "label_score": 0.6725385189056396
+    },
+    {
+      "second": 5,
+      "caption": "một em bé mặc áo sơ mi chấm bi xanh trắng đang nhìn vào ống kính với chiếc áo sơ mi chấm bi trên lưng",
+      "caption_original": "a baby in a blue and white polka dot shirt is looking at the camera with dot shirt on it ' s back",
+      "label_id": 0,
+      "label_score": 0.9233951568603516
+    },
+    {
+      "second": 6,
+      "caption": "một người phụ nữ đang đặt mặt trước của máy giặt vào trong máy đang cầm mặt trước của máy giặt trong tay đang giữ mặt trước của mặt trước mặt trước của mặt trước mặt trước của máy giặt",
+      "caption_original": "a woman is putting the front of a washing machine into machine that is holding the front of a washing machine in her hands is holding the front of the front of the front of the front of the front of the washer",
+      "label_id": 0,
+      "label_score": 0.9818750023841858
+    },
+    {
+      "second": 7,
+      "caption": "một giọt nước giữa cánh đồng lúa mì với nền trời xanh và dòng chữ 'mfort CHIẾT XUẨT YẾN MACH...' trong một giọt nước trong một giọt nước giữa giữa nước????????????????????????????????????????????????????",
+      "caption_original": "a drop in the middle of a wheat field with a blue sky in the background and a text that reads, 'mfort CHIẾT XUẨT YẾN MACH...' in a drop in a drop the middle of the middle of the middle of the water???????????????????????????????????????????????????",
+      "label_id": 0,
+      "label_score": 0.9475088119506836
+    },
+    {
+      "second": 8,
+      "caption": "Một nhóm người đang nằm trên bãi cỏ, có dòng chữ 'mfort NHẸ GỐC THỰC VẬT...' ở giữa hình ảnh có nội dung ' 100 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %",
+      "caption_original": "a group of people are laying in the grass, with the words 'mfort NHẸ GỐC THỰC VẬT...' in the middle of the image, which reads, ' 100 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %",
+      "label_id": 1,
+      "label_score": 0.8677334189414978
+    },
+    {
+      "second": 9,
+      "caption": "a man in a white shirt is holding up a blue shirt with the words 'mfort THÊM MÊM MAI với khi không dùng nước vải' on it",
+      "caption_original": "a man in a white shirt is holding up a blue shirt with the words 'mfort THÊM MÊM MAI với khi không dùng nước vải' on it",
+      "label_id": 0,
+      "label_score": 0.9076658487319946
+    },
+    {
+      "second": 10,
+      "caption": "một người phụ nữ mặc váy xanh đang bế đứa bé trên tay và mỉm cười trước ống kính khi ngồi trên chiếc giường trắng có màu hồng và xanh",
+      "caption_original": "a woman in a blue dress is holding a baby in her arms and smiling at the camera while sitting on a white bed with pink and blue",
+      "label_id": null,
+      "label_score": 0.5115432143211365
+    },
+    {
+      "second": 11,
+      "caption": "một người đàn ông và một người phụ nữ đang ôm đứa bé trên tay, trong khi người phụ nữ ôm lấy cô ấy và người đàn ông đang mặc một chiếc",
+      "caption_original": "a man and woman are holding a baby in their arms, while the woman is her arms and the man is wearing a",
+      "label_id": 0,
+      "label_score": 0.7193991541862488
+    },
+    {
+      "second": 12,
+      "caption": "một cô bé mặc váy trắng đang cầm một bông hoa màu hồng và mỉm cười trước ống kính với dòng chữ, mẹ mẹ, và con, con gái, mẹ, mẹ, con, mẹ, mẹ,",
+      "caption_original": "a little girl in a white dress is holding a pink flower and smiling at the camera with the words, mom mom, and baby, daughter, mom, mom, baby, mom, mom,",
+      "label_id": 0,
+      "label_score": 0.9540781378746033
+    },
+    {
+      "second": 13,
+      "caption": "một cô bé mặc váy trắng đang cầm một chiếc răng và mỉm cười trước ống kính với nền màu hồng phía sau là một biểu ngữ màu xanh và trắng",
+      "caption_original": "a little girl in a white dress is holding a tooth and smiling at the camera with a pink background behind her is a blue and white banner",
+      "label_id": null,
+      "label_score": 0.6798580288887024
+    },
+    {
+      "second": 14,
+      "caption": "một cô bé mặc váy trắng đang cầm một bông hoa màu hồng và mỉm cười trước ống kính với nền màu hồng phía sau là hình ảnh khuôn mặt của cô ấy và dòng chữ 'mfort Unilevev DIU gia dinks...' mom 'mfort Unilevev DIU gia dinks...' s 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia đình...' 'mfort Unilevev DIU gia đình...' 'mfort Unilevev DIU gia đình...' 'mfort Unilevev DIU gia đình...' 'mfort Unilevev DIU gia đình...' 'mfort Unilevev DIU gia đình...' 'mfort Unilevev DIU gia đình...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...'",
+      "caption_original": "a little girl in a white dress is holding a pink flower and smiling at the camera with a pink background behind her is a picture of her face and the text reads 'mfort Unilevev DIU gia dinks...' mom 'mfort Unilevev DIU gia dinks...' s 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...' 'mfort Unilevev DIU gia dinks...'",
+      "label_id": 0,
+      "label_score": 0.9564437866210938
+    }
+  ],
+  "audio": {
+    "full_text": " Chuyên gia riêu nhẹ chính là con đây Khủ cũng là con che Mềm riêu là con mê Nhự cơm phò riêu nhẹ mới Cảy tiến với chất suất yến mạch Và cộng thức 1 trấm vần trầm gúc thực vất thêm mềm mai Và thơm riêu em Nên thêm mùi mới Chọn bộ thơ mềm cho cả gia đình Tạm thích",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Chuyên gia riêu nhẹ chính là con đây Khủ cũng là con che Mềm riêu là con mê Nhự cơm phò riêu nhẹ mới Cảy tiến với chất suất yến mạch Và cộng thức 1 trấm vần trầm gúc thực vất thêm mềm mai Và thơm riêu em Nên thêm mùi mới Chọn bộ thơ mềm cho cả gia đình Tạm thích",
+        "label_id": null,
+        "label_score": 0.5871075391769409
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 9,
+    "num_violations": 2,
+    "num_unknown": 4,
+    "percent_compliant": 60.0,
+    "percent_violations": 13.33
+  }
+}

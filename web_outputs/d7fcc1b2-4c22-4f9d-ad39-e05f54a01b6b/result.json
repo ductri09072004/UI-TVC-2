@@ -1,0 +1,256 @@
+{
+  "job_id": "d7fcc1b2-4c22-4f9d-ad39-e05f54a01b6b",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\d7fcc1b2-4c22-4f9d-ad39-e05f54a01b6b",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_oz5i12nv.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một dấu hiệu với một vương miện trên đầu",
+      "caption_original": "a sign with a crown on top of",
+      "label_id": 1,
+      "label_score": 0.9994494318962097
+    },
+    {
+      "second": 1,
+      "caption": "một dấu hiệu màu đỏ và trắng trên tường",
+      "caption_original": "a red and white sign on a wall",
+      "label_id": 1,
+      "label_score": 0.9999351501464844
+    },
+    {
+      "second": 2,
+      "caption": "một người đàn ông mặc bộ đồ màu xanh đang đứng trên lều xiếc màu đỏ và vàng",
+      "caption_original": "a man in a blue suit is standing on top of a red and yellow circus tent",
+      "label_id": 1,
+      "label_score": 0.999133288860321
+    },
+    {
+      "second": 3,
+      "caption": "một người đàn ông mặc bộ đồ màu xanh và thắt nơ đỏ cầm một sợi dây",
+      "caption_original": "a man in a blue suit and red bow tie holding a rope",
+      "label_id": 1,
+      "label_score": 0.9988211989402771
+    },
+    {
+      "second": 4,
+      "caption": "một cậu bé mặc bộ đồ màu xanh và thắt nơ đỏ cầm gậy",
+      "caption_original": "a boy in a blue suit and red bow tie holding a stick",
+      "label_id": 1,
+      "label_score": 0.9916712045669556
+    },
+    {
+      "second": 5,
+      "caption": "một cậu bé mặc bộ đồ màu xanh và thắt nơ đỏ cầm một sợi dây",
+      "caption_original": "a young boy in a blue suit and red bow tie holding a rope",
+      "label_id": 1,
+      "label_score": 0.9930852651596069
+    },
+    {
+      "second": 6,
+      "caption": "một cậu bé mặc bộ đồ màu xanh và thắt nơ đỏ cầm một sợi dây",
+      "caption_original": "a boy in a blue suit and red bow tie holding a rope",
+      "label_id": 1,
+      "label_score": 0.9930852651596069
+    },
+    {
+      "second": 7,
+      "caption": "một người ngồi trên giường trong phòng",
+      "caption_original": "a person sitting on top of a bed in a room",
+      "label_id": 1,
+      "label_score": 0.9983474016189575
+    },
+    {
+      "second": 8,
+      "caption": "một người đàn ông mặc bộ đồ màu xanh đứng trên sân khấu",
+      "caption_original": "a man in a blue suit standing on a stage",
+      "label_id": 1,
+      "label_score": 0.9985377788543701
+    },
+    {
+      "second": 9,
+      "caption": "một người ngồi trên giường trong phòng",
+      "caption_original": "a person sitting on top of a bed in a room",
+      "label_id": 1,
+      "label_score": 0.9983474016189575
+    },
+    {
+      "second": 10,
+      "caption": "một cậu bé mặc áo khoác màu xanh đang cầm một chiếc máy bay giấy",
+      "caption_original": "a boy in a blue jacket is holding a paper airplane",
+      "label_id": 0,
+      "label_score": 0.9974159002304077
+    },
+    {
+      "second": 11,
+      "caption": "hình ảnh một người ở trong phòng có bóng bay",
+      "caption_original": "an image of a person in a room with balloons",
+      "label_id": null,
+      "label_score": 0.6527576446533203
+    },
+    {
+      "second": 12,
+      "caption": "một người đàn ông mặc áo xanh và quần trắng đứng trước bức tường đỏ",
+      "caption_original": "a man in a blue shirt and white pants standing in front of a red wall",
+      "label_id": 1,
+      "label_score": 0.9993788003921509
+    },
+    {
+      "second": 13,
+      "caption": "một người phụ nữ mặc váy màu vàng và một người đàn ông đội mũ xanh đang đứng trước bức tường màu đỏ",
+      "caption_original": "a woman in a yellow dress and a man in a blue hat are standing in front of a red wall",
+      "label_id": 1,
+      "label_score": 0.9958283305168152
+    },
+    {
+      "second": 14,
+      "caption": "cậu bé đội mũ xanh cầm tấm vải đỏ",
+      "caption_original": "a boy in a blue hat holding a red cloth",
+      "label_id": 1,
+      "label_score": 0.8391423225402832
+    },
+    {
+      "second": 15,
+      "caption": "một người đội mũ và cầm cốc trước bức tường màu đỏ",
+      "caption_original": "a person wearing a hat and holding a cup in front of a red wall",
+      "label_id": 1,
+      "label_score": 0.999760091304779
+    },
+    {
+      "second": 16,
+      "caption": "một lọ thuốc đặt trên bàn",
+      "caption_original": "a bottle of pills sitting on top of a table",
+      "label_id": 1,
+      "label_score": 0.9794290661811829
+    },
+    {
+      "second": 17,
+      "caption": "một món đồ chơi nằm trên bàn",
+      "caption_original": "a toy that is sitting on top of a table",
+      "label_id": 0,
+      "label_score": 0.9979324340820312
+    },
+    {
+      "second": 18,
+      "caption": "một nhóm đồ chơi ngồi trên bàn",
+      "caption_original": "a group of toys sitting on top of a table",
+      "label_id": 0,
+      "label_score": 0.9974786639213562
+    },
+    {
+      "second": 19,
+      "caption": "một cậu bé mặc bộ đồ màu xanh đang chơi đồ chơi",
+      "caption_original": "a boy in a blue suit is playing with a toy",
+      "label_id": 0,
+      "label_score": 0.999881386756897
+    },
+    {
+      "second": 20,
+      "caption": "một người phụ nữ đội mũ xanh và áo khoác trắng đang đổ sữa vào xô",
+      "caption_original": "a woman in a blue hat and white coat is pouring milk into a bucket",
+      "label_id": null,
+      "label_score": 0.6880480051040649
+    },
+    {
+      "second": 21,
+      "caption": "một người đàn ông và một cô bé đang chơi trong phòng chơi",
+      "caption_original": "a man and a little girl are playing in a play room",
+      "label_id": 0,
+      "label_score": 0.9995166063308716
+    },
+    {
+      "second": 22,
+      "caption": "một người đàn ông ngồi trước bàn đầy thức ăn",
+      "caption_original": "a man sitting in front of a table filled with food",
+      "label_id": 0,
+      "label_score": 0.9991409778594971
+    },
+    {
+      "second": 23,
+      "caption": "một người ngồi trên ghế có biển hiệu",
+      "caption_original": "a person sitting in a chair with a sign on",
+      "label_id": 1,
+      "label_score": 0.9999244213104248
+    },
+    {
+      "second": 24,
+      "caption": "một nhóm người đứng trước một tấm biển",
+      "caption_original": "a group of people standing in front of a sign",
+      "label_id": 1,
+      "label_score": 0.9975812435150146
+    },
+    {
+      "second": 25,
+      "caption": "một nhóm người đứng trước một tấm biển",
+      "caption_original": "a group of people standing in front of a sign",
+      "label_id": 1,
+      "label_score": 0.9975812435150146
+    },
+    {
+      "second": 26,
+      "caption": "một chiếc đồng hồ với một cô gái trên đầu",
+      "caption_original": "a clock with a girl on top of",
+      "label_id": 1,
+      "label_score": 0.9670438170433044
+    },
+    {
+      "second": 27,
+      "caption": "hình ảnh cô gái mặc váy màu vàng trên cân",
+      "caption_original": "a picture of a girl in a yellow dress on a scale",
+      "label_id": 1,
+      "label_score": 0.9492591619491577
+    },
+    {
+      "second": 28,
+      "caption": "một người phụ nữ mặc váy màu vàng đứng trên cân",
+      "caption_original": "a woman in a yellow dress standing on top of a scale",
+      "label_id": 1,
+      "label_score": 0.9997522234916687
+    },
+    {
+      "second": 29,
+      "caption": "một người phụ nữ mặc váy màu vàng đứng trên đồng hồ",
+      "caption_original": "a woman in a yellow dress standing on top of a clock",
+      "label_id": 1,
+      "label_score": 0.9997580647468567
+    }
+  ],
+  "audio": {
+    "full_text": " Bên trên tầng lầu là giám xuyết ậm thơ Xin bè Tăng Tăng Cân vững tạm, Xin chào! Mì này hơi quá sai, kệ, nhắm mắt mua luôn Châu cân phải xài chiếu thôi! Nên xuyết chiêu sẩu, quá xê về bè Tăng Nhờ có Nú Tý Phút Pro Plus suy dinh dưỡng với công thức FDI từ Nú Tý Phút Tụy Điển Nú Tý Phút Pro Plus suy dinh dưỡng, con bày Tăng Cân Nhưng mà còn vết chân lớn",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Bên trên tầng lầu là giám xuyết ậm thơ Xin bè Tăng Tăng Cân vững tạm, Xin chào!",
+        "label_id": 1,
+        "label_score": 0.9408798217773438
+      },
+      {
+        "index": 2,
+        "text": "Mì này hơi quá sai, kệ, nhắm mắt mua luôn Châu cân phải xài chiếu thôi!",
+        "label_id": 1,
+        "label_score": 0.9798291325569153
+      },
+      {
+        "index": 3,
+        "text": "Nên xuyết chiêu sẩu, quá xê về bè Tăng Nhờ có Nú Tý Phút Pro Plus suy dinh dưỡng với công thức FDI từ Nú Tý Phút Tụy Điển Nú Tý Phút Pro Plus suy dinh dưỡng, con bày Tăng Cân Nhưng mà còn vết chân lớn",
+        "label_id": 1,
+        "label_score": 0.9818871021270752
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 3,
+      "num_compliant": 0,
+      "num_violations": 3,
+      "num_unknown": 0,
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
+    }
+  },
+  "summary": {
+    "total_frames": 30,
+    "num_compliant": 6,
+    "num_violations": 22,
+    "num_unknown": 2,
+    "percent_compliant": 20.0,
+    "percent_violations": 73.33
+  }
+}

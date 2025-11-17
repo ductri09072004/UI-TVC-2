@@ -6,77 +6,141 @@
     {
       "second": 0,
       "caption": "Người đàn ông cầm dao cạo Ghiền Mì Gõ trong phòng tắm sáng sủa để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Người đàn ông mặc áo thun xanh cầm dao cạo, mặt có bọt cạo râu, đứng trong phòng tắm sáng sủa."
+      "caption_original": "Người đàn ông mặc áo thun xanh cầm dao cạo, mặt có bọt cạo râu, đứng trong phòng tắm sáng sủa.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 1,
       "caption": "Người đàn ông mặc áo thun xanh vui vẻ cầm dao cạo, khuyến khích bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Người đàn ông mặc áo thun xanh đang cầm dao cạo, tạo dáng vui vẻ trước gương trong phòng tắm."
+      "caption_original": "Người đàn ông mặc áo thun xanh đang cầm dao cạo, tạo dáng vui vẻ trước gương trong phòng tắm.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 2,
       "caption": "Người đàn ông mặc áo phông xanh đang rửa mặt với sản phẩm Gillette Flex, hãy subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Người đàn ông mặc áo phông xanh đang rửa mặt tại bồn rửa, thể hiện sự tươi mới với sản phẩm Gillette Flex."
+      "caption_original": "Người đàn ông mặc áo phông xanh đang rửa mặt tại bồn rửa, thể hiện sự tươi mới với sản phẩm Gillette Flex.",
+      "label_id": 0,
+      "label_score": 0.9002747535705566
     },
     {
       "second": 3,
       "caption": "\"Khung hình da mịn màng nhấn mạnh sự mềm mại khi bạn subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.\"",
-      "caption_original": "Khung hình hiển thị một bề mặt da mịn màng, nhấn mạnh sự mềm mại và độ nhạy cảm, liên quan đến sản phẩm dao cạo Gillette Flexi3."
+      "caption_original": "Khung hình hiển thị một bề mặt da mịn màng, nhấn mạnh sự mềm mại và độ nhạy cảm, liên quan đến sản phẩm dao cạo Gillette Flexi3.",
+      "label_id": 1,
+      "label_score": 0.9915972352027893
     },
     {
       "second": 4,
       "caption": "\"Nhiều người đàn ông vui vẻ thể hiện sự phấn khích với sản phẩm Gillette, hãy subscribe cho kênh Ghiền Mì Gõ để không bỏ lỡ!\"",
-      "caption_original": "Nhiều người đàn ông mặc áo sơ mi màu nude đang đứng chật kín, tạo dáng vui vẻ và thể hiện sự phấn khích cho sản phẩm Gillette."
+      "caption_original": "Nhiều người đàn ông mặc áo sơ mi màu nude đang đứng chật kín, tạo dáng vui vẻ và thể hiện sự phấn khích cho sản phẩm Gillette.",
+      "label_id": 1,
+      "label_score": 0.9206458330154419
     },
     {
       "second": 5,
       "caption": "\"Nhiều người đàn ông hò reo phấn khích khi subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.\"",
-      "caption_original": "Nhiều người đàn ông mặc áo phông sáng màu đang hò reo, thể hiện sự phấn khích trong một khung cảnh đông đúc."
+      "caption_original": "Nhiều người đàn ông mặc áo phông sáng màu đang hò reo, thể hiện sự phấn khích trong một khung cảnh đông đúc.",
+      "label_id": 1,
+      "label_score": 0.9863020181655884
     },
     {
       "second": 6,
       "caption": "Dao cạo Gillette Blue 3 Flexi nổi bật trên mặt nước, hãy subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Dao cạo Gillette Blue 3 Flexi nổi bật trên mặt nước, thể hiện sự sắc bén và tiện lợi trong việc cạo râu."
+      "caption_original": "Dao cạo Gillette Blue 3 Flexi nổi bật trên mặt nước, thể hiện sự sắc bén và tiện lợi trong việc cạo râu.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 7,
       "caption": "\"Dao cạo Gillette Flexi Blue 3 nổi bật trên nền nước, hãy subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.\"",
-      "caption_original": "Dao cạo Gillette Flexi Blue 3 nổi bật trên nền nước, thể hiện tính năng sắc bén và tiện lợi của sản phẩm."
+      "caption_original": "Dao cạo Gillette Flexi Blue 3 nổi bật trên nền nước, thể hiện tính năng sắc bén và tiện lợi của sản phẩm.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 8,
       "caption": "Người đàn ông cạo râu với dao cạo Gillette Blue 3, hãy subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Người đàn ông mặc áo phông đang cạo râu với dao cạo Gillette Blue 3, bọt cạo trắng phủ trên mặt."
+      "caption_original": "Người đàn ông mặc áo phông đang cạo râu với dao cạo Gillette Blue 3, bọt cạo trắng phủ trên mặt.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 9,
       "caption": "\"Lưỡi dao Gillette Flexi 3 màu xanh nổi bật đang cận cảnh, hãy subscribe cho kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.\"",
-      "caption_original": "Lưỡi dao Gillette Flexi 3 màu xanh nổi bật đang cận cảnh, thể hiện tính năng linh hoạt và bền bỉ trong quảng cáo."
+      "caption_original": "Lưỡi dao Gillette Flexi 3 màu xanh nổi bật đang cận cảnh, thể hiện tính năng linh hoạt và bền bỉ trong quảng cáo.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 10,
       "caption": "\"Dao cạo Gillette Flexi 3 tiếp xúc với da, hãy subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.\"",
-      "caption_original": "Dao cạo Gillette Flexi 3 với ba lưỡi nhạy bén đang tiếp xúc với da, thể hiện sự tiện lợi và hiệu quả trong việc cạo râu."
+      "caption_original": "Dao cạo Gillette Flexi 3 với ba lưỡi nhạy bén đang tiếp xúc với da, thể hiện sự tiện lợi và hiệu quả trong việc cạo râu.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 11,
       "caption": "Người đàn ông trẻ tuổi cạo râu với dao cạo Gillette, hãy subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Người đàn ông trẻ tuổi đang cạo râu với dao cạo Gillette, thể hiện sự tự tin và chăm sóc bản thân."
+      "caption_original": "Người đàn ông trẻ tuổi đang cạo râu với dao cạo Gillette, thể hiện sự tự tin và chăm sóc bản thân.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 12,
       "caption": "Nhiều người đàn ông khỏa thân vui vẻ quảng cáo dao cạo Gillette Flexi, hãy subscribe cho kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Nhiều người đàn ông khỏa thân vui vẻ đứng gần nhau, tạo thành hình ảnh đồng nhất, quảng cáo dao cạo Gillette Flexi"
+      "caption_original": "Nhiều người đàn ông khỏa thân vui vẻ đứng gần nhau, tạo thành hình ảnh đồng nhất, quảng cáo dao cạo Gillette Flexi",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "khỏa thân",
+        "dao"
+      ]
     },
     {
       "second": 13,
       "caption": "Người đàn ông trẻ tuổi cạo râu bằng dao cạo Gillette Flexi Blue, hãy subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Người đàn ông trẻ tuổi mặc áo phông đang cạo râu, cầm dao cạo Gillette Flexi Blue, thể hiện sự tự tin và chăm sóc bản thân."
+      "caption_original": "Người đàn ông trẻ tuổi mặc áo phông đang cạo râu, cầm dao cạo Gillette Flexi Blue, thể hiện sự tự tin và chăm sóc bản thân.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     },
     {
       "second": 14,
       "caption": "Người đàn ông cạo râu với dao cạo Gillette Flexi Blue, hãy subscribe kênh Ghiền Mì Gõ để không bỏ lỡ video hấp dẫn.",
-      "caption_original": "Người đàn ông mặc áo phông xanh đang cạo râu, nhìn vào gương với sản phẩm dao cạo Gillette Flexi Blue 2 và 3 bên cạnh."
+      "caption_original": "Người đàn ông mặc áo phông xanh đang cạo râu, nhìn vào gương với sản phẩm dao cạo Gillette Flexi Blue 2 và 3 bên cạnh.",
+      "label_id": 1,
+      "label_score": 1.0,
+      "matched_banned_words": [
+        "dao"
+      ]
     }
   ],
   "audio": {
@@ -85,17 +149,25 @@
       {
         "index": 1,
         "text": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn",
-        "label_id": 0,
-        "label_score": 0.8167144656181335
+        "label_id": 1,
+        "label_score": 0.6533995866775513
       }
     ],
     "sentence_summary": {
       "total_sentences": 1,
-      "num_compliant": 1,
-      "num_violations": 0,
+      "num_compliant": 0,
+      "num_violations": 1,
       "num_unknown": 0,
-      "percent_compliant": 100.0,
-      "percent_violations": 0.0
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
     }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 1,
+    "num_violations": 14,
+    "num_unknown": 0,
+    "percent_compliant": 6.67,
+    "percent_violations": 93.33
   }
 }

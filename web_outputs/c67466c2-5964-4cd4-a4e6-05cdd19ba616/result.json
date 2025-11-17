@@ -1,0 +1,154 @@
+{
+  "job_id": "c67466c2-5964-4cd4-a4e6-05cdd19ba616",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\c67466c2-5964-4cd4-a4e6-05cdd19ba616",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_ktypm_r1.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Người phụ nữ vui vẻ mở tủ quần áo, Aereo chặt sạch vết bẩn cứng đầu mà không cần thêm bước xử lý.",
+      "caption_original": "Người phụ nữ mặc áo sáng màu vui vẻ mở cửa tủ quần áo, nhìn vào những chiếc váy đủ màu sắc",
+      "caption_for_classification": "Người phụ nữ mở tủ quần áo và xử lí vết bẩn",
+      "label_id": 0,
+      "label_score": 0.7520228624343872
+    },
+    {
+      "second": 1,
+      "caption": "Người mẹ vui vẻ treo váy xanh cho con gái, Aereo đánh bay vết bẩn cứng đầu mà không cần thêm bước xử lý.",
+      "caption_original": "Người mẹ mặc áo phông hồng vui vẻ treo váy xanh cho cô con gái mặc áo trắng, cả hai cùng cười trong phòng sáng sủa.",
+      "caption_for_classification": "Người mẹ treo váy cho con gái",
+      "label_id": 0,
+      "label_score": 0.9991445541381836
+    },
+    {
+      "second": 2,
+      "caption": "Cô bé ngạc nhiên chỉ vào sản phẩm Aereo, khẳng định sức mạnh chặt sạch đánh bay vết bẩn cứng đầu mà không cần thêm bước xử lý.",
+      "caption_original": "Cô bé mặc áo vàng ngạc nhiên nhìn chiếc váy xanh treo trên móc, tay chỉ vào sản phẩm với vẻ thích thú.",
+      "caption_for_classification": "Cô bé chỉ vào sản phẩm và khẳng định sức mạnh giặt sạch vết bẩn",
+      "label_id": 1,
+      "label_score": 0.8298575282096863
+    },
+    {
+      "second": 3,
+      "caption": "Người phụ nữ lo lắng cầm tờ giấy, Aereo chặt sạch vết bẩn cứng đầu mà không cần thêm bước xử lý.",
+      "caption_original": "Người phụ nữ mặc áo phông hồng đang lo lắng cầm tờ giấy, biểu cảm căng thẳng trong không gian phòng khách sáng sủa.",
+      "caption_for_classification": "Người phụ nữ cầm tờ giấy",
+      "label_id": null,
+      "label_score": 0.5949974656105042
+    },
+    {
+      "second": 4,
+      "caption": "Người phụ nữ thất vọng cầm áo xanh, Aereo chặt sạch vết bẩn cứng đầu mà không cần thêm bước xử lý.",
+      "caption_original": "Người phụ nữ mặc áo phông hồng đang cầm một chiếc áo xanh, biểu cảm thất vọng vì áo bị nhăn.",
+      "caption_for_classification": "Người phụ nữ cầm áo xanh và xử lý vết bẩn",
+      "label_id": 1,
+      "label_score": 0.9340602159500122
+    },
+    {
+      "second": 5,
+      "caption": "Người phụ nữ chà xát quần áo với Aereo, đánh bay vết bẩn cứng đầu nhanh chóng mà không cần thêm bước xử lý.",
+      "caption_original": "Người phụ nữ mặc áo phông hồng đang giặt quần áo trong chậu lớn, tập trung vào việc chà xát vải. Bối cảnh là một căn bếp sáng sủa.",
+      "caption_for_classification": "Người phụ nữ chà xát quần áo",
+      "label_id": 1,
+      "label_score": 0.996582567691803
+    },
+    {
+      "second": 6,
+      "caption": "Người phụ nữ chà rửa đồ với Aereo, sản phẩm mạnh mẽ đánh bay vết bẩn cứng đầu chỉ trong một bước.",
+      "caption_original": "Người phụ nữ mặc áo phông hồng đang chà rửa đồ trong chậu, thể hiện sự chăm chỉ với sản phẩm nước giặt P&G.",
+      "caption_for_classification": "Người phụ nữ chà rửa đồ",
+      "label_id": 0,
+      "label_score": 0.9960214495658875
+    },
+    {
+      "second": 7,
+      "caption": "Hai người phụ nữ cầm chai bột giặt Ariel, đánh bay vết bẩn cứng đầu mà không cần thêm bước xử lý.",
+      "caption_original": "Hai người phụ nữ mặc áo phông đứng bên máy giặt, một người đang vò áo xanh, người kia cầm chai bột giặt Ariel.",
+      "caption_for_classification": "Hai người phụ nữ cầm chai bột giặt",
+      "label_id": 0,
+      "label_score": 0.9272133708000183
+    },
+    {
+      "second": 8,
+      "caption": "Người phụ nữ cầm gói bột giặt Ariel, vui vẻ chào đón sức mạnh chặt sạch đánh bay vết bẩn cứng đầu.",
+      "caption_original": "Người phụ nữ mặc áo xanh tươi cười cầm gói bột giặt Ariel, đứng bên bồn rửa, trong khi phía sau đang vui",
+      "caption_for_classification": "Người phụ nữ cầm gói bột giặt",
+      "label_id": 0,
+      "label_score": 0.9969028830528259
+    },
+    {
+      "second": 9,
+      "caption": "Người phụ nữ cầm gói bột giặt Ariel, tự tin chặt sạch vết bẩn cứng đầu mà không cần thêm bước xử lý.",
+      "caption_original": "Người phụ nữ mặc áo blouse xanh cầm gói bột giặt Ariel, đứng bên bồn rửa, trong khi khác mỉm cười phía sau.",
+      "caption_for_classification": "Người phụ nữ cầm gói bột giặt",
+      "label_id": 0,
+      "label_score": 0.9969028830528259
+    },
+    {
+      "second": 10,
+      "caption": "\"Sản phẩm Aereo chặt sạch vết bẩn cứng đầu, xuất hiện rực rỡ trên nền xanh.\"",
+      "caption_original": "Một làn sóng màu sắc rực rỡ xuất hiện trên nền xanh, tạo hiệu ứng mạnh mẽ cho sản phẩm nước giải khát.",
+      "caption_for_classification": "Sản phẩm giặc sạch vết bẩn cứng đầu",
+      "label_id": 1,
+      "label_score": 0.6682851314544678
+    },
+    {
+      "second": 11,
+      "caption": "Hai thanh ánh sáng xanh chéo nhau tôn vinh Aereo, sản phẩm chặt sạch vết bẩn cứng đầu mà không cần thêm bước xử lý.",
+      "caption_original": "Hai thanh ánh sáng màu xanh chéo nhau trên nền trắng, tạo hiệu ứng nổi bật cho sản phẩm nước giải khát.",
+      "caption_for_classification": "Hai thanh ánh sáng chéo nhau tôn vinh sản phẩm",
+      "label_id": 1,
+      "label_score": 0.9952799081802368
+    },
+    {
+      "second": 12,
+      "caption": "\"Chai Aereo 10X mạnh mẽ chặt sạch vết bẩn cứng đầu, nổi bật với bọt xà phòng trên nền trắng.\"",
+      "caption_original": "Khung hình hiển thị chữ \"10X\" lớn màu xanh lá, nhấn mạnh sức mạnh giặt sạch, nền trắng với bọt xà phòng.",
+      "caption_for_classification": "Chai xịt chặt sạch vết bẩn",
+      "label_id": 0,
+      "label_score": 0.9314289093017578
+    },
+    {
+      "second": 13,
+      "caption": "\"Sản phẩm Aereo chặt sạch vết bẩn cứng đầu với sức mạnh 10X, không cần thêm bước xử lý.\"",
+      "caption_original": "Chữ số \"10X\" lớn màu xanh nổi bật trên nền xanh, nhấn mạnh sức mạnh giặt sạch của sản phẩm.",
+      "caption_for_classification": "\"Sản phẩm giặc sạch vết bẩn cứng đầu\"",
+      "label_id": 1,
+      "label_score": 0.9350191950798035
+    },
+    {
+      "second": 14,
+      "caption": "Cô bé cầm hộp quà Aereo chặt sạch vết bẩn cứng đầu, giúp tiệc tùng thêm vui vẻ.",
+      "caption_original": "Cô bé mặc váy xanh cầm hộp quà đứng trước bối cảnh tiệc tùng, hai người lớn vui vẻ trò chuyện phía sau.",
+      "caption_for_classification": "Cô bé cầm hộp quà chặt vết bẩn",
+      "label_id": 0,
+      "label_score": 0.9371195435523987
+    }
+  ],
+  "audio": {
+    "full_text": "Cho nhanh, cho dữ tiệt, chung nha Thảo đã ra rồi mà Chặt sạch tui thì cần nhiều bước đó Phải ngấm, chà, chặt lại Mất thời gian cho vết bẩn cứng đầu Aereo mới 10 lần sức mạnh chặt sạch đánh bay vết bẩn cứng đầu mà không cần thêm bước xử lý Vết bẩn cứng đầu cũng phải cứng hỏng",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Cho nhanh, cho dữ tiệt, chung nha Thảo đã ra rồi mà Chặt sạch tui thì cần nhiều bước đó Phải ngấm, chà, chặt lại Mất thời gian cho vết bẩn cứng đầu Aereo mới 10 lần sức mạnh chặt sạch đánh bay vết bẩn cứng đầu mà không cần thêm bước xử lý Vết bẩn cứng đầu cũng phải cứng hỏng",
+        "label_id": 1,
+        "label_score": 0.9981141090393066
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 1,
+      "num_unknown": 0,
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 8,
+    "num_violations": 6,
+    "num_unknown": 1,
+    "percent_compliant": 53.33,
+    "percent_violations": 40.0
+  }
+}

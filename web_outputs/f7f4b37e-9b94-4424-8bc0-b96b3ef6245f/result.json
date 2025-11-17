@@ -1,0 +1,154 @@
+{
+  "job_id": "f7f4b37e-9b94-4424-8bc0-b96b3ef6245f",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\f7f4b37e-9b94-4424-8bc0-b96b3ef6245f",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_k8ajtf1o.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Người tiêu dùng mua Sơn Expo và Oispo hôm nay để trúng quà lớn với cơ hội nhận xe máy và hàng ngàn giải thưởng hấp dẫn.",
+      "caption_original": "Xin lỗi, nhưng tôi không thể mô tả hình ảnh",
+      "caption_for_classification": "Người tiêu dùng mua sản phẩm để trúng thưởng",
+      "label_id": 1,
+      "label_score": 0.978706419467926
+    },
+    {
+      "second": 1,
+      "caption": "\"Ba hộp sơn Expo rực rỡ thu hút bạn, mua ngay để có cơ hội trúng xe NH125i và nhiều giải thưởng hấp dẫn!\"",
+      "caption_original": "Ba hộp sơn màu sắc rực rỡ được đặt trên nền xanh, với chữ \"MUA SƠN EXPO\" nổi bật",
+      "caption_for_classification": "Ba hộp sơn thu hút bạn mua ngay",
+      "label_id": 0,
+      "label_score": 0.9987448453903198
+    },
+    {
+      "second": 2,
+      "caption": "\"Bốn thùng sơn Expo và Oispo rực rỡ trúng quà lớn với cơ hội nhận xe máy và hàng ngàn giải thưởng hấp dẫn.\"",
+      "caption_original": "Bốn thùng sơn màu sắc rực rỡ được đặt trên nền xanh, nổi bật với chữ \"TRÚNG QUÀ\"",
+      "caption_for_classification": "\"Bốn thùng sơn trúng quà lớn và nhận giải thưởng\"",
+      "label_id": 1,
+      "label_score": 0.9944128394126892
+    },
+    {
+      "second": 3,
+      "caption": "\"Bốn hộp sơn Expo và Oispo rực rỡ trúng quà cực xịn, cơ hội nhận xe máy và hàng ngàn giải thưởng hấp dẫn.\"",
+      "caption_original": "Bốn hộp sơn màu sắc rực rỡ được xếp cạnh nhau, phía trên có chữ \"TRÚNG QUÀ CỰC XỊN\" nổi bật, tạo không khí vui tươi.",
+      "caption_for_classification": "\"Bốn hộp sơn trúng quà và nhận giải thưởng\"",
+      "label_id": 1,
+      "label_score": 0.9621390104293823
+    },
+    {
+      "second": 4,
+      "caption": "\"Chữ số 8 lớn màu cam và vàng nổi bật, khuyến khích bạn mua Sơn Expo và Oispo để trúng thưởng hấp dẫn.\"",
+      "caption_original": "Khung cảnh có chữ số 8 lớn màu cam và vàng nổi bật trên nền xanh, xung quanh là những mảnh giấy trang trí bay lượn.",
+      "caption_for_classification": "Chữ số 8 lớn màu cam và vàng khuyến khích bạn mua sơn",
+      "label_id": 1,
+      "label_score": 0.8123024702072144
+    },
+    {
+      "second": 5,
+      "caption": "Xe máy màu trắng nổi bật trên nền xanh, mang đến cơ hội trúng giải thưởng lớn khi mua Sơn Expo và Oispo chỉ với 8 triệu đồng.",
+      "caption_original": "Xe máy màu trắng nổi bật trên nền xanh, kèm chữ \"Chỉ với 8 triệu đồng, cơ hội trúng ngay\" thu hút sự chú",
+      "caption_for_classification": "Xe máy màu trắng mang cơ hội trúng giải thưởng lớn",
+      "label_id": 1,
+      "label_score": 0.9911461472511292
+    },
+    {
+      "second": 6,
+      "caption": "Xe máy SH 125i nổi bật trên nền xanh, khuyến mãi 8 triệu đồng, mua Sơn Expo và Oispo trúng ngay xe NH125i và hàng ngàn giải thưởng hấp dẫn.",
+      "caption_original": "Xe máy SH 125i màu trắng nổi bật trên nền xanh, kèm theo thông điệp khuyến mãi 8 triệu đồng hấp dẫn.",
+      "caption_for_classification": "Xe máy khuyến mãi 8 triệu đồng và trúng xe và giải thưởng",
+      "label_id": 1,
+      "label_score": 0.9659833312034607
+    },
+    {
+      "second": 7,
+      "caption": "\"Chiếc xe máy SH 125i nổi bật khuyến mãi giải thưởng lớn khi mua Sơn Expo và Oispo chỉ với 8 triệu đồng.\"",
+      "caption_original": "Một chiếc xe máy SH 125i màu trắng nổi bật trên nền xanh, kèm theo thông điệp khuyến mãi hấp dẫn về giải thưởng.",
+      "caption_for_classification": "\"Chiếc xe máy khuyến mãi khi mua sản phẩm\"",
+      "label_id": 1,
+      "label_score": 0.6732203364372253
+    },
+    {
+      "second": 8,
+      "caption": "Người tiêu dùng mua Sơn Expo và Oispo với 8 triệu đồng, có cơ hội trúng xe NH125i và hàng ngàn giải thưởng hấp dẫn.",
+      "caption_original": "Xe máy màu hồng nổi bật nằm giữa khung cảnh rực rỡ, cùng chữ số \"8 triệu đồng\" lớn, thu hút sự chú ý về chương trình khuyến mãi.",
+      "caption_for_classification": "Người tiêu dùng mua sản phẩm với 8 triệu đồng",
+      "label_id": 0,
+      "label_score": 0.9963961243629456
+    },
+    {
+      "second": 9,
+      "caption": "\"Chiếc xe máy điện VinFast Motio nổi bật trên nền xanh, khuyến khích bạn mua Sơn Expo và Oispo để trúng giải thưởng hấp dẫn.\"",
+      "caption_original": "Một chiếc xe máy điện màu hồng nổi bật được đặt trên nền xanh, kèm theo thông điệp khuyến mãi hấp dẫn về giá.",
+      "caption_for_classification": "Chiếc xe máy điện khuyến khích bạn mua sơn",
+      "label_id": 0,
+      "label_score": 0.9986512064933777
+    },
+    {
+      "second": 10,
+      "caption": "Chiếc xe máy màu hồng di chuyển nhanh, khuyến khích bạn mua Sơn Expo và Oispo với cơ hội trúng giải thưởng hấp dẫn chỉ 8 triệu đồng.",
+      "caption_original": "Một chiếc xe máy màu hồng đang di chuyển nhanh, kèm theo chữ số \"8 triệu đồng\" nổi bật trên nền xanh, tạo cảm giác hấp dẫn.",
+      "caption_for_classification": "Chiếc xe máy di chuyển nhanh và khuyến khích bạn mua sản phẩm",
+      "label_id": 0,
+      "label_score": 0.9953771829605103
+    },
+    {
+      "second": 11,
+      "caption": "Người tiêu dùng cầm nón bảo hiểm và áo thun thời trang, mua Sơn Expo và Oispo với cơ hội trúng xe NH125i chỉ với 8 triệu đồng.",
+      "caption_original": "Khung cảnh quảng cáo có chữ số \"8\" lớn màu cam, bên cạnh là hình ảnh nón bảo hiểm và áo thun thời trang, nhấn mạnh cơ hội trúng thưởng.",
+      "caption_for_classification": "Người tiêu dùng cầm nón bảo hiểm và áo thun mua sản phẩm với 8 triệu đồng",
+      "label_id": 0,
+      "label_score": 0.9932622313499451
+    },
+    {
+      "second": 12,
+      "caption": "\"Sản phẩm Sơn Expo và Oispo mang đến cơ hội trúng thưởng lớn với giải thưởng hấp dẫn, cào ngay để nhận quà!\"",
+      "caption_original": "Hai sản phẩm nước giải khát nổi bật trên nền không gian, với chữ \"CÀO NGÀ TRÚNG LỚN\" và hiệu ứng confetti xung quanh.",
+      "caption_for_classification": "Sản phẩm mang đến cơ hội trúng thưởng",
+      "label_id": 1,
+      "label_score": 0.9916515946388245
+    },
+    {
+      "second": 13,
+      "caption": "Người tiêu dùng mua Sơn Expo và Oispo, trúng ngay xe máy SH 125i và VinFast Motio cùng hàng ngàn giải thưởng hấp dẫn.",
+      "caption_original": "Khung cảnh quảng cáo giới thiệu sự kiện EXPO, với hình ảnh xe máy SH 125i và VinFast Motio, cùng các giải thưởng hấp dẫn.",
+      "caption_for_classification": "Người tiêu dùng mua sản phẩm và nhận giải thưởng",
+      "label_id": 0,
+      "label_score": 0.9904578924179077
+    },
+    {
+      "second": 14,
+      "caption": "Người tiêu dùng mua Sơn Expo và Oispo hôm nay, trúng ngay xe máy SH 125i và VinFast Motio cùng hàng ngàn giải thưởng hấp dẫn.",
+      "caption_original": "Khung cảnh quảng cáo giới thiệu chương trình khuyến mãi, với hình ảnh xe máy SH 125i và VinFast Motio nổi bật, cùng các giải thưởng hấp dẫn.",
+      "caption_for_classification": "Người tiêu dùng mua sản phẩm và trúng xe máy",
+      "label_id": 0,
+      "label_score": 0.7374927401542664
+    }
+  ],
+  "audio": {
+    "full_text": "Mua Sơn Expo và Oispo hôm nay, trúng quà cứng xỉn Chỉ với 8 triệu đồng, bạn sẽ có cơ hội trúng ngay 3 giải nhất, xe NH125i 30 giải nhì, xe máy điện VinFast Motio Cùng hàng ngàn giải thưởng hấp dẫn Nghe tên mua Sơn, cào ngay trúng lớn cùng Sơn Expo và Oispo",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Mua Sơn Expo và Oispo hôm nay, trúng quà cứng xỉn Chỉ với 8 triệu đồng, bạn sẽ có cơ hội trúng ngay 3 giải nhất, xe NH125i 30 giải nhì, xe máy điện VinFast Motio Cùng hàng ngàn giải thưởng hấp dẫn Nghe tên mua Sơn, cào ngay trúng lớn cùng Sơn Expo và Oispo",
+        "label_id": 1,
+        "label_score": 0.9339500665664673
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 1,
+      "num_unknown": 0,
+      "percent_compliant": 0.0,
+      "percent_violations": 100.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 7,
+    "num_violations": 8,
+    "num_unknown": 0,
+    "percent_compliant": 46.67,
+    "percent_violations": 53.33
+  }
+}

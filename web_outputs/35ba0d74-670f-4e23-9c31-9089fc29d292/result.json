@@ -1,0 +1,163 @@
+{
+  "job_id": "35ba0d74-670f-4e23-9c31-9089fc29d292",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\35ba0d74-670f-4e23-9c31-9089fc29d292",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\milk_to_grow.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một cô bé mặc váy xanh đang cùng bố mẹ xem chiếc bánh sinh nhật và một người đàn ông mặc áo xanh ở phía sau là một",
+      "caption_original": "a little girl in a blue dress is looking at a birthday cake with her parents and a man in a green shirt in the background is a",
+      "label_id": 0,
+      "label_score": 0.9991552829742432
+    },
+    {
+      "second": 1,
+      "caption": "một cô bé mặc váy xanh đang đứng trước chiếc bánh có hình con gấu bông trên đó và một người phụ nữ",
+      "caption_original": "a little girl in a blue dress is standing in front of a cake with a teddy bear on it and a woman",
+      "label_id": 0,
+      "label_score": 0.9978733062744141
+    },
+    {
+      "second": 2,
+      "caption": "một cô bé mặc váy xanh đang đứng trước chiếc bánh có hình con gấu bông trên đó và một nhóm người ở phía sau",
+      "caption_original": "a little girl in a blue dress is standing in front of a cake with a teddy bear on it and a group of people in the background",
+      "label_id": 0,
+      "label_score": 0.9874112010002136
+    },
+    {
+      "second": 3,
+      "caption": "một người đang rót nước vào cốc trên bàn với một chiếc cốc ở phía trước và một người khác ở phía sau đang cầm một chiếc cốc",
+      "caption_original": "a person is pouring water into a cup on a table with a cup in front of it and another person in the background is holding a glass",
+      "label_id": 0,
+      "label_score": 0.9740611910820007
+    },
+    {
+      "second": 4,
+      "caption": "một chùm chuối treo trên dây quần áo Quần áo treo trên dây quần áo treo trên dây quần áo treo quần áo",
+      "caption_original": "a bunch of bananas hanging from a line of clothes clothes hanging from a line of clothes hanging from a line of clothes hanging clothes",
+      "label_id": 0,
+      "label_score": 0.9405635595321655
+    },
+    {
+      "second": 5,
+      "caption": "hình ảnh một quả bóng gôn có dòng chữ trên đó và logo câu lạc bộ gôn ở giữa quả bóng",
+      "caption_original": "an image of a golf ball with the words on it and a golf club logo in the center of the",
+      "label_id": null,
+      "label_score": 0.6441504955291748
+    },
+    {
+      "second": 6,
+      "caption": "bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày, bài hát trong ngày,",
+      "caption_original": "song of the day, song of the day, of the day, song of the day, song of the and song of the day, song of the day, song of the day, song of the day, song of the day, song of the day, song of the day, song of the day, song of the day, song of the day, song of the day, song of the day, song of the day,",
+      "label_id": 1,
+      "label_score": 0.8118777871131897
+    },
+    {
+      "second": 7,
+      "caption": "a young girl in a yellow dress is playing with colorful balls and a basketball hoop on the wall behind her is a sign that reads 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' the chat 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' and 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY'",
+      "caption_original": "a young girl in a yellow dress is playing with colorful balls and a basketball hoop on the wall behind her is a sign that reads 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' the chat 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' and 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY' 'Nestle nutren Junio Con 3 tuổi GIÚP TĂNG ĐẠM WHEY'",
+      "label_id": 0,
+      "label_score": 0.8492916226387024
+    },
+    {
+      "second": 8,
+      "caption": "một cô bé mặc chiếc váy màu cam đang đứng trong bụi cây, giơ tay ra và nhìn lên",
+      "caption_original": "a little girl in an orange dress is standing in the bushes with her hands out and looking up at the",
+      "label_id": null,
+      "label_score": 0.636893093585968
+    },
+    {
+      "second": 9,
+      "caption": "a little girl in an orange dress is standing in the bushes with a yellow balloon in her hand and a blue balloon in the background reads 'Nestle nutren Junio TRỢ PHÁT...' trio 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' '",
+      "caption_original": "a little girl in an orange dress is standing in the bushes with a yellow balloon in her hand and a blue balloon in the background reads 'Nestle nutren Junio TRỢ PHÁT...' trio 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' 'Nestle nutren Junio TRỢ PHÁT...' '",
+      "label_id": 1,
+      "label_score": 0.7009453177452087
+    },
+    {
+      "second": 10,
+      "caption": "một cô bé mặc váy đỏ đang đi qua bãi cỏ với quả bóng bay màu xanh trên lưng và một người đàn ông mặc áo sơ mi trắng đang đi",
+      "caption_original": "a little girl in a red dress is walking through the grass with a blue balloon on her back, and a man in a white shirt is",
+      "label_id": 0,
+      "label_score": 0.9894500374794006
+    },
+    {
+      "second": 11,
+      "caption": "một cô bé trên bãi cỏ quay lưng về phía máy ảnh và một người đàn ông ở hậu cảnh đang giữ cô lại",
+      "caption_original": "a little girl in the grass with her back to the camera and a man in the background is holding her back to",
+      "label_id": 1,
+      "label_score": 0.8813983201980591
+    },
+    {
+      "second": 12,
+      "caption": "đai ốc đai ốc",
+      "caption_original": "nutn nutn nut",
+      "label_id": 0,
+      "label_score": 0.7117297649383545
+    },
+    {
+      "second": 13,
+      "caption": "đai ốc đai ốc",
+      "caption_original": "nutn nutn nut",
+      "label_id": 0,
+      "label_score": 0.7117297649383545
+    },
+    {
+      "second": 14,
+      "caption": "đai ốc đai ốc",
+      "caption_original": "nutn nutn nut",
+      "label_id": 0,
+      "label_score": 0.7117297649383545
+    }
+  ],
+  "audio": {
+    "full_text": " Ngày thôi nôi, con chọn thị vàng dính dưỡng. Nú Trên Jr. với công thức BIG, chứa 50% đảm quê, DHA và Symba Utích. Nú Trên Jr. thị vàng chọn dính dưỡng sáng tương lai mốt ngày.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Ngày thôi nôi, con chọn thị vàng dính dưỡng.",
+        "label_id": null,
+        "label_score": 0.8401025533676147
+      },
+      {
+        "index": 2,
+        "text": "Nú Trên Jr.",
+        "label_id": null,
+        "label_score": 0.7049185633659363
+      },
+      {
+        "index": 3,
+        "text": "với công thức BIG, chứa 50% đảm quê, DHA và Symba Utích.",
+        "label_id": null,
+        "label_score": 0.833211362361908
+      },
+      {
+        "index": 4,
+        "text": "Nú Trên Jr.",
+        "label_id": null,
+        "label_score": 0.7049185633659363
+      },
+      {
+        "index": 5,
+        "text": "thị vàng chọn dính dưỡng sáng tương lai mốt ngày.",
+        "label_id": 0,
+        "label_score": 0.9803345203399658
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 5,
+      "num_compliant": 1,
+      "num_violations": 0,
+      "num_unknown": 4,
+      "percent_compliant": 20.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 10,
+    "num_violations": 3,
+    "num_unknown": 2,
+    "percent_compliant": 66.67,
+    "percent_violations": 20.0
+  }
+}

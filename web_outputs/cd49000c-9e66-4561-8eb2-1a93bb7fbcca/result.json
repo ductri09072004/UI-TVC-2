@@ -1,0 +1,101 @@
+{
+  "job_id": "cd49000c-9e66-4561-8eb2-1a93bb7fbcca",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\cd49000c-9e66-4561-8eb2-1a93bb7fbcca",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_qke_hprs.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông và một người phụ nữ đứng ở hành lang",
+      "caption_original": "a man and a woman standing in a hallway"
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông và một người phụ nữ được nhìn thấy qua ống kính máy ảnh",
+      "caption_original": "a man and a woman are seen through a camera lens"
+    },
+    {
+      "second": 2,
+      "caption": "một người đàn ông đứng cạnh một người phụ nữ cầm một cuốn sách",
+      "caption_original": "a man standing next to a woman holding a book"
+    },
+    {
+      "second": 3,
+      "caption": "một nhóm người đứng trong phòng khách",
+      "caption_original": "a group of people standing in a living room"
+    },
+    {
+      "second": 4,
+      "caption": "một người đàn ông đứng trên hộp trong phòng khách",
+      "caption_original": "a man standing on top of a box in a living room"
+    },
+    {
+      "second": 5,
+      "caption": "một người đàn ông đứng trong phòng với những chiếc hộp trên sàn",
+      "caption_original": "a man standing in a room with boxes on the floor"
+    },
+    {
+      "second": 6,
+      "caption": "một người đàn ông ngồi trên ghế trong phòng khách",
+      "caption_original": "a man sitting on a couch in a living room"
+    },
+    {
+      "second": 7,
+      "caption": "một người phụ nữ đứng cạnh ngọn đèn trong phòng",
+      "caption_original": "a woman standing next to a lamp in a room"
+    },
+    {
+      "second": 8,
+      "caption": "một người đàn ông mặc áo xanh đứng cạnh một người phụ nữ",
+      "caption_original": "a man in a green shirt standing next to a woman"
+    },
+    {
+      "second": 9,
+      "caption": "một cậu bé đứng trước cửa sổ cầm một cái chai",
+      "caption_original": "a boy standing in front of a window holding a bottle"
+    },
+    {
+      "second": 10,
+      "caption": "một nhóm người đứng cạnh nhau",
+      "caption_original": "a group of people standing next to each other people"
+    },
+    {
+      "second": 11,
+      "caption": "một nhóm người cầm chai bia",
+      "caption_original": "a group of people holding up bottles of beer"
+    },
+    {
+      "second": 12,
+      "caption": "một người đàn ông và một người phụ nữ đứng trước quán bar",
+      "caption_original": "a man and a woman standing in front of a bar"
+    },
+    {
+      "second": 13,
+      "caption": "một người đàn ông cầm chai bia trên tay",
+      "caption_original": "a man holding a bottle of beer in his hand"
+    },
+    {
+      "second": 14,
+      "caption": "một chai bia xanh có hình con rồng",
+      "caption_original": "a bottle of green beer with a dragon on"
+    }
+  ],
+  "audio": {
+    "full_text": " Tên gia nhà mới, thuê Chú sự cố kỹ thuật Cũng special Chẳng cần lớn lao, cũng special Mười người 18 tuổi không được cũng sự biệt",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Tên gia nhà mới, thuê Chú sự cố kỹ thuật Cũng special Chẳng cần lớn lao, cũng special Mười người 18 tuổi không được cũng sự biệt",
+        "label_id": 0,
+        "label_score": 0.7638662457466125
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 1,
+      "num_violations": 0,
+      "num_unknown": 0,
+      "percent_compliant": 100.0,
+      "percent_violations": 0.0
+    }
+  }
+}

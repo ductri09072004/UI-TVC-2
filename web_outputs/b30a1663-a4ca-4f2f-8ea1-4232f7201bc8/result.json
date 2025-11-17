@@ -1,0 +1,162 @@
+{
+  "job_id": "b30a1663-a4ca-4f2f-8ea1-4232f7201bc8",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\b30a1663-a4ca-4f2f-8ea1-4232f7201bc8",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\2024-07-GilletteMach3CleanShave-15s_1280_720_1500_2997.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông mặc áo xanh và một người phụ nữ mặc váy xanh đang đứng cạnh nhau mọi người đang nhìn vào",
+      "caption_original": "a man in a blue shirt and a woman in a blue dress are standing next to each other people who are looking at",
+      "label_id": 1,
+      "label_score": 0.7143263220787048
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông mặc áo xanh và một người phụ nữ mặc váy xanh đang nhìn vào mắt nhau trong khi họ nhìn nhau",
+      "caption_original": "a man in a blue shirt and a woman in a blue dress are looking into each other people ' s eyes while they look at each other",
+      "label_id": 1,
+      "label_score": 0.959290087223053
+    },
+    {
+      "second": 2,
+      "caption": "một người phụ nữ mặc váy xanh đang đứng trước ống kính và một người đàn ông mặc vest đen đang ngồi trên chiếc ghế dài màu xanh lá cây",
+      "caption_original": "a woman in a blue dress is standing in front of a camera and a man in a black suit a green couch",
+      "label_id": 0,
+      "label_score": 0.8484129309654236
+    },
+    {
+      "second": 3,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và một người phụ nữ đang nhìn nhau với đôi tay đặt trên má",
+      "caption_original": "a man in a blue shirt and a woman are looking at each other woman ' s face with their hands on their cheeks",
+      "label_id": 0,
+      "label_score": 0.846329391002655
+    },
+    {
+      "second": 4,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và một người phụ nữ đang nhìn nhau bàn tay của đàn ông bằng những ngón tay trên đầu ngón tay",
+      "caption_original": "a man in a blue shirt and a woman are looking at each other men ' s hands with their fingers on their fingertips",
+      "label_id": 0,
+      "label_score": 0.8110483288764954
+    },
+    {
+      "second": 5,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và một người phụ nữ mặc váy xanh đang nhìn nhau, những người ở phía sau là",
+      "caption_original": "a man in a blue shirt and a woman in a blue dress are looking at each other people in the background is",
+      "label_id": null,
+      "label_score": 0.5366204977035522
+    },
+    {
+      "second": 6,
+      "caption": "một người đàn ông mặc áo xanh và một người phụ nữ đang nhìn nhau tay của đàn ông khi họ nhìn nhau",
+      "caption_original": "a man in a blue shirt and a woman are looking at each other men ' s hands while they look at each other",
+      "label_id": null,
+      "label_score": 0.5910362601280212
+    },
+    {
+      "second": 7,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và một người phụ nữ mặc áo sơ mi xanh đang nhìn nhau vào khuôn mặt của những người đàn ông và",
+      "caption_original": "a man in a blue shirt and a woman in a blue shirt are looking at each other men ' s faces and",
+      "label_id": 0,
+      "label_score": 0.8548927903175354
+    },
+    {
+      "second": 8,
+      "caption": "cận cảnh một chiếc dao cạo có ánh sáng xanh phát ra từ nó trên nền trắng với khoảng trống sao chép ở giữa hình ảnh là",
+      "caption_original": "a close up of a razor with a blue light coming out of it on a white background with copy space in the middle of the image is",
+      "label_id": null,
+      "label_score": 0.6085429787635803
+    },
+    {
+      "second": 9,
+      "caption": "tấm áp phích đen trắng nền xanh có dòng chữ 'LƯỠl DAO TRÊN' và hình ảnh người đàn ông mặc vest đen",
+      "caption_original": "a black and white poster with a blue background with the words, 'LƯỠl DAO TRÊN' and an image of a man in a black suit",
+      "label_id": 1,
+      "label_score": 0.9080324172973633
+    },
+    {
+      "second": 10,
+      "caption": "một chiếc dao cạo trên nền xanh lam với nền xanh lam và dao cạo đen trắng ở giữa dao cạo là một",
+      "caption_original": "a razor on a blue background with a blue background and black and white razor in the center of the razor is a",
+      "label_id": null,
+      "label_score": 0.5494741201400757
+    },
+    {
+      "second": 11,
+      "caption": "mang mang",
+      "caption_original": "gill gill",
+      "label_id": 0,
+      "label_score": 0.8556098937988281
+    },
+    {
+      "second": 12,
+      "caption": "một người đàn ông mặc áo sơ mi xanh đang cạo mặt bằng dao cạo và cạo tóc trên mặt",
+      "caption_original": "a man in a blue shirt is shaing his face with a razor and shaing his hair his face with",
+      "label_id": 0,
+      "label_score": 0.9858819246292114
+    },
+    {
+      "second": 13,
+      "caption": "một người đàn ông và một người phụ nữ đang nhìn nhau dao cạo râu của đàn ông trước một chiếc hộp màu xanh lá cây có dòng chữ mang & nash trên đó",
+      "caption_original": "a man and woman are looking at each other men ' s razors in front of a green box with the words gill & nash on it",
+      "label_id": null,
+      "label_score": 0.6795791387557983
+    }
+  ],
+  "audio": {
+    "full_text": " Cám! Lãng miệng ghê, có gì mới về anh? Giao cào râu mới đó em. Gilead Mactree, với lựa giao em ái cho gia. Cào xíu sạch, xíu phê, xíu ên. Gilead Mactree.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Cám!",
+        "label_id": 0,
+        "label_score": 0.964378833770752
+      },
+      {
+        "index": 2,
+        "text": "Lãng miệng ghê, có gì mới về anh?",
+        "label_id": 0,
+        "label_score": 0.7277402877807617
+      },
+      {
+        "index": 3,
+        "text": "Giao cào râu mới đó em.",
+        "label_id": 0,
+        "label_score": 0.8891470432281494
+      },
+      {
+        "index": 4,
+        "text": "Gilead Mactree, với lựa giao em ái cho gia.",
+        "label_id": null,
+        "label_score": 0.5794823169708252
+      },
+      {
+        "index": 5,
+        "text": "Cào xíu sạch, xíu phê, xíu ên.",
+        "label_id": 0,
+        "label_score": 0.9565292000770569
+      },
+      {
+        "index": 6,
+        "text": "Gilead Mactree.",
+        "label_id": 0,
+        "label_score": 0.972744345664978
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 6,
+      "num_compliant": 5,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 83.33,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 14,
+    "num_compliant": 6,
+    "num_violations": 3,
+    "num_unknown": 5,
+    "percent_compliant": 42.86,
+    "percent_violations": 21.43
+  }
+}

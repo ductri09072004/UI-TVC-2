@@ -1,0 +1,56 @@
+{
+  "job_id": "54c61604-e1fe-4633-9b8c-9e31ae9d41fa",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\54c61604-e1fe-4633-9b8c-9e31ae9d41fa",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_a7k9zlcm.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "hai con ngựa chạy trước nền đỏ vàng xanh",
+      "caption_original": "two horses running in front of a red, yellow and blue background"
+    },
+    {
+      "second": 1,
+      "caption": "hai con ngựa chạy trước nền đỏ vàng xanh",
+      "caption_original": "two horses running in front of a red, yellow and blue background"
+    },
+    {
+      "second": 2,
+      "caption": "hai con ngựa chạy trước nền đỏ vàng xanh",
+      "caption_original": "two horses running in front of a red, yellow and blue background"
+    },
+    {
+      "second": 3,
+      "caption": "hình ảnh một lon và một lon bia có pháo hoa ở hậu cảnh",
+      "caption_original": "an image of a can and a can of beer with fireworks in the background"
+    },
+    {
+      "second": 4,
+      "caption": "hình ảnh một lon và một lon bia có pháo hoa ở hậu cảnh",
+      "caption_original": "an image of a can and a can of beer with fireworks in the background"
+    },
+    {
+      "second": 5,
+      "caption": "hình ảnh một lon và một lon bia có pháo hoa ở hậu cảnh",
+      "caption_original": "an image of a can and a can of beer with fireworks in the background"
+    }
+  ],
+  "audio": {
+    "full_text": " Tài cơ, cài xuân báng lĩnh!",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Tài cơ, cài xuân báng lĩnh!",
+        "label_id": null,
+        "label_score": 0.625735878944397
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  }
+}

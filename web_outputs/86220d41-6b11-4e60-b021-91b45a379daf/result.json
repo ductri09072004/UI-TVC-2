@@ -1,0 +1,145 @@
+{
+  "job_id": "86220d41-6b11-4e60-b021-91b45a379daf",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\86220d41-6b11-4e60-b021-91b45a379daf",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_34_2okrm.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông mặc áo khoác xanh và áo phông trắng đang đứng trước kệ với các sản phẩm mỹ phẩm trên kệ phía sau anh ta là một kệ",
+      "caption_original": "a man in a blue jacket and white t - shirt is standing in front of shelves with cosmetics products on the shelves behind him is a shelf",
+      "label_id": 0,
+      "label_score": 0.986271858215332
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông mặc áo khoác xanh và áo phông trắng đang đứng trước kệ với các sản phẩm mỹ phẩm trên kệ phía sau anh ta là một kệ",
+      "caption_original": "a man in a blue jacket and white t - shirt is standing in front of shelves with cosmetics products on the shelves behind him is a shelf",
+      "label_id": 0,
+      "label_score": 0.986271858215332
+    },
+    {
+      "second": 2,
+      "caption": "một người đàn ông mặc áo khoác xanh và áo phông trắng đang đứng trước kệ với các sản phẩm mỹ phẩm trên kệ phía sau anh ta là một kệ",
+      "caption_original": "a man in a blue jacket and white t - shirt is standing in front of shelves with cosmetics products on the shelves behind him is a shelf",
+      "label_id": 0,
+      "label_score": 0.986271858215332
+    },
+    {
+      "second": 3,
+      "caption": "một người phụ nữ mặc áo xanh đang đứng trước kệ cầm một chai rượu và nhìn một chai khác",
+      "caption_original": "a woman in a blue shirt is standing in front of a shelf holding a bottle of alcohol and looking at another",
+      "label_id": 1,
+      "label_score": 0.7313128113746643
+    },
+    {
+      "second": 4,
+      "caption": "một người phụ nữ mặc áo xanh đang đứng trước kệ cầm một chai rượu và nhìn một chai khác",
+      "caption_original": "a woman in a blue shirt is standing in front of a shelf holding a bottle of alcohol and looking at another",
+      "label_id": 1,
+      "label_score": 0.7313128113746643
+    },
+    {
+      "second": 5,
+      "caption": "một người phụ nữ mặc áo xanh đang đứng trước kệ cầm một chai rượu và nhìn một chai khác",
+      "caption_original": "a woman in a blue shirt is standing in front of a shelf holding a bottle of alcohol and looking at another",
+      "label_id": 1,
+      "label_score": 0.7313128113746643
+    },
+    {
+      "second": 6,
+      "caption": "một người đàn ông mặc áo khoác xanh và đeo găng tay trắng đang giơ tay lên mặt khi đứng trước kệ cửa hàng có kệ",
+      "caption_original": "a man in a blue jacket and white gloves is holding his hands up to his face while standing in front of a store shelf with shelves",
+      "label_id": 0,
+      "label_score": 0.7778077125549316
+    },
+    {
+      "second": 7,
+      "caption": "một người đàn ông mặc áo khoác xanh và đeo găng tay trắng đang giơ tay lên mặt khi đứng trước kệ cửa hàng có kệ",
+      "caption_original": "a man in a blue jacket and white gloves is holding his hands up to his face while standing in front of a store shelf with shelves",
+      "label_id": 0,
+      "label_score": 0.7778077125549316
+    },
+    {
+      "second": 8,
+      "caption": "một người đàn ông mặc áo khoác xanh và đeo găng tay trắng đang giơ tay lên mặt khi đứng trước kệ cửa hàng có kệ",
+      "caption_original": "a man in a blue jacket and white gloves is holding his hands up to his face while standing in front of a store shelf with shelves",
+      "label_id": 0,
+      "label_score": 0.7778077125549316
+    },
+    {
+      "second": 9,
+      "caption": "một người đàn ông mặc áo sơ mi xanh đang giơ thẻ tín dụng lên đầu với dòng chữ, '",
+      "caption_original": "a man in a blue shirt is holding up a credit card to his head with the words, '",
+      "label_id": 1,
+      "label_score": 0.9282064437866211
+    },
+    {
+      "second": 10,
+      "caption": "một người đàn ông mặc áo sơ mi xanh đang giơ thẻ tín dụng lên đầu với dòng chữ, '",
+      "caption_original": "a man in a blue shirt is holding up a credit card to his head with the words, '",
+      "label_id": 1,
+      "label_score": 0.9282064437866211
+    },
+    {
+      "second": 11,
+      "caption": "một người đàn ông mặc áo sơ mi xanh đang giơ thẻ tín dụng lên đầu với dòng chữ, '",
+      "caption_original": "a man in a blue shirt is holding up a credit card to his head with the words, '",
+      "label_id": 1,
+      "label_score": 0.9282064437866211
+    },
+    {
+      "second": 12,
+      "caption": "một người phụ nữ có mái tóc đen dài đang giơ điện thoại lên đầu và dòng chữ có nội dung 'không, kem đánh răng",
+      "caption_original": "a woman with long black hair is holding up her phone to her head and the text reads, ' no, toothpas",
+      "label_id": 1,
+      "label_score": 0.9936635494232178
+    },
+    {
+      "second": 13,
+      "caption": "một người phụ nữ có mái tóc đen dài đang giơ điện thoại lên đầu và dòng chữ có nội dung 'không, kem đánh răng",
+      "caption_original": "a woman with long black hair is holding up her phone to her head and the text reads, ' no, toothpas",
+      "label_id": 1,
+      "label_score": 0.9936635494232178
+    },
+    {
+      "second": 14,
+      "caption": "một người phụ nữ có mái tóc đen dài đang giơ điện thoại lên đầu và dòng chữ có nội dung 'không, kem đánh răng",
+      "caption_original": "a woman with long black hair is holding up her phone to her head and the text reads, ' no, toothpas",
+      "label_id": 1,
+      "label_score": 0.9936635494232178
+    }
+  ],
+  "audio": {
+    "full_text": " Hết Đen Shoulder Hết Đen Shoulder Có gầu hả con? Con không có gầu Hết Đen Shoulders mới Lại bỏ gầu đến 100% Bằng anh gầu quay lại Con không có gầu vì luôn có Hết Đen Shoulders",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Hết Đen Shoulder Hết Đen Shoulder Có gầu hả con?",
+        "label_id": null,
+        "label_score": 0.8029344081878662
+      },
+      {
+        "index": 2,
+        "text": "Con không có gầu Hết Đen Shoulders mới Lại bỏ gầu đến 100% Bằng anh gầu quay lại Con không có gầu vì luôn có Hết Đen Shoulders",
+        "label_id": 1,
+        "label_score": 0.9057515263557434
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 2,
+      "num_compliant": 0,
+      "num_violations": 1,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 50.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 6,
+    "num_violations": 9,
+    "num_unknown": 0,
+    "percent_compliant": 40.0,
+    "percent_violations": 60.0
+  }
+}

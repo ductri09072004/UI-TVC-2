@@ -1,0 +1,236 @@
+{
+  "job_id": "f9585cd8-cf3c-4502-9198-3029ddfc2967",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\f9585cd8-cf3c-4502-9198-3029ddfc2967",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_wggmw967.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Người phụ nữ nấu mì thịt bằm vi phong, mang đến vị thật và chất lượng tuyệt hảo cho bữa ăn gia đình.",
+      "caption_original": "Người phụ nữ mặc áo phông xanh đang nấu ăn trong bếp sáng màu, xung quanh có cây xanh và đồ nội thất hiện đại.",
+      "caption_for_classification": "Người phụ nữ nấu mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.9988973140716553
+    },
+    {
+      "second": 1,
+      "caption": "Người phụ nữ cầm điện thoại gọi cho người đàn ông vui, nhắc đến mì thịt bằm vi phong, chất thật, ngon thật.",
+      "caption_original": "Người phụ nữ cầm điện thoại thông minh, màn hình hiển thị cuộc gọi đến với hình ảnh người đàn ông vui",
+      "caption_for_classification": "Người phụ nữ cầm điện thoại gọi cho người đàn ông",
+      "label_id": 0,
+      "label_score": 0.6940216422080994
+    },
+    {
+      "second": 2,
+      "caption": "Người phụ nữ trò chuyện video call giới thiệu mì thịt bằm vi phong, có thịt thật, chấn động ngành mì.",
+      "caption_original": "Người phụ nữ mặc áo blouse sáng màu đang trò chuyện qua video call với một chàng trai trẻ trong phòng có đồ nội thất màu sắc.",
+      "caption_for_classification": "Người phụ nữ trò chuyện video call giới thiệu mì",
+      "label_id": 0,
+      "label_score": 0.996738851070404
+    },
+    {
+      "second": 3,
+      "caption": "Người phụ nữ lo lắng nhìn điện thoại, trong khi mì thịt bằm vi phong chất lượng thật đang chờ đợi.",
+      "caption_original": "Người phụ nữ mặc áo xanh nhạt lo lắng nhìn màn hình điện thoại, trong khi người đàn ông bên kia có vẻ mệt mỏi.",
+      "caption_for_classification": "Người phụ nữ nhìn điện thoại và chờ mì",
+      "label_id": 0,
+      "label_score": 0.9778125882148743
+    },
+    {
+      "second": 4,
+      "caption": "Người phụ nữ lo lắng xem điện thoại, nhưng mì thịt bằm Vi Phong với thịt thật khiến cô an tâm hơn.",
+      "caption_original": "Người phụ nữ mặc áo blouse sáng màu đang nhìn điện thoại với vẻ lo lắng, trong khi người đàn ông trên màn hình có biểu cảm buồn",
+      "caption_for_classification": "Người phụ nữ xem điện thoại và ăn mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.9981789588928223
+    },
+    {
+      "second": 5,
+      "caption": "Người đàn ông cười vui vẻ thưởng thức mì thịt bằm vi phong, vị thật và chất lượng vượt trội.",
+      "caption_original": "Người đàn ông mặc áo len trắng và sơ mi xanh nằm ngửa trên sàn, cười vui vẻ trong phòng khách sáng sủa.",
+      "caption_for_classification": "Người đàn ông cười thưởng thức mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.9986673593521118
+    },
+    {
+      "second": 6,
+      "caption": "Người phụ nữ cầm gói mì thịt bằm Vifon, giới thiệu sản phẩm thật chất lượng, chấn động ngành mì với vị ngon và thịt thật.",
+      "caption_original": "Người phụ nữ mặc áo xanh nhạt vui vẻ cầm gói mì thịt bằm Vifon, giới thiệu sản phẩm trong bối cảnh ấm cúng.",
+      "caption_for_classification": "Người phụ nữ cầm gói mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.9980924725532532
+    },
+    {
+      "second": 7,
+      "caption": "Người dùng thưởng thức mì thịt bằm Vifon nóng hổi, vị thật, thịt bằm thật, chấn động ngành mì.",
+      "caption_original": "Gói mì Vifon màu vàng nổi bật, có hình ảnh thịt băm và viên thịt, đặt trên bàn ăn với bát mì nóng hổi.",
+      "caption_for_classification": "Người dùng ăn mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.9983139038085938
+    },
+    {
+      "second": 8,
+      "caption": "Chàng trai vui vẻ cầm gói mì thịt bằm vi phong, khẳng định mì thật, chất thật, chấn động ngành mì.",
+      "caption_original": "Chàng trai mặc áo len trắng vui vẻ cầm gói mì thịt hải sản, đứng trong phòng ngủ sáng sủa với đồ dùng học tập xung quanh.",
+      "caption_for_classification": "Chàng trai cầm gói mì",
+      "label_id": 0,
+      "label_score": 0.9992021918296814
+    },
+    {
+      "second": 9,
+      "caption": "Người đàn ông cầm gói mì thịt bằm vi phong, vui vẻ thưởng thức vị thật, chất thật, chấn động ngành mì.",
+      "caption_original": "Người đàn ông mặc áo len sáng màu vui vẻ cầm gói mì ăn liền, đứng trong phòng ngủ trang trí trẻ trung.",
+      "caption_for_classification": "Người đàn ông cầm gói mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.9989578723907471
+    },
+    {
+      "second": 10,
+      "caption": "Gói mì thịt bằm vi phong rơi xuống nước, tạo bọt tươi sáng, thể hiện vị thật và chất lượng tuyệt hảo.",
+      "caption_original": "Gói thực phẩm rơi xuống nước, tạo bọt và màu sắc tươi sáng, thể hiện sự tươi ngon và hấp dẫn của sản phẩm.",
+      "caption_for_classification": "Gói mì thịt bằm rơi xuống nước",
+      "label_id": 0,
+      "label_score": 0.9946263432502747
+    },
+    {
+      "second": 11,
+      "caption": "\"Nồi lẩu sôi sùng sục với mì thịt bằm Vi Phong, mang đến vị thật, thịt thật, hấp dẫn mọi thực khách.\"",
+      "caption_original": "Nồi lẩu sôi sùng sục với viên thịt nổi bật, rau củ màu sắc rơi xuống, tạo cảm giác hấp dẫn cho món",
+      "caption_for_classification": "\"Nồi lẩu sôi với mì thịt bằm\"",
+      "label_id": 0,
+      "label_score": 0.9708734750747681
+    },
+    {
+      "second": 12,
+      "caption": "\"Nồi nước sôi với rau củ và thịt bằm thật của mì thịt bằm vi phong chấn động ngành mì, mang đến vị thật, chất thật.\"",
+      "caption_original": "Nồi nước sôi với rau củ và thịt đang sôi sùng sục, tạo bọt và nước bắn lên, thể hiện sự tươi ngon của món",
+      "caption_for_classification": "\"Nồi nước sôi với rau củ và thịt bằm\"",
+      "label_id": 0,
+      "label_score": 0.9522433876991272
+    },
+    {
+      "second": 13,
+      "caption": "Người đầu bếp mở gói mì thịt bằm Vi Phong, nước sốt vàng chảy xuống tô mì tươi ngon, chấn động ngành mì.",
+      "caption_original": "Một gói mì ăn liền mở ra, nước sốt vàng chảy xuống tô mì với rau củ tươi ngon, tạo cảm giác hấp dẫn.",
+      "caption_for_classification": "Người đầu bếp mở gói mì và cho nước sốt vào tô mì",
+      "label_id": 0,
+      "label_score": 0.9963917136192322
+    },
+    {
+      "second": 14,
+      "caption": "Bát mì thịt bằm vi phong nóng hổi, có thịt thật và trứng lòng đào, mang lại vị thật, chất thật, 100 điểm.",
+      "caption_original": "Bát mì nóng hổi với sợi mì vàng, viên thịt và trứng lòng đào, được trang trí lá xanh tươi mát.",
+      "caption_for_classification": "Người ăn bát mì thịt bằm và trứng",
+      "label_id": 0,
+      "label_score": 0.9972735047340393
+    },
+    {
+      "second": 15,
+      "caption": "Chàng trai vui vẻ nâng tay lên, thưởng thức mì thịt bằm vi phong thật ngon, chất lượng 100 điểm.",
+      "caption_original": "Chàng trai mặc áo len trắng vui vẻ nâng tay lên trong phòng ăn, trước bát cơm đầy màu sắc.",
+      "caption_for_classification": "Chàng trai nâng tay lên thưởng thức mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.9954118132591248
+    },
+    {
+      "second": 16,
+      "caption": "Người đàn ông vui mừng giơ tay trước tô mì thịt bằm vi phong, khẳng định vị thật, chất thật, 100 điểm.",
+      "caption_original": "Người đàn ông mặc áo sơ mi trắng vui mừng giơ tay, đứng trước tô cơm hấp dẫn trên bàn trong phòng sáng tạo.",
+      "caption_for_classification": "Người đàn ông giơ tay trước tô mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.974348783493042
+    },
+    {
+      "second": 17,
+      "caption": "Cậu bé chăm chú viết sách thưởng thức mì thịt bằm Vi Phong, vị thật, chất thật, chấn động ngành mì.",
+      "caption_original": "Cậu bé mặc áo len trắng đang chăm chú viết trong sách, trong khi cô gái mặc váy xanh mỉm cười từ màn hình điện thoại.",
+      "caption_for_classification": "Cậu bé viết sách ăn mì thịt bằm",
+      "label_id": 0,
+      "label_score": 0.9988240599632263
+    },
+    {
+      "second": 18,
+      "caption": "Trẻ em vui vẻ nhìn gói mì thịt bằm VIFON bay lơ lửng, thể hiện vị thật và thịt bằm thật, hấp dẫn mọi người.",
+      "caption_original": "Một gói mì VIFON bay lơ lửng trong không gian, trẻ em vui vẻ nhìn theo, thể hiện sự hấp dẫn của sản phẩm.",
+      "caption_for_classification": "Trẻ em nhìn gói mì bay lơ lửng",
+      "label_id": 0,
+      "label_score": 0.9983336329460144
+    },
+    {
+      "second": 19,
+      "caption": "Người dùng thưởng thức gói mì thịt bằm VIFON, vị thật và chất lượng vượt trội, bên cạnh hộp gia vị hấp dẫn.",
+      "caption_original": "Gói mì VIFON màu sắc nổi bật nằm giữa bàn, bên cạnh là hộp gia vị và sản phẩm mì khác, tạo cảm giác hấp dẫn.",
+      "caption_for_classification": "Người dùng ăn mì thịt bằm và dùng gia vị",
+      "label_id": 0,
+      "label_score": 0.9977050423622131
+    }
+  ],
+  "audio": {
+    "full_text": "Học bá, sâu sần sào quá. Để con ăn chút mì. Đừng ăn trước, phải ăn chất. À, mì thịt bằm vi phong. Có thịt thật, chấn động ngành mì. Vị thật, thịt bằm thật, mềm mọng thật. 100 điểm. Mì thịt thật vi phong, có chất thật, bất đức tất.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Học bá, sâu sần sào quá.",
+        "label_id": 1,
+        "label_score": 0.996274471282959
+      },
+      {
+        "index": 2,
+        "text": "Để con ăn chút mì.",
+        "label_id": 0,
+        "label_score": 0.9927546381950378
+      },
+      {
+        "index": 3,
+        "text": "Đừng ăn trước, phải ăn chất.",
+        "label_id": 1,
+        "label_score": 0.9967116117477417
+      },
+      {
+        "index": 4,
+        "text": "À, mì thịt bằm vi phong.",
+        "label_id": 0,
+        "label_score": 0.9919262528419495
+      },
+      {
+        "index": 5,
+        "text": "Có thịt thật, chấn động ngành mì.",
+        "label_id": 1,
+        "label_score": 0.9838479161262512
+      },
+      {
+        "index": 6,
+        "text": "Vị thật, thịt bằm thật, mềm mọng thật.",
+        "label_id": 1,
+        "label_score": 0.8951771855354309
+      },
+      {
+        "index": 7,
+        "text": "100 điểm.",
+        "label_id": null,
+        "label_score": 0.556267261505127
+      },
+      {
+        "index": 8,
+        "text": "Mì thịt thật vi phong, có chất thật, bất đức tất.",
+        "label_id": 1,
+        "label_score": 0.9508246779441833
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 8,
+      "num_compliant": 2,
+      "num_violations": 5,
+      "num_unknown": 1,
+      "percent_compliant": 25.0,
+      "percent_violations": 62.5
+    }
+  },
+  "summary": {
+    "total_frames": 20,
+    "num_compliant": 20,
+    "num_violations": 0,
+    "num_unknown": 0,
+    "percent_compliant": 100.0,
+    "percent_violations": 0.0
+  }
+}

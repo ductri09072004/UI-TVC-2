@@ -1,0 +1,139 @@
+{
+  "job_id": "472932d0-5c56-41e0-a833-922962932e08",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\472932d0-5c56-41e0-a833-922962932e08",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_q08wiua6.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người phụ nữ mặc áo xanh đang đi qua đám đông",
+      "caption_original": "a woman in a blue shirt is walking through a crowd of people",
+      "label_id": 0,
+      "label_score": 0.9925992488861084
+    },
+    {
+      "second": 1,
+      "caption": "một người phụ nữ mặc áo xanh đang đi qua đám đông",
+      "caption_original": "a woman in a blue shirt is walking through a crowd of people",
+      "label_id": 0,
+      "label_score": 0.9925992488861084
+    },
+    {
+      "second": 2,
+      "caption": "một người phụ nữ mặc áo xanh đang đi qua đám đông",
+      "caption_original": "a woman in a blue shirt is walking through a crowd of people",
+      "label_id": 0,
+      "label_score": 0.9925992488861084
+    },
+    {
+      "second": 3,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và quần jean đang bước xuống phố",
+      "caption_original": "a man in a blue shirt and jeans is walking down the street",
+      "label_id": 0,
+      "label_score": 0.9979532957077026
+    },
+    {
+      "second": 4,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và quần jean đang bước xuống phố",
+      "caption_original": "a man in a blue shirt and jeans is walking down the street",
+      "label_id": 0,
+      "label_score": 0.9979532957077026
+    },
+    {
+      "second": 5,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và quần jean đang bước xuống phố",
+      "caption_original": "a man in a blue shirt and jeans is walking down the street",
+      "label_id": 0,
+      "label_score": 0.9979532957077026
+    },
+    {
+      "second": 6,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và quần jean đang đi bộ trên phố với",
+      "caption_original": "a man in a blue shirt and jeans is walking down the street with with",
+      "label_id": 0,
+      "label_score": 0.9991796612739563
+    },
+    {
+      "second": 7,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và quần jean đang đi bộ trên phố với",
+      "caption_original": "a man in a blue shirt and jeans is walking down the street with with",
+      "label_id": 0,
+      "label_score": 0.9991796612739563
+    },
+    {
+      "second": 8,
+      "caption": "một người đàn ông mặc áo sơ mi xanh và quần jean đang đi bộ trên phố với",
+      "caption_original": "a man in a blue shirt and jeans is walking down the street with with",
+      "label_id": 0,
+      "label_score": 0.9991796612739563
+    },
+    {
+      "second": 9,
+      "caption": "một người phụ nữ mặc áo sơ mi trắng và quần jean xanh đang nhảy múa và giơ tay lên trời",
+      "caption_original": "a woman in a white shirt and blue jeans is dancing with her hands in the air",
+      "label_id": 1,
+      "label_score": 0.9211562275886536
+    },
+    {
+      "second": 10,
+      "caption": "một người phụ nữ mặc áo sơ mi trắng và quần jean xanh đang nhảy múa và giơ tay lên trời",
+      "caption_original": "a woman in a white shirt and blue jeans is dancing with her hands in the air",
+      "label_id": 1,
+      "label_score": 0.9211562275886536
+    },
+    {
+      "second": 11,
+      "caption": "một người phụ nữ mặc áo sơ mi trắng và quần jean xanh đang nhảy múa và giơ tay lên trời",
+      "caption_original": "a woman in a white shirt and blue jeans is dancing with her hands in the air",
+      "label_id": 1,
+      "label_score": 0.9211562275886536
+    },
+    {
+      "second": 12,
+      "caption": "một người đứng trên mái nhà trước đường chân trời của thành phố",
+      "caption_original": "a person standing on a roof in front of a city skyline",
+      "label_id": 0,
+      "label_score": 0.9942025542259216
+    },
+    {
+      "second": 13,
+      "caption": "một người đứng trên mái nhà trước đường chân trời của thành phố",
+      "caption_original": "a person standing on a roof in front of a city skyline",
+      "label_id": 0,
+      "label_score": 0.9942025542259216
+    },
+    {
+      "second": 14,
+      "caption": "một người đứng trên mái nhà trước đường chân trời của thành phố",
+      "caption_original": "a person standing on a roof in front of a city skyline",
+      "label_id": 0,
+      "label_score": 0.9942025542259216
+    }
+  ],
+  "audio": {
+    "full_text": " Bộ sư tập Unique Logins Hiện đại Vư vắng Cho mọi phòng cách Thỏa mai Unique Logins Chuyển thoải mái, chuẩn phòng cách",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Bộ sư tập Unique Logins Hiện đại Vư vắng Cho mọi phòng cách Thỏa mai Unique Logins Chuyển thoải mái, chuẩn phòng cách",
+        "label_id": 0,
+        "label_score": 0.9613955616950989
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 1,
+      "num_violations": 0,
+      "num_unknown": 0,
+      "percent_compliant": 100.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 12,
+    "num_violations": 3,
+    "num_unknown": 0,
+    "percent_compliant": 80.0,
+    "percent_violations": 20.0
+  }
+}

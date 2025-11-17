@@ -1,0 +1,113 @@
+{
+  "job_id": "66a12990-beee-401a-8f58-238564a6c39b",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\66a12990-beee-401a-8f58-238564a6c39b",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_48saqzvx.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "hình ảnh chiếc xe trong bóng tối có dòng chữ ford everest titan",
+      "caption_original": "an image of a car in the dark with the words ford everest titanium"
+    },
+    {
+      "second": 1,
+      "caption": "hình ảnh chiếc xe trong bóng tối có dòng chữ ford everest titan",
+      "caption_original": "an image of a car in the dark with the words ford everest titanium"
+    },
+    {
+      "second": 2,
+      "caption": "hình ảnh chiếc xe trong bóng tối có dòng chữ ford everest titan",
+      "caption_original": "an image of a car in the dark with the words ford everest titanium"
+    },
+    {
+      "second": 3,
+      "caption": "phần đầu xe của chiếc xe tải Ford màu đen trong bóng tối",
+      "caption_original": "the front end of a black ford truck in the dark"
+    },
+    {
+      "second": 4,
+      "caption": "phần đầu xe của chiếc xe tải Ford màu đen trong bóng tối",
+      "caption_original": "the front end of a black ford truck in the dark"
+    },
+    {
+      "second": 5,
+      "caption": "phần đầu xe của chiếc xe tải Ford màu đen trong bóng tối",
+      "caption_original": "the front end of a black ford truck in the dark"
+    },
+    {
+      "second": 6,
+      "caption": "một chiếc SUV màu đen lao qua vũng nước trên cát",
+      "caption_original": "a black suv driving through a puddle in the sand"
+    },
+    {
+      "second": 7,
+      "caption": "một chiếc SUV màu đen lao qua vũng nước trên cát",
+      "caption_original": "a black suv driving through a puddle in the sand"
+    },
+    {
+      "second": 8,
+      "caption": "một chiếc SUV màu đen lao qua vũng nước trên cát",
+      "caption_original": "a black suv driving through a puddle in the sand"
+    },
+    {
+      "second": 9,
+      "caption": "hình ảnh một người đang sử dụng camera trên bảng điều khiển của ô tô",
+      "caption_original": "an image of a person using a camera in the dashboard of a car"
+    },
+    {
+      "second": 10,
+      "caption": "hình ảnh một người đang sử dụng camera trên bảng điều khiển của ô tô",
+      "caption_original": "an image of a person using a camera in the dashboard of a car"
+    },
+    {
+      "second": 11,
+      "caption": "hình ảnh một người đang sử dụng camera trên bảng điều khiển của ô tô",
+      "caption_original": "an image of a person using a camera in the dashboard of a car"
+    },
+    {
+      "second": 12,
+      "caption": "một chiếc SUV màu đen đang chạy trên bãi biển với nền là đại dương",
+      "caption_original": "a black suv driving on a beach with the ocean in the background"
+    },
+    {
+      "second": 13,
+      "caption": "một chiếc SUV màu đen đang chạy trên bãi biển với nền là đại dương",
+      "caption_original": "a black suv driving on a beach with the ocean in the background"
+    },
+    {
+      "second": 14,
+      "caption": "một chiếc SUV màu đen đang chạy trên bãi biển với nền là đại dương",
+      "caption_original": "a black suv driving on a beach with the ocean in the background"
+    }
+  ],
+  "audio": {
+    "full_text": " For Everest tiếp xức mạnh để bạn dẫn đầu. Dẫn mất thương tin vượt mọn cung đường, trinh phục mọn chứng ngại, tiên phong trên mọn hành trình. For Everest Go First",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "For Everest tiếp xức mạnh để bạn dẫn đầu.",
+        "label_id": 1,
+        "label_score": 0.9191713929176331
+      },
+      {
+        "index": 2,
+        "text": "Dẫn mất thương tin vượt mọn cung đường, trinh phục mọn chứng ngại, tiên phong trên mọn hành trình.",
+        "label_id": 1,
+        "label_score": 0.9916050434112549
+      },
+      {
+        "index": 3,
+        "text": "For Everest Go First",
+        "label_id": null,
+        "label_score": 0.6729080677032471
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 3,
+      "num_compliant": 0,
+      "num_violations": 2,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 66.67
+    }
+  }
+}

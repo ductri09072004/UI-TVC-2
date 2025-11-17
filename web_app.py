@@ -1139,9 +1139,13 @@ def upload():
     openai_model = openai_model_from_form if openai_model_from_form else ""
     translate = True  # Always translate to Vietnamese
     
-    # Nếu có OpenAI key từ form, set vào environment variable tạm thời
-    if openai_key_from_form:
+    # Nếu có OpenAI key từ form và key hợp lệ (bắt đầu bằng "sk-" và có độ dài hợp lý), 
+    # set vào environment variable tạm thời
+    # Chỉ override nếu key thực sự hợp lệ để tránh override environment variable với giá trị test/placeholder
+    if openai_key_from_form and openai_key_from_form.startswith("sk-") and len(openai_key_from_form) >= 20:
         os.environ["OPENAI_API_KEY"] = openai_key_from_form
+    # Nếu form gửi key không hợp lệ (rỗng, placeholder, hoặc không đúng format), 
+    # giữ nguyên environment variable hiện tại (không override)
     
     # Step 1: extract frames and caption immediately
     try:

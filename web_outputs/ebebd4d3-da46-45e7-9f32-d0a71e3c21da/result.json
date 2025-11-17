@@ -1,0 +1,119 @@
+{
+  "job_id": "ebebd4d3-da46-45e7-9f32-d0a71e3c21da",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\ebebd4d3-da46-45e7-9f32-d0a71e3c21da",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_s3cu8wk0.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "hình ảnh một cuốn sách có nền đỏ",
+      "caption_original": "an image of a book with a red background"
+    },
+    {
+      "second": 1,
+      "caption": "một chai bia ngồi trên làn sóng đỏ",
+      "caption_original": "a bottle of beer sitting on top of a red wave"
+    },
+    {
+      "second": 2,
+      "caption": "một chai bia đặt trên bàn",
+      "caption_original": "a bottle of beer sitting on top of a table"
+    },
+    {
+      "second": 3,
+      "caption": "một nhóm người đứng trên thảm đỏ trước một tòa nhà",
+      "caption_original": "a group of people standing on a red carpet in front of a building"
+    },
+    {
+      "second": 4,
+      "caption": "một nhóm người đàn ông mặc bộ đồ màu bạc đang ngồi ở bàn",
+      "caption_original": "a group of men in silver suits sitting at a table"
+    },
+    {
+      "second": 5,
+      "caption": "một nhóm đàn ông ngồi ở bàn trước lon bia",
+      "caption_original": "a group of men sitting at a table in front of a beer can"
+    },
+    {
+      "second": 6,
+      "caption": "cận cảnh một chiếc đồng hồ nền đỏ",
+      "caption_original": "a close up of a clock with a red background"
+    },
+    {
+      "second": 7,
+      "caption": "một chai bia có đồng hồ ở phía sau",
+      "caption_original": "a bottle of beer with a clock in the background"
+    },
+    {
+      "second": 8,
+      "caption": "một chai bia có đồng hồ ở phía sau",
+      "caption_original": "a bottle of beer with a clock in the background"
+    },
+    {
+      "second": 9,
+      "caption": "một nhóm người đứng quanh chai bia",
+      "caption_original": "a group of people standing around a bottle of beer"
+    },
+    {
+      "second": 10,
+      "caption": "một nhóm người đứng trước đồng hồ với một chai bia",
+      "caption_original": "a group of people standing in front of a clock with a bottle of beer"
+    },
+    {
+      "second": 11,
+      "caption": "một nhóm người đứng trước đồng hồ",
+      "caption_original": "a group of people standing in front of a clock"
+    },
+    {
+      "second": 12,
+      "caption": "một chai bia có dải ruy băng xung quanh",
+      "caption_original": "a bottle of beer with a ribbon around"
+    },
+    {
+      "second": 13,
+      "caption": "một chai bia và hai lon bia trước một tòa nhà",
+      "caption_original": "a bottle of beer and two cans of beer in front of a building"
+    },
+    {
+      "second": 14,
+      "caption": "một chai bia có dải ruy băng xung quanh",
+      "caption_original": "a bottle of beer with a ribbon around"
+    }
+  ],
+  "audio": {
+    "full_text": " Biê Babbabba, với vị nguyên bản quen thuộc cánh kết mọi thế hệ. Cùng tinh thần không ngừng đổi mới, này đã có thêm Babbabba thích nở mới với vị em cực em. Babbabba, biểu tượng vàng danh mọi thời. Người dếp với 8 tối không được cũng dự biê.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Biê Babbabba, với vị nguyên bản quen thuộc cánh kết mọi thế hệ.",
+        "label_id": null,
+        "label_score": 0.7026849985122681
+      },
+      {
+        "index": 2,
+        "text": "Cùng tinh thần không ngừng đổi mới, này đã có thêm Babbabba thích nở mới với vị em cực em.",
+        "label_id": null,
+        "label_score": 0.6331329941749573
+      },
+      {
+        "index": 3,
+        "text": "Babbabba, biểu tượng vàng danh mọi thời.",
+        "label_id": 1,
+        "label_score": 0.9948074221611023
+      },
+      {
+        "index": 4,
+        "text": "Người dếp với 8 tối không được cũng dự biê.",
+        "label_id": 1,
+        "label_score": 0.9901466965675354
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 4,
+      "num_compliant": 0,
+      "num_violations": 2,
+      "num_unknown": 2,
+      "percent_compliant": 0.0,
+      "percent_violations": 50.0
+    }
+  }
+}

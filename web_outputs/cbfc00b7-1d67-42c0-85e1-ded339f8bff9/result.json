@@ -1,0 +1,166 @@
+{
+  "job_id": "cbfc00b7-1d67-42c0-85e1-ded339f8bff9",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\cbfc00b7-1d67-42c0-85e1-ded339f8bff9",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_1xjh2pki.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "Bé gái thổi nến trên bánh sinh nhật, chọn dinh dưỡng Nutran Junior với công thức B.I.G cho tương lai sáng.",
+      "caption_original": "Một bé gái mặc váy trắng thổi nến trên bánh sinh nhật, xung quanh là người lớn vui vẻ chúc mừng sinh nhật.",
+      "caption_for_classification": "Bé gái thổi nến trên bánh sinh nhật",
+      "label_id": 0,
+      "label_score": 0.9989476799964905
+    },
+    {
+      "second": 1,
+      "caption": "Bé gái vui vẻ bên bánh sinh nhật chọn dinh dưỡng Nutran Junior với công thức B.I.G. cho tương lai sáng.",
+      "caption_original": "Một bé gái mặc váy xanh đứng trước bánh sinh nhật, vui vẻ với đồ chơi và mọi người xung quanh đang vỗ tay chúc mừng.",
+      "caption_for_classification": "Bé gái cầm bánh sinh nhật chọn dinh dưỡng",
+      "label_id": 0,
+      "label_score": 0.9991046786308289
+    },
+    {
+      "second": 2,
+      "caption": "Cô bé vui vẻ bên bàn sinh nhật chọn Nutran Junior với công thức B.I.G. cho tương lai sáng hơn.",
+      "caption_original": "Cô bé mặc váy trắng vui vẻ đứng bên bàn sinh nhật, mọi người xung quanh đang vỗ tay chúc mừng.",
+      "caption_for_classification": "Cô bé chọn sản phẩm cho sinh nhật",
+      "label_id": 0,
+      "label_score": 0.9992750287055969
+    },
+    {
+      "second": 3,
+      "caption": "Người phụ nữ múc bột dinh dưỡng Nutran Junior với công thức B.I.G. cho con, chọn dinh dưỡng sáng tương lai.",
+      "caption_original": "Người phụ nữ mặc áo trắng đang múc bột dinh dưỡng Nutren Junior vào cốc thủy tinh bên cạnh hộp sản phẩm.",
+      "caption_for_classification": "Người phụ nữ múc bột dinh dưỡng cho con",
+      "label_id": 0,
+      "label_score": 0.9988951086997986
+    },
+    {
+      "second": 4,
+      "caption": "Hai chai Nutran Junior màu vàng rơi xuống, mang đến dinh dưỡng B.I.G. cho tương lai sáng tạo.",
+      "caption_original": "Hai chai nước uống màu vàng rơi từ trên xuống, tạo cảm giác tươi mát trong không gian xanh mát của quán.",
+      "caption_for_classification": "Hai chai rơi xuống mang dinh dưỡng",
+      "label_id": 1,
+      "label_score": 0.9236592650413513
+    },
+    {
+      "second": 5,
+      "caption": "Trẻ em chọn Nutran Junior với công thức B.I.G. từ bốn sản phẩm dinh dưỡng nổi bật, sáng tương lai cho con.",
+      "caption_original": "Bốn sản phẩm dinh dưỡng nổi bật, bao gồm gói bột whey và muỗng, được trình bày trên nền sáng, thể hiện công thức B.I.G. cho trẻ em.",
+      "caption_for_classification": "Trẻ em chọn sản phẩm dinh dưỡng",
+      "label_id": 0,
+      "label_score": 0.998551070690155
+    },
+    {
+      "second": 6,
+      "caption": "\"Muỗng vàng bay lơ lửng chọn Nutran Junior với công thức B.I.G, dinh dưỡng cho tương lai sáng.\"",
+      "caption_original": "Một cái muỗng vàng và các dụng cụ màu sắc đang bay lơ lửng trong không gian xanh, thể hiện công thức dinh dưỡng B.I.G cho trẻ em.",
+      "caption_for_classification": "Muỗng bay lơ lửng chọn dinh dưỡng",
+      "label_id": 0,
+      "label_score": 0.9983658194541931
+    },
+    {
+      "second": 7,
+      "caption": "Cô gái nhỏ ném bóng vui vẻ, trong khi mẹ cổ vũ, chọn dinh dưỡng Nutran Junior cho tương lai sáng.",
+      "caption_original": "Cô gái nhỏ mặc áo vàng vui vẻ ném bóng vào rổ, trong khi người phụ nữ bên cạnh cổ vũ, bối cảnh là một khu vui chơi đầy bóng màu.",
+      "caption_for_classification": "Cô gái ném bóng và mẹ cổ vũ",
+      "label_id": 0,
+      "label_score": 0.9972729086875916
+    },
+    {
+      "second": 8,
+      "caption": "Cô bé vui vẻ chỉ sản phẩm Nutran Junior, dinh dưỡng vàng cho tương lai với công thức B.I.G. chứa 50% đạm quê và D.H.A.",
+      "caption_original": "Cô bé mặc áo phông trắng và yếm cam vui vẻ đứng giữa khu vườn xanh tươi, tay chỉ về phía sản phẩm Nutren Junior.",
+      "caption_for_classification": "Cô bé chỉ sản phẩm dinh dưỡng với công thức chứa đạm và DHA",
+      "label_id": 0,
+      "label_score": 0.9773736000061035
+    },
+    {
+      "second": 9,
+      "caption": "Cô bé vui vẻ quảng bá Nutran Junior, sản phẩm dinh dưỡng hỗ trợ phát triển trí não với công thức B.I.G. cho tương lai sáng.",
+      "caption_original": "Cô bé mặc áo cam vui vẻ đứng giữa bụi cây, miệng cười tươi, quảng bá sản phẩm hỗ trợ phát triển trí não.",
+      "caption_for_classification": "Cô bé quảng bá sản phẩm dinh dưỡng",
+      "label_id": 0,
+      "label_score": 0.7755059003829956
+    },
+    {
+      "second": 10,
+      "caption": "Cô bé vui vẻ chơi đùa với thú cưng, chọn dinh dưỡng Nutran Junior cho tương lai khỏe mạnh.",
+      "caption_original": "Cô bé 4 tuổi mặc áo phao màu xanh, vui vẻ chơi đùa với thú cưng trong công viên, bên cạnh người lớn đang mỉm cười.",
+      "caption_for_classification": "Cô bé chơi đùa với thú cưng",
+      "label_id": 0,
+      "label_score": 0.9986605644226074
+    },
+    {
+      "second": 11,
+      "caption": "Cô bé ôm chó con cười tươi, chọn dinh dưỡng Nutran Junior giúp sáng tương lai với công thức B.I.G.",
+      "caption_original": "Cô bé 4 tuổi mặc đồng phục học sinh ngồi trên cỏ, ôm chó con và cười tươi, bên cạnh là ba mẹ đứng",
+      "caption_for_classification": "Cô bé ôm chó con chọn dinh dưỡng",
+      "label_id": 0,
+      "label_score": 0.999081015586853
+    },
+    {
+      "second": 12,
+      "caption": "Trẻ em vui vẻ phát triển với sữa bột Nutran Junior, công thức B.I.G. chứa 50% đạm quê, D.H.A. và sin biotích.",
+      "caption_original": "Hộp sữa bột Nutren Junior màu trắng nổi bật trên nền vàng, kèm theo hình ảnh trẻ em vui vẻ, thể hiện sự phát triển và dinh dưỡng.",
+      "caption_for_classification": "Trẻ em phát triển với sữa bột",
+      "label_id": 0,
+      "label_score": 0.9976052045822144
+    },
+    {
+      "second": 13,
+      "caption": "Trẻ em vui vẻ chọn sữa bột Nutran Junior với công thức B.I.G. giúp phát triển dinh dưỡng sáng tương lai.",
+      "caption_original": "Hộp sữa bột Nutren Junior màu trắng nổi bật trên nền vàng, kèm hình ảnh trẻ em vui vẻ, biểu tượng cho sự phát triển dinh dưỡng.",
+      "caption_for_classification": "Trẻ em chọn sữa bột",
+      "label_id": 0,
+      "label_score": 0.9983773231506348
+    },
+    {
+      "second": 14,
+      "caption": "Trẻ em vui vẻ chọn sữa bột Nutran Junior với công thức B.I.G. giúp phát triển dinh dưỡng sáng tương lai.",
+      "caption_original": "Hộp sữa bột Nutren Junior màu trắng nổi bật trên nền sáng, kèm hình ảnh trẻ em vui vẻ và slogan \"Thìa vàng\" thể hiện sự phát triển dinh dưỡng.",
+      "caption_for_classification": "Trẻ em chọn sữa bột",
+      "label_id": 0,
+      "label_score": 0.9983773231506348
+    }
+  ],
+  "audio": {
+    "full_text": "Ngày thơ nôi, con chọn thì vàng dinh dưỡng Nutran Junior với công thức B.I.G. Chứa 50% đạm quê, D.H.A. và sin biotích Nutran Junior, thì vàng chọn dinh dưỡng Sáng tương lai, mua ngay",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Ngày thơ nôi, con chọn thì vàng dinh dưỡng Nutran Junior với công thức B.I.G.",
+        "label_id": 0,
+        "label_score": 0.9965110421180725
+      },
+      {
+        "index": 2,
+        "text": "Chứa 50% đạm quê, D.H.A.",
+        "label_id": 1,
+        "label_score": 0.8282673358917236
+      },
+      {
+        "index": 3,
+        "text": "và sin biotích Nutran Junior, thì vàng chọn dinh dưỡng Sáng tương lai, mua ngay",
+        "label_id": 0,
+        "label_score": 0.7373828887939453
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 3,
+      "num_compliant": 2,
+      "num_violations": 1,
+      "num_unknown": 0,
+      "percent_compliant": 66.67,
+      "percent_violations": 33.33
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 14,
+    "num_violations": 1,
+    "num_unknown": 0,
+    "percent_compliant": 93.33,
+    "percent_violations": 6.67
+  }
+}

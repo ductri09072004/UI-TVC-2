@@ -1,0 +1,124 @@
+{
+  "job_id": "42f784e3-954e-4cfc-94ea-d802f49833f9",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\42f784e3-954e-4cfc-94ea-d802f49833f9",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_yxdz58yu.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông giơ tấm biển trước nhà hàng",
+      "caption_original": "a man holding up a sign in front of a restaurant"
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông giơ tấm biển trước nhà hàng",
+      "caption_original": "a man holding up a sign in front of a restaurant"
+    },
+    {
+      "second": 2,
+      "caption": "một người đàn ông giơ tấm biển trước nhà hàng",
+      "caption_original": "a man holding up a sign in front of a restaurant"
+    },
+    {
+      "second": 3,
+      "caption": "cận cảnh một chiếc cốc chứa đầy chất lỏng",
+      "caption_original": "a close up of a glass filled with liquid"
+    },
+    {
+      "second": 4,
+      "caption": "cận cảnh một chiếc cốc chứa đầy chất lỏng",
+      "caption_original": "a close up of a glass filled with liquid"
+    },
+    {
+      "second": 5,
+      "caption": "cận cảnh một chiếc cốc chứa đầy chất lỏng",
+      "caption_original": "a close up of a glass filled with liquid"
+    },
+    {
+      "second": 6,
+      "caption": "một chiếc ly chứa đầy đá đặt trên bàn",
+      "caption_original": "a glass filled with ice sitting on top of a table"
+    },
+    {
+      "second": 7,
+      "caption": "một chiếc ly chứa đầy đá đặt trên bàn",
+      "caption_original": "a glass filled with ice sitting on top of a table"
+    },
+    {
+      "second": 8,
+      "caption": "một chiếc ly chứa đầy đá đặt trên bàn",
+      "caption_original": "a glass filled with ice sitting on top of a table"
+    },
+    {
+      "second": 9,
+      "caption": "một miếng xà phòng đặt trên một chiếc bàn màu đỏ",
+      "caption_original": "a piece of soap sitting on top of a red table soaps"
+    },
+    {
+      "second": 10,
+      "caption": "một miếng xà phòng đặt trên một chiếc bàn màu đỏ",
+      "caption_original": "a piece of soap sitting on top of a red table soaps"
+    },
+    {
+      "second": 11,
+      "caption": "một miếng xà phòng đặt trên một chiếc bàn màu đỏ",
+      "caption_original": "a piece of soap sitting on top of a red table soaps"
+    },
+    {
+      "second": 12,
+      "caption": "một đống xà phòng xếp chồng lên nhau",
+      "caption_original": "a bunch of soaps sitting on top of each other soaps"
+    },
+    {
+      "second": 13,
+      "caption": "một đống xà phòng xếp chồng lên nhau",
+      "caption_original": "a bunch of soaps sitting on top of each other soaps"
+    },
+    {
+      "second": 14,
+      "caption": "một đống xà phòng xếp chồng lên nhau",
+      "caption_original": "a bunch of soaps sitting on top of each other soaps"
+    },
+    {
+      "second": 15,
+      "caption": "một nhóm xà phòng được trưng bày trước nền đỏ",
+      "caption_original": "a group of soaps on display in front of a red background"
+    }
+  ],
+  "audio": {
+    "full_text": " Mừng di sản vườn cao, Đông Hành, Cung bộ Việt Nam gắn kết, lấy cảm ứng từ văn hóa uống bia với đá của người Việt. Bia Sài Gòn Giới thiệu, Bộ Sưu tập Viên Đá, Điều tựa, Làm từ Bia Sài Gòn. Theo dõi phần đồng Bia Sài Gòn để biết thêm chi tiết. Người dưới 18 tuổi không được uống dựa bia.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Mừng di sản vườn cao, Đông Hành, Cung bộ Việt Nam gắn kết, lấy cảm ứng từ văn hóa uống bia với đá của người Việt.",
+        "label_id": 1,
+        "label_score": 0.9668751955032349
+      },
+      {
+        "index": 2,
+        "text": "Bia Sài Gòn Giới thiệu, Bộ Sưu tập Viên Đá, Điều tựa, Làm từ Bia Sài Gòn.",
+        "label_id": null,
+        "label_score": 0.5688287615776062
+      },
+      {
+        "index": 3,
+        "text": "Theo dõi phần đồng Bia Sài Gòn để biết thêm chi tiết.",
+        "label_id": 0,
+        "label_score": 0.9245225191116333
+      },
+      {
+        "index": 4,
+        "text": "Người dưới 18 tuổi không được uống dựa bia.",
+        "label_id": 1,
+        "label_score": 0.9735141396522522
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 4,
+      "num_compliant": 1,
+      "num_violations": 2,
+      "num_unknown": 1,
+      "percent_compliant": 25.0,
+      "percent_violations": 50.0
+    }
+  }
+}

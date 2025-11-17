@@ -1,0 +1,113 @@
+{
+  "job_id": "4d0f270f-7ee8-42fb-ad11-57882edbba58",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\4d0f270f-7ee8-42fb-ad11-57882edbba58",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video__tic790a.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một quả cam đang đậu trên cành cây cam",
+      "caption_original": "an orange is sitting on a branch of an orange tree"
+    },
+    {
+      "second": 1,
+      "caption": "một quả cam đang treo trên cành cây",
+      "caption_original": "an orange is hanging from a tree branch"
+    },
+    {
+      "second": 2,
+      "caption": "một chùm cam treo trên cây",
+      "caption_original": "a bunch of oranges hanging from a tree"
+    },
+    {
+      "second": 3,
+      "caption": "một chùm cam treo trên cây",
+      "caption_original": "a bunch of oranges hanging from a tree"
+    },
+    {
+      "second": 4,
+      "caption": "một bông hoa màu cam ở giữa bầu trời xanh",
+      "caption_original": "an orange flower in the middle of a blue sky"
+    },
+    {
+      "second": 5,
+      "caption": "cận cảnh một bông hoa màu cam",
+      "caption_original": "a close up view of an orange flower"
+    },
+    {
+      "second": 6,
+      "caption": "bầu trời xanh trong nền",
+      "caption_original": "blue sky in the background"
+    },
+    {
+      "second": 7,
+      "caption": "một chùm cam trong không khí với bầu trời xanh làm nền",
+      "caption_original": "a bunch of oranges in the air with a blue sky in the background"
+    },
+    {
+      "second": 8,
+      "caption": "một chai nước cam được bao quanh bởi những lát cam",
+      "caption_original": "a bottle of orange juice surrounded by orange slices"
+    },
+    {
+      "second": 9,
+      "caption": "bầu trời xanh trong nền",
+      "caption_original": "blue sky in the background"
+    },
+    {
+      "second": 10,
+      "caption": "một lon nước cam lơ lửng trong không khí",
+      "caption_original": "a can of orange juice floating in the air"
+    },
+    {
+      "second": 11,
+      "caption": "một chùm cam lơ lửng trong không khí",
+      "caption_original": "a bunch of oranges floating in the air"
+    },
+    {
+      "second": 12,
+      "caption": "một người phụ nữ mặc áo sơ mi trắng uống nước từ lon",
+      "caption_original": "a woman in a white shirt drinking from a can"
+    },
+    {
+      "second": 13,
+      "caption": "một nhóm người đứng trên cánh đồng phủ đầy cỏ",
+      "caption_original": "a group of people standing on top of a grass covered field"
+    },
+    {
+      "second": 14,
+      "caption": "một chai nước cam được bao quanh bởi những quả cam",
+      "caption_original": "a bottle of orange juice surrounded by oranges"
+    }
+  ],
+  "audio": {
+    "full_text": " Chúc tự sồn đã chạy cây mỡi, nước cảm tự nhiên, đây đã lên gà! Cực nôn, cực đá, cực gôn, cực đá! Chúc tự sồn đã chạy cây mỡi, nước cảm đã lên gà!",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Chúc tự sồn đã chạy cây mỡi, nước cảm tự nhiên, đây đã lên gà!",
+        "label_id": null,
+        "label_score": 0.6727604269981384
+      },
+      {
+        "index": 2,
+        "text": "Cực nôn, cực đá, cực gôn, cực đá!",
+        "label_id": 1,
+        "label_score": 0.9115058183670044
+      },
+      {
+        "index": 3,
+        "text": "Chúc tự sồn đã chạy cây mỡi, nước cảm đã lên gà!",
+        "label_id": 1,
+        "label_score": 0.8967479467391968
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 3,
+      "num_compliant": 0,
+      "num_violations": 2,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 66.67
+    }
+  }
+}

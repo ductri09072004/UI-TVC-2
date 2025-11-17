@@ -1,0 +1,209 @@
+{
+  "job_id": "3645b3d0-a660-4fc2-9da9-83dc76e1e016",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\3645b3d0-a660-4fc2-9da9-83dc76e1e016",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\tvc-blackjack.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông mặc bộ vest đỏ và đeo kính râm đen đang đứng trước bức tường màu đỏ và một người phụ nữ mặc áo sơ mi trắng mặc đồ đen",
+      "caption_original": "a man in a red suit and black sunglasses is standing in front of a red wall and a woman in a white shirt is wearing a black",
+      "label_id": null,
+      "label_score": 0.6010751724243164
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông mặc bộ vest đỏ và đeo kính râm đen đang đứng trước bức tường màu đỏ và một người phụ nữ mặc áo sơ mi trắng mặc đồ đen",
+      "caption_original": "a man in a red suit and black sunglasses is standing in front of a red wall and a woman in a white shirt is wearing a black",
+      "label_id": null,
+      "label_score": 0.6010751724243164
+    },
+    {
+      "second": 2,
+      "caption": "một người đàn ông mặc bộ vest đỏ và đeo kính râm đen đang đứng trước bức tường màu đỏ và một người phụ nữ mặc áo sơ mi trắng mặc đồ đen",
+      "caption_original": "a man in a red suit and black sunglasses is standing in front of a red wall and a woman in a white shirt is wearing a black",
+      "label_id": null,
+      "label_score": 0.6010751724243164
+    },
+    {
+      "second": 3,
+      "caption": "một người phụ nữ mặc váy đen trắng đang ngồi trên ghế dài trong khi một người đàn ông mặc áo khoác đỏ và đeo kính trắng cầm",
+      "caption_original": "a woman in a black and white dress is sitting on a couch while a man in a red jacket and and white glass holding",
+      "label_id": 1,
+      "label_score": 0.7387406826019287
+    },
+    {
+      "second": 4,
+      "caption": "một người phụ nữ mặc váy đen trắng đang ngồi trên ghế dài trong khi một người đàn ông mặc áo khoác đỏ và đeo kính trắng cầm",
+      "caption_original": "a woman in a black and white dress is sitting on a couch while a man in a red jacket and and white glass holding",
+      "label_id": 1,
+      "label_score": 0.7387406826019287
+    },
+    {
+      "second": 5,
+      "caption": "một người phụ nữ mặc váy đen trắng đang ngồi trên ghế dài trong khi một người đàn ông mặc áo khoác đỏ và đeo kính trắng cầm",
+      "caption_original": "a woman in a black and white dress is sitting on a couch while a man in a red jacket and and white glass holding",
+      "label_id": 1,
+      "label_score": 0.7387406826019287
+    },
+    {
+      "second": 6,
+      "caption": "một người phụ nữ đeo mặt nạ đang khiêu vũ trên sàn nhảy ở hộp đêm với",
+      "caption_original": "a woman in a mask is dancing on the dance floor at a nightclub with with",
+      "label_id": 0,
+      "label_score": 0.7497928738594055
+    },
+    {
+      "second": 7,
+      "caption": "một người phụ nữ đeo mặt nạ đang khiêu vũ trên sàn nhảy ở hộp đêm với",
+      "caption_original": "a woman in a mask is dancing on the dance floor at a nightclub with with",
+      "label_id": 0,
+      "label_score": 0.7497928738594055
+    },
+    {
+      "second": 8,
+      "caption": "một người phụ nữ đeo mặt nạ đang khiêu vũ trên sàn nhảy ở hộp đêm với",
+      "caption_original": "a woman in a mask is dancing on the dance floor at a nightclub with with",
+      "label_id": 0,
+      "label_score": 0.7497928738594055
+    },
+    {
+      "second": 9,
+      "caption": "một người đàn ông mặc áo khoác đỏ và quần trắng đang ngồi trên ghế nói chuyện với một người khác",
+      "caption_original": "a man in a red jacket and white pants is sitting on a couch and talking to another",
+      "label_id": null,
+      "label_score": 0.6159728765487671
+    },
+    {
+      "second": 10,
+      "caption": "một người đàn ông mặc áo khoác đỏ và quần trắng đang ngồi trên ghế nói chuyện với một người khác",
+      "caption_original": "a man in a red jacket and white pants is sitting on a couch and talking to another",
+      "label_id": null,
+      "label_score": 0.6159728765487671
+    },
+    {
+      "second": 11,
+      "caption": "một người đàn ông mặc áo khoác đỏ và quần trắng đang ngồi trên ghế nói chuyện với một người khác",
+      "caption_original": "a man in a red jacket and white pants is sitting on a couch and talking to another",
+      "label_id": null,
+      "label_score": 0.6159728765487671
+    },
+    {
+      "second": 12,
+      "caption": "một người phụ nữ mặc váy đen và một người đàn ông mặc bộ đồ đỏ đang đứng cạnh nhau và một người đàn ông đang khiêu vũ",
+      "caption_original": "a woman in a black dress and a man in a red suit are standing next to each other and a man dancing",
+      "label_id": 1,
+      "label_score": 0.9840839505195618
+    },
+    {
+      "second": 13,
+      "caption": "một người phụ nữ mặc váy đen và một người đàn ông mặc bộ đồ đỏ đang đứng cạnh nhau và một người đàn ông đang khiêu vũ",
+      "caption_original": "a woman in a black dress and a man in a red suit are standing next to each other and a man dancing",
+      "label_id": 1,
+      "label_score": 0.9840839505195618
+    },
+    {
+      "second": 14,
+      "caption": "một người phụ nữ mặc váy đen và một người đàn ông mặc bộ đồ đỏ đang đứng cạnh nhau và một người đàn ông đang khiêu vũ",
+      "caption_original": "a woman in a black dress and a man in a red suit are standing next to each other and a man dancing",
+      "label_id": 1,
+      "label_score": 0.9840839505195618
+    },
+    {
+      "second": 15,
+      "caption": "một người phụ nữ mặc váy đen và áo khoác đỏ đang ngồi trên ghế dài và giơ chân lên",
+      "caption_original": "a woman in a black dress and red jacket is sitting on a couch with her legs up and her legs",
+      "label_id": 1,
+      "label_score": 0.9931339025497437
+    },
+    {
+      "second": 16,
+      "caption": "một người phụ nữ mặc váy đen và áo khoác đỏ đang ngồi trên ghế dài và giơ chân lên",
+      "caption_original": "a woman in a black dress and red jacket is sitting on a couch with her legs up and her legs",
+      "label_id": 1,
+      "label_score": 0.9931339025497437
+    },
+    {
+      "second": 17,
+      "caption": "một người phụ nữ mặc váy đen và áo khoác đỏ đang ngồi trên ghế dài và giơ chân lên",
+      "caption_original": "a woman in a black dress and red jacket is sitting on a couch with her legs up and her legs",
+      "label_id": 1,
+      "label_score": 0.9931339025497437
+    },
+    {
+      "second": 18,
+      "caption": "một người đàn ông mặc bộ vest đỏ và một người phụ nữ mặc váy đen đang khiêu vũ trên sàn nhảy trước nền màn hình xanh với",
+      "caption_original": "a man in a red suit and a woman in a black dress are dancing on the dance floor in front of a green screen background with",
+      "label_id": 1,
+      "label_score": 0.9877350926399231
+    },
+    {
+      "second": 19,
+      "caption": "một người đàn ông mặc bộ vest đỏ và một người phụ nữ mặc váy đen đang khiêu vũ trên sàn nhảy trước nền màn hình xanh với",
+      "caption_original": "a man in a red suit and a woman in a black dress are dancing on the dance floor in front of a green screen background with",
+      "label_id": 1,
+      "label_score": 0.9877350926399231
+    },
+    {
+      "second": 20,
+      "caption": "một người đàn ông mặc bộ vest đỏ và một người phụ nữ mặc váy đen đang khiêu vũ trên sàn nhảy trước nền màn hình xanh với",
+      "caption_original": "a man in a red suit and a woman in a black dress are dancing on the dance floor in front of a green screen background with",
+      "label_id": 1,
+      "label_score": 0.9877350926399231
+    },
+    {
+      "second": 21,
+      "caption": "một người đàn ông mặc bộ đồ đỏ và một người phụ nữ mặc váy đen đang đứng cạnh nhau đàn ông một phụ nữ",
+      "caption_original": "a man in a red suit and a woman in a black dress are standing next to each other men a woman",
+      "label_id": 1,
+      "label_score": 0.9453749656677246
+    },
+    {
+      "second": 22,
+      "caption": "một người đàn ông mặc bộ đồ đỏ và một người phụ nữ mặc váy đen đang đứng cạnh nhau đàn ông một phụ nữ",
+      "caption_original": "a man in a red suit and a woman in a black dress are standing next to each other men a woman",
+      "label_id": 1,
+      "label_score": 0.9453749656677246
+    },
+    {
+      "second": 23,
+      "caption": "một người đàn ông mặc bộ đồ đỏ và một người phụ nữ mặc váy đen đang đứng cạnh nhau đàn ông một phụ nữ",
+      "caption_original": "a man in a red suit and a woman in a black dress are standing next to each other men a woman",
+      "label_id": 1,
+      "label_score": 0.9453749656677246
+    },
+    {
+      "second": 24,
+      "caption": "một người đàn ông mặc bộ đồ màu đỏ và một người phụ nữ mặc váy đen đang hôn nhau trên bàn có một chiếc ly",
+      "caption_original": "a man in a red suit and a woman in a black dress are kissing on a table with a glass",
+      "label_id": 1,
+      "label_score": 0.9867531061172485
+    }
+  ],
+  "audio": {
+    "full_text": " Mên 8 8, mẹ lên tên phố phiên kìm con phải bóng lói Để với Mên 8 8, không kìm bốc tận để đồ tư bằng kích sám Để với Mên 8 8, đềm tình về mua thêm 20 lỗ đứa khác Để với Mên 8 8, đứa bức mít Mên 8 8, mẹ 8 8, khuyên mãi độc quê Nào đẹp đẹp đường đầu phần thưởng nhân bà Đi bán cá là vãi con thuê Để đi đường quỳng với nhiều đồ là Mên 8 8, trời đón bệnh hình Thắng khách ngạng kí bắn cấp xa hoa Cảm tích không còn u",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Mên 8 8, mẹ lên tên phố phiên kìm con phải bóng lói Để với Mên 8 8, không kìm bốc tận để đồ tư bằng kích sám Để với Mên 8 8, đềm tình về mua thêm 20 lỗ đứa khác Để với Mên 8 8, đứa bức mít Mên 8 8, mẹ 8 8, khuyên mãi độc quê Nào đẹp đẹp đường đầu phần thưởng nhân bà Đi bán cá là vãi con thuê Để đi đường quỳng với nhiều đồ là Mên 8 8, trời đón bệnh hình Thắng khách ngạng kí bắn cấp xa hoa Cảm tích không còn u",
+        "label_id": null,
+        "label_score": 0.8206166625022888
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 25,
+    "num_compliant": 3,
+    "num_violations": 16,
+    "num_unknown": 6,
+    "percent_compliant": 12.0,
+    "percent_violations": 64.0
+  }
+}

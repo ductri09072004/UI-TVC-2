@@ -1,0 +1,95 @@
+{
+  "job_id": "1460d004-97c2-408d-a2a7-7dacb0d7b4db",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\1460d004-97c2-408d-a2a7-7dacb0d7b4db",
+  "video_path": "C:\\Users\\Kris\\UI-TVC-2\\uploads\\chismas-1.mp4",
+  "frames": [
+    {
+      "second": 0
+    },
+    {
+      "second": 1
+    },
+    {
+      "second": 2
+    },
+    {
+      "second": 3
+    },
+    {
+      "second": 4
+    },
+    {
+      "second": 5
+    },
+    {
+      "second": 6
+    },
+    {
+      "second": 7
+    },
+    {
+      "second": 8
+    },
+    {
+      "second": 9
+    },
+    {
+      "second": 10
+    },
+    {
+      "second": 11
+    },
+    {
+      "second": 12
+    },
+    {
+      "second": 13
+    },
+    {
+      "second": 14
+    },
+    {
+      "second": 15
+    },
+    {
+      "second": 16
+    },
+    {
+      "second": 17
+    },
+    {
+      "second": 18
+    },
+    {
+      "second": 19
+    },
+    {
+      "second": 20
+    },
+    {
+      "second": 21
+    },
+    {
+      "second": 22
+    }
+  ],
+  "audio": {
+    "full_text": " Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn",
+        "label_id": null,
+        "label_score": 0.7525154948234558
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  }
+}

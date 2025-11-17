@@ -9,7 +9,7 @@
       "caption_original": "Ba người mặc trang phục công sở đứng bên bàn, một người đàn ông đang sử dụng laptop, trong khi người phụ nữ nói chuyện điện thoại.",
       "caption_for_classification": "Ba người công sở vui vẻ trò chuyện bên bàn cầm bia kết nối khoảnh khắc đáng nhớ",
       "label_id": 0,
-      "label_score": 0.9104195833206177
+      "label_score": 0.9886780381202698
     },
     {
       "second": 1,
@@ -17,15 +17,15 @@
       "caption_original": "Ba người trẻ tuổi mặc trang phục lịch sự đang thảo luận bên bàn, một người cầm laptop và hai người còn lại chăm chú lắng nghe.",
       "caption_for_classification": "Nhóm bạn trẻ thảo luận vui vẻ bên bàn cầm bia kết nối khoảnh khắc tuyệt vời",
       "label_id": 0,
-      "label_score": 0.9082556366920471
+      "label_score": 0.9939466118812561
     },
     {
       "second": 2,
       "caption": "Ba người thảo luận trong quán bar hiện đại, thưởng thức bia 333 Pilsner êm cực êm, kết nối khoảnh khắc tuyệt vời.",
       "caption_original": "Ba người mặc trang phục lịch sự ngồi quanh bàn, đang xem điện thoại và thảo luận trong không gian quán bar hiện đại.",
       "caption_for_classification": "Ba người sảng khoái thảo luận trong quán bar hiện đại thưởng thức bia kết nối khoảnh khắc tuyệt vời",
-      "label_id": null,
-      "label_score": 0.5009750723838806
+      "label_id": 0,
+      "label_score": 0.9165346622467041
     },
     {
       "second": 3,
@@ -33,15 +33,15 @@
       "caption_original": "Ba người trong trang phục công sở đang thảo luận sôi nổi bên laptop, tạo không khí làm việc năng động.",
       "caption_for_classification": "Ba người trong trang phục công sở sôi nổi thảo luận về bia trong khoảnh khắc tuyệt vời",
       "label_id": 1,
-      "label_score": 0.7108112573623657
+      "label_score": 0.7422688603401184
     },
     {
       "second": 4,
       "caption": "Người đàn ông cầm chai bia 333 Pilsner mới, tận hưởng khoảnh khắc kết nối êm cực êm trong quán bar sôi động.",
       "caption_original": "Người đàn ông mặc áo sơ mi sáng tay cầm chai bia màu xanh, đang mở nắp chai trong không gian quán bar sôi động.",
       "caption_for_classification": "Người đàn ông sảng khoái cầm chai bia trong quán bar sôi động",
-      "label_id": 1,
-      "label_score": 0.83456951379776
+      "label_id": 0,
+      "label_score": 0.7426925301551819
     },
     {
       "second": 5,
@@ -49,7 +49,7 @@
       "caption_original": "Người đàn ông mặc vest lịch lãm đang thưởng thức chai bia 333 Pilsner mới trong không gian hiện đại.",
       "caption_for_classification": "Người đàn ông êm ái thưởng thức bia trong không gian hiện đại",
       "label_id": 0,
-      "label_score": 0.9151400923728943
+      "label_score": 0.9959436058998108
     },
     {
       "second": 6,
@@ -57,7 +57,7 @@
       "caption_original": "Người đàn ông mặc vest trắng đang uống bia 333 Pilsner, xung quanh là hình ảnh bia vàng sủi bọt hấp dẫn.",
       "caption_for_classification": "Người đàn ông êm ái thưởng thức bia trong không gian hấp dẫn",
       "label_id": 0,
-      "label_score": 0.9167314767837524
+      "label_score": 0.9956613183021545
     },
     {
       "second": 7,
@@ -65,7 +65,7 @@
       "caption_original": "Chất lỏng vàng sủi bọt đang chảy trong ly thủy tinh, tạo cảm giác tươi mát và hấp dẫn.",
       "caption_for_classification": "Chất lỏng vàng sủi bọt trong ly thủy tinh mang đến cảm giác êm ái kết nối khoảnh khắc tuyệt vời",
       "label_id": 1,
-      "label_score": 0.9269333481788635
+      "label_score": 0.9142735600471497
     },
     {
       "second": 8,
@@ -73,15 +73,15 @@
       "caption_original": "Logo bia 333 nổi bật trên nền vàng, tạo cảm giác tươi mát và hấp dẫn, thể hiện sự mượt mà của sản phẩm.",
       "caption_for_classification": "Logo nổi bật trên nền vàng thể hiện sự êm ái và khoảnh khắc kết nối tuyệt vời",
       "label_id": 1,
-      "label_score": 0.9291330575942993
+      "label_score": 0.9380717277526855
     },
     {
       "second": 9,
       "caption": "Người đàn ông thư giãn trên ghế thưởng thức bia 333 Pilsner êm cực êm, kết nối khoảnh khắc tuyệt vời.",
       "caption_original": "Người đàn ông mặc áo vest đang ngả người ra ghế, thể hiện sự thư giãn và thoải mái trong không gian hiện đại.",
       "caption_for_classification": "Người đàn ông thư giãn êm ái trên ghế cầm bia kết nối khoảnh khắc tuyệt vời",
-      "label_id": null,
-      "label_score": 0.6054760813713074
+      "label_id": 1,
+      "label_score": 0.8630477786064148
     },
     {
       "second": 10,
@@ -89,15 +89,15 @@
       "caption_original": "Nước ngọt màu vàng chảy mạnh từ vòi, tạo thành những bọt khí lấp lánh trong không gian sáng.",
       "caption_for_classification": "Người trẻ sảng khoái cảm nhận dư vị êm từ từng giọt bia vàng lấp lánh",
       "label_id": 1,
-      "label_score": 0.9104468822479248
+      "label_score": 0.7006702423095703
     },
     {
       "second": 11,
       "caption": "Người trẻ nâng chai bia 333 Pilsner màu xanh lá, tận hưởng dư vị êm cực êm trong khoảnh khắc kết nối tươi mát.",
       "caption_original": "Chai bia 333 màu xanh lá nổi bật giữa dòng bia vàng, tạo cảm giác tươi mát và hấp dẫn.",
       "caption_for_classification": "Người trẻ sảng khoái nâng chai bia trong khoảnh khắc kết nối tươi mát",
-      "label_id": null,
-      "label_score": 0.5952897071838379
+      "label_id": 0,
+      "label_score": 0.8003191947937012
     },
     {
       "second": 12,
@@ -105,23 +105,23 @@
       "caption_original": "Chai bia 333 màu xanh lá nổi bật, nằm giữa dòng nước vàng sủi bọt, thể hiện sự tươi mát và hấp dẫn.",
       "caption_for_classification": "Chai bia nổi bật giữa dòng nước vàng sủi bọt mang đến khoảnh khắc êm ái cho người thưởng thức",
       "label_id": 0,
-      "label_score": 0.7570847272872925
+      "label_score": 0.9095171093940735
     },
     {
       "second": 13,
       "caption": "Người đàn ông cầm chai bia 333 Pilsner trong quán bar sang trọng, tận hưởng dư vị êm cực êm và khoảnh khắc kết nối.",
       "caption_original": "Người đàn ông mặc vest xanh cầm chai bia, mỉm cười trong không gian quán bar sang trọng.",
       "caption_for_classification": "Người đàn ông tận hưởng khoảnh khắc êm ái cầm chai bia trong quán bar sang trọng",
-      "label_id": null,
-      "label_score": 0.6483033299446106
+      "label_id": 0,
+      "label_score": 0.9588561654090881
     },
     {
       "second": 14,
       "caption": "Người trẻ thưởng thức bia 333 Pilsner tươi mát trong quán bar, kết nối khoảnh khắc êm cực êm.",
       "caption_original": "Chai bia 333 Pilsner màu xanh nổi bật, nước bia văng ra, tạo cảm giác tươi mát trong không gian quán bar.",
       "caption_for_classification": "Người trẻ sảng khoái cầm bia tươi mát trong quán bar kết nối khoảnh khắc êm đềm",
-      "label_id": null,
-      "label_score": 0.5272451043128967
+      "label_id": 0,
+      "label_score": 0.9539413452148438
     },
     {
       "second": 15,
@@ -129,7 +129,7 @@
       "caption_original": "Chai bia 333 Pilsner màu xanh lấp lánh, nước bia văng tung tóe, tạo cảm giác tươi mát và hấp dẫn.",
       "caption_for_classification": "Chai bia lấp lánh mang đến dư vị êm ái kết nối khoảnh khắc tươi mát",
       "label_id": 0,
-      "label_score": 0.8648651242256165
+      "label_score": 0.9819079041481018
     },
     {
       "second": 16,
@@ -137,7 +137,7 @@
       "caption_original": "Ba người trẻ tuổi mặc trang phục lịch sự ngồi trong quán bar, cười nói vui vẻ và cầm chai bia Pilsner.",
       "caption_for_classification": "Nhóm bạn trẻ vui vẻ cầm chai bia trong quán bar",
       "label_id": 0,
-      "label_score": 0.9110939502716064
+      "label_score": 0.9922338724136353
     },
     {
       "second": 17,
@@ -145,7 +145,7 @@
       "caption_original": "Ba người đàn ông và phụ nữ mặc trang phục lịch sự vui vẻ cầm chai bia Pilsner trong quán bar sáng sủa.",
       "caption_for_classification": "Ba người vui vẻ cầm chai bia tận hưởng khoảnh khắc êm ái trong quán bar sáng sủa",
       "label_id": null,
-      "label_score": 0.5293182730674744
+      "label_score": 0.5419471263885498
     },
     {
       "second": 18,
@@ -153,7 +153,7 @@
       "caption_original": "Chai bia 333 Pilsner và lon bia bạc nổi bật trên bàn, với bối cảnh quán bar nhộn nhịp phía sau.",
       "caption_for_classification": "Người trẻ sảng khoái cầm bia trong không gian quán bar nhộn nhịp",
       "label_id": 0,
-      "label_score": 0.8638084530830383
+      "label_score": 0.9084745645523071
     },
     {
       "second": 19,
@@ -161,7 +161,7 @@
       "caption_original": "Chai bia và lon bia 333 Pilsner nổi bật trên nền mờ, thể hiện sự tươi mát và hứa hẹn trải nghiệm thú",
       "caption_for_classification": "Chai bia êm ái kết nối khoảnh khắc tuyệt vời cho người thưởng thức",
       "label_id": 0,
-      "label_score": 0.886950671672821
+      "label_score": 0.9924092292785645
     },
     {
       "second": 20,
@@ -169,7 +169,7 @@
       "caption_original": "Chai bia 33 Pilsner và lon bia đứng trên bàn, phông nền mờ ảo, thể hiện sự tươi mát và hấp dẫn.",
       "caption_for_classification": "Chai bia tươi mát lan tỏa dư vị êm ả kết nối khoảnh khắc tuyệt vời",
       "label_id": 0,
-      "label_score": 0.8860690593719482
+      "label_score": 0.9943009614944458
     },
     {
       "second": 21,
@@ -177,15 +177,15 @@
       "caption_original": "Chai bia 33 Pilsner và lon bia đứng trên bàn, nền quán bar tối giản, nhấn mạnh sự tươi mát và hương vị mượt",
       "caption_for_classification": "Chai bia tươi mát kết nối khoảnh khắc êm đềm cho người thưởng thức",
       "label_id": 0,
-      "label_score": 0.9112010598182678
+      "label_score": 0.9959346055984497
     },
     {
       "second": 22,
       "caption": "Người trẻ thư giãn bên bàn quán bar, thưởng thức bia 333 Pilsner êm cực êm, kết nối khoảnh khắc vui vẻ.",
       "caption_original": "Chai bia 33 Pilsner và lon bia đứng trên bàn, nền quán bar sáng ánh đèn, tạo cảm giác thư giãn và vui",
       "caption_for_classification": "Người trẻ thư giãn sảng khoái bên bàn quán bar cầm bia kết nối khoảnh khắc vui vẻ",
-      "label_id": 1,
-      "label_score": 0.8781977295875549
+      "label_id": null,
+      "label_score": 0.59341961145401
     }
   ],
   "audio": {
@@ -195,7 +195,7 @@
         "index": 1,
         "text": "Tán làm Em trôi bộn bê với bia 333 Pilsner mới Em từng ngửi đầu tiên Vì em lan tỏa Để lại dư vị êm cực êm Em chọn khoảnh khắc kết nối Bia 333 Pilsner êm cực êm Xứng mong đợi Người dí 18 tuổi không được uống trùng bia",
         "label_id": 1,
-        "label_score": 0.9060466289520264
+        "label_score": 0.9417561292648315
       }
     ],
     "sentence_summary": {
@@ -209,10 +209,10 @@
   },
   "summary": {
     "total_frames": 23,
-    "num_compliant": 11,
-    "num_violations": 6,
-    "num_unknown": 6,
-    "percent_compliant": 47.83,
-    "percent_violations": 26.09
+    "num_compliant": 16,
+    "num_violations": 5,
+    "num_unknown": 2,
+    "percent_compliant": 69.57,
+    "percent_violations": 21.74
   }
 }

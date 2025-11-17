@@ -1,0 +1,107 @@
+{
+  "job_id": "0b5a2463-66b1-49dd-bce2-ae972a68fe18",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\0b5a2463-66b1-49dd-bce2-ae972a68fe18",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video__lqv8hqk.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông mặc áo khoác màu xanh trong hiệu thuốc",
+      "caption_original": "a man wearing a blue jacket in a pharmacy shop"
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông mặc áo khoác màu xanh trong hiệu thuốc",
+      "caption_original": "a man wearing a blue jacket in a pharmacy shop"
+    },
+    {
+      "second": 2,
+      "caption": "một người đàn ông mặc áo khoác màu xanh trong hiệu thuốc",
+      "caption_original": "a man wearing a blue jacket in a pharmacy shop"
+    },
+    {
+      "second": 3,
+      "caption": "một người đang cầm một chai chất lỏng trước kệ người phụ nữ người phụ nữ",
+      "caption_original": "a person is holding a bottle of liquid in front of a shelf woman woman"
+    },
+    {
+      "second": 4,
+      "caption": "một người đang cầm một chai chất lỏng trước kệ người phụ nữ người phụ nữ",
+      "caption_original": "a person is holding a bottle of liquid in front of a shelf woman woman"
+    },
+    {
+      "second": 5,
+      "caption": "một người đang cầm một chai chất lỏng trước kệ người phụ nữ người phụ nữ",
+      "caption_original": "a person is holding a bottle of liquid in front of a shelf woman woman"
+    },
+    {
+      "second": 6,
+      "caption": "một người đàn ông mặc áo khoác màu xanh đang giơ tay lên mặt",
+      "caption_original": "a man in a blue jacket is holding his hands up to his face"
+    },
+    {
+      "second": 7,
+      "caption": "một người đàn ông mặc áo khoác màu xanh đang giơ tay lên mặt",
+      "caption_original": "a man in a blue jacket is holding his hands up to his face"
+    },
+    {
+      "second": 8,
+      "caption": "một người đàn ông mặc áo khoác màu xanh đang giơ tay lên mặt",
+      "caption_original": "a man in a blue jacket is holding his hands up to his face"
+    },
+    {
+      "second": 9,
+      "caption": "một người cầm thẻ tín dụng trước mặt",
+      "caption_original": "a person holding a credit card in front of their head"
+    },
+    {
+      "second": 10,
+      "caption": "một người cầm thẻ tín dụng trước mặt",
+      "caption_original": "a person holding a credit card in front of their head"
+    },
+    {
+      "second": 11,
+      "caption": "một người cầm thẻ tín dụng trước mặt",
+      "caption_original": "a person holding a credit card in front of their head"
+    },
+    {
+      "second": 12,
+      "caption": "một người đàn ông mặc áo khoác màu xanh đang giơ tay lên trước ống kính máy ảnh",
+      "caption_original": "a man in a blue jacket is holding his hand up to the camera bottle"
+    },
+    {
+      "second": 13,
+      "caption": "một người đàn ông mặc áo khoác màu xanh đang giơ tay lên trước ống kính máy ảnh",
+      "caption_original": "a man in a blue jacket is holding his hand up to the camera bottle"
+    },
+    {
+      "second": 14,
+      "caption": "một người đàn ông mặc áo khoác màu xanh đang giơ tay lên trước ống kính máy ảnh",
+      "caption_original": "a man in a blue jacket is holding his hand up to the camera bottle"
+    }
+  ],
+  "audio": {
+    "full_text": " Hết Đen Shoulder Hết Đen Shoulder Có gầu hả con? Con không có gầu Hết Đen Shoulders mới Lại bỏ gầu đến 100% Bằng anh gầu quay lại Con không có gầu vì luôn có Hết Đen Shoulders",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Hết Đen Shoulder Hết Đen Shoulder Có gầu hả con?",
+        "label_id": null,
+        "label_score": 0.8029342293739319
+      },
+      {
+        "index": 2,
+        "text": "Con không có gầu Hết Đen Shoulders mới Lại bỏ gầu đến 100% Bằng anh gầu quay lại Con không có gầu vì luôn có Hết Đen Shoulders",
+        "label_id": 1,
+        "label_score": 0.9057514667510986
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 2,
+      "num_compliant": 0,
+      "num_violations": 1,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 50.0
+    }
+  }
+}

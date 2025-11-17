@@ -1,0 +1,139 @@
+{
+  "job_id": "b4245b92-8678-4fb5-9b9a-a4facff89016",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\b4245b92-8678-4fb5-9b9a-a4facff89016",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_x3so6q37.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một người đàn ông và một người phụ nữ đứng ở hành lang",
+      "caption_original": "a man and a woman standing in a hallway",
+      "label_id": 0,
+      "label_score": 0.8085793256759644
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông và một người phụ nữ được nhìn thấy qua ống kính máy ảnh",
+      "caption_original": "a man and a woman are seen through a camera lens",
+      "label_id": null,
+      "label_score": 0.6643136143684387
+    },
+    {
+      "second": 2,
+      "caption": "một người đàn ông đứng cạnh một người phụ nữ cầm một cuốn sách",
+      "caption_original": "a man standing next to a woman holding a book",
+      "label_id": 0,
+      "label_score": 0.9959051609039307
+    },
+    {
+      "second": 3,
+      "caption": "một nhóm người đứng trong phòng khách",
+      "caption_original": "a group of people standing in a living room",
+      "label_id": 1,
+      "label_score": 0.9809886813163757
+    },
+    {
+      "second": 4,
+      "caption": "một người đàn ông đứng trên hộp trong phòng khách",
+      "caption_original": "a man standing on top of a box in a living room",
+      "label_id": 0,
+      "label_score": 0.9981809854507446
+    },
+    {
+      "second": 5,
+      "caption": "một người đàn ông đứng trong phòng với những chiếc hộp trên sàn",
+      "caption_original": "a man standing in a room with boxes on the floor",
+      "label_id": 0,
+      "label_score": 0.9986549615859985
+    },
+    {
+      "second": 6,
+      "caption": "một người đàn ông ngồi trên ghế trong phòng khách",
+      "caption_original": "a man sitting on a couch in a living room",
+      "label_id": 0,
+      "label_score": 0.9972038269042969
+    },
+    {
+      "second": 7,
+      "caption": "một người phụ nữ đứng cạnh ngọn đèn trong phòng",
+      "caption_original": "a woman standing next to a lamp in a room",
+      "label_id": 0,
+      "label_score": 0.9380639791488647
+    },
+    {
+      "second": 8,
+      "caption": "một người đàn ông mặc áo xanh đứng cạnh một người phụ nữ",
+      "caption_original": "a man in a green shirt standing next to a woman",
+      "label_id": null,
+      "label_score": 0.5063936114311218
+    },
+    {
+      "second": 9,
+      "caption": "một cậu bé đứng trước cửa sổ cầm một cái chai",
+      "caption_original": "a boy standing in front of a window holding a bottle",
+      "label_id": null,
+      "label_score": 0.6383793950080872
+    },
+    {
+      "second": 10,
+      "caption": "một nhóm người đứng cạnh nhau",
+      "caption_original": "a group of people standing next to each other people",
+      "label_id": 1,
+      "label_score": 0.9931541681289673
+    },
+    {
+      "second": 11,
+      "caption": "một nhóm người cầm chai bia",
+      "caption_original": "a group of people holding up bottles of beer",
+      "label_id": null,
+      "label_score": 0.6770645976066589
+    },
+    {
+      "second": 12,
+      "caption": "một người đàn ông và một người phụ nữ đứng trước quán bar",
+      "caption_original": "a man and a woman standing in front of a bar",
+      "label_id": 0,
+      "label_score": 0.9819378852844238
+    },
+    {
+      "second": 13,
+      "caption": "một người đàn ông cầm chai bia trên tay",
+      "caption_original": "a man holding a bottle of beer in his hand",
+      "label_id": 0,
+      "label_score": 0.9949135780334473
+    },
+    {
+      "second": 14,
+      "caption": "một chai bia xanh có hình con rồng",
+      "caption_original": "a bottle of green beer with a dragon on",
+      "label_id": 0,
+      "label_score": 0.9636990427970886
+    }
+  ],
+  "audio": {
+    "full_text": " Tên gia nhà mới, thuê Chú sự cố kỹ thuật Cũng special Chẳng cần lớn lao, cũng special Mười người 18 tuổi không được cũng sự biệt",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Tên gia nhà mới, thuê Chú sự cố kỹ thuật Cũng special Chẳng cần lớn lao, cũng special Mười người 18 tuổi không được cũng sự biệt",
+        "label_id": null,
+        "label_score": 0.8318925499916077
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 15,
+    "num_compliant": 9,
+    "num_violations": 2,
+    "num_unknown": 4,
+    "percent_compliant": 60.0,
+    "percent_violations": 13.33
+  }
+}

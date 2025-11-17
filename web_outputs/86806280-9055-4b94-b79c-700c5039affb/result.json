@@ -1,0 +1,132 @@
+{
+  "job_id": "86806280-9055-4b94-b79c-700c5039affb",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\86806280-9055-4b94-b79c-700c5039affb",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_o4onahdl.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một cậu bé ngồi trên ghế chơi trò chơi điện tử",
+      "caption_original": "a young boy sitting on a couch playing a video game",
+      "label_id": 0,
+      "label_score": 0.9995916485786438
+    },
+    {
+      "second": 1,
+      "caption": "một cậu bé đang nằm trên ghế với chiếc điều khiển trong tay",
+      "caption_original": "a young boy laying on a couch with a remote in his hand",
+      "label_id": 0,
+      "label_score": 0.9992130994796753
+    },
+    {
+      "second": 2,
+      "caption": "một người đàn ông ngồi trên ghế cạnh một cậu bé",
+      "caption_original": "a man sitting on top of a couch next to a little boy",
+      "label_id": 0,
+      "label_score": 0.9943631887435913
+    },
+    {
+      "second": 3,
+      "caption": "một người đàn ông và một người phụ nữ ngồi trên ghế trong phòng khách",
+      "caption_original": "a man and woman sitting on a couch in a living room",
+      "label_id": 0,
+      "label_score": 0.9200576543807983
+    },
+    {
+      "second": 4,
+      "caption": "một người đàn ông và một người phụ nữ ngồi trên ghế trong phòng khách",
+      "caption_original": "a man and woman sitting on a couch in a living room",
+      "label_id": 0,
+      "label_score": 0.9200576543807983
+    },
+    {
+      "second": 5,
+      "caption": "một lon sơn dux đặt trên bàn",
+      "caption_original": "a can of dux paint sitting on top of a table",
+      "label_id": 0,
+      "label_score": 0.9990793466567993
+    },
+    {
+      "second": 6,
+      "caption": "một bồn tắm màu xanh chứa đầy nước đặt trên bàn",
+      "caption_original": "a blue tub filled with water sitting on top of a table",
+      "label_id": 0,
+      "label_score": 0.9954245686531067
+    },
+    {
+      "second": 7,
+      "caption": "một chiếc ghế màu xanh đặt trên sàn nhà màu trắng",
+      "caption_original": "a blue chair sitting on top of a white floor",
+      "label_id": 0,
+      "label_score": 0.9979415535926819
+    },
+    {
+      "second": 8,
+      "caption": "phòng khách với những bức tường màu xanh và đồ nội thất bằng gỗ",
+      "caption_original": "a living room with blue walls and wooden furniture",
+      "label_id": 0,
+      "label_score": 0.9963646531105042
+    },
+    {
+      "second": 9,
+      "caption": "hình ảnh máu đỏ lơ lửng trong không khí",
+      "caption_original": "an image of red blood floating in the air",
+      "label_id": 1,
+      "label_score": 0.9991087317466736
+    },
+    {
+      "second": 10,
+      "caption": "hình ảnh một cửa sổ có bong bóng trên",
+      "caption_original": "an image of a window with bubbles on",
+      "label_id": 0,
+      "label_score": 0.9243482351303101
+    },
+    {
+      "second": 11,
+      "caption": "một cậu bé đứng trên sàn với gia đình ở phía sau",
+      "caption_original": "a young boy standing on the floor with his family in the background",
+      "label_id": 0,
+      "label_score": 0.9938189387321472
+    },
+    {
+      "second": 12,
+      "caption": "một cô bé đang nhảy múa trong phòng khách",
+      "caption_original": "a little girl is dancing in the living room",
+      "label_id": 0,
+      "label_score": 0.9997900128364563
+    },
+    {
+      "second": 13,
+      "caption": "một người đàn ông và một người phụ nữ ngồi trên ghế trong phòng khách",
+      "caption_original": "a man and woman sitting on a couch in a living room",
+      "label_id": 0,
+      "label_score": 0.9200576543807983
+    }
+  ],
+  "audio": {
+    "full_text": " Không khí trong nhà ẩn chứa các chất ô nhiễm phật manh đe hit Sơn du Luxe Ambience Airfresh mới Dưới phân dại phật manh đe hit thành hơi nước vua hại Với công nghệ pi re tiên tiến Du Luxe Ambience Airfresh thành lọ khí sống an lạnh",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Không khí trong nhà ẩn chứa các chất ô nhiễm phật manh đe hit Sơn du Luxe Ambience Airfresh mới Dưới phân dại phật manh đe hit thành hơi nước vua hại Với công nghệ pi re tiên tiến Du Luxe Ambience Airfresh thành lọ khí sống an lạnh",
+        "label_id": null,
+        "label_score": 0.7806950211524963
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 1,
+      "num_compliant": 0,
+      "num_violations": 0,
+      "num_unknown": 1,
+      "percent_compliant": 0.0,
+      "percent_violations": 0.0
+    }
+  },
+  "summary": {
+    "total_frames": 14,
+    "num_compliant": 13,
+    "num_violations": 1,
+    "num_unknown": 0,
+    "percent_compliant": 92.86,
+    "percent_violations": 7.14
+  }
+}

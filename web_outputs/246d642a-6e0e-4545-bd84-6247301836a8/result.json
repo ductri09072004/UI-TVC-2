@@ -1,0 +1,164 @@
+{
+  "job_id": "246d642a-6e0e-4545-bd84-6247301836a8",
+  "out_dir": "C:\\Users\\Kris\\UI-TVC-2\\web_outputs\\246d642a-6e0e-4545-bd84-6247301836a8",
+  "video_path": "C:\\Users\\Kris\\AppData\\Local\\Temp\\video_2r5w6dnd.mp4",
+  "frames": [
+    {
+      "second": 0,
+      "caption": "một cặp vợ chồng ngồi trên ghế dài trong phòng khách",
+      "caption_original": "a couple sitting on a couch in a living room",
+      "label_id": 0,
+      "label_score": 0.9964010715484619
+    },
+    {
+      "second": 1,
+      "caption": "một người đàn ông giơ tấm biển trước nhà hàng",
+      "caption_original": "a man holding up a sign in front of a restaurant",
+      "label_id": 0,
+      "label_score": 0.8660903573036194
+    },
+    {
+      "second": 2,
+      "caption": "một nhóm người mặc áo sơ mi đỏ và xanh",
+      "caption_original": "a group of people wearing red and green shirts",
+      "label_id": null,
+      "label_score": 0.5467657446861267
+    },
+    {
+      "second": 3,
+      "caption": "một người đàn ông cầm lon bia trước đám đông",
+      "caption_original": "a man holding a can of beer in front of a crowd",
+      "label_id": 1,
+      "label_score": 0.9413187503814697
+    },
+    {
+      "second": 4,
+      "caption": "cận cảnh một chiếc cốc chứa đầy chất lỏng",
+      "caption_original": "a close up of a glass filled with liquid",
+      "label_id": 0,
+      "label_score": 0.9625228643417358
+    },
+    {
+      "second": 5,
+      "caption": "một cái ly chứa đầy chất lỏng ở trên bàn",
+      "caption_original": "a glass filled with liquid on top of a table",
+      "label_id": 0,
+      "label_score": 0.8892741203308105
+    },
+    {
+      "second": 6,
+      "caption": "một chiếc ly chứa đầy đá đặt trên bàn",
+      "caption_original": "a glass filled with ice sitting on top of a table",
+      "label_id": 0,
+      "label_score": 0.9942449927330017
+    },
+    {
+      "second": 7,
+      "caption": "một cái ly chứa đầy chất lỏng đặt trên bàn",
+      "caption_original": "a glass filled with liquid sitting on top of a table",
+      "label_id": 0,
+      "label_score": 0.9030898213386536
+    },
+    {
+      "second": 8,
+      "caption": "một mảnh giấy có nền đỏ",
+      "caption_original": "a piece of paper with a red background",
+      "label_id": 1,
+      "label_score": 0.716505229473114
+    },
+    {
+      "second": 9,
+      "caption": "một miếng xà phòng đặt trên một chiếc bàn màu đỏ",
+      "caption_original": "a piece of soap sitting on top of a red table",
+      "label_id": 0,
+      "label_score": 0.9655581712722778
+    },
+    {
+      "second": 10,
+      "caption": "hình ảnh một tòa nhà với bức tường màu đỏ làm nền",
+      "caption_original": "a picture of a building with a red wall in the background",
+      "label_id": 0,
+      "label_score": 0.9515068531036377
+    },
+    {
+      "second": 11,
+      "caption": "một nhóm xà phòng xếp chồng lên nhau",
+      "caption_original": "a group of soaps sitting on top of each other soaps",
+      "label_id": 1,
+      "label_score": 0.9136804342269897
+    },
+    {
+      "second": 12,
+      "caption": "một chai rượu nằm trên nắp hộp",
+      "caption_original": "a bottle of alcohol sitting on top of a box",
+      "label_id": null,
+      "label_score": 0.5401538610458374
+    },
+    {
+      "second": 13,
+      "caption": "một đống xà phòng xếp chồng lên nhau",
+      "caption_original": "a bunch of soaps sitting on top of each other soaps",
+      "label_id": 1,
+      "label_score": 0.8045123219490051
+    },
+    {
+      "second": 14,
+      "caption": "một đống xà phòng xếp chồng lên nhau",
+      "caption_original": "a bunch of soaps sitting on top of each other soaps",
+      "label_id": 1,
+      "label_score": 0.8045123219490051
+    },
+    {
+      "second": 15,
+      "caption": "một nhóm xà phòng được trưng bày trước nền đỏ",
+      "caption_original": "a group of soaps on display in front of a red background",
+      "label_id": 0,
+      "label_score": 0.9887951612472534
+    }
+  ],
+  "audio": {
+    "full_text": " Mừng di sản vườn cao, Đông Hành, Cung bộ Việt Nam gắn kết, lấy cảm ứng từ văn hóa uống bia với đá của người Việt. Bia Sài Gòn Giới thiệu, Bộ Sưu tập Viên Đá, Điều tựa, Làm từ Bia Sài Gòn. Theo dõi phần đồng Bia Sài Gòn để biết thêm chi tiết. Người dưới 18 tuổi không được uống dựa bia.",
+    "sentences": [
+      {
+        "index": 1,
+        "text": "Mừng di sản vườn cao, Đông Hành, Cung bộ Việt Nam gắn kết, lấy cảm ứng từ văn hóa uống bia với đá của người Việt.",
+        "label_id": 1,
+        "label_score": 0.9668751955032349
+      },
+      {
+        "index": 2,
+        "text": "Bia Sài Gòn Giới thiệu, Bộ Sưu tập Viên Đá, Điều tựa, Làm từ Bia Sài Gòn.",
+        "label_id": null,
+        "label_score": 0.5688287615776062
+      },
+      {
+        "index": 3,
+        "text": "Theo dõi phần đồng Bia Sài Gòn để biết thêm chi tiết.",
+        "label_id": 0,
+        "label_score": 0.9245225191116333
+      },
+      {
+        "index": 4,
+        "text": "Người dưới 18 tuổi không được uống dựa bia.",
+        "label_id": 1,
+        "label_score": 0.9735141396522522
+      }
+    ],
+    "sentence_summary": {
+      "total_sentences": 4,
+      "num_compliant": 1,
+      "num_violations": 2,
+      "num_unknown": 1,
+      "percent_compliant": 25.0,
+      "percent_violations": 50.0
+    }
+  },
+  "summary": {
+    "total_frames": 16,
+    "num_compliant": 9,
+    "num_violations": 5,
+    "num_unknown": 2,
+    "percent_compliant": 56.25,
+    "percent_violations": 31.25
+  }
+}
